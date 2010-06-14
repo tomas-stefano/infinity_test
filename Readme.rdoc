@@ -1,0 +1,30 @@
+= Infinity Test
+
+Infinity Test is a continuous testing library and a flexible alternative to Autotest, 
+using watchr library with Rspec, Test::Unit, Cucumber with RVM funcionality,
+giving the possibility to test with all versions of ruby you have in your RVM configuration.
+
+Just Run with:
+
+   $ infinity_test --rspec --cucumber --rvm_versions=1.8.6,1.8.7,1.9.1,1.9.2
+
+Or with Test::Unit:
+
+   $ infinity_test --test_unit --rvm_versions=1.8.6,1.8.7,1.9.1,1.9.2
+
+And you are ready to Test with all ruby versions your Rspec Suite and Cucumber Suite.
+
+<b> Just make Sure That you have Rspec or Cucumber (Depending if you need) </b>
+
+== Install
+
+* The Infinity Test gem don't have a version, but is looking for contributors. =]
+
+== You Like it?
+
+<b>So make a fork and start contributing.</b>
+
+== Acknowledgments
+
+* Thanks to watchr library.
+* Thanks to Waynee Seguin and the RVM.

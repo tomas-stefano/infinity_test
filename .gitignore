@@ -1,0 +1,8 @@
+*.sw?
+.DS_STORE
+log*
+pkg*
+temporary
+tmp/*
+rerun.txt
+.bundle/*
