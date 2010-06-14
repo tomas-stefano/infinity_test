@@ -45,4 +45,4 @@ rescue Exception => e
   require 'infinity_test'
 end
 
-InfinityTest::Runner.run!(ARGV)
+InfinityTest.application.run!(ARGV)
