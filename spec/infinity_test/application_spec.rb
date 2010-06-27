@@ -7,7 +7,15 @@ module InfinityTest
       @application = Application.new
     end
     
-    context "when styles" do
+    context "default instances" do
+      
+      it "should have a empty ruby versions" do
+        @application.ruby_versions.should be_empty
+      end
+      
+      it "should be an Array" do
+        @application.ruby_versions.should eql []
+      end
       
       it "should have a empty styles" do
         @application.styles.should be_empty
@@ -32,24 +40,24 @@ module InfinityTest
       
     end
     
-    describe "#run!" do
-            
-      it "should run!" do
-        @application.should_receive(:say).and_return(nil)
-        lambda { @application.run!(['--rspec']) }.should_not raise_exception
+    describe "#resolve_ruby_versions" do
+      
+      it "should set the ruby_versions instance properly with one version" do
+        @application.resolve_ruby_versions("1.8.7")
+        @application.ruby_versions.should eql ['1.8.7']
       end
       
-      it "should call cucumber style" do
-        @application.should_receive(:load_cucumber_style)
-        @application.run!(['--cucumber'])
+      it "should set the ruby_versions instance properly with many versions" do
+        @application.resolve_ruby_versions("1.8.6,1.8.7,1.9.1-p378")
+        @application.ruby_versions.should eql ['1.8.6', '1.8.7', '1.9.1-p378']
       end
       
-      it "should call rspec style" do
-        @application.should_receive(:load_rspec_style)
-        @application.run!(['--rspec'])
+      it "should select the ruby_versions properly" do
+        @application.resolve_ruby_versions("1.8.6,1.8.7")
+        @application.ruby_versions.should eql ['1.8.6', '1.8.7']
       end
       
     end
-    
+        
   end
 end

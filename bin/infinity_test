@@ -34,9 +34,9 @@
 
 # ignore :exception => %w(rerun.txt .git vendor tmp)
 
-
 infinity_test_directory = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(infinity_test_directory) unless $LOAD_PATH.include?(infinity_test_directory)
+ARGV.unshift("runner") unless ARGV.include?("help")
 
 begin
   require 'infinity_test'
@@ -45,4 +45,5 @@ rescue Exception => e
   require 'infinity_test'
 end
 
-InfinityTest.application.run!(ARGV)
+InfinityTest.start!
+

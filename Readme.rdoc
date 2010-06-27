@@ -18,10 +18,6 @@ And you are ready to Test with all ruby versions your Rspec Suite and Cucumber S
 
 * The Infinity Test gem don't have a version, but is looking for contributors. =]
 
-== Notification
-
-* 
-
 == You Like it the Idea?
 
 <b>So make a fork and start contributing =].</b>
