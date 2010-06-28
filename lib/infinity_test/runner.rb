@@ -25,11 +25,32 @@ module InfinityTest
       @commands.push(application.load_cucumber_style) if options[:cucumber]
     end
     
+    # Using Watchr Library to listening file events
+    #
+    #  Example:
+    #
+    #   script = Watchr::Script.new(file)
+    #   contrl = Watchr::Controller.new(script, Watchr.handler.new)
+    #   contrl.run
+    #
+    #  Calling `run` will enter the listening loop, and from then on every
+    #  file event will trigger its corresponding action defined in `script`
+    #  
+    #  The controller also automatically adds the script's file to its list of
+    #  monitored files and will detect any changes to it, providing on the fly
+    #  updates of defined rules.
+    #
     def run_command_and_wait!
-      @commands.each do |command|
-        puts command
-        system(command)
+      file = File.expand_path(__FILE__)
+      @script = Watchr::Script.new(file)
+      controller = Watchr::Controller.new(@script, Watchr.handler.new)
+      @script.watch('lib') do
+        @commands.each do |command|
+          puts command
+          system(command)          
+        end
       end
+      controller.run
     end
 
   end
