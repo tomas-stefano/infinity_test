@@ -41,5 +41,18 @@ Feature: Infinity test
 	And I should see "0 failures"
 	And I should not see "cucumber"
   
-  
-  
+  @help
+  Scenario: Show help
+    When I run "ruby ../../bin/infinity_test --help"
+    Then I should see exactly:
+    """
+    Starts a continuous test server.
+
+    Specify the Test library using in options:
+      --testunit : Test::Unit Library
+      --rspec    : Rspec Framework
+      --cucumber :  Cucumber Library
+
+    Specify the Ruby Versions with:
+      --rvm-versions 1.8.6 1.8.7 1.8.9
+    """

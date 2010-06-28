@@ -1,8 +1,8 @@
 module InfinityTest
   autoload :Application, 'infinity_test/application'
   autoload :BinaryPath, 'infinity_test/binary_path'
-  autoload :CommandLine, 'infinity_test/command_line'
   autoload :Cucumber, 'infinity_test/cucumber'
+  autoload :Options, 'infinity_test/options'
   autoload :Rspec, 'infinity_test/rspec'
   autoload :TestUnit, 'infinity_test/test_unit'
 
@@ -11,7 +11,7 @@ module InfinityTest
   end
   
   def self.start!
-    CommandLine.start
+    Options.new(ARGV)
   end
 
 end
