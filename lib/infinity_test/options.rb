@@ -9,13 +9,13 @@ module InfinityTest
         options.on('--rspec', 'Rspec Framework') do
           self[:test_framework] = :rspec
         end
-        options.on('--cucumber', 'Run with Cucumber') do
+        options.on('--cucumber', 'Cucumber Library') do
           self[:cucumber] = true
         end
-        options.on('--rvm-versions= ruby_versions', 'RVM funcionality') do |versions|
+        options.on('--rvm-versions=rubies', 'Specify the Ruby Versions for Testing with several Rubies') do |versions|
           self[:ruby_versions] = versions
         end
-        options.banner = [ "Usage: infinity_test [options]", ""].join("\n")        
+        options.banner = [ "Usage: infinity_test [options]", "Starts a continuous test server."].join("\n")        
         options.on_tail("--help", "You're looking at it.") do
           print options.help
           exit

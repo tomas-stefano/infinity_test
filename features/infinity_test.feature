@@ -44,15 +44,13 @@ Feature: Infinity test
   @help
   Scenario: Show help
     When I run "ruby ../../bin/infinity_test --help"
-    Then I should see exactly:
+    Then I should see:
     """
-    Starts a continuous test server.
-
-    Specify the Test library using in options:
-      --testunit : Test::Unit Library
-      --rspec    : Rspec Framework
-      --cucumber :  Cucumber Library
-
-    Specify the Ruby Versions with:
-      --rvm-versions 1.8.6 1.8.7 1.8.9
-    """
+    Usage: infinity_test [options]
+	Starts a continuous test server.
+            --rspec                      Rspec Framework
+            --cucumber                   Cucumber Library
+            --rvm-versions=rubies        Specify the Ruby Versions for Testing with several Rubies
+            --help                       You're looking at it.
+	"""
+  
