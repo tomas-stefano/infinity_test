@@ -5,7 +5,7 @@
 # Options #
 
 ## Test Frameworks
-# --test_unit
+# --test-unit
 # --rspec
 # --cucumber
 
@@ -13,8 +13,8 @@
 # --rvm-versions=1.8.6,1.8.7,1.9.1,1.9.2
 
 ## Lib and Test directory
-# --lib_dir=lib
-# --test_dir=test
+# --lib-dir=lib
+# --test-dir=test
 
 ## Image Notifications
 # --notifications=growl,snarl

@@ -17,6 +17,10 @@ module InfinityTest
         @cucumber.build_command_string(['1.8.7', '1.9.1']).should match /^rvm 1.8.7,1.9.1/
       end
       
+      it "should include ruby version with patchlevels" do
+        @cucumber.build_command_string(['1.9.1-p378', '1.8.7-p249']).should match /^rvm 1.9.1-p378,1.8.7-p249/
+      end
+      
       it "should not include rvm when not have ruby versions" do
         @cucumber.build_command_string.should_not match /^rvm/
       end
