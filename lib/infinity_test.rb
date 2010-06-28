@@ -12,7 +12,8 @@ module InfinityTest
   end
   
   def self.start!
-    Options.new(ARGV)
+    options = Options.new(ARGV)
+    Runner.new(options).run!    
   end
 
 end

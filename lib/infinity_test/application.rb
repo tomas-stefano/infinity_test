@@ -1,16 +1,9 @@
 module InfinityTest
   class Application
-    attr_accessor :styles, :ruby_versions
-    
-    def initialize
-      @styles = []
-      @ruby_versions = []
-    end
+    attr_accessor :ruby_versions
     
     def resolve_ruby_versions(rvm_versions)
-      rvm_versions.split(',').each do |version|
-        @ruby_versions.push(version)
-      end
+      @ruby_versions = rvm_versions
     end
     
     def load_cucumber_style
