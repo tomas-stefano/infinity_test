@@ -41,16 +41,22 @@ module InfinityTest
     #  updates of defined rules.
     #
     def run_command_and_wait!
-      file = File.expand_path(__FILE__)
-      @script = Watchr::Script.new(file)
-      controller = Watchr::Controller.new(@script, Watchr.handler.new)
-      @script.watch('lib') do
-        @commands.each do |command|
-          puts command
-          system(command)          
-        end
+      path = Pathname.new(File.expand_path(__FILE__))
+      @script = Watchr::Script.new(path)
+      run_commands!
+      @script.watch('^spec/(.*)_spec.rb') do        
+        print 'Yeah'
+        run_commands!
       end
+      controller = Watchr::Controller.new(@script, Watchr.handler.new)
       controller.run
+    end
+    
+    def run_commands!
+      @commands.each do |command|
+        puts command
+        system(command)
+      end
     end
 
   end
