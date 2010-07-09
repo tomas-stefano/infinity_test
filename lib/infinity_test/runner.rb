@@ -33,23 +33,14 @@ module InfinityTest
     #   contrl = Watchr::Controller.new(script, Watchr.handler.new)
     #   contrl.run
     #
-    #  Calling `run` will enter the listening loop, and from then on every
-    #  file event will trigger its corresponding action defined in `script`
-    #  
-    #  The controller also automatically adds the script's file to its list of
-    #  monitored files and will detect any changes to it, providing on the fly
-    #  updates of defined rules.
-    #
     def run_command_and_wait!
-      path = Pathname.new(File.expand_path(__FILE__))
-      @script = Watchr::Script.new(path)
       run_commands!
-      @script.watch('^spec/(.*)_spec.rb') do        
-        print 'Yeah'
+      pathname = Pathname.new(File.expand_path(__FILE__))
+      @script = Watchr::Script.new(pathname)
+      @script.watch('^spec/(.*)_spec.rb') do
         run_commands!
       end
-      controller = Watchr::Controller.new(@script, Watchr.handler.new)
-      controller.run
+      controller = Watchr::Controller.new(@script, Watchr.handler.new).run
     end
     
     def run_commands!

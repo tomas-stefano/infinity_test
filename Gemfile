@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-gem 'rspec', :require => 'spec'
+gem 'rspec'
 gem 'cucumber'
 gem 'watchr'

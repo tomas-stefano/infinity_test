@@ -16,7 +16,7 @@ And you are ready to Test with all ruby versions your Rspec Suite and Cucumber S
 
 == Install
 
-* The Infinity Test gem don't have a version, but is looking for contributors. =]
+* The Infinity Test gem don't have a version, but <b>is looking for contributors</b>. =]
 
 == You Like it the Idea?
 
