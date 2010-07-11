@@ -18,7 +18,11 @@ module InfinityTest
     end
     
     def test_framework!
-      @commands.push(application.load_rspec_style) if options[:test_framework].equal?(:rspec)
+      if options[:test_framework].equal?(:rspec)
+        @commands.push(application.load_rspec_style)
+      else
+        @commands.push(application.load_test_unit_style)
+      end
     end
     
     def cucumber_library!
@@ -43,7 +47,7 @@ module InfinityTest
     end
     
     def run_commands!
-      @commands.each do |command|
+      @commands.compact.each do |command|
         puts command
         system(command)
       end

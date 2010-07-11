@@ -11,10 +11,20 @@ module InfinityTest
       end
       
       it "should not return rspec as test framework when not parse rspec" do
-        parse_options('--cucumber')
+        parse_options('--test-unit')
         @options[:test_framework].should_not equal :rspec
       end
-          
+      
+      it "should parse --test-unit and return test_unit" do
+        parse_options('--test-unit')
+        @options[:test_framework].should equal :test_unit
+      end
+      
+      it "should not parse --test-unit" do
+        parse_options('--rspec')
+        @options[:test_framework].should_not equal :test_unit
+      end
+      
       it "should parse --cucumber and return cucumber" do
         parse_options('--cucumber')
         @options[:cucumber].should be_true

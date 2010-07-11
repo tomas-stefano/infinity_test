@@ -7,6 +7,7 @@ module InfinityTest
       super()
       @options = OptionParser.new do |options|
         parse_rspec(options)
+        parse_test_unit(options)
         parse_cucumber(options)
         parse_rvm_versions(options)
         options.banner = [ "Usage: infinity_test [options]", "Starts a continuous test server."].join("\n")        
@@ -21,6 +22,12 @@ module InfinityTest
     def parse_rspec(options)
       options.on('--rspec', 'Rspec Framework') do
         self[:test_framework] = :rspec
+      end
+    end
+    
+    def parse_test_unit(options)
+      options.on('--test-unit', 'Test Unit') do
+        self[:test_framework] = :test_unit
       end
     end
     
