@@ -22,7 +22,7 @@ And you are ready to Test with all ruby versions your Rspec Suite and Cucumber S
 
 * Notifications Framework
 
-  infinity_test --notifications=growl,snarl
+    infinity_test --notifications=growl,snarl
 
 * Possibility to use a Configuration file
 
@@ -42,7 +42,7 @@ And you are ready to Test with all ruby versions your Rspec Suite and Cucumber S
 
 * Lib and Test directory
 
-  infinity_test --lib-dir=lib --test-dir=test
+     infinity_test --lib-dir=lib --test-dir=test
 
 * More and more and more ... Soon ...
 
