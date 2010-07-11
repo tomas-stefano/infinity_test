@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 class InfinityTest < Morpheus::Base
   rspec :spec, :rvm_versions => %w(1.8.7-p249, 1.9.1, 1.9.2-preview1)
-  cucumber :features, :rvm_versions => %w(1.8.7-p249, 1.9.1, 1.9.2-preview1), :format => :progress
+  cucumber :features, :rvm_versions => %w(1.8.7-p249, 1.9.1), :format => :progress
 end

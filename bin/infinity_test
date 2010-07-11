@@ -1,17 +1,5 @@
 #!/usr/bin/env ruby
 
-# == Planning ==
-
-# Options #
-
-## Test Frameworks
-# --test-unit
-# --rspec
-# --cucumber
-
-## RVM Versions
-# --rvm-versions=1.8.6,1.8.7,1.9.1,1.9.2
-
 infinity_test_directory = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(infinity_test_directory) unless $LOAD_PATH.include?(infinity_test_directory)
 
