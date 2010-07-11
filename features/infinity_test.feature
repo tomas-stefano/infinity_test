@@ -21,27 +21,8 @@ Feature: Infinity test
     And a file named "continuous/features/continuous.feature" with:
     """
     """
+  
 
-  Scenario: Run with cucumber
-    Given I cd to "continuous"
-    When I run "ruby ../../../bin/infinity_test --cucumber"
-    Then I should see "Style: Cucumber"
-    And I should see "ruby"
-    And I should see "cucumber"
-    And I should see "0 scenarios"
-    And I should not see "rspec"
-  
-  Scenario: Run with Rspec
-    Given I cd to "continuous"
-    When I run "ruby ../../../bin/infinity_test --rspec"
-	Then I should see "Style: Rspec"
-	And I should see "ruby"
-	And I should see "rspec"
-	And I should see "1 example"
-	And I should see "0 failures"
-	And I should not see "cucumber"
-  
-  @help
   Scenario: Show help
     When I run "ruby ../../bin/infinity_test --help"
     Then I should see:

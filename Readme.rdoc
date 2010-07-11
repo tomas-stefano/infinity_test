@@ -6,17 +6,45 @@ giving the possibility to test with all versions of ruby that you have in your R
 
 Just Run with:
 
-   $ infinity_test --rspec --cucumber --rvm_versions=1.8.6,1.8.7,1.9.1,1.9.2
+   $ infinity_test --rspec --cucumber --rvm-versions=1.8.6,1.8.7,1.9.1,1.9.2
 
 Or with Test::Unit:
 
-   $ infinity_test --test_unit --rvm_versions=1.8.6,1.8.7,1.9.1,1.9.2
+   $ infinity_test --test_unit --rvm-versions=1.8.6,1.8.7,1.9.1,1.9.2
 
 And you are ready to Test with all ruby versions your Rspec Suite and Cucumber Suite with Autotest Behavior.
 
 == Install
 
 * The Infinity Test gem don't have a version, but <b>is looking for contributors</b>. =]
+
+== Future
+
+* Notifications Framework
+
+  infinity_test --notifications=growl,snarl
+
+* Possibility to use a Configuration file
+
+   ~/.infinity_test or .infinity_test
+
+* Domain Specific Language For Configuration file
+
+     # Notifications
+     notification :growl # or notification :snarl
+
+     # Image Notifications
+     on :success, :use_image => '/home/tomas/success.jpg'
+     on :failure, :use_image => '/home/tomas/failure.jpg'
+
+     # Add exceptions
+     ignore :exceptions => %w(rerun.txt .git vendor tmp)
+
+* Lib and Test directory
+
+  infinity_test --lib-dir=lib --test-dir=test
+
+* More and more and more ... Soon ...
 
 == You Like it the Idea?
 

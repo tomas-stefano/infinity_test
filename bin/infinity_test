@@ -12,37 +12,10 @@
 ## RVM Versions
 # --rvm-versions=1.8.6,1.8.7,1.9.1,1.9.2
 
-## Lib and Test directory
-# --lib-dir=lib
-# --test-dir=test
-
-## Image Notifications
-# --notifications=growl,snarl
-
-## Configuration file
-# .infinity_test
-
-## Domain Specific Language For Configuration file
-#
-
-### Events ###
-
-# on :success, :use_image => '/home/tomas/success.jpg'
-# on :failure, :use_image => '/home/tomas/failure.jpg'
-
-### Manipulation Pattern
-
-# ignore :exception => %w(rerun.txt .git vendor tmp)
-
 infinity_test_directory = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(infinity_test_directory) unless $LOAD_PATH.include?(infinity_test_directory)
 
-begin
-  require 'infinity_test'
-rescue Exception => e
-  require 'rubygems'
-  require 'infinity_test'
-end
+require 'infinity_test'
 
 InfinityTest.start!
 

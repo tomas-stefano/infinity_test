@@ -35,12 +35,11 @@ module InfinityTest
     #
     def run_command_and_wait!
       run_commands!
-      pathname = Pathname.new(File.expand_path(__FILE__))
-      @script = Watchr::Script.new(pathname)
-      @script.watch('^spec/(.*)_spec.rb') do
+      script = Watchr::Script.new
+      script.watch('^spec/(.*)_spec.rb') do
         run_commands!
       end
-      controller = Watchr::Controller.new(@script, Watchr.handler.new).run
+      controller = Watchr::Controller.new(script, Watchr.handler.new).run
     end
     
     def run_commands!
