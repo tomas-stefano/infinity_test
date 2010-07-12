@@ -1,4 +1,9 @@
-require 'watchr'
+begin
+  require 'watchr'
+rescue LoadError
+  require 'rubygems'
+  require 'watchr'
+end
 
 module InfinityTest
   class Runner
