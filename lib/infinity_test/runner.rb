@@ -7,19 +7,24 @@ end
 
 module InfinityTest
   class Runner
-    attr_reader :commands, :options, :application
+    attr_reader :commands, :options, :application, :patterns
     
     def initialize(options)
       @options = options
       @commands = []
       @application = InfinityTest.application
+      @patterns = []
     end
 
     def run!
-      application.resolve_ruby_versions(options[:ruby_versions]) if options[:ruby_versions]
+      resolve_ruby_versions!
       test_framework!
       cucumber_library!
       run_command_and_wait!
+    end
+    
+    def resolve_ruby_versions!
+      application.resolve_ruby_versions(options[:ruby_versions]) if options[:ruby_versions]
     end
     
     def test_framework!
@@ -34,21 +39,9 @@ module InfinityTest
       @commands.push(application.load_cucumber_style) if options[:cucumber]
     end
     
-    # Using Watchr Library to listening file events
-    #
-    #  Example:
-    #
-    #   script = Watchr::Script.new(file)
-    #   contrl = Watchr::Controller.new(script, Watchr.handler.new)
-    #   contrl.run
-    #
     def run_command_and_wait!
       run_commands!
-      script = Watchr::Script.new
-      script.watch('^spec/(.*)_spec.rb') do
-        run_commands!
-      end
-      controller = Watchr::Controller.new(script, Watchr.handler.new).run
+      start_continuous_server!
     end
     
     def run_commands!
@@ -56,6 +49,14 @@ module InfinityTest
         puts command
         system(command)
       end
+    end
+    
+    def start_continuous_server!
+      InfinityTest::ContinuousTesting.new(
+        :runner => self, 
+        :test_framework => options[:test_framework],
+        :cucumber => options[:cucumber]
+      ).start!
     end
 
   end

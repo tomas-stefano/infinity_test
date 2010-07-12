@@ -8,15 +8,19 @@ module InfinityTest
     context "on default values" do
       
       it "commands should have a empty Array" do
-        InfinityTest::Runner.new(['--rspec']).commands.should eql []
+        runner_class.new(['--rspec']).commands.should eql []
       end
       
       it "should set the options variable" do
-        InfinityTest::Runner.new(['--rspec', '--cucumber']).options.should eql ['--rspec', '--cucumber']
+        runner_class.new(['--rspec', '--cucumber']).options.should eql ['--rspec', '--cucumber']
       end
       
       it "should set the application object" do
-        InfinityTest::Runner.new(['--rspec']).application.should be_instance_of(Application)
+        runner_class.new(['--rspec']).application.should be_instance_of(Application)
+      end
+      
+      it "should set the patterns option" do
+        runner_class.new([]).patterns.should eql []
       end
       
     end
@@ -45,6 +49,25 @@ module InfinityTest
         @test_unit.application.should_receive(:load_test_unit_style).and_return('test_unit')
         @test_unit.test_framework!
         @test_unit.commands.should eql ['test_unit']
+      end
+      
+    end
+  
+    describe "#start_continuous_server!" do
+      
+      before do
+        @continuous_testing = ContinuousTesting.new(:test_framework => :rspec, :cucumber => false, :commands => [])
+      end
+      
+      it "should call the continuous server" do
+        runner = runner_class.new({:test_framework => :rspec, :cucumber => false})
+        InfinityTest::ContinuousTesting.should_receive(:new).with({
+          :runner => runner,
+          :test_framework => :rspec,
+          :cucumber => false
+        }).and_return(@continuous_testing)
+        @continuous_testing.should_receive(:start!)
+        runner.start_continuous_server!
       end
       
     end
