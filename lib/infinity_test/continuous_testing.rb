@@ -8,12 +8,29 @@ module InfinityTest
       @runner = options[:runner]
     end
     
+    def library_directory_pattern
+      "^lib/(.*)\.rb"
+    end
+    
+    def test_directory_pattern
+      if @test_framework.equal?(:rspec)
+        "^spec/(.*)_spec.rb"
+      else
+        "^test/(.*)_test.rb"
+      end
+    end
+    
     def start!
       script = Watchr::Script.new
-      script.watch('^spec/(.*)_spec.rb') do
+      add_rule script, :rule => library_directory_pattern
+      add_rule script, :rule => test_directory_pattern
+      controller = Watchr::Controller.new(script, Watchr.handler.new).run
+    end
+    
+    def add_rule(script, options={})
+      script.watch(options[:rule]) do
         @runner.run_commands!
       end
-      controller = Watchr::Controller.new(script, Watchr.handler.new).run
     end
     
   end
