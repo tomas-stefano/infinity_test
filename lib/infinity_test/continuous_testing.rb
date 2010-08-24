@@ -28,7 +28,7 @@ module InfinityTest
     end
     
     def add_rule(script, options={})
-      script.watch(options[:rule]) do
+      script.watch(options[:rule]) do |file|
         @runner.run_commands!
       end
     end

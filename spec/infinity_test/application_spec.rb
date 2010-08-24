@@ -23,7 +23,7 @@ module InfinityTest
     describe 'styles' do
       
       before(:each) do
-        @test_unit = TestUnit.new 
+        @test_unit = TestUnit.new
         @rspec = Rspec.new
         @cucumber = Cucumber.new
       end

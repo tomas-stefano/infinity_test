@@ -1,7 +1,7 @@
 = Infinity Test
 
 Infinity Test is a continuous testing library and a flexible alternative to Autotest, 
-using watchr library with Rspec, Test::Unit, Cucumber with RVM funcionality,
+using Watchr library with Rspec OR Test::Unit AND Cucumber with RVM funcionality,
 giving the possibility to test with all versions of ruby that you have in your RVM configuration.
 
 Just Run with:
@@ -22,27 +22,35 @@ And you are ready to Test with all ruby versions your Rspec Suite and Cucumber S
 
 * Notifications Framework
 
-    infinity_test --notifications=growl,snarl
+    infinity_test --notifications growl # Using growl
+
+    infinity_test --notifications snarl # Using snarl
 
 * Possibility to use a Configuration file
 
-   ~/.infinity_test or .infinity_test
+   ~/.infinity_test or .infinity_test to your project
 
 * Domain Specific Language For Configuration file
 
      # Notifications
-     notification :growl # or notification :snarl
 
-     # Image Notifications
-     on :success, :use_image => '/home/tomas/success.jpg'
-     on :failure, :use_image => '/home/tomas/failure.jpg'
+     notification :growl do  # or notification :snarl
+
+        # Image Notifications
+        #
+        on :success, :use_image => '/home/tomas/success.jpg'
+        on :failure, :use_image => '/home/tomas/failure.jpg'
+
+     end
 
      # Add exceptions
      ignore :exceptions => %w(rerun.txt .git vendor tmp)
 
-* Lib and Test directory
+     rvm :versions => ['1.8.7-p249', '1.9.1'. '1.9.2']
 
-     infinity_test --lib-dir=lib --test-dir=test
+     test_framework :rspec # or :test_unit
+
+     use_cucumber!
 
 * More and more and more ... Soon ...
 
