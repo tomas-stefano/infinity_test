@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+notifications :growl do
+  on :sucess, :show_image => :default
+  on :failure, :show_image => :default
+end
+
+use :rvm => ['1.8.7-p249', '1.9.1', '1.9.2'], :test_framework => :rspec, :cucumber => true
+
+ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
+
+after_suite do
+  clear :terminal
+end
+
