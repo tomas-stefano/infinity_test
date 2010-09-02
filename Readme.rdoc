@@ -32,25 +32,30 @@ And you are ready to Test with all ruby versions your Rspec Suite and Cucumber S
 
 * Domain Specific Language For Configuration file
 
-     # Notifications
+Notification Frameworks
 
-     notification :growl do  # or notification :snarl
+* Growl - Mac
+* Snarl - Windows
+* Lib-Notify - Linux
 
-        # Image Notifications
-        #
-        on :success, :use_image => '/home/tomas/success.jpg'
-        on :failure, :use_image => '/home/tomas/failure.jpg'
-
-     end
-
-     # Add exceptions
-     ignore :exceptions => %w(rerun.txt .git vendor tmp)
-
-     rvm :versions => ['1.8.7-p249', '1.9.1'. '1.9.2']
-
-     test_framework :rspec # or :test_unit
-
-     use_cucumber!
+    !/usr/bin/env ruby
+   
+    notifications :growl do
+      on :sucess,  :show_image => :default
+      on :failure, :show_image => :default
+    end
+    
+    run_with :rvm => ['1.8.7-p249', '1.9.1', '1.9.2'], :test_framework => :rspec, :cucumber => true
+    
+    ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
+    
+    before_run do
+      # run some command
+    end
+   
+    after_run do
+      # run some command ...
+    end
 
 * More and more and more ... Soon ...
 

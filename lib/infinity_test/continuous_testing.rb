@@ -24,6 +24,7 @@ module InfinityTest
       script = Watchr::Script.new
       add_rule script, :rule => library_directory_pattern
       add_rule script, :rule => test_directory_pattern
+      add_signal
       controller = Watchr::Controller.new(script, Watchr.handler.new).run
     end
     
@@ -31,6 +32,21 @@ module InfinityTest
       script.watch(options[:rule]) do |file|
         @runner.run_commands!
       end
+    end
+    
+    def add_signal
+      Signal.trap 'INT' do
+        if @sent_an_int then      
+           puts " Shutting down now"
+           exit
+        else
+           puts " Interrupt a second time to quit"
+           @sent_an_int = true
+           Kernel.sleep 1.5
+           @runner.run_commands!
+           @sent_an_int = false 
+        end       
+      end      
     end
     
   end
