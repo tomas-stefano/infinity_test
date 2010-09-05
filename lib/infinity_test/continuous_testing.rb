@@ -42,7 +42,7 @@ module InfinityTest
         else
            puts " Interrupt a second time to quit"
            @sent_an_int = true
-           Kernel.sleep 1.5
+           Kernel.sleep 1.1
            @runner.run_commands!
            @sent_an_int = false 
         end       

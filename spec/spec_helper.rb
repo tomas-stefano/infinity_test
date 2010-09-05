@@ -1,5 +1,8 @@
+require 'rubygems'
 require 'infinity_test'
 
-Spec::Runner.configure do |config|
-      
+begin
+  require 'spec'
+rescue LoadError
+  require 'rspec'
 end

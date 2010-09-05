@@ -6,69 +6,49 @@ module InfinityTest
     before(:each) do
       @application = Application.new
     end
-        
-    describe '#application' do
+   
+    describe '#load_configuration_file' do
       
-      it "should be a instace of Application" do
-        InfinityTest.application.should be_instance_of(Application)
+      it "should read the configuration file and assign properly the rvm versions" do
+        read_and_load_home_config :file => 'spec/factories/infinity_test_example'
+        @application.rvm_versions.should be == '1.8.7-p249,1.9.1'
       end
       
-      it "should cache instance variable" do
-        application = InfinityTest.application
-        InfinityTest.application.should equal application
+      it "should read the home configuration file and assign the rvm versions" do
+        read_and_load_home_config :file => 'spec/factories/infinity_test'
+        @application.rvm_versions.should be == '1.8.7-p249,1.9.1,1.9.2'
       end
       
+      it "should read the home configuration file and assign the test framework" do
+        read_and_load_home_config :file => 'spec/factories/infinity_test'
+        @application.test_framework.should equal :rspec
+      end
+      
+      it "should read the home configuration file and assign the test framework properly" do
+        read_and_load_home_config :file => 'spec/factories/infinity_test_example'
+        @application.test_framework.should equal :test_unit
+      end
+      
+      it "should read the home configuration file and assign the cucumber library" do
+        read_and_load_home_config :file => 'spec/factories/infinity_test'
+        @application.cucumber?.should be_true
+      end
+      
+      it "should read the home configuration file and assign the cucumber library as false when not have cucumber option" do
+        read_and_load_home_config :file => 'spec/factories/infinity_test_example'
+        @application.cucumber?.should equal false
+      end
+
     end
     
-    describe 'styles' do
-      
-      before(:each) do
-        @test_unit = TestUnit.new
-        @rspec = Rspec.new
-        @cucumber = Cucumber.new
-      end
-      
-      it "should call TestUnit new" do
-        TestUnit.should_receive(:new).and_return(@test_unit)
-        @application.should_receive(:say).with('Style: Test::Unit')
-        @test_unit.should_receive(:build_command_string)
-        @application.load_test_unit_style
-      end
-      
-      it "should call Rspec new" do
-        Rspec.should_receive(:new).and_return(@rspec)
-        @application.should_receive(:say).with('Style: Rspec')
-        @rspec.should_receive(:build_command_string)
-        @application.load_rspec_style
-      end
-      
-      it "should call Cucumber new" do
-        Cucumber.should_receive(:new).and_return(@cucumber)
-        @application.should_receive(:say).with('Style: Cucumber')
-        @cucumber.should_receive(:build_command_string)
-        @application.load_cucumber_style
-      end
-      
+    def stub_home_config(options)
+      file = File.should_receive(:expand_path).with('~/.infinity_test').and_return(options[:file])
     end
     
-    describe "#resolve_ruby_versions" do
-      
-      it "should set the ruby_versions instance properly with one version" do
-        @application.resolve_ruby_versions("1.8.7")
-        @application.ruby_versions.should eql '1.8.7'
-      end
-      
-      it "should set the ruby_versions instance properly with dashes" do
-        @application.resolve_ruby_versions("1.8.6,1.8.7,1.9.1-p378")
-        @application.instance_variable_get(:@ruby_versions).should eql '1.8.6,1.8.7,1.9.1-p378'
-      end
-      
-      it "should set the ruby_versions properly" do
-        @application.resolve_ruby_versions("1.8.6,1.8.7")
-        @application.ruby_versions.should eql '1.8.6,1.8.7'
-      end
-      
+    def read_and_load_home_config(options)
+      stub_home_config :file => options[:file]
+      @application.load_configuration_file
     end
-        
+    
   end
 end

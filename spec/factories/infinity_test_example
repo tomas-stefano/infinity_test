@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+infinity_test do
+
+  run_with :rvm => ['1.8.7-p249' ,'1.9.1'], :test_framework => :test_unit
+  
+end

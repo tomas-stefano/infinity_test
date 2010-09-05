@@ -1,6 +1,10 @@
 module InfinityTest
-  module Configuration
+  class Configuration
     SUPPORTED_FRAMEWORKS = [:growl, :snarl, :lib_notify]
+    
+    attr_accessor :notification_framework, :rvm_versions, :cucumber, 
+                  :test_framework, :exceptions_to_ignore, :before_callback, 
+                  :after_callback
     
     # Set the notification framework to use with Infinity Test.
     # The supported Notification Frameworks are:
@@ -21,12 +25,6 @@ module InfinityTest
       @notification_framework = framework
     end
     
-    # Return the symbol of Notification Framework
-    #
-    def notification_framework
-      @notification_framework
-    end
-    
     # The options method to set:
     # * test framework 
     # * ruby versions
@@ -38,9 +36,8 @@ module InfinityTest
     #
     # run_with :rvm => [ '1.8.7-p249', '1.9.2@rails3'], :test_framework => :test_unit
     #
-    #
     def run_with(options={})
-      @rvm_versions = options[:rvm] || []
+      @rvm_versions = (options[:rvm].is_a?(Array) ? options[:rvm].join(',') : options[:rvm]) || []
       @cucumber = options[:cucumber] || false
       @test_framework = options[:test_framework] || :test_unit
     end
@@ -55,7 +52,7 @@ module InfinityTest
       @exceptions_to_ignore = options[:exceptions] || []
     end
     
-    # Callback method to run anything you want before the run the test suite command
+    # Callback method to run anything you want, before the run the test suite command
     # 
     # Example:
     #
@@ -67,7 +64,7 @@ module InfinityTest
       @before_callback = block
     end
     
-    # Callback method to run anything you want after the run the test suite command
+    # Callback method to run anything you want, after the run the test suite command
     # 
     # Example:
     #
@@ -79,44 +76,20 @@ module InfinityTest
       @after_callback = block
     end
     
-    # Return all the ruby versions specified in run_with method
-    #
-    def rvm_versions
-      @rvm_versions
-    end
-    
     # Return true if the user set the cucumber option or otherwise return false
     #
     def use_cucumber?
       @cucumber
     end
     
-    # Return the test framework specified in the run_with method
-    #
-    def test_framework
-      @test_framework
-    end
-    
-    # Return the exceptions to ignore changes in the dir or files specified
-    #
-    def exceptions_to_ignore
-      @exceptions_to_ignore
-    end
-    
-    # Return the block object persisted in the before_run method
-    #
-    def before_callback
-      @before_callback
-    end
-    
-    # Return the block object persisted in the after_run method
-    #
-    def after_callback
-      @after_callback
-    end
-    
   end
 end
 
 class NotificationFrameworkDontSupported < StandardError
+end
+
+def infinity_test(&block)
+  configuration = InfinityTest.configuration
+  configuration.instance_eval(&block)
+  configuration
 end

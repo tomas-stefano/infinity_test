@@ -4,6 +4,7 @@ module InfinityTest
     def build_command_string(ruby_versions)
       files = collect_test_files.unshift(test_loader).join(' ')
       ruby_string = "ruby -Ilib:test #{files}"
+      return if files.empty?
       unless ruby_versions
         ruby_string
       else

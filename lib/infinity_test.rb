@@ -13,6 +13,10 @@ module InfinityTest
     @application ||= Application.new
   end
   
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+  
   def self.start!
     Runner.new(Options.new(ARGV)).run!    
   end

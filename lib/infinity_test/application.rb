@@ -1,26 +1,34 @@
 module InfinityTest
   class Application
-    attr_accessor :ruby_versions
+    attr_accessor :config
     
-    def resolve_ruby_versions(rvm_versions)
-      @ruby_versions = rvm_versions
+    def initialize
+      @config = InfinityTest.configuration
     end
     
-    def load_cucumber_style
-      say "Style: Cucumber"
-      Cucumber.new.build_command_string(@ruby_versions)
+    def load_configuration_file
+      [File.expand_path('~/.infinity_test')].each do |file|
+        load file if File.exist?(file)
+      end
     end
     
-    def load_rspec_style
-      say "Style: Rspec"
-      Rspec.new.build_command_string(@ruby_versions)
+    def rvm_versions
+      config.rvm_versions
     end
     
-    def load_test_unit_style
-      say "Style: Test::Unit"
-      TestUnit.new.build_command_string(@ruby_versions)
+    def test_framework
+      config.test_framework
     end
     
+    def cucumber?
+      config.use_cucumber?
+    end
+    
+    def gem_not_found_message(gem_name)
+      say "\n Appears that you don't have #{gem_name.capitalize} installed. Run with: \n gem install #{gem_name} \n "
+      raise
+    end
+
     def say(something)
       $stdout.puts(something)
     end

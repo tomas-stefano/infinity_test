@@ -1,14 +1,14 @@
 module InfinityTest
   class Cucumber
-    include BinaryPath
-    
+
+    #    file = File.join(File.dirname(__FILE__), 'binary_path', 'cucumber')
+    #    RVM.environments('1.8.7-p249,1.9.2') do |environment|
+    #      @result.push(environment.ruby(file))
+    #    end
+    #    @commands = @result.collect { |result| result.stdout }    
+    #
     def build_command_string(ruby_versions)
-      cucumber_binary_path = bin_path('cucumber', 'cucumber')
-      if ruby_versions
-        "rvm #{ruby_versions} ruby #{cucumber_binary_path}"
-      else
-        "ruby #{cucumber_binary_path}"
-      end
+      
     end
     
   end

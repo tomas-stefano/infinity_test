@@ -39,22 +39,26 @@ Notification Frameworks
 * Lib-Notify - Linux
 
     !/usr/bin/env ruby
-   
-    notifications :growl do
-      on :sucess,  :show_image => :default
-      on :failure, :show_image => :default
-    end
     
-    run_with :rvm => ['1.8.7-p249', '1.9.1', '1.9.2'], :test_framework => :rspec, :cucumber => true
-    
-    ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
-    
-    before_run do
-      # run some command
-    end
-   
-    after_run do
-      # run some command ...
+    infinity_test do
+
+      notifications :growl do
+        on :sucess,  :show_image => :default
+        on :failure, :show_image => :default
+      end
+      
+      run_with :rvm => ['1.8.7-p249', '1.9.1', '1.9.2'], :test_framework => :rspec, :cucumber => true
+      
+      ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
+      
+      before_run do
+        # run some command
+      end
+      
+      after_run do
+        # run some command ...
+      end
+
     end
 
 * More and more and more ... Soon ...
