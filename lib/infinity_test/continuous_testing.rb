@@ -39,27 +39,36 @@ module InfinityTest
     
     def main_command
       if @test_framework == :rspec
-        commands = command_for_rspec
-        commands.each do |command|
-          puts
-          puts(command)
-          system(command)
-        end
+        run! commands_for_rspec        
+      else
+        run! commands_for_test_unit
       end
     end
     
-    def command_for_rspec
-      file = File.expand_path(File.join(File.dirname(__FILE__), 'binary_path', 'rspec.rb'))
-      results = []
-      puts "* Grabbing the Rspec Path for each Ruby"
-      unless @rubies.empty?
-        RVM.environments(@application.rubies) do |environment|
-          results << environment.ruby(file)
-        end
-        commands = results.collect { |result| result.stdout + ' spec' }
-      else
-        rspec = [Gem.bin_path('rspec-core', 'rspec') + ' spec']
+    def run!(commands)
+      commands.each do |ruby_version, command|
+        puts "* Using #{ruby_version}"
+        puts command
+        system(command)
       end
+    end
+    
+    def commands_for_rspec
+      file = File.expand_path(File.join(File.dirname(__FILE__), 'binary_path', 'rspec.rb'))
+      results = {}
+      unless @rubies.empty?
+        puts "* Grabbing the Rspec Path for each Ruby"
+        RVM.environments(@application.rubies) do |environment|
+          results[environment.environment_name] = environment.ruby(file).stdout + ' spec'
+        end
+        results
+      else
+        rspec = { RUBY_VERSION => "#{Gem.bin_path('rspec-core', 'rspec') + ' spec'}" }
+      end
+    end
+    
+    def commands_for_test_unit
+      { RUBY_VERSION => InfinityTest::TestUnit.new.build_command_string(@rubies) }
     end
     
     def add_rule(script, options={})

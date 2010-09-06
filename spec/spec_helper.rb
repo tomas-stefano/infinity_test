@@ -11,8 +11,6 @@ rescue LoadError
   require 'rspec'
 end
 
-Rspec.configure do |config|
-  
   def stub_home_config(options)
     file = File.should_receive(:expand_path).with('~/.infinity_test').and_return(options[:file])
   end
@@ -39,5 +37,3 @@ Rspec.configure do |config|
     application.config.run_with(:test_framework => :test_unit)
     application
   end
-    
-end

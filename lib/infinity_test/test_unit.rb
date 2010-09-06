@@ -5,7 +5,7 @@ module InfinityTest
       files = collect_test_files.unshift(test_loader).join(' ')
       ruby_string = "ruby -Ilib:test #{files}"
       return if files.empty?
-      unless ruby_versions
+      if ruby_versions.empty?
         ruby_string
       else
         "rvm #{ruby_versions} #{ruby_string}"
