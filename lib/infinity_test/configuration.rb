@@ -2,7 +2,7 @@ module InfinityTest
   class Configuration
     SUPPORTED_FRAMEWORKS = [:growl, :snarl, :lib_notify]
     
-    attr_accessor :notification_framework, :rvm_versions, :cucumber, 
+    attr_accessor :notification_framework, :rubies, :cucumber, 
                   :test_framework, :exceptions_to_ignore, :before_callback, 
                   :after_callback
     
@@ -32,12 +32,13 @@ module InfinityTest
     # 
     # Here is the example of Little Domain Language:
     #
-    # run_with :rvm => ['1.9.1', '1.9.2'], :test_framework => :rspec, :cucumber => true
+    # run_with :rubies => ['1.9.1', '1.9.2'], :test_framework => :rspec, :cucumber => true
     #
-    # run_with :rvm => [ '1.8.7-p249', '1.9.2@rails3'], :test_framework => :test_unit
+    # run_with :rubies => [ '1.8.7-p249', '1.9.2@rails3'], :test_framework => :test_unit
     #
     def run_with(options={})
-      @rvm_versions = (options[:rvm].is_a?(Array) ? options[:rvm].join(',') : options[:rvm]) || []
+      rubies = options[:rubies]
+      @rubies = (rubies.is_a?(Array) ? rubies.join(',') : rubies) || []
       @cucumber = options[:cucumber] || false
       @test_framework = options[:test_framework] || :test_unit
     end

@@ -37,12 +37,12 @@ module InfinityTest
       
       it "should parse --rvm-versions and return an array" do
         parse_options('--rvm-versions=1.8.6,1.8.7')
-        @options[:ruby_versions].should eql '1.8.6,1.8.7'
+        @options[:rubies].should eql '1.8.6,1.8.7'
       end
       
       it "should parse --rvm-versions with dashes" do
         parse_options('--rvm-versions=1.8.7-p249,1.9.1-p378')
-        @options[:ruby_versions].should eql '1.8.7-p249,1.9.1-p378'
+        @options[:rubies].should eql '1.8.7-p249,1.9.1-p378'
       end
       
     end

@@ -1,11 +1,19 @@
+begin
+  require 'watchr'
+rescue LoadError
+  require 'rubygems'
+  require 'watchr'
+end
+
 module InfinityTest
   class ContinuousTesting
-    attr_accessor :test_framework, :cucumber, :runner
+    attr_accessor :application
     
     def initialize(options)
-      @test_framework = options[:test_framework]
-      @cucumber = options[:cucumber]
-      @runner = options[:runner]
+      @application = options[:application]
+      @test_framework = application.test_framework
+      @cucumber = application.cucumber?
+      @rubies = application.rubies
     end
     
     def library_directory_pattern
@@ -21,16 +29,41 @@ module InfinityTest
     end
     
     def start!
+      main_command
       script = Watchr::Script.new
       add_rule script, :rule => library_directory_pattern
       add_rule script, :rule => test_directory_pattern
       add_signal
-      controller = Watchr::Controller.new(script, Watchr.handler.new).run
+      Watchr::Controller.new(script, Watchr.handler.new).run
+    end
+    
+    def main_command
+      if @test_framework == :rspec
+        commands = command_for_rspec
+        commands.each do |command|
+          puts
+          puts(command)
+          system(command)
+        end
+      end
+    end
+    
+    def command_for_rspec
+      file = File.expand_path(File.join(File.dirname(__FILE__), 'binary_path', 'rspec.rb'))
+      results = []
+      puts "* Grabbing the Rspec Path for each Ruby"
+      unless @rubies.empty?
+        RVM.environments(@application.rubies) do |environment|
+          results << environment.ruby(file)
+        end
+        commands = results.collect { |result| result.stdout + ' spec' }
+      else
+        rspec = [Gem.bin_path('rspec-core', 'rspec') + ' spec']
+      end
     end
     
     def add_rule(script, options={})
       script.watch(options[:rule]) do |file|
-        @runner.run_commands!
       end
     end
     

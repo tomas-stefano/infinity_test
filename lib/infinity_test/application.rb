@@ -12,8 +12,8 @@ module InfinityTest
       end
     end
     
-    def rvm_versions
-      config.rvm_versions
+    def rubies
+      config.rubies
     end
     
     def test_framework

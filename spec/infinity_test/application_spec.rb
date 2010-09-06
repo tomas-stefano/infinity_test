@@ -11,12 +11,12 @@ module InfinityTest
       
       it "should read the configuration file and assign properly the rvm versions" do
         read_and_load_home_config :file => 'spec/factories/infinity_test_example'
-        @application.rvm_versions.should be == '1.8.7-p249,1.9.1'
+        @application.rubies.should be == '1.8.7-p249,1.9.1'
       end
       
       it "should read the home configuration file and assign the rvm versions" do
         read_and_load_home_config :file => 'spec/factories/infinity_test'
-        @application.rvm_versions.should be == '1.8.7-p249,1.9.1,1.9.2'
+        @application.rubies.should be == '1.8.7-p249,1.9.1,1.9.2'
       end
       
       it "should read the home configuration file and assign the test framework" do
@@ -39,15 +39,6 @@ module InfinityTest
         @application.cucumber?.should equal false
       end
 
-    end
-    
-    def stub_home_config(options)
-      file = File.should_receive(:expand_path).with('~/.infinity_test').and_return(options[:file])
-    end
-    
-    def read_and_load_home_config(options)
-      stub_home_config :file => options[:file]
-      @application.load_configuration_file
     end
     
   end

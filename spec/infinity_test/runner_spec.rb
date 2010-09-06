@@ -8,66 +8,74 @@ module InfinityTest
     context "on default values" do
       
       it "commands should have a empty Array" do
-        runner_class.new(['--rspec']).commands.should eql []
+        runner_class.new({:test_framework => :rspec}).commands.should eql []
       end
       
       it "should set the options variable" do
-        runner_class.new(['--rspec', '--cucumber']).options.should eql ['--rspec', '--cucumber']
+        runner_class.new({:cucumber => true}).options.should be == {:cucumber => true}
       end
       
       it "should set the application object" do
-        runner_class.new(['--rspec']).application.should be_instance_of(Application)
-      end
-      
-      it "should set the patterns option" do
-        runner_class.new([]).patterns.should eql []
+        runner_class.new({:test_framework => :test_unit}).application.should be_instance_of(Application)
       end
       
     end
   
-    describe "#test_framework! and #cucumber_library" do
+    describe '#load_configuration_file_or_read_the_options' do
+      let(:runner) { @runner ||= runner_class.new({}) }
+      let(:runner_with_rspec) { @runner_with_rspec ||= runner_class.new({:test_framework => :rspec})}
       
-      before(:each) do
-        @rspec = runner_class.new({:test_framework => :rspec})
-        @test_unit = runner_class.new({:test_framework => :test_unit})
-        @cucumber = runner_class.new({:cucumber => true})
-      end
-            
-      it "should add the rspec command" do
-        @rspec.application.should_receive(:load_rspec_style).and_return('rspec')
-        @rspec.test_framework!
-        @rspec.commands.should eql ["rspec"]
+      it "should load configuration file and set the configurations" do
+        stub_home_config :file => 'spec/factories/infinity_test'
+        runner.load_configuration_file_or_read_the_options!
+        runner.application.config.test_framework.should equal :rspec
       end
       
-      it "should add the cucumber command" do
-        @cucumber.application.should_receive(:load_cucumber_style).and_return('cucumber')
-        @cucumber.cucumber_library!
-        @cucumber.commands.should eql ['cucumber']
+      it "should override the configuration if have options in the command line" do
+        stub_home_config :file => 'spec/factories/infinity_test_example'
+        runner_with_rspec.load_configuration_file_or_read_the_options!
+        runner_with_rspec.application.config.test_framework.should equal :rspec
       end
       
-      it "should add the test_unit command" do
-        @test_unit.application.should_receive(:load_test_unit_style).and_return('test_unit')
-        @test_unit.test_framework!
-        @test_unit.commands.should eql ['test_unit']
+      it "should load configuration file with cucumber option" do
+        stub_home_config :file => 'spec/factories/infinity_test'
+        runner_with_cucumber = InfinityTest::Runner.new({})
+        runner_with_cucumber.load_configuration_file_or_read_the_options!
+        runner_with_cucumber.application.config.use_cucumber?.should be_true
+      end
+      
+      it "should overrise the cucumber option if have options in the command line" do
+        stub_home_config :file => 'spec/factories/infinity_test'
+        runner_with_cucumber = InfinityTest::Runner.new({:cucumber => false})
+        runner_with_cucumber.load_configuration_file_or_read_the_options!
+        runner_with_cucumber.application.config.use_cucumber?.should equal false
+      end
+      
+      it "should set the rubies option" do
+        stub_home_config :file => 'spec/factories/infinity_test'
+        runner_with_cucumber = InfinityTest::Runner.new({})
+        runner_with_cucumber.load_configuration_file_or_read_the_options!
+        runner_with_cucumber.application.config.rubies.should be == '1.8.7-p249,1.9.1,1.9.2'
+      end
+      
+      it "should override the options in the configuration file" do
+        stub_home_config :file => 'spec/factories/infinity_test'
+        runner_with_cucumber = InfinityTest::Runner.new({:rubies => '1.9.1'})
+        runner_with_cucumber.load_configuration_file_or_read_the_options!
+        runner_with_cucumber.application.config.rubies.should be == '1.9.1'
       end
       
     end
   
-    describe "#start_continuous_server!" do
+    describe "#start_continuous_testing!" do
+      let(:empty_runner) { InfinityTest::Runner.new({}) }
+      let(:mock_continuous_testing) { @mock ||= mock(ContinuousTesting) }
       
-      before do
-        @continuous_testing = ContinuousTesting.new(:test_framework => :rspec, :cucumber => false, :commands => [])
-      end
-      
-      it "should call the continuous server" do
-        runner = runner_class.new({:test_framework => :rspec, :cucumber => false})
-        InfinityTest::ContinuousTesting.should_receive(:new).with({
-          :runner => runner,
-          :test_framework => :rspec,
-          :cucumber => false
-        }).and_return(@continuous_testing)
-        @continuous_testing.should_receive(:start!)
-        runner.start_continuous_server!
+      it "should call start for Continuous Testing" do
+        application = application_with_rspec
+        ContinuousTesting.should_receive(:new).and_return(mock_continuous_testing)
+        mock_continuous_testing.should_receive(:start!)
+        empty_runner.start_continuous_testing!
       end
       
     end

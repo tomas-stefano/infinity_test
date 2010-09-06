@@ -2,12 +2,10 @@
 
 infinity_test_directory = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(infinity_test_directory) unless $LOAD_PATH.include?(infinity_test_directory)
+require 'infinity_test'
 
 rvm_library_directory = File.expand_path("~/.rvm/lib")
 $LOAD_PATH.unshift(rvm_library_directory) unless $LOAD_PATH.include?(rvm_library_directory)
-
-require 'infinity_test'
 require 'rvm'
 
 InfinityTest.start!
-

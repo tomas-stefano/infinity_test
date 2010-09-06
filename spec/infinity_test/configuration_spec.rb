@@ -45,18 +45,18 @@ module InfinityTest
     describe '#run_with' do
       
       it "should set the rvm versions" do
-        config.run_with :rvm => '1.8.7-p249'
-        config.rvm_versions.should be == '1.8.7-p249'
+        config.run_with :rubies => '1.8.7-p249'
+        config.rubies.should be == '1.8.7-p249'
       end
       
       it "should set many ruby versions" do
-        config.run_with :rvm => ['1.9.1', '1.9.2']
-        config.rvm_versions.should be == '1.9.1,1.9.2'
+        config.run_with :rubies => ['1.9.1', '1.9.2']
+        config.rubies.should be == '1.9.1,1.9.2'
       end
       
       it "should return a empty collection when not set the rvm option" do
         config.run_with :cucumber => true
-        config.rvm_versions.should be_empty
+        config.rubies.should be_empty
       end
       
       it "should set the cucumber option" do
