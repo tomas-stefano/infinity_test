@@ -13,11 +13,11 @@ module InfinityTest
       @application = options[:application]
       @test_framework = @application.test_framework.equal?(:rspec) ? Rspec.new : TestUnit.new
       @library_directory_pattern = "^lib/(.*)\.rb"
-      @commands = @test_framework.construct_commands
+      @global_commands = @test_framework.construct_commands
     end
     
     def start!      
-      run! @commands
+      run! @global_commands
       initialize_watchr!
     end
     
@@ -39,7 +39,7 @@ module InfinityTest
     
     def add_rule(script, options={})
       script.watch(options[:rule]) do |file|
-       run! @commands
+       run! @global_commands
       end
     end
     
@@ -52,7 +52,7 @@ module InfinityTest
            puts " Interrupt a second time to quit"
            @sent_an_int = true
            Kernel.sleep 1.1
-           @runner.run_commands!
+           run! @global_commands
            @sent_an_int = false 
         end       
       end      
