@@ -13,6 +13,30 @@ module InfinityTest
     def test_directory_pattern
       "^spec/(.*)_spec.rb"
     end
+    
+    def construct_commands
+      ruby_command = File.join(Config::CONFIG['bindir'], Config::CONFIG['ruby_install_name'])
+      path = rspec_path
+      if jruby?
+        { JRUBY_VERSION => "#{ruby_command} #{path} spec --color" }
+      else
+        { RUBY_VERSION  => "#{ruby_command} #{path} spec --color" }
+      end
+    end
+    
+    def jruby?
+      RUBY_PLATFORM == 'java'
+    end
+    
+    def rspec_path
+      begin
+        Gem.bin_path('rspec', 'spec') # Rspec 1.3.0
+      rescue Exception
+        Gem.bin_path('rspec-core', 'rspec') # Rspec 2.0.0.beta
+      rescue Exception
+        $stdout.puts("Appears that you don't have Rspec (1.3.0 or 2.0.beta) installed. Run with: \n gem install rspec  or gem install rspec --pre")
+      end
+    end
 
     #    file = File.join(File.dirname(__FILE__), 'binary_path', 'rspec')
     #    RVM.environments('1.8.7-p249,1.9.2') do |environment|

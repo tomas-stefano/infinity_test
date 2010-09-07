@@ -13,10 +13,11 @@ module InfinityTest
       @application = options[:application]
       @test_framework = @application.test_framework.equal?(:rspec) ? Rspec.new : TestUnit.new
       @library_directory_pattern = "^lib/(.*)\.rb"
+      @commands = @test_framework.construct_commands
     end
     
-    def start!
-      
+    def start!      
+      run! @commands
       initialize_watchr!
     end
     
@@ -38,7 +39,7 @@ module InfinityTest
     
     def add_rule(script, options={})
       script.watch(options[:rule]) do |file|
-       
+       run! @commands
       end
     end
     

@@ -10,6 +10,10 @@ module InfinityTest
       "^test/(.*)_test.rb"
     end
     
+    def construct_commands
+      
+    end
+    
     #  def build_command_string(ruby_versions)
     #    files = collect_test_files.unshift(test_loader).join(' ')
     #    ruby_string = "ruby -Ilib:test #{files}"
