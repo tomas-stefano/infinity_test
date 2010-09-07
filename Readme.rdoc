@@ -4,6 +4,11 @@ Infinity Test is a continuous testing library and a flexible alternative to Auto
 using Watchr library with Rspec OR Test::Unit AND Cucumber with RVM funcionality,
 giving the possibility to test with all versions of ruby that you have in your RVM configuration.
 
+== Install
+
+* The Infinity Test gem don't have a version, but <b>is looking for contributors</b>. =]
+
+
 Just Run with:
 
    $ infinity_test --rspec --cucumber --rvm-versions=1.8.6,1.8.7,1.9.1,1.9.2
@@ -12,19 +17,11 @@ Or with Test::Unit:
 
    $ infinity_test --test-unit --rvm-versions=1.8.6,1.8.7,1.9.1,1.9.2
 
-And you are ready to Test with all ruby versions your Rspec Suite and Cucumber Suite with Autotest Behavior.
-
-== Install
-
-* The Infinity Test gem don't have a version, but <b>is looking for contributors</b>. =]
-
-== Future
+<b>And you are ready to Test with all ruby versions your Rspec Suite and Cucumber Suite with Autotest Behavior.</b>
 
 * Notifications Framework
 
-    infinity_test --notifications growl # Using growl
-
-    infinity_test --notifications snarl # Using snarl
+    infinity_test --notifications growl # Using growl for now
 
 * Possibility to use a Configuration file
 
@@ -34,9 +31,7 @@ And you are ready to Test with all ruby versions your Rspec Suite and Cucumber S
 
 Notification Frameworks
 
-* Growl - Mac
-* Snarl - Windows
-* Lib-Notify - Linux
+* Growl (FOR NOW) - Mac
 
     !/usr/bin/env ruby
     
@@ -47,9 +42,9 @@ Notification Frameworks
         on :failure, :show_image => :default
       end
       
-      run_with :rvm => ['1.8.7-p249', '1.9.1', '1.9.2'], :test_framework => :rspec, :cucumber => true
+      run_with :rvm => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec, :cucumber => true
       
-      ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
+      # ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
       
       before_run do
         # run some command
@@ -66,6 +61,12 @@ Notification Frameworks
 == You Like it the Idea?
 
 <b>So make a fork and start contributing =].</b>
+
+== TODO
+
+* Working in focus files and run only the modified file (Strategies for Test::Unit, Rspec and Cucumber)
+* Make work the system notification
+* Make work the before and after callbacks
 
 == Acknowledgments
 

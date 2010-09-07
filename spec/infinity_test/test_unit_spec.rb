@@ -7,32 +7,20 @@ module InfinityTest
       @current_dir = Dir.pwd
     end
     
-    let(:test_unit) { TestUnit.new }
-
-    describe "#build_command_string" do
-            
-      it "should use ruby" do
-        test_unit.build_command_string(nil).should match /^ruby/
-      end
-      
-      it "should not use rvm when not have ruby versions" do
-        test_unit.build_command_string(nil).should_not match /^rvm/
-      end
-      
-      it "should use rvm command with many ruby versions" do
-        test_unit.build_command_string('1.8.7').should match /^rvm 1.8.7 ruby/
-      end
-      
-      it "should be possible to use many versions of ruby" do
-        test_unit.build_command_string('1.8.6,1.8.7').should match /^rvm 1.8.6,1.8.7 ruby/
-      end
-      
-      it "should include the lib and test directory" do
-        test_unit.build_command_string('1.8.6,1.8.7').should include("ruby -Ilib:test")
-      end
-      
+    it "should be possible to set all rubies" do
+      TestUnit.new(:rubies => 'jruby').rubies.should be == 'jruby'
     end
     
+    it "should be possible to set any rubies that I want" do
+      TestUnit.new(:rubies => 'ree,1.9.1,1.9.2').rubies.should be == 'ree,1.9.1,1.9.2'
+    end
+    
+    it "should have the test directory pattern" do
+      TestUnit.new(:rubies => 'ree,1.9.1').test_directory_pattern.should be == "^test/(.*)_test.rb"
+    end
+
+    let(:test_unit) { TestUnit.new }
+
     describe "#test_loader" do
       
       it "should call files to test with test_loader" do
