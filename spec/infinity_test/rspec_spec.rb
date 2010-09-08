@@ -2,6 +2,9 @@ require 'spec_helper'
 
 module InfinityTest
   describe Rspec do
+    before do
+      @current_dir = Dir.pwd
+    end
     
     it "should be possible to sett all rubies" do
       Rspec.new(:rubies => '1.9.1').rubies.should be == '1.9.1'
@@ -96,6 +99,30 @@ module InfinityTest
         rspec.construct_commands
       end
 
+    end
+    
+    describe '#spec_files' do
+      
+      let(:rspec) { Rspec.new }
+      
+      it "return should include the spec files" do
+        Dir.chdir("#{@current_dir}/spec/factories/buzz") do
+          rspec.spec_files.should be == "spec/buzz_spec.rb"
+        end
+      end
+      
+      it "return should include the spec files to test them" do
+        Dir.chdir("#{@current_dir}/spec/factories/wood") do
+          rspec.spec_files.should be == "spec/wood_spec.rb"
+        end
+      end
+      
+      it "return should include the spec files to test them in two level of the spec folder" do
+        Dir.chdir("#{@current_dir}/spec/factories/slinky") do
+          rspec.spec_files.should be == "spec/slinky/slinky_spec.rb"
+        end
+      end
+      
     end
     
     def redefine_const(name,value)

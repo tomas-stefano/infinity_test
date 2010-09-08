@@ -21,14 +21,18 @@ module InfinityTest
       ruby_command = File.join(Config::CONFIG['bindir'], Config::CONFIG['ruby_install_name'])
       path = rspec_path
       if jruby?
-        { JRUBY_VERSION => "#{ruby_command} #{path} spec --color" }
+        { JRUBY_VERSION => "#{ruby_command} #{path} #{spec_files} --color" }
       else
-        { RUBY_VERSION  => "#{ruby_command} #{path} spec --color" }
+        { RUBY_VERSION  => "#{ruby_command} #{path} #{spec_files} --color" }
       end
     end
     
     def jruby?
       RUBY_PLATFORM == 'java'
+    end
+    
+    def spec_files
+      Dir['spec/**/*_spec.rb'].collect { |file| file }.join(' ')
     end
     
     def construct_rubies_commands(ruby=nil)
@@ -40,7 +44,7 @@ module InfinityTest
         if shell_result =~ /Appears that you/
           puts "\n Ruby: #{ruby_version} => #{shell_result}"
         else
-          results[ruby_version] = "rvm '#{ruby_version}' 'ruby' '#{shell_result} spec --color'"
+          results[ruby_version] = "rvm '#{ruby_version}' 'ruby' '#{shell_result} #{spec_files} --color'"
         end
       end
       results
