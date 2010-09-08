@@ -25,6 +25,11 @@ module InfinityTest
       continuous_testing = ContinuousTesting.new(:application => application_with(:rubies => %w(1.9.1 jruby), :test_framework => :rspec))
     end
     
+    it "should pass all the rubies for the TestUnit class when test framework is TestUnit" do
+      TestUnit.should_receive(:new).with({:rubies => '1.9.1,jruby'})
+      continuous_testing = ContinuousTesting.new(:application => application_with(:rubies => %w(1.9.1 jruby), :test_framework => :test_unit))
+    end
+    
   end
 
   end

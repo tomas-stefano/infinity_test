@@ -58,13 +58,17 @@ module InfinityTest
 
       it "should return the ruby version as the key" do
         redefine_const(:RUBY_VERSION, '1.9.1') do
-          Rspec.new.construct_commands.keys.should be == ['1.9.1']
+          redefine_const(:JRUBY_VERSION, '1.9.1') do
+            Rspec.new.construct_commands.keys.should be == ['1.9.1']
+          end
         end
       end
 
       it "should return the ruby version as the key" do
         redefine_const(:RUBY_VERSION, '1.9.2') do
-          Rspec.new.construct_commands.keys.should be == ['1.9.2']
+          redefine_const(:JRUBY_VERSION, '1.9.2') do
+            Rspec.new.construct_commands.keys.should be == ['1.9.2']
+          end
         end
       end
 

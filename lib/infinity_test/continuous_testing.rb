@@ -11,7 +11,7 @@ module InfinityTest
     
     def initialize(options)
       @application = options[:application]
-      @test_framework = @application.test_framework.equal?(:rspec) ? Rspec.new(:rubies => @application.rubies) : TestUnit.new
+      @test_framework = @application.test_framework.equal?(:rspec) ? Rspec.new(:rubies => @application.rubies) : TestUnit.new(:rubies => @application.rubies)
       @library_directory_pattern = "^lib/(.*)\.rb"
     end
     
@@ -31,7 +31,6 @@ module InfinityTest
     
     def run!(commands)
       commands.each do |ruby_version, command|
-        command = "rvm '#{ruby_version}' 'ruby' '#{command}'"
         puts
         puts "* Using #{ruby_version}"
         puts

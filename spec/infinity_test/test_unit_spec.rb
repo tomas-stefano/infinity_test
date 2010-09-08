@@ -18,11 +18,13 @@ module InfinityTest
     it "should have the test directory pattern" do
       TestUnit.new(:rubies => 'ree,1.9.1').test_directory_pattern.should be == "^test/(.*)_test.rb"
     end
-
-    let(:test_unit) { TestUnit.new }
+    
+    it "should be empty when not have rubies" do
+      TestUnit.new.rubies.should be == []
+    end
 
     describe "#test_loader" do
-      
+      let(:test_unit) { TestUnit.new }
       it "should call files to test with test_loader" do
         Dir.chdir("#{@current_dir}/spec/factories/travel") do
           test_unit.test_loader.should eql "#{@current_dir}/lib/infinity_test/test_unit_loader.rb"
@@ -44,6 +46,30 @@ module InfinityTest
         end
         
       end
+    end
+    
+    describe '#construct_commands' do
+      
+      it "should return a Hash when not have rubies" do
+        TestUnit.new.construct_commands.should be_instance_of(Hash)
+      end
+      
+      it "should have the command ruby with lib and test in the load path" do
+        TestUnit.new.construct_commands.first.last.should match /ruby -I'lib:test'/
+      end
+      
+      it "should call construct_rubies_commands when have rubies" do
+        test_unit = TestUnit.new(:rubies => '1.9.1')
+        test_unit.should_receive(:construct_rubies_commands)
+        test_unit.construct_commands
+      end
+      
+      it "should not call construct_rubies_commands when not have rubies" do
+        test_unit = TestUnit.new
+        test_unit.should_not_receive(:construct_rubies_commands)
+        test_unit.construct_commands
+      end
+      
     end
     
   end

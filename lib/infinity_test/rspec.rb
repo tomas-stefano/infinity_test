@@ -33,13 +33,14 @@ module InfinityTest
     
     def construct_rubies_commands(ruby=nil)
       results = Hash.new
-      $stdout.puts "* Grabbing the Rspec Path for each Ruby (This may take long for the first time)"
+      $stdout.puts "* Grabbing the Rspec Path for each Ruby (This may take some time for the first time)"
       RVM.environments(@rubies) do |environment|
         shell_result = environment.ruby(RSPEC_PATH_FILE).stdout
+        ruby_version = environment.environment_name
         if shell_result =~ /Appears that you/
-          puts "\n Ruby: #{environment.environment_name} #{shell_result}"
+          puts "\n Ruby: #{ruby_version} => #{shell_result}"
         else
-          results[environment.environment_name] = "#{shell_result} spec --color"
+          results[ruby_version] = "rvm '#{ruby_version}' 'ruby' '#{shell_result} spec --color'"
         end
       end
       results

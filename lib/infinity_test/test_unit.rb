@@ -3,7 +3,7 @@ module InfinityTest
     attr_reader :rubies
     
     def initialize(options={})
-      @rubies = options[:rubies]
+      @rubies = options[:rubies] || []
     end
     
     def test_directory_pattern
@@ -11,7 +11,25 @@ module InfinityTest
     end
     
     def construct_commands
-      
+      return construct_rubies_commands unless @rubies.empty?
+      ruby_version = RUBY_PLATFORM == 'java' ? JRUBY_VERSION : RUBY_VERSION
+      ruby_command = File.join(Config::CONFIG['bindir'], Config::CONFIG['ruby_install_name'])
+      unless test_files.empty? or test_files.size == 1
+        { ruby_version => "#{ruby_command} -I'lib:test' #{test_files}"}
+      end
+    end
+    
+    def construct_rubies_commands
+      results = Hash.new
+      RVM.environments(@rubies) do |environment|
+        ruby_version = environment.environment_name
+        results[ruby_version] = "rvm '#{ruby_version}' 'ruby' ' -Ilib:test #{test_files}'"
+      end
+      results
+    end
+    
+    def test_files
+      collect_test_files.unshift(test_loader).join(' ')
     end
     
     #  def build_command_string(ruby_versions)

@@ -1,4 +1,9 @@
-require 'rubygems'
+begin
+  require 'rubygems'
+rescue LoadError
+  $stdout.puts("Appears that you don't have rubygems installed. The infinity_test depends that. I need contributions to not depends that.")
+  exit
+end
 
 infinity_test_directory = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'lib'))
 
