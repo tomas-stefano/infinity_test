@@ -1,9 +1,10 @@
 require 'rubygems'
 
-begin
-  print Gem.bin_path('rspec', 'spec') # Rspec 1.3.0
-rescue
-  print Gem.bin_path('rspec-core', 'rspec') # Rspec 2.0.beta
-rescue
-  print("Appears that you don't have Rspec (1.3.0 or 2.0.beta) installed. Run with: \n gem install rspec  or gem install rspec --pre")
-end
+infinity_test_directory = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'lib'))
+
+$LOAD_PATH.unshift(infinity_test_directory) unless $LOAD_PATH.include?(infinity_test_directory)
+require 'infinity_test'
+
+include InfinityTest::BinaryPath
+
+print rspec_path

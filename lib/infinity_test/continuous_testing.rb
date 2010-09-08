@@ -11,12 +11,12 @@ module InfinityTest
     
     def initialize(options)
       @application = options[:application]
-      @test_framework = @application.test_framework.equal?(:rspec) ? Rspec.new : TestUnit.new
+      @test_framework = @application.test_framework.equal?(:rspec) ? Rspec.new(:rubies => @application.rubies) : TestUnit.new
       @library_directory_pattern = "^lib/(.*)\.rb"
-      @global_commands = @test_framework.construct_commands
     end
     
-    def start!      
+    def start!
+      @global_commands = @test_framework.construct_commands
       run! @global_commands
       initialize_watchr!
     end
@@ -31,7 +31,10 @@ module InfinityTest
     
     def run!(commands)
       commands.each do |ruby_version, command|
+        command = "rvm '#{ruby_version}' 'ruby' '#{command}'"
+        puts
         puts "* Using #{ruby_version}"
+        puts
         puts command
         system(command)
       end
