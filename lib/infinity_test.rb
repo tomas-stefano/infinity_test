@@ -1,6 +1,7 @@
 module InfinityTest
   autoload :Application, 'infinity_test/application'
   autoload :BinaryPath, 'infinity_test/binary_path'
+  autoload :Command, 'infinity_test/command'
   autoload :Configuration, 'infinity_test/configuration'
   autoload :ContinuousTesting, 'infinity_test/continuous_testing'
   autoload :Cucumber, 'infinity_test/cucumber'

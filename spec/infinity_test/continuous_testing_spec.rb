@@ -20,6 +20,10 @@ module InfinityTest
       continuous_testing.library_directory_pattern.should eql "^lib/(.*)\.rb"
     end
     
+    it "should initialize a empty Hash results" do
+      ContinuousTesting.new(:application => application_with_rspec).results.should == {}
+    end
+    
     it "should pass all the rubies for the Rspec class when test framework is Rspec" do
       Rspec.should_receive(:new).with({:rubies => '1.9.1,jruby'})
       continuous_testing = ContinuousTesting.new(:application => application_with(:rubies => %w(1.9.1 jruby), :test_framework => :rspec))

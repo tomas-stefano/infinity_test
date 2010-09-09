@@ -7,12 +7,13 @@ end
 
 module InfinityTest
   class ContinuousTesting
-    attr_accessor :application, :test_framework, :library_directory_pattern
+    attr_accessor :application, :test_framework, :library_directory_pattern, :results
     
     def initialize(options)
       @application = options[:application]
       @test_framework = @application.test_framework.equal?(:rspec) ? Rspec.new(:rubies => @application.rubies) : TestUnit.new(:rubies => @application.rubies)
       @library_directory_pattern = "^lib/(.*)\.rb"
+      @results = {}
     end
     
     def start!
@@ -31,11 +32,9 @@ module InfinityTest
     
     def run!(commands)
       commands.each do |ruby_version, command|
-        puts
-        puts "* Using #{ruby_version}"
-        puts
+        puts "\n* Using #{ruby_version}" ; puts
         puts command
-        system(command)
+        command = Command.new(:ruby_version => ruby_version, :command => command).run!
       end
     end
     
