@@ -6,3 +6,4 @@ temporary
 tmp/*
 rerun.txt
 .bundle/*
+*.rbc

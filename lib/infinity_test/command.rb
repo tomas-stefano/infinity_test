@@ -15,7 +15,8 @@ module InfinityTest
       begin
         open("| #{@command}", "r") do |file|
           until file.eof? do
-            test_line = file.getc or break
+            test_line = file.getc 
+            break unless test_line
             putc(test_line)
             @line.push(test_line)
             push_in_the_results(test_line)
