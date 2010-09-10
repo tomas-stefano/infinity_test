@@ -20,10 +20,11 @@ module InfinityTest
       
       ruby_command = File.join(Config::CONFIG['bindir'], Config::CONFIG['ruby_install_name'])
       path = rspec_path
+      command = "#{ruby_command} #{path} #{spec_files}"
       if jruby?
-        { JRUBY_VERSION => "#{ruby_command} #{path} #{spec_files} --color" }
-      else
-        { RUBY_VERSION  => "#{ruby_command} #{path} #{spec_files} --color" }
+        { JRUBY_VERSION => command }
+      else                                                       
+        { RUBY_VERSION  => command }
       end
     end
     
@@ -37,17 +38,22 @@ module InfinityTest
     
     def construct_rubies_commands(ruby=nil)
       results = Hash.new
-      $stdout.puts "* Grabbing the Rspec Path for each Ruby (This may take some time for the first time)"
+      puts 'Search the Paths (This take some time ONLY in the first run)'   
       RVM.environments(@rubies) do |environment|
         shell_result = environment.ruby(RSPEC_PATH_FILE).stdout
         ruby_version = environment.environment_name
-        if shell_result =~ /Appears that you/
+        puts "Search the Rspec Bin Path for #{ruby_version}"
+        if error_in_the_shell? shell_result
           puts "\n Ruby: #{ruby_version} => #{shell_result}"
         else
-          results[ruby_version] = "rvm '#{ruby_version}' 'ruby' '#{shell_result} #{spec_files} --color'"
+          results[ruby_version] = "rvm '#{ruby_version}' 'ruby' '#{shell_result} #{spec_files}'"
         end
       end
       results
+    end
+    
+    def error_in_the_shell?(shell_result)
+      shell_result =~ /Appears that you/
     end
     
   end

@@ -24,7 +24,7 @@ If you like to add cucumber too:
 
    $ infinity_test --test-unit --rvm-versions=1.8.7,jruby,1.9.2  --cucumber
 
-<b>And you are ready to Test with all ruby versions your Rspec Suite and Cucumber Suite with Autotest Behavior.</b>
+<b>And you are ready to Test with all ruby versions your Rspec(or Test::Unit) Suite and Cucumber Suite with Autotest Behavior.</b>
 
 == Configuration file
 
@@ -36,8 +36,8 @@ Notification Frameworks
 
 * Growl (<b>Just FOR NOW</b>) - Mac
 
-    !/usr/bin/env ruby
-    
+    # ~/.infinity_test or .infinity_test
+
     infinity_test do
 
       notifications :growl do

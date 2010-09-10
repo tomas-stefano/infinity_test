@@ -23,7 +23,7 @@ module InfinityTest
       Command.new.results.should be_instance_of(Array)
     end
     
-    it "should have the line varaiable as Array" do
+    it "should have the line variable as Array" do
       Command.new.line.should be_instance_of(Array)
     end
     
