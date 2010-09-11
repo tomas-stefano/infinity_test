@@ -6,10 +6,26 @@ module InfinityTest
       @config = InfinityTest.configuration
     end
     
+    def library_directory_pattern
+      @library_directory_pattern = "^lib/*/(.*)\.rb"
+    end
+    
     def load_configuration_file
-      [File.expand_path('~/.infinity_test')].each do |file|
-        load file if File.exist?(file)
-      end
+      load_global_configuration    # Separate global and local configuration
+      load_project_configuration   # because it's more easy to test
+    end
+    
+    def load_global_configuration
+      load_file :file => File.expand_path('~/.infinity_test')
+    end
+    
+    def load_project_configuration
+      load_file :file => './.infinity_test'
+    end
+    
+    def load_file(options)
+      file = options[:file]
+      load(file) if File.exist?(file)
     end
     
     def rubies
@@ -22,15 +38,6 @@ module InfinityTest
     
     def cucumber?
       config.use_cucumber?
-    end
-    
-    def gem_not_found_message(gem_name)
-      say "\n Appears that you don't have #{gem_name.capitalize} installed. Run with: \n gem install #{gem_name} \n "
-      raise
-    end
-
-    def say(something)
-      $stdout.puts(something)
     end
     
   end

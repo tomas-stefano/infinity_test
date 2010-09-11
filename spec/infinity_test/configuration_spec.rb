@@ -9,7 +9,7 @@ module InfinityTest
       
       it "Infinity test Dsl of config file should yield in the Configuration scope" do
         infinity_test do
-          run_with
+          use
         end.class.should equal Configuration
       end
       
@@ -42,45 +42,45 @@ module InfinityTest
       
     end
 
-    describe '#run_with' do
+    describe '#use' do
       
       it "should set the rvm versions" do
-        config.run_with :rubies => '1.8.7-p249'
+        config.use :rubies => '1.8.7-p249'
         config.rubies.should be == '1.8.7-p249'
       end
       
       it "should set many ruby versions" do
-        config.run_with :rubies => ['1.9.1', '1.9.2']
+        config.use :rubies => ['1.9.1', '1.9.2']
         config.rubies.should be == '1.9.1,1.9.2'
       end
       
       it "should return a empty collection when not set the rvm option" do
-        config.run_with :cucumber => true
+        config.use :cucumber => true
         config.rubies.should be_empty
       end
       
       it "should set the cucumber option" do
-        config.run_with :cucumber => true
+        config.use :cucumber => true
         config.use_cucumber?.should be_true
       end
       
       it "should return the false object when not use cucumber" do
-        config.run_with :rvm => []
+        config.use :rvm => []
         config.use_cucumber?.should equal false
       end
       
       it "should set the test unit when not set the test framework" do
-        config.run_with
+        config.use
         config.test_framework.should equal :test_unit
       end
       
       it "should return the test framework" do
-        config.run_with :test_framework => :rspec
+        config.use :test_framework => :rspec
         config.test_framework.should equal :rspec
       end
       
       it "should possible to set the test unit for test framework" do
-        config.run_with :test_framework => :test_unit
+        config.use :test_framework => :test_unit
         config.test_framework.should equal :test_unit
       end
       

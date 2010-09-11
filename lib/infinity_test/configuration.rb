@@ -32,11 +32,11 @@ module InfinityTest
     # 
     # Here is the example of Little Domain Language:
     #
-    # run_with :rubies => ['1.9.1', '1.9.2'], :test_framework => :rspec, :cucumber => true
+    # use :rubies => ['1.9.1', '1.9.2'], :test_framework => :rspec, :cucumber => true
     #
-    # run_with :rubies => [ '1.8.7-p249', '1.9.2@rails3'], :test_framework => :test_unit
+    # use :rubies => [ '1.8.7-p249', '1.9.2@rails3'], :test_framework => :test_unit
     #
-    def run_with(options={})
+    def use(options={})
       rubies = options[:rubies]
       @rubies = (rubies.is_a?(Array) ? rubies.join(',') : rubies) || []
       @cucumber = options[:cucumber] || false

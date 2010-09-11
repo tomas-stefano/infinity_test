@@ -7,11 +7,11 @@ infinity_test do
     on :failure, :show_image => :default
   end
 
-  use :rvm => ['1.8.7-p249', '1.9.1', '1.9.2'], :test_framework => :rspec, :cucumber => true
+  use :rvm => ['1.8.7', '1.9.1', '1.9.2', 'jruby'], :test_framework => :rspec, :cucumber => true
 
   ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
 
-  before_suite do
+  before_run do
    clear :terminal
   end
 

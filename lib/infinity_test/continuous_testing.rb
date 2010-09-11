@@ -1,31 +1,26 @@
-begin
-  require 'watchr'
-rescue LoadError
-  require 'rubygems'
-  require 'watchr'
-end
-
 module InfinityTest
   class ContinuousTesting
-    attr_accessor :application, :test_framework, :library_directory_pattern, :results
+    attr_accessor :application, :library_directory_pattern, :results
     
     def initialize(options)
-      @application = options[:application]
-      @test_framework = @application.test_framework.equal?(:rspec) ? Rspec.new(:rubies => @application.rubies) : TestUnit.new(:rubies => @application.rubies)
-      @library_directory_pattern = "^lib/(.*)\.rb"
+      @application = options[:application]      
       @results = {}
     end
     
     def start!
-      @global_commands = @test_framework.construct_commands
+      @global_commands = test_framework.construct_commands
       run! @global_commands
       initialize_watchr!
     end
     
+    def test_framework
+      @test_framework ||= @application.test_framework.equal?(:rspec) ? Rspec.new(:rubies => @application.rubies) : TestUnit.new(:rubies => @application.rubies)
+    end
+    
     def initialize_watchr!
       script = Watchr::Script.new
-      add_rule script, :rule => library_directory_pattern
-      add_rule script, :rule => @test_framework.test_directory_pattern
+      add_rule script, :rule => @application.library_directory_pattern
+      add_rule script, :rule => test_framework.test_directory_pattern
       add_signal
       Watchr::Controller.new(script, Watchr.handler.new).run
     end

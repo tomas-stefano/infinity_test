@@ -15,7 +15,7 @@ module InfinityTest
     
     def load_configuration_file_or_read_the_options!
       @application.load_configuration_file        
-      @application.config.run_with(
+      @application.config.use(
         :rubies => (options[:rubies] || @application.rubies), 
         :test_framework => (options[:test_framework] || @application.test_framework), 
         :cucumber => resolve_cucumber

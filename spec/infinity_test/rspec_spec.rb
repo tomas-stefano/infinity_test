@@ -19,7 +19,7 @@ module InfinityTest
     end
     
     it "should have the pattern for spec directory" do
-      Rspec.new.test_directory_pattern.should be == "^spec/(.*)_spec.rb"
+      Rspec.new.test_directory_pattern.should be == "^spec/*/(.*)_spec.rb"
     end
       
     describe '#rspec_path' do

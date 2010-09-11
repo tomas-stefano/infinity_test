@@ -11,8 +11,10 @@ rescue LoadError
   require 'rspec'
 end
 
+require 'watchr'
+
   def stub_home_config(options)
-    file = File.should_receive(:expand_path).with('~/.infinity_test').and_return(options[:file])
+    File.should_receive(:expand_path).with('~/.infinity_test').and_return(options[:file])
   end
   
   def read_and_load_home_config(options)
@@ -22,18 +24,18 @@ end
   
   def application_with(options)
     application = InfinityTest::Application.new
-    application.config.run_with(options)
+    application.config.use(options)
     application
   end
   
   def application_with_rspec
     application = InfinityTest::Application.new
-    application.config.run_with(:test_framework => :rspec)
+    application.config.use(:test_framework => :rspec)
     application
   end
 
   def application_with_test_unit
     application = InfinityTest::Application.new
-    application.config.run_with(:test_framework => :test_unit)
+    application.config.use(:test_framework => :test_unit)
     application
   end

@@ -1,9 +1,6 @@
-require 'spec_helper'
-
 module InfinityTest
   module Notifications
-    describe Growl do
-      
+    class Growl
     end
   end
 end

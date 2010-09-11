@@ -44,18 +44,11 @@ module InfinityTest
         runner_with_cucumber.application.config.use_cucumber?.should be_true
       end
       
-      it "should overrise the cucumber option if have options in the command line" do
+      it "should override the cucumber option if have options in the command line" do
         stub_home_config :file => 'spec/factories/infinity_test'
         runner_with_cucumber = InfinityTest::Runner.new({:cucumber => false})
         runner_with_cucumber.load_configuration_file_or_read_the_options!
         runner_with_cucumber.application.config.use_cucumber?.should equal false
-      end
-      
-      it "should set the rubies option" do
-        stub_home_config :file => 'spec/factories/infinity_test'
-        runner_with_cucumber = InfinityTest::Runner.new({})
-        runner_with_cucumber.load_configuration_file_or_read_the_options!
-        runner_with_cucumber.application.config.rubies.should be == '1.8.7-p249,1.9.1,1.9.2'
       end
       
       it "should override the options in the configuration file" do

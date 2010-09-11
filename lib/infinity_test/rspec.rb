@@ -12,7 +12,7 @@ module InfinityTest
     #
     def initialize(options={})
       @rubies = options[:rubies] || []
-      @test_directory_pattern = "^spec/(.*)_spec.rb"
+      @test_directory_pattern = "^spec/*/(.*)_spec.rb"
     end
     
     def construct_commands
