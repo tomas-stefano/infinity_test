@@ -2,16 +2,20 @@ module InfinityTest
   class Configuration
     SUPPORTED_FRAMEWORKS = [:growl, :snarl, :lib_notify]
     
-    attr_accessor :notification_framework, :rubies, :cucumber, 
-                  :test_framework, :exceptions_to_ignore, :before_callback, 
+    attr_accessor :notification_framework, 
+                  :rubies, 
+                  :cucumber, 
+                  :test_framework, 
+                  :exceptions_to_ignore, 
+                  :before_callback, 
                   :after_callback
     
     # Set the notification framework to use with Infinity Test.
     # The supported Notification Frameworks are:
     #
     # * Growl (Mac)
-    # * Lib-Notify (Linux/BSD)
-    # * Snarl (Windows)
+    # * Lib-Notify (Linux/BSD) NOT YET IMPLEMENTED
+    # * Snarl (Windows) NOT YET IMPLEMENTED
     #
     # Here is the example of little Domain Specific Language to use:
     #
@@ -20,7 +24,7 @@ module InfinityTest
     #   on :failure, :show_image => 'Users/tomas/images/my_custom_image.png'
     # end
     #
-    def notifications(framework)
+    def notifications(framework, &block)
       raise NotificationFrameworkDontSupported, "Notification :#{framework} don't supported. The Frameworks supported are: #{SUPPORTED_FRAMEWORKS.join(',')}" unless SUPPORTED_FRAMEWORKS.include?(framework)
       @notification_framework = framework
     end
