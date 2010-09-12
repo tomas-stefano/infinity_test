@@ -36,13 +36,13 @@ This gem will be released in September 17.
 
 <b>And you are ready to Test with all ruby versions your Rspec or Test::Unit Suite and Cucumber Suite with Autotest-like Behavior.</b>
 
-## Domain Specific Language For Configuration file
+## Configuration file
 
 ### Notification Frameworks
 
 *   Growl <b>Just FOR NOW</b>
 
-### Configuration file
+### Simple Domain Specific Language for Configuration file
 
 Create the global file or project file called:
 
@@ -59,23 +59,40 @@ Create the global file or project file called:
           on :failure, :show_image => :default  # or :show_image => 'Path/To/My/Image.png'
         end
         
-        run_with :rvm => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec, :cucumber => true
+        use :rvm => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec, :cucumber => true
         
         before_run do
-          # run some code
+          clear :terminal
         end
         
         after_run do
-          # run some code ...
+          puts 'Finished!'
         end
       
       end
 
-*   More and more and more ... Soon ...
+* The notification receives a block with contain that images that you want dysplay.
+
+*  The rubies options accept any ruby that you have installed via RVM.
+
+*  The options for test_framework in the #use method are:
+
+   * Rspec  - :rspec
+   * Test::Unit - :test_unit
+
+* If you want cucumber just add `:cucumber => true` to #use method.
+
+* The #before_run method run before all tests.
+
+* The #after_run method run after all tests.
 
 ## You Like it the Idea?
 
 <b>So make a fork and start contributing =].</b>
+
+## You have a Feature request or Fix?
+
+<b>Contact me in Github and let's talk! =] </b>
 
 ## TODO
 
