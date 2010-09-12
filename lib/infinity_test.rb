@@ -5,7 +5,6 @@ module InfinityTest
   autoload :Configuration, 'infinity_test/configuration'
   autoload :ContinuousTesting, 'infinity_test/continuous_testing'
   autoload :Cucumber, 'infinity_test/cucumber'
-  autoload :Notifications, 'infinity_test/notifications'
   autoload :Options, 'infinity_test/options'
   autoload :Rspec, 'infinity_test/rspec'
   autoload :Runner, 'infinity_test/runner'
@@ -22,5 +21,9 @@ module InfinityTest
   def self.start!
     Runner.new(Options.new(ARGV)).run!    
   end
-
+  
+  module Notifications
+    autoload :Growl, 'infinity_test/notifications/growl'
+  end
+  
 end

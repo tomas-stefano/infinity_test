@@ -1,12 +1,9 @@
 module InfinityTest
   class Application
-    attr_accessor :config
+    attr_accessor :config, :library_directory_pattern
     
     def initialize
       @config = InfinityTest.configuration
-    end
-    
-    def library_directory_pattern
       @library_directory_pattern = "^lib/*/(.*)\.rb"
     end
     
@@ -28,6 +25,14 @@ module InfinityTest
       load(file) if File.exist?(file)
     end
     
+    def before_callback
+      config.before_callback
+    end
+    
+    def after_callback
+      config.after_callback
+    end
+    
     def rubies
       config.rubies
     end
@@ -39,6 +44,6 @@ module InfinityTest
     def cucumber?
       config.use_cucumber?
     end
-    
+
   end
 end

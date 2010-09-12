@@ -1,9 +1,10 @@
 module InfinityTest
   class Command
-    attr_accessor :command, :results, :line
+    attr_accessor :command, :results, :line, :ruby_version
     
     def initialize(options={})
       @command = options[:command]
+      @ruby_version = options[:ruby_version]
       @results = []
       @line = []
     end

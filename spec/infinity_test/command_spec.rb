@@ -2,6 +2,14 @@ require 'spec_helper'
 
 module InfinityTest
   describe Command do
+    
+    it "should pass the ruby version and set" do
+      Command.new(:ruby_version => '1.9.2').ruby_version.should == '1.9.2'
+    end
+
+    it "should pass the ruby version and set" do
+      Command.new(:ruby_version => 'JRuby 1.3.5').ruby_version.should == 'JRuby 1.3.5'
+    end
 
     it "should create and set the command" do
       Command.new(:command => 'rspec spec').command.should == 'rspec spec'

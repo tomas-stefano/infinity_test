@@ -23,21 +23,23 @@ module InfinityTest
       end
       
       it "should possible to set the snarl notification framework" do
+        pending
         config.notifications :snarl
         config.notification_framework.should equal :snarl
       end
       
       it "should possible to set the lib notify notification framework" do
+        pending
         config.notifications :lib_notify
         config.notification_framework.should equal :lib_notify
       end
       
       it "should not possible to set another notification framework" do
-        lambda { config.notifications(:dont_exist) }.should raise_exception(NotificationFrameworkDontSupported, "Notification :dont_exist don't supported. The Frameworks supported are: growl,snarl,lib_notify")
+        lambda { config.notifications(:dont_exist) }.should raise_exception(NotificationFrameworkDontSupported, "Notification :dont_exist don't supported. The Frameworks supported are: growl")
       end
       
       it "should raise exception for non supported notification framework" do
-        lambda { config.notifications(:snarfff) }.should raise_exception(NotificationFrameworkDontSupported, "Notification :snarfff don't supported. The Frameworks supported are: growl,snarl,lib_notify")
+        lambda { config.notifications(:snarfff) }.should raise_exception(NotificationFrameworkDontSupported, "Notification :snarfff don't supported. The Frameworks supported are: growl")
       end
       
     end

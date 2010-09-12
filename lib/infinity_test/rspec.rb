@@ -38,7 +38,7 @@ module InfinityTest
     
     def construct_rubies_commands(ruby=nil)
       results = Hash.new
-      puts 'Search the Paths (This take some time ONLY in the first run)'   
+      puts 'Search the Paths (This take some time ONLY in the first run)'
       RVM.environments(@rubies) do |environment|
         shell_result = environment.ruby(RSPEC_PATH_FILE).stdout
         ruby_version = environment.environment_name

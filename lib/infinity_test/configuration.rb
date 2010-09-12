@@ -1,26 +1,22 @@
 module InfinityTest
   class Configuration
-    SUPPORTED_FRAMEWORKS = [:growl, :snarl, :lib_notify]
     
-    attr_accessor :notification_framework, 
-                  :rubies, 
-                  :cucumber, 
-                  :test_framework, 
-                  :exceptions_to_ignore, 
-                  :before_callback, 
-                  :after_callback
+    SUPPORTED_FRAMEWORKS = [:growl] # :snarl, :lib_notify
+    
+    DEFAULT_DIR_IMAGES = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'images'))
+    
+    attr_accessor :notification_framework, :rubies, :cucumber, :test_framework, 
+                  :exceptions_to_ignore, :before_callback, :after_callback
     
     # Set the notification framework to use with Infinity Test.
     # The supported Notification Frameworks are:
     #
     # * Growl (Mac)
-    # * Lib-Notify (Linux/BSD) NOT YET IMPLEMENTED
-    # * Snarl (Windows) NOT YET IMPLEMENTED
     #
     # Here is the example of little Domain Specific Language to use:
     #
     # notifications :growl do
-    #   on :sucess,  :show_image => :default
+    #   on :sucess,  :show_image => :default # use default image in images/*
     #   on :failure, :show_image => 'Users/tomas/images/my_custom_image.png'
     # end
     #
@@ -85,6 +81,16 @@ module InfinityTest
     #
     def use_cucumber?
       @cucumber
+    end
+    
+    # Clear the terminal (Useful in the before callback)
+    # 
+    # NOTE: This only works in Unix systems
+    #
+    def clear(option)
+      if option == :terminal
+        system('clear')
+      end
     end
     
   end

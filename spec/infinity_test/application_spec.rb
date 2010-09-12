@@ -10,6 +10,43 @@ module InfinityTest
     it "should return test_unit pattern for test unit" do
       @application.library_directory_pattern.should eql "^lib/*/(.*)\.rb"
     end
+    
+    it "should return the rubies in the config" do
+      application_with(:rubies => ['1.8.7']).rubies.should == '1.8.7'
+    end
+    
+    it "should return the rubies in the config" do
+      application_with(:rubies => ['1.9.2']).rubies.should == '1.9.2'
+    end
+    
+    it "should return the before callback" do
+      app = application_with(:cucumber => true)
+      proc = Proc.new { 'To Infinity and beyond!' }
+      app.config.before_run(&proc)
+      app.before_callback.should equal proc
+    end
+
+    it "should return the test framework" do
+      app = application_with(:test_framework => :rspec)
+      app.test_framework.should equal :rspec
+    end
+    
+    it "should return true when use cucumber" do
+      app = application_with(:cucumber => true)
+      app.cucumber?.should be_true    
+    end
+    
+    it "should return true when use cucumber" do
+      app = application_with(:cucumber => false)
+      app.cucumber?.should be_false    
+    end
+
+    it "should return the block when set after callback" do
+      app = application_with(:cucumber => true)
+      proc = Proc.new { 'To Infinity and beyond!' }
+      app.config.after_run(&proc)
+      app.after_callback.should equal proc
+    end
  
     describe '#load_configuration_file' do
       

@@ -1,7 +1,7 @@
 begin
   require 'rubygems'
 rescue LoadError
-  $stdout.puts("Appears that you don't have rubygems installed. Sorry, the infinity_test depends that.")
+  $stdout.puts("Appears that you don't have rubygems installed. Sorry, the infinity_test depends that. If you don't use the rubygems please help me to remove the rubygems dependency.")
   exit
 end
 
