@@ -38,13 +38,13 @@ module InfinityTest
     
     def construct_rubies_commands(ruby=nil)
       results = Hash.new
-      puts 'Search the Paths (This take some time ONLY in the first run)'
+      puts 'Search the Paths (This take some time ONLY in the FIRST TIME)'
       RVM.environments(@rubies) do |environment|
         shell_result = environment.ruby(RSPEC_PATH_FILE).stdout
         ruby_version = environment.environment_name
         puts "Search the Rspec Bin Path for #{ruby_version}"
         if error_in_the_shell? shell_result
-          puts "\n Ruby: #{ruby_version} => #{shell_result}"
+          puts "\n Ruby => #{ruby_version}: #{shell_result}"
         else
           results[ruby_version] = "rvm '#{ruby_version}' 'ruby' '#{shell_result} #{spec_files}'"
         end

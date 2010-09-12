@@ -2,18 +2,7 @@
 
 infinity_test do
 
-  notifications :growl do
-    on :sucess, :show_image => :default
-    on :failure, :show_image => :default
-  end
-
   use :rubies => ['1.8.7', '1.9.1', '1.9.2', 'jruby'], :test_framework => :rspec, :cucumber => true
-
-  ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
-
-  before_run do
-   clear :terminal
-  end
 
 end
 

@@ -1,3 +1,5 @@
+require 'infinity_test/dependencies'
+
 module InfinityTest
   autoload :Application, 'infinity_test/application'
   autoload :BinaryPath, 'infinity_test/binary_path'
@@ -25,5 +27,5 @@ module InfinityTest
   module Notifications
     autoload :Growl, 'infinity_test/notifications/growl'
   end
-  
+
 end

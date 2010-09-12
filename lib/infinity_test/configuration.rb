@@ -5,13 +5,13 @@ module InfinityTest
     
     DEFAULT_DIR_IMAGES = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'images'))
     
-    attr_accessor :notification_framework, :rubies, :cucumber, :test_framework, 
+    attr_accessor :notification_framework, :success_image, :failure_image, :rubies, :cucumber, :test_framework, 
                   :exceptions_to_ignore, :before_callback, :after_callback
     
     # Set the notification framework to use with Infinity Test.
     # The supported Notification Frameworks are:
     #
-    # * Growl (Mac)
+    # * Growl
     #
     # Here is the example of little Domain Specific Language to use:
     #
@@ -23,6 +23,28 @@ module InfinityTest
     def notifications(framework, &block)
       raise NotificationFrameworkDontSupported, "Notification :#{framework} don't supported. The Frameworks supported are: #{SUPPORTED_FRAMEWORKS.join(',')}" unless SUPPORTED_FRAMEWORKS.include?(framework)
       @notification_framework = framework
+      yield self if block_given?
+    end
+
+    # Set the Success and Failure image to show in the notification framework
+    #
+    #   on :sucess,  :show_image => :default # use default image in images/*
+    #   on :failure, :show_image => 'Users/tomas/images/my_custom_image.png'    
+    # 
+    def on(state, options={})
+      if state == :success
+        @success_image = setting_image(options, :default => 'success.png')
+      elsif state == :failure
+        @failure_image = setting_image(options, :default => 'failure.png')
+      end
+    end
+    
+    def setting_image(options, image={})
+       if options[:show_image] == :default
+         File.join(DEFAULT_DIR_IMAGES, image[:default])
+       else
+         options[:show_image]
+       end
     end
     
     # The options method to set:

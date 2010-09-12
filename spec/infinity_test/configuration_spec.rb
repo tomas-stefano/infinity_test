@@ -107,6 +107,34 @@ module InfinityTest
       
     end
 
+    describe '#success_image' do
+      
+      it "should have a default success image" do
+        config.notifications :growl
+        config.on :success, :show_image => :default
+        config.success_image.should == image('success.png')
+      end
+
+      it "should be possible to customize success image" do
+        config.notifications :growl
+        config.on :success, :show_image => image('other.png')
+        config.success_image.should == image('other.png')
+      end
+
+      it "should have a default success image" do
+        config.notifications :growl
+        config.on :failure, :show_image => :default
+        config.failure_image.should == image('failure.png')
+      end
+
+      it "should be possible to customize failure image" do
+        config.notifications :growl
+        config.on :failure, :show_image => image('failure_picture.png')
+        config.failure_image.should == image('failure_picture.png')
+      end
+
+    end
+
     describe '#before_run' do
       
       it "should persist the proc object in the before callback" do

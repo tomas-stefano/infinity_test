@@ -26,9 +26,10 @@ module InfinityTest
     end
     
     def run!(commands)
+      return if commands.empty?
       @application.before_callback.call if @application.before_callback
       commands.each do |ruby_version, command|
-        puts "\n* Using #{ruby_version}" ; puts
+        puts "\n* { Ruby => #{ruby_version} }" ; puts
         puts command
         command = Command.new(:ruby_version => ruby_version, :command => command).run!
       end

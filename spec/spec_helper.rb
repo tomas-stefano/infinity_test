@@ -39,3 +39,8 @@ require 'watchr'
     application.config.use(:test_framework => :test_unit)
     application
   end
+  
+  def image(basename)
+    File.expand_path(File.join(File.dirname(__FILE__), '..', 'images', basename))
+  end
+  
