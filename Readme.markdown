@@ -59,7 +59,7 @@ Create the global file or project file called:
           on :failure, :show_image => :default  # or :show_image => 'Path/To/My/Image.png'
         end
         
-        use :rvm => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec, :cucumber => true
+        use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec, :cucumber => true
         
         before_run do
           clear :terminal
@@ -74,6 +74,8 @@ Create the global file or project file called:
 * The notification receives a block with contain that images that you want dysplay.
 
 *  The rubies options accept any ruby that you have installed via RVM.
+
+<b>Obs.: If you use rspec and cucumber make sure that you have Rspec and Cucumber installed for each :rubies option.</b>
 
 *  The options for test_framework in the #use method are:
 

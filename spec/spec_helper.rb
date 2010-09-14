@@ -40,6 +40,23 @@ require 'watchr'
     application
   end
   
+  def application_with_growl
+    application = InfinityTest::Application.new
+    application.config.notifications :growl
+    application
+  end
+  
+  def new_application(options)
+    application = InfinityTest::Application.new
+    application.config.notifications options[:notifications] if options[:notifications]
+    application.config.use(options) if options
+    application
+  end
+  
+  def continuous_testing_with(application)
+    InfinityTest::ContinuousTesting.new(:application => application)
+  end
+  
   def image(basename)
     File.expand_path(File.join(File.dirname(__FILE__), '..', 'images', basename))
   end

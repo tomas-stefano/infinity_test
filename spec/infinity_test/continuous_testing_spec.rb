@@ -31,5 +31,15 @@ module InfinityTest
     
   end
 
+  describe '#parse_results_and_show_notification!' do
+    
+    it "should parse the results for the rspec" do
+      continuous_testing = continuous_testing_with(new_application(:test_framework => :rspec, :notifications => :growl))
+      Notifications::Growl.should_receive(:notify)
+      continuous_testing.parse_results_and_show_notification!(:results => "....\n105 examples, 0 failures, 0 pending", :ruby_version => '1.9.2')
+    end
+    
+  end
+
   end
 end

@@ -24,6 +24,7 @@ module InfinityTest
       raise NotificationFrameworkDontSupported, "Notification :#{framework} don't supported. The Frameworks supported are: #{SUPPORTED_FRAMEWORKS.join(',')}" unless SUPPORTED_FRAMEWORKS.include?(framework)
       @notification_framework = framework
       yield self if block_given?
+      self
     end
 
     # Set the Success and Failure image to show in the notification framework

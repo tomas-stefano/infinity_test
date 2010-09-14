@@ -1,8 +1,8 @@
 module InfinityTest
-  class Rspec    
+  class Rspec
     include InfinityTest::BinaryPath
     
-    attr_reader :rubies, :test_directory_pattern
+    attr_reader :rubies, :test_directory_pattern, :message
     
     RSPEC_PATH_FILE = File.expand_path(File.join(File.dirname(__FILE__), 'binary_path', 'rspec.rb'))
     
@@ -54,6 +54,22 @@ module InfinityTest
     
     def error_in_the_shell?(shell_result)
       shell_result =~ /Appears that you/
+    end
+    
+    def parse_results(results)
+      shell_result = results.split("\n").last
+      if shell_result =~ /example/
+        @example = shell_result[/(\d+) example/, 1].to_i
+        @failure = shell_result[/(\d+) failure/, 1].to_i
+        @pending = shell_result[/(\d+) pending/, 1].to_i
+        @message = "#{@example} examples, #{@failure} failures, #{@pending} pending"
+      else
+        @message = "An exception occurred"
+      end
+    end
+    
+    def failure?
+      @failure > 0
     end
     
   end

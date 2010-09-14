@@ -47,6 +47,12 @@ module InfinityTest
       app.config.after_run(&proc)
       app.after_callback.should equal proc
     end
+    
+    it "should return the notification framework" do
+      app = application_with(:cucumber => true)
+      app.config.notifications :growl
+      app.notification_framework.should equal :growl
+    end
  
     describe '#load_configuration_file' do
       

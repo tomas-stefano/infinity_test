@@ -1,5 +1,6 @@
 *.sw?
 .DS_STORE
+.DS_Store
 log*
 pkg*
 temporary

@@ -21,7 +21,7 @@ module InfinityTest
     it "should have the pattern for spec directory" do
       Rspec.new.test_directory_pattern.should be == "^spec/*/(.*)_spec.rb"
     end
-      
+    
     describe '#rspec_path' do
       
       it "should return the bin path for rspec 1.3.0" do
@@ -121,6 +121,44 @@ module InfinityTest
         Dir.chdir("#{@current_dir}/spec/factories/slinky") do
           rspec.spec_files.should be == "spec/slinky/slinky_spec.rb"
         end
+      end
+      
+    end
+    
+    describe '#handle_results' do
+      
+      before do
+        @rspec = Rspec.new
+      end
+      
+      it "should handle a example that succeed" do
+        results = "........Finished in 0.299817 seconds\n\n105 examples, 0 failures, 0 pending\n"
+        @rspec.parse_results(results)
+        @rspec.message.should == "105 examples, 0 failures, 0 pending"
+      end
+      
+      it "should parse without the terminal ansi color" do
+        results = "ork\e[0m\n\e[90m    # No reason given\e[0m\n\e[90m    # ./spec/infinity_test/configuration_spec.rb:31\e[0m\n\nFinished in 0.10487 seconds\n\e[33m406 examples, 5 failures, 2 pending\e[0m\n"
+        @rspec.parse_results(results)
+        @rspec.message.should == "406 examples, 5 failures, 2 pending"
+      end
+
+      it "should handle a example that succeed and return false for failure?" do
+        results = "........Finished in 0.299817 seconds\n\n105 examples, 0 failures, 0 pending\n"
+        @rspec.parse_results(results)
+        @rspec.failure?.should equal false
+      end
+      
+      it "should parse without the terminal ansi color and grep the failure" do
+        results = "ork\e[0m\n\e[90m    # No reason given\e[0m\n\e[90m    # ./spec/infinity_test/configuration_spec.rb:31\e[0m\n\nFinished in 0.10487 seconds\n\e[33m406 examples, 5 failures, 2 pending\e[0m\n"
+        @rspec.parse_results(results)
+        @rspec.failure?.should be_true
+      end
+      
+      it "should parse rspec tests errors" do
+        results = "/Users/tomas/.rvm/gems/ruby-1.9.2@infinity_test/gems/my_class/bin/klass:2:in `require': no such file to load -- MyClass (LoadError)"
+        @rspec.parse_results(results)
+        @rspec.message.should == "An exception occurred"
       end
       
     end

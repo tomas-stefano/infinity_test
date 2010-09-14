@@ -44,6 +44,10 @@ module InfinityTest
     def cucumber?
       config.use_cucumber?
     end
+    
+    def notification_framework
+      config.notification_framework
+    end
 
   end
 end
