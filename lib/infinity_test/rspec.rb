@@ -68,8 +68,17 @@ module InfinityTest
       end
     end
     
+    def sucess?
+      return false if failure? or pending?
+      true
+    end
+    
     def failure?
       @failure > 0
+    end
+    
+    def pending?
+      @pending > 0
     end
     
   end

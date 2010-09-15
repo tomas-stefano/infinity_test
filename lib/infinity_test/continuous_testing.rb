@@ -20,7 +20,7 @@ module InfinityTest
       return if commands.empty?
       @application.before_callback.call if @application.before_callback
       commands.each do |ruby_version, command|
-        puts; puts "* { Ruby => #{ruby_version} }" ; puts
+        puts; puts "* { :ruby => #{ruby_version} }" ; puts
         puts command
         command = Command.new(:ruby_version => ruby_version, :command => command).run!
         parse_results_and_show_notification!(:results => command.results, :ruby_version => ruby_version)
@@ -32,7 +32,7 @@ module InfinityTest
       return nil unless @application.notification_framework
       results = test_framework.parse_results(options[:results])
       if @application.notification_framework == :growl
-        Notifications::Growl.notify(:ruby_version => options[:ruby_version], :message => test_framework.message)
+        Notifications::Growl.notify(:tittle => options[:ruby_version], :message => test_framework.message)
       end
     end
     

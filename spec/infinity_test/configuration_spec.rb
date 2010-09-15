@@ -107,7 +107,7 @@ module InfinityTest
       
     end
 
-    describe '#success_image' do
+    describe '#show_images' do
       
       before { @config = Configuration.new }
       

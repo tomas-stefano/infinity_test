@@ -16,7 +16,7 @@ module InfinityTest
     # Here is the example of little Domain Specific Language to use:
     #
     # notifications :growl do
-    #   mode :simpson
+    #   show_images :mode => :simpson
     # end
     #
     def notifications(framework, &block)
