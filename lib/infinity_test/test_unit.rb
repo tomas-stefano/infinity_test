@@ -1,6 +1,6 @@
 module InfinityTest
   class TestUnit
-    attr_reader :rubies
+    attr_reader :rubies, :message
     
     def initialize(options={})
       @rubies = options[:rubies] || []
@@ -56,6 +56,16 @@ module InfinityTest
       $LOAD_PATH.each do |path|
         file_path = File.join(path, "infinity_test/test_unit_loader.rb")    
         return file_path if File.exist?(file_path)
+      end
+    end
+    
+    def parse_results(results)
+      shell_result = results.split("\n")
+      shell_result = shell_result.select { |line| line =~ /(\d+) tests/}.first
+      if shell_result
+        @message = shell_result
+      else
+        @message = "An exception ocurred"
       end
     end
   

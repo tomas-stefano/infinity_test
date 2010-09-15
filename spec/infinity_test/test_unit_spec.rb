@@ -50,7 +50,7 @@ module InfinityTest
     
     describe '#construct_commands' do
       
-      it "should return a Hash when not have rubies" do
+    it "should return a Hash when not have rubies" do
         TestUnit.new.construct_commands.should be_instance_of(Hash)
       end
       
@@ -73,4 +73,30 @@ module InfinityTest
     end
     
   end
+    
+    describe '#parse_results' do
+      
+      before do
+        @test_unit = TestUnit.new
+      end
+      
+      it "should parse when have all passed" do
+        results = ".....\n3 tests, 3 assertions, 0 failures, 0 errors, 0 skips"
+        @test_unit.parse_results(results)
+        @test_unit.message.should == "3 tests, 3 assertions, 0 failures, 0 errors, 0 skips"
+      end
+      
+      it "should parse when have extra message (in Ruby 1.9.*)" do
+        results = "\nFinished in 0.001742 seconds.\n\n3 tests, 3 assertions, 1 failures, 1 errors, 1 skips\n\nTest run options: --seed 18841\n"
+        @test_unit.parse_results(results)
+        @test_unit.message.should == "3 tests, 3 assertions, 1 failures, 1 errors, 1 skips"
+      end
+
+      it "should parse when have a exception" do
+        @test_unit.parse_results("")
+        @test_unit.message.should == "An exception ocurred"
+      end
+            
+    end
+    
 end
