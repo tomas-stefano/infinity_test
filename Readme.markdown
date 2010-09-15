@@ -20,14 +20,21 @@ This gem will be released in September 17.
 
 ## Running Tests only in one ruby
 
-   ` 
+With Rspec:
+
+    infinity_test --rspec
+
+With Rspec and Cucumber:
+
     infinity_test --rspec --cucumber
 
-   `
+With Test::Unit:
 
-   `
-	infinity_test --test-unit --cucumber
-   `
+	infinity_test --test-unit
+
+With Test::Unit and Cucumber:
+
+    infinity_test --test-unit --cucumber
 
 ## Running Tests with many Rubies
 
