@@ -40,17 +40,17 @@ With Test::Unit and Cucumber:
 
 *  With Rspec:
 
-   `$ infinity_test --rspec --rubies=1.8.7,jruby,1.9.2,ree`
+    infinity_test --rspec --rubies=1.8.7,jruby,1.9.2,ree
 
 *  Or with Test::Unit:
 
-   `$ infinity_test --test-unit --rubies=1.8.7,jruby,ree,1.9.2`
+    infinity_test --test-unit --rubies=1.8.7,jruby,ree,1.9.2
 
 *  If you like to add cucumber too:
 
-   `$ infinity_test --rspec --rubies=1.8.7,jruby,1.9.2  --cucumber`
+    infinity_test --rspec --rubies=1.8.7,jruby,1.9.2  --cucumber
 
-   `$ infinity_test --test-unit --rubies=1.8.7,jruby,1.9.2  --cucumber`
+    infinity_test --test-unit --rubies=1.8.7,jruby,1.9.2  --cucumber
 
 <b>And you are ready to Test with all ruby versions your Rspec or Test::Unit Suite and Cucumber Suite with Autotest-like Behavior.</b>
 
