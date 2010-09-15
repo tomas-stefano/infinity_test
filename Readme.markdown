@@ -38,15 +38,15 @@ With Test::Unit and Cucumber:
 
 ## Running Tests with many Rubies
 
-*  With Rspec:
+With Rspec:
 
     infinity_test --rspec --rubies=1.8.7,jruby,1.9.2,ree
 
-*  Or with Test::Unit:
+Or with Test::Unit:
 
     infinity_test --test-unit --rubies=1.8.7,jruby,ree,1.9.2
 
-*  If you like to add cucumber too:
+If you like to add cucumber too:
 
     infinity_test --rspec --rubies=1.8.7,jruby,1.9.2  --cucumber
 
