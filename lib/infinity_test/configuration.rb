@@ -5,7 +5,7 @@ module InfinityTest
     
     DEFAULT_DIR_IMAGES = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'images'))
     
-    attr_accessor :notification_framework, :success_image, :failure_image, :rubies, :cucumber, :test_framework, 
+    attr_accessor :notification_framework, :sucess_image, :failure_image, :pending_image, :rubies, :cucumber, :test_framework, 
                   :exceptions_to_ignore, :before_callback, :after_callback
     
     # Set the notification framework to use with Infinity Test.
@@ -16,8 +16,7 @@ module InfinityTest
     # Here is the example of little Domain Specific Language to use:
     #
     # notifications :growl do
-    #   on :sucess,  :show_image => :default # use default image in images/*
-    #   on :failure, :show_image => 'Users/tomas/images/my_custom_image.png'
+    #   mode :simpson
     # end
     #
     def notifications(framework, &block)
@@ -29,22 +28,25 @@ module InfinityTest
 
     # Set the Success and Failure image to show in the notification framework
     #
-    #   on :sucess,  :show_image => :default # use default image in images/*
-    #   on :failure, :show_image => 'Users/tomas/images/my_custom_image.png'    
+    #   show_images :sucess => :default, :failure => :default # use default image in images/*
+    #   show_images :failure => :default, :failure => 'Users/tomas/images/my_custom_image.png'    
     # 
-    def on(state, options={})
-      if state == :success
-        @success_image = setting_image(options, :default => 'success.png')
-      elsif state == :failure
-        @failure_image = setting_image(options, :default => 'failure.png')
-      end
+    # Or you cant set modes for show images (please see the images folder in => http://github.com/tomas-stefano/infinity_test/tree/master/images/ )
+    #  
+    #  show_images :mode => :simpson # => This will show images in http://github.com/tomas-stefano/infinity_test/tree/master/images/simpson folder
+    #  show_images :mode => :street_fighter # => This will show images in http://github.com/tomas-stefano/infinity_test/tree/master/images/street_fighter folder
+    #
+    def show_images(options={})
+      @sucess_image = setting_image(options[:sucess], :default => 'success.png')
+      @failure_image = setting_image(options[:failure], :default => 'failure.png')
+      @pending_image = setting_image(options[:pending], :default => 'pending.png')
     end
     
-    def setting_image(options, image={})
-       if options[:show_image] == :default
-         File.join(DEFAULT_DIR_IMAGES, image[:default])
+    def setting_image(image, default_image)
+       unless image == :default
+         image
        else
-         options[:show_image]
+         File.join(DEFAULT_DIR_IMAGES, default_image[:default])
        end
     end
     

@@ -109,28 +109,42 @@ module InfinityTest
 
     describe '#success_image' do
       
+      before { @config = Configuration.new }
+      
       it "should have a default success image" do
-        config.notifications :growl
-        config.on :success, :show_image => :default
-        config.success_image.should == image('success.png')
+        @config.notifications :growl
+        @config.show_images :sucess => :default
+        @config.sucess_image.should == image('success.png')
       end
 
       it "should be possible to customize success image" do
-        config.notifications :growl
-        config.on :success, :show_image => image('other.png')
-        config.success_image.should == image('other.png')
+        @config.notifications :growl
+        @config.show_images :sucess => image('other.png')
+        @config.sucess_image.should == image('other.png')
       end
 
-      it "should have a default success image" do
-        config.notifications :growl
-        config.on :failure, :show_image => :default
-        config.failure_image.should == image('failure.png')
+      it "should have a default failure image" do
+        @config.notifications :growl
+        @config.show_images :failure => :default
+        @config.failure_image.should == image('failure.png')
       end
 
       it "should be possible to customize failure image" do
-        config.notifications :growl
-        config.on :failure, :show_image => image('failure_picture.png')
-        config.failure_image.should == image('failure_picture.png')
+        @config.notifications :growl
+        @config.show_images :failure => image('failure_picture.png')
+        @config.failure_image.should == image('failure_picture.png')
+      end
+
+      it "should have a default failure image" do
+        @config.notifications :growl
+        @config.show_images :pending => :default
+        @config.pending_image.should == image('pending.png')
+      end
+
+      it "should be possible to customize failure image" do
+        @config.notifications :growl
+        @config.show_images :pending => image('pending_picture.png')
+        @config.pending_image.should == image('pending_picture.png')
       end
 
     end

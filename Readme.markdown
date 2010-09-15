@@ -56,15 +56,13 @@ If you like to add cucumber too:
 
 ## Configuration file
 
-### Notification Frameworks
-
-*   Growl <b>Just FOR NOW</b>
-
 ### Simple Domain Specific Language for Configuration file
 
-Create the global file or project file called:
+If you don't set all the time the rubies that you want you can write some code that infinity_test understand.
 
-   `~/.infinity_test or .infinity_test`
+So create the global file or project file called:
+
+    ~/.infinity_test or .infinity_test
 
 <b>Note:</b> The project file will override the configuration of global file if have the same options!.
 
@@ -73,8 +71,7 @@ Create the global file or project file called:
       infinity_test do
       
         notifications :growl do
-          on :sucess,  :show_image => :default  # or :show_image => 'Path/To/My/Image.png'
-          on :failure, :show_image => :default  # or :show_image => 'Path/To/My/Image.png'
+		  show_images :sucess => :default, :failure => :default # :sucess => 'Path/To/My/Image.png', :failure => 'Path/To/My/Other/Image.png'
         end
         
         use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec, :cucumber => true
