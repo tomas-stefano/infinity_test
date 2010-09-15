@@ -18,6 +18,17 @@ giving the possibility to test with all <b>Rubies</b> that you have in your RVM 
 
 This gem will be released in September 17.
 
+## Running Tests only in one ruby
+
+   ` 
+    infinity_test --rspec --cucumber
+
+   `
+
+   `
+	infinity_test --test-unit --cucumber
+   `
+
 ## Running Tests with many Rubies
 
 *  With Rspec:
