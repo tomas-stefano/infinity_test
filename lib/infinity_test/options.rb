@@ -38,7 +38,7 @@ module InfinityTest
     end
     
     def parse_rvm_versions(options)
-      options.on('--rvm-versions=rubies', 'Specify the Ruby Versions for Testing with several Rubies') do |versions|
+      options.on('--rubies=rubies', 'Specify the Ruby Versions for Testing with several Rubies') do |versions|
         self[:rubies] = versions
       end
     end

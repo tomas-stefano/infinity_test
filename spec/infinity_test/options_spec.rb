@@ -36,12 +36,12 @@ module InfinityTest
       end
       
       it "should parse --rvm-versions and return an array" do
-        parse_options('--rvm-versions=1.8.6,1.8.7')
+        parse_options('--rubies=1.8.6,1.8.7')
         @options[:rubies].should eql '1.8.6,1.8.7'
       end
       
       it "should parse --rvm-versions with dashes" do
-        parse_options('--rvm-versions=1.8.7-p249,1.9.1-p378')
+        parse_options('--rubies=1.8.7-p249,1.9.1-p378')
         @options[:rubies].should eql '1.8.7-p249,1.9.1-p378'
       end
       
@@ -60,7 +60,7 @@ module InfinityTest
       end
       
       it "should not return nil when not using rspec" do
-        parse_options('--rvm-versions=1.8.6')
+        parse_options('--rubies=1.8.6')
         @options.rspec?.should_not be_nil
       end
       
