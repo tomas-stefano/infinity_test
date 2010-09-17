@@ -2,11 +2,29 @@ module InfinityTest
   class Application
     attr_accessor :config, :library_directory_pattern
     
+    # Initialize the Application object with the configuration instance to 
+    # load configuration and set properly
+    #
     def initialize
       @config = InfinityTest.configuration
       @library_directory_pattern = "^lib/*/(.*)\.rb"
     end
     
+    # Load the Configuration file
+    #
+    # Load first global file in => ~/.infinity_test
+    # After load the project file => ./.infinity_test
+    #
+    # If the Project file has the same methods in the global, will override the configurations
+    #
+    # Example:
+    #
+    #  ~/.infinity_test -> infinity_test { notifications :growl }
+    #
+    #  ./.infinity_test -> infinity_test { notifications :lib_notify }  # High Priority
+    #
+    # After the load the Notifications Framework will be Lib Notify
+    #
     def load_configuration_file
       load_global_configuration    # Separate global and local configuration
       load_project_configuration   # because it's more easy to test

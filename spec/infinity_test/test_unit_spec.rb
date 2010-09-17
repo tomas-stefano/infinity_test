@@ -16,7 +16,7 @@ module InfinityTest
     end
     
     it "should have the test directory pattern" do
-      TestUnit.new(:rubies => 'ree,1.9.1').test_directory_pattern.should be == "^test/(.*)_test.rb"
+      TestUnit.new(:rubies => 'ree,1.9.1').test_directory_pattern.should be == "^test/*/(.*)_test.rb"
     end
     
     it "should be empty when not have rubies" do

@@ -153,6 +153,12 @@ module InfinityTest
         @config.sucess_image.should == image('street_fighter/sucess.jpg')
       end
 
+      it "should possible to change the dir of the images" do
+        @config.notifications :growl
+        @config.show_images :mode => custom_image_dir
+        @config.sucess_image.should == custom_image('images/sucess.png')
+      end
+      
     end
 
     describe '#before_run' do

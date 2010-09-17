@@ -58,3 +58,10 @@ require 'watchr'
     File.expand_path(File.join(File.dirname(__FILE__), '..', 'images', basename))
   end
   
+  def custom_image(basename)
+    File.expand_path(File.join(File.dirname(__FILE__), 'factories', basename))
+  end
+  
+  def custom_image_dir
+    File.expand_path(File.join(File.dirname(__FILE__), 'factories', 'images'))
+  end

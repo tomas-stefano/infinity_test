@@ -8,6 +8,9 @@ module InfinityTest
     
     IMAGES_DIR = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'images'))
     
+    # Initialize the Configuration object that keeps the images, callbacks
+    # and rubies, cucumber and the test framework
+    # 
     def initialize
       @default_dir_image = File.join(IMAGES_DIR, 'simpson')
       @sucess_image  = 'sucess'
@@ -37,10 +40,14 @@ module InfinityTest
     #
     #   show_images :failure => 'Users/tomas/images/my_custom_image.png', :sucess => 'custom_image.jpg'
     # 
-    # Or you cant set modes for show images (please see the images folder in => http://github.com/tomas-stefano/infinity_test/tree/master/images/ )
+    # Or you cant set modes(directory) for show images (please see the images folder in => http://github.com/tomas-stefano/infinity_test/tree/master/images/ )
     #  
-    #  show_images :mode => :simpson # => This will show images in http://github.com/tomas-stefano/infinity_test/tree/master/images/simpson folder
-    #  show_images :mode => :street_fighter # => This will show images in http://github.com/tomas-stefano/infinity_test/tree/master/images/street_fighter folder
+    #  show_images :mode => :simpson # => This will show images in the folder http://github.com/tomas-stefano/infinity_test/tree/master/images/simpson
+    #  show_images :mode => :street_fighter # => This will show images in folder http://github.com/tomas-stefano/infinity_test/tree/master/images/street_fighter
+    #  show_images :mode => '~/My/Mode' # => This will show images in the '~/My/Mode' directory
+    #
+    # The Convention in images folder is to set sucess, failure and pending images, and
+    # Infinity test will work on these names in the notification framework
     #
     def show_images(options={})
       switch_mode!(options[:mode]) if options[:mode]
@@ -49,14 +56,23 @@ module InfinityTest
       @pending_image = setting_image(options[:pending]) || search_image(@pending_image)
     end
     
+    # Switch the image directory to show
+    #
     def switch_mode!(mode)
-      @default_dir_image = File.join(IMAGES_DIR, mode.to_s)
+      case mode
+      when Symbol
+        @default_dir_image = File.join(IMAGES_DIR, mode.to_s)
+      when String
+        @default_dir_image = File.expand_path(File.join(mode))
+      end
     end
     
     def setting_image(image)
       image unless image.equal?(:default)
     end
     
+    # Search the sucess, failure or pending images and return the first in the pattern
+    #
     def search_image(file)
       Dir.glob(File.join(@default_dir_image, file) + '*').first
     end
@@ -85,6 +101,9 @@ module InfinityTest
     #
     # ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
     #
+    # This is useless right now in the Infinity Test because the library 
+    # only monitoring lib and test/spec folder.
+    #
     def ignore(options={})
       @exceptions_to_ignore = options[:exceptions] || []
     end
@@ -94,7 +113,7 @@ module InfinityTest
     # Example:
     #
     # before_run do
-    #   system('clear')
+    #   clear :terminal
     # end
     #
     def before_run(&block)
@@ -106,7 +125,7 @@ module InfinityTest
     # Example:
     #
     # after_run do
-    #   # some code here
+    #   # some code that I want to run after all the rubies run
     # end
     #
     def after_run(&block)
@@ -120,13 +139,9 @@ module InfinityTest
     end
     
     # Clear the terminal (Useful in the before callback)
-    # 
-    # NOTE: This only works in Unix systems
     #
     def clear(option)
-      if option == :terminal
-        system('clear')
-      end
+      system('clear') if option == :terminal
     end
     
   end

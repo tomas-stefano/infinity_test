@@ -1,13 +1,10 @@
 module InfinityTest
   class TestUnit
-    attr_reader :rubies, :message
+    attr_reader :rubies, :message, :test_directory_pattern
     
     def initialize(options={})
       @rubies = options[:rubies] || []
-    end
-    
-    def test_directory_pattern
-      "^test/(.*)_test.rb"
+      @test_directory_pattern = "^test/*/(.*)_test.rb"
     end
     
     def construct_commands
