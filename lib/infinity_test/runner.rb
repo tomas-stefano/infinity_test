@@ -16,18 +16,10 @@ module InfinityTest
     def load_configuration_file_or_read_the_options!
       @application.load_configuration_file
       @application.config.use(
-        :rubies => (options[:rubies] || @application.rubies), 
-        :test_framework => (options[:test_framework] || @application.test_framework), 
-        :cucumber => resolve_cucumber
+        :rubies => (options[:rubies] || @application.rubies),
+        :test_framework => (options[:test_framework] || @application.config.test_framework), 
+        :cucumber => (options.include?(:cucumber) ? options[:cucumber] : @application.cucumber?)
       )
-    end
-    
-    def resolve_cucumber
-      if options.include?(:cucumber)
-        cucumber = options[:cucumber]
-      else
-        cucumber = @application.cucumber?
-      end
     end
     
     def start_continuous_testing!

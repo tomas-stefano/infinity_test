@@ -5,6 +5,14 @@ module InfinityTest
     before { @config = Configuration.new }
     let(:config) { @config }
     
+    describe '#initialize' do
+      
+      it "should set the test_unit as default test framework" do
+        Configuration.new.test_framework.should equal :test_unit
+      end
+      
+    end
+    
     describe '#infinity_test' do
       
       it "Infinity test Dsl of config file should yield in the Configuration scope" do
@@ -23,17 +31,16 @@ module InfinityTest
       end
       
       it "should possible to set the lib notify notification framework" do
-        pending
         config.notifications :lib_notify
         config.notification_framework.should equal :lib_notify
       end
       
       it "should not possible to set another notification framework" do
-        lambda { config.notifications(:dont_exist) }.should raise_exception(NotificationFrameworkDontSupported, "Notification :dont_exist don't supported. The Frameworks supported are: growl")
+        lambda { config.notifications(:dont_exist) }.should raise_exception(NotificationFrameworkDontSupported, "Notification :dont_exist don't supported. The Frameworks supported are: growl,lib_notify")
       end
       
       it "should raise exception for non supported notification framework" do
-        lambda { config.notifications(:snarfff) }.should raise_exception(NotificationFrameworkDontSupported, "Notification :snarfff don't supported. The Frameworks supported are: growl")
+        lambda { config.notifications(:snarfff) }.should raise_exception(NotificationFrameworkDontSupported, "Notification :snarfff don't supported. The Frameworks supported are: growl,lib_notify")
       end
       
     end

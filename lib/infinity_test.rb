@@ -25,6 +25,7 @@ module InfinityTest
   
   module Notifications
     autoload :Growl, 'infinity_test/notifications/growl'
+    autoload :LibNotify, 'infinity_test/notifications/lib_notify'
   end
 
 end

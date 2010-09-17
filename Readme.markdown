@@ -113,6 +113,7 @@ So create the global file or project file called:
 
 ## TODO
 
+* Make work the system notification in Lib Notify
 * Make work the system notification in Growl for Test::Unit and Cucumber
 * Make work with cucumber
 * Working in focus files and run only the modified file (Strategies for Test::Unit, Rspec and Cucumber)

@@ -1,7 +1,7 @@
 module InfinityTest
   class Configuration
     
-    SUPPORTED_FRAMEWORKS = [:growl] # :snarl, :lib_notify
+    SUPPORTED_FRAMEWORKS = [:growl, :lib_notify] # :snarl, :lib_notify
     
     attr_accessor :notification_framework, :sucess_image, :failure_image, :pending_image, :rubies, :cucumber, :test_framework, 
                   :exceptions_to_ignore, :before_callback, :after_callback
@@ -16,17 +16,19 @@ module InfinityTest
       @sucess_image  = 'sucess'
       @failure_image = 'failure'
       @pending_image = 'pending'
+      @test_framework = :test_unit
     end
     
     # Set the notification framework to use with Infinity Test.
     # The supported Notification Frameworks are:
     #
     # * Growl
+    # * Lib-Notify
     #
     # Here is the example of little Domain Specific Language to use:
     #
     # notifications :growl do
-    #   show_images :mode => :simpson
+    #   # block
     # end
     #
     def notifications(framework, &block)
@@ -51,7 +53,7 @@ module InfinityTest
     #
     def show_images(options={})
       switch_mode!(options[:mode]) if options[:mode]
-      @sucess_image = setting_image(options[:sucess]) || search_image(@sucess_image)
+      @sucess_image = setting_image(options[:sucess])   || search_image(@sucess_image)
       @failure_image = setting_image(options[:failure]) || search_image(@failure_image)
       @pending_image = setting_image(options[:pending]) || search_image(@pending_image)
     end
@@ -92,7 +94,7 @@ module InfinityTest
       rubies = options[:rubies]
       @rubies = (rubies.is_a?(Array) ? rubies.join(',') : rubies) || []
       @cucumber = options[:cucumber] || false
-      @test_framework = options[:test_framework] || :test_unit
+      @test_framework = options[:test_framework] || @test_framework
     end
     
     # Method to use to ignore some dir/files changes
