@@ -1,9 +1,6 @@
 require 'rubygems'
-require 'infinity_test'
 
-rvm_library_directory = File.expand_path("~/.rvm/lib")
-$LOAD_PATH.unshift(rvm_library_directory) unless $LOAD_PATH.include?(rvm_library_directory)
-require 'rvm'
+require 'infinity_test'
 
 begin
   require 'spec'

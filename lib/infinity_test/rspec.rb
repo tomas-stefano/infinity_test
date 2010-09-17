@@ -1,44 +1,28 @@
 module InfinityTest
   class Rspec
-    include InfinityTest::BinaryPath
+    attr_reader :rubies, :test_directory_pattern, :message, :test_pattern
     
-    attr_reader :rubies, :test_directory_pattern, :message
-    
-    RSPEC_PATH_FILE = File.expand_path(File.join(File.dirname(__FILE__), 'binary_path', 'rspec.rb'))
-    
+    #
     # rspec = InfinityTest::Rspec.new(:rubies => '1.9.1,1.9.2')
     # rspec.rubies # => '1.9.1,1.9.2'
-    # rspec.run!
     #
     def initialize(options={})
       @rubies = options[:rubies] || []
       @test_directory_pattern = "^spec/*/(.*)_spec.rb"
+      @test_pattern = options[:test_pattern] || 'spec/**/*_spec.rb'
     end
     
     def construct_commands
-      return construct_rubies_commands unless @rubies.empty?
-      
-      ruby_command = File.join(Config::CONFIG['bindir'], Config::CONFIG['ruby_install_name'])
-      path = rspec_path
-      command = "#{ruby_command} #{path} #{spec_files}"
-      if jruby?
-        { JRUBY_VERSION => command }
-      else                                                       
-        { RUBY_VERSION  => command }
-      end
-    end
-    
-    def jruby?
-      RUBY_PLATFORM == 'java'
+      @rubies << RVM::Environment.current.environment_name if @rubies.empty?
+      construct_rubies_commands
     end
     
     def spec_files
-      Dir['spec/**/*_spec.rb'].collect { |file| file }.join(' ')
+      Dir[@test_pattern].collect { |file| file }.join(' ')
     end
     
-    def construct_rubies_commands(ruby=nil)
+    def construct_rubies_commands
       results = Hash.new
-      puts 'Search the Paths (This take some time ONLY in the FIRST TIME)'
       RVM.environments(@rubies) do |environment|
         ruby_version = environment.environment_name
         rspec_binary = search_rspec_two(environment)
