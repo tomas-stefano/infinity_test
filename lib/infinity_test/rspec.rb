@@ -1,6 +1,6 @@
 module InfinityTest
   class Rspec
-    attr_reader :rubies, :test_directory_pattern, :message, :test_pattern
+    attr_accessor :rubies, :test_directory_pattern, :message, :test_pattern, :failure, :sucess, :pending
     
     #
     # rspec = InfinityTest::Rspec.new(:rubies => '1.9.1,1.9.2')
@@ -56,6 +56,7 @@ module InfinityTest
         @pending = shell_result[/(\d+) pending/, 1].to_i
         @message = "#{@example} examples, #{@failure} failures, #{@pending} pending"
       else
+        @example, @pending, @failure = 0, 0, 1
         @message = "An exception occurred"
       end
     end
@@ -70,7 +71,7 @@ module InfinityTest
     end
     
     def pending?
-      @pending > 0
+      @pending > 0 and not failure?
     end
     
   end

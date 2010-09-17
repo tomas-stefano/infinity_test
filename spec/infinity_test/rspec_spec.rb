@@ -85,7 +85,7 @@ module InfinityTest
       end
 
       it "should parse without the terminal ansi color and grep the pending" do
-        results = "ork\e[0m\n\e[90m    # No reason given\e[0m\n\e[90m    # ./spec/infinity_test/configuration_spec.rb:31\e[0m\n\nFinished in 0.10487 seconds\n\e[33m406 examples, 5 failures, 2 pending\e[0m\n"
+        results = "ork\e[0m\n\e[90m    # No reason given\e[0m\n\e[90m    # ./spec/infinity_test/configuration_spec.rb:31\e[0m\n\nFinished in 0.10487 seconds\n\e[33m406 examples, 0 failures, 2 pending\e[0m\n"
         @rspec.parse_results(results)
         @rspec.pending?.should be_true
       end
@@ -95,7 +95,24 @@ module InfinityTest
         @rspec.parse_results(results)
         @rspec.message.should == "An exception occurred"
       end
-      
+
+      it "should parse rspec tests errors" do
+        results = "/Users/tomas/.rvm/gems/ruby-1.9.2@infinity_test/gems/my_class/bin/klass:2:in `require': no such file to load -- MyClass (LoadError)"
+        @rspec.parse_results(results)
+        @rspec.failure?.should be_true
+      end
+
+      it "should parse rspec tests errors" do
+        results = "/Users/tomas/.rvm/gems/ruby-1.9.2@infinity_test/gems/my_class/bin/klass:2:in `require': no such file to load -- MyClass (LoadError)"
+        @rspec.parse_results(results)
+        @rspec.sucess?.should equal false
+      end
+
+      it "should parse rspec tests errors" do
+        results = "/Users/tomas/.rvm/gems/ruby-1.9.2@infinity_test/gems/my_class/bin/klass:2:in `require': no such file to load -- MyClass (LoadError)"
+        @rspec.parse_results(results)
+        @rspec.pending?.should equal false
+      end            
     end
     
     describe '#sucess?' do
@@ -117,6 +134,23 @@ module InfinityTest
         results = "........Finished in 0.299817 seconds\n\n105 examples, 0 failures, 0 pending\n"
         @rspec.parse_results(results)
         @rspec.sucess?.should be_true
+      end
+      
+    end
+    
+    describe '#pending?' do
+      let(:rspec) { Rspec.new }
+      
+      it "should return true when have pending" do
+        rspec.pending = 1
+        rspec.failure = 0
+        rspec.pending?.should be_true
+      end
+
+      it "should return false when have pending bu thave failures" do
+        rspec.pending = 1
+        rspec.failure = 1
+        rspec.pending?.should equal false
       end
       
     end

@@ -24,7 +24,7 @@ module InfinityTest
       # growl(:ruby_version => "Ruby 1.9.2", :message => "0 examples, 0 failures", :name => 'infinity_test')
       
       def self.notify(options)
-        system "growlnotify -n infinity_test -m '#{options[:message]}' -t 'Ruby #{options[:tittle]}'"
+        system "growlnotify -n infinity_test -m '#{options[:message]}' -t 'Ruby #{options[:tittle]}' --image #{options[:image]}"
       end
       
     end

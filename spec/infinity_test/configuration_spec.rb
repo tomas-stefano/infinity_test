@@ -22,12 +22,6 @@ module InfinityTest
         config.notification_framework.should equal :growl
       end
       
-      it "should possible to set the snarl notification framework" do
-        pending
-        config.notifications :snarl
-        config.notification_framework.should equal :snarl
-      end
-      
       it "should possible to set the lib notify notification framework" do
         pending
         config.notifications :lib_notify
@@ -114,7 +108,7 @@ module InfinityTest
       it "should have a default success image" do
         @config.notifications :growl
         @config.show_images :sucess => :default
-        @config.sucess_image.should == image('success.png')
+        @config.sucess_image.should == image('simpson/sucess.jpg')
       end
 
       it "should be possible to customize success image" do
@@ -126,7 +120,7 @@ module InfinityTest
       it "should have a default failure image" do
         @config.notifications :growl
         @config.show_images :failure => :default
-        @config.failure_image.should == image('failure.png')
+        @config.failure_image.should == image('simpson/failure.gif')
       end
 
       it "should be possible to customize failure image" do
@@ -138,13 +132,25 @@ module InfinityTest
       it "should have a default failure image" do
         @config.notifications :growl
         @config.show_images :pending => :default
-        @config.pending_image.should == image('pending.png')
+        @config.pending_image.should == image('simpson/pending.jpg')
       end
 
       it "should be possible to customize failure image" do
         @config.notifications :growl
         @config.show_images :pending => image('pending_picture.png')
         @config.pending_image.should == image('pending_picture.png')
+      end
+      
+      it "should possible to change the dir of images" do
+        @config.notifications :growl
+        @config.show_images :mode => :street_fighter
+        @config.pending_image.should == image('street_fighter/pending.gif')
+      end
+
+      it "should possible to change the dir of the images" do
+        @config.notifications :growl
+        @config.show_images :mode => :street_fighter
+        @config.sucess_image.should == image('street_fighter/sucess.jpg')
       end
 
     end

@@ -3,10 +3,17 @@ module InfinityTest
     
     SUPPORTED_FRAMEWORKS = [:growl] # :snarl, :lib_notify
     
-    DEFAULT_DIR_IMAGES = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'images'))
-    
     attr_accessor :notification_framework, :sucess_image, :failure_image, :pending_image, :rubies, :cucumber, :test_framework, 
                   :exceptions_to_ignore, :before_callback, :after_callback
+    
+    IMAGES_DIR = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'images'))
+    
+    def initialize
+      @default_dir_image = File.join(IMAGES_DIR, 'simpson')
+      @sucess_image  = 'sucess'
+      @failure_image = 'failure'
+      @pending_image = 'pending'
+    end
     
     # Set the notification framework to use with Infinity Test.
     # The supported Notification Frameworks are:
@@ -28,8 +35,7 @@ module InfinityTest
 
     # Set the Success and Failure image to show in the notification framework
     #
-    #   show_images :sucess => :default, :failure => :default # use default image in images/*
-    #   show_images :failure => :default, :failure => 'Users/tomas/images/my_custom_image.png'    
+    #   show_images :failure => 'Users/tomas/images/my_custom_image.png', :sucess => 'custom_image.jpg'
     # 
     # Or you cant set modes for show images (please see the images folder in => http://github.com/tomas-stefano/infinity_test/tree/master/images/ )
     #  
@@ -37,17 +43,22 @@ module InfinityTest
     #  show_images :mode => :street_fighter # => This will show images in http://github.com/tomas-stefano/infinity_test/tree/master/images/street_fighter folder
     #
     def show_images(options={})
-      @sucess_image = setting_image(options[:sucess], :default => 'success.png')
-      @failure_image = setting_image(options[:failure], :default => 'failure.png')
-      @pending_image = setting_image(options[:pending], :default => 'pending.png')
+      switch_mode!(options[:mode]) if options[:mode]
+      @sucess_image = setting_image(options[:sucess]) || search_image(@sucess_image)
+      @failure_image = setting_image(options[:failure]) || search_image(@failure_image)
+      @pending_image = setting_image(options[:pending]) || search_image(@pending_image)
     end
     
-    def setting_image(image, default_image)
-       unless image == :default
-         image
-       else
-         File.join(DEFAULT_DIR_IMAGES, default_image[:default])
-       end
+    def switch_mode!(mode)
+      @default_dir_image = File.join(IMAGES_DIR, mode.to_s)
+    end
+    
+    def setting_image(image)
+      image unless image.equal?(:default)
+    end
+    
+    def search_image(file)
+      Dir.glob(File.join(@default_dir_image, file) + '*').first
     end
     
     # The options method to set:

@@ -25,6 +25,18 @@ module InfinityTest
       load(file) if File.exist?(file)
     end
     
+    def sucess_image
+      config.sucess_image
+    end
+    
+    def failure_image
+      config.failure_image
+    end
+    
+    def pending_image
+      config.pending_image
+    end
+    
     def before_callback
       config.before_callback
     end

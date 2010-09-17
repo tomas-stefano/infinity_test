@@ -1,17 +1,23 @@
 module InfinityTest
   class ContinuousTesting
+    include Notifications
+    
     attr_accessor :application, :library_directory_pattern, :results
     
     def initialize(options)
-      @application = options[:application]      
+      @application = options[:application]
       @results = {}
     end
     
+    # Start the Continuous Testing Server and begin to audit the files for changes
+    #
     def start!
       run!(@global_commands = test_framework.construct_commands)
       initialize_watchr!
     end
     
+    # Test Framework setting in the global file or the ARGV
+    #
     def test_framework
       @test_framework ||= @application.test_framework.equal?(:rspec) ? Rspec.new(:rubies => @application.rubies) : TestUnit.new(:rubies => @application.rubies)
     end
@@ -28,12 +34,24 @@ module InfinityTest
       @application.after_callback.call if @application.after_callback
     end
     
+    # Parse the results in the shell and send a message to the Notification class
+    #
     def parse_results_and_show_notification!(options={})
       return nil unless @application.notification_framework
-      results = test_framework.parse_results(options[:results])
+      shell_result = test_framework.parse_results(options[:results])
       if @application.notification_framework == :growl
-        Notifications::Growl.notify(:tittle => options[:ruby_version], :message => test_framework.message)
+        Growl.notify(:tittle => options[:ruby_version], :message => shell_result, :image => image_to_show)
       end
+    end
+    
+    def image_to_show
+      if test_framework.failure?
+        @application.failure_image
+      elsif test_framework.pending?
+        @application.pending_image
+      else
+        @application.sucess_image
+      end      
     end
     
     ##################

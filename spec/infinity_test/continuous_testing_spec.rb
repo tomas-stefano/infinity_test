@@ -41,5 +41,43 @@ module InfinityTest
     
   end
 
+  describe '#image_to_show' do
+    let(:continuous_testing_with_rspec) { ContinuousTesting.new(:application => application_with_rspec) }
+    
+    it "should return sucess when pass all the tests" do
+      test_should_not_fail!(continuous_testing_with_rspec)
+      test_should_not_pending!(continuous_testing_with_rspec)
+      continuous_testing_with_rspec.image_to_show.should match /sucess/
+    end
+
+    it "should return failure when not pass all the tests" do
+      test_should_fail!(continuous_testing_with_rspec)
+      continuous_testing_with_rspec.image_to_show.should match /failure/
+    end
+
+    it "should return pending when have pending tests" do
+      test_should_not_fail!(continuous_testing_with_rspec)
+      test_should_pending!(continuous_testing_with_rspec)
+      continuous_testing_with_rspec.image_to_show.should match /pending/
+    end
+    
+    def test_should_not_fail!(object)
+      object.test_framework.should_receive(:failure?).and_return(false)      
+    end
+
+    def test_should_fail!(object)
+      object.test_framework.should_receive(:failure?).and_return(true)
+    end
+    
+    def test_should_pending!(object)
+      object.test_framework.should_receive(:pending?).and_return(true)      
+    end
+    
+    def test_should_not_pending!(object)
+      object.test_framework.should_receive(:pending?).and_return(false)      
+    end
+    
+  end
+
   end
 end
