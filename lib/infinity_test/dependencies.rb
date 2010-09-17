@@ -1,11 +1,40 @@
 
+RVM_LIBRARY_DIRECTORY = File.expand_path("~/.rvm/lib")
+
+#
+# Try to require the rvm in home folder
+# If not suceed raise a LoadError 
+# Try to see if the user has the RVM 1.0 or higher for the RVM Ruby API
+# If not raise a NameError
+#
+def require_home_rvm
+  $LOAD_PATH.unshift(RVM_LIBRARY_DIRECTORY) unless $LOAD_PATH.include?(RVM_LIBRARY_DIRECTORY)
+  require 'rvm'
+  RVM::Environment
+end
 
 # TODO: Make require with System Wide Install too
 #
-rvm_library_directory = File.expand_path("~/.rvm/lib")
-$LOAD_PATH.unshift(rvm_library_directory) unless $LOAD_PATH.include?(rvm_library_directory)
-require 'rvm'
+begin
+  require_home_rvm
+rescue LoadError, NameError
+  puts
+  puts "It appears that you have not installed the RVM in #{RVM_LIBRARY_DIRECTORY} or RVM is very old.\n"
+  puts "The RVM is installed?"
+  puts "If not, please see http://rvm.beginrescueend.com/rvm/install/"
+  puts "If so, try to run:"
+  puts "\t rvm update --head"
+  puts "If the error continues, please create an issue in http://github.com/tomas-stefano/infinity_test"
+  puts 'Thanks :)'
+  exit
+end
 
-require 'watchr'
+begin
+  require 'watchr'
+rescue LoadError
+  require 'rubygems'
+  require 'watchr'
+end
+
 require 'ostruct'
 

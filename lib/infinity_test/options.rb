@@ -9,7 +9,7 @@ module InfinityTest
         parse_rspec(options)
         parse_test_unit(options)
         parse_cucumber(options)
-        parse_rvm_versions(options)
+        parse_rubies(options)
         options.banner = [ "Usage: infinity_test [options]", "Starts a continuous test server."].join("\n")        
         options.on_tail("--help", "You're looking at it.") do
           print options.help
@@ -37,7 +37,7 @@ module InfinityTest
       end
     end
     
-    def parse_rvm_versions(options)
+    def parse_rubies(options)
       options.on('--rubies=rubies', 'Specify the Ruby Versions for Testing with several Rubies') do |versions|
         self[:rubies] = versions
       end

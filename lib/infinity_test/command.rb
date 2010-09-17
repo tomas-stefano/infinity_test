@@ -2,6 +2,8 @@ module InfinityTest
   class Command
     attr_accessor :command, :results, :line, :ruby_version
     
+    # Create new Command object that receive the ruby_version and the command string
+    #
     def initialize(options={})
       @command = options[:command]
       @ruby_version = options[:ruby_version]
@@ -31,6 +33,9 @@ module InfinityTest
       self
     end
 
+    # Push in the results the test line
+    # If have in the Ruby Enterpise Edition pack the numbers return. Join otherwise.
+    #
     def push_in_the_results(test_line)
       if end_of_line?(test_line)
         @results.push(ree? ? @line.pack('c*') : @line.join)
@@ -38,6 +43,8 @@ module InfinityTest
       end
     end
     
+    # Using Ruby Enterprise Edition?
+    #
     def ree?
       RVM::Environment.current_ruby_string =~ /ree/
     end
