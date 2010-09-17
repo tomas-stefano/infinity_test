@@ -113,9 +113,8 @@ So create the global file or project file called:
 
 ## TODO
 
-* Make work the system notification in Growl
+* Make work the system notification in Growl for Test::Unit and Cucumber
 * Make work with cucumber
-* Make a new strategy for search the paths for each ruby (Is too slow!)
 * Working in focus files and run only the modified file (Strategies for Test::Unit, Rspec and Cucumber)
 
 # Acknowledgments
