@@ -40,20 +40,28 @@ module InfinityTest
       results = Hash.new
       puts 'Search the Paths (This take some time ONLY in the FIRST TIME)'
       RVM.environments(@rubies) do |environment|
-        shell_result = environment.ruby(RSPEC_PATH_FILE).stdout
         ruby_version = environment.environment_name
-        puts "Search the Rspec Bin Path for #{ruby_version}"
-        if error_in_the_shell? shell_result
-          puts "\n Ruby => #{ruby_version}: #{shell_result}"
+        rspec_binary = search_rspec_two(environment)
+        rspec_binary = search_rspec_one(environment) unless File.exist?(rspec_binary)
+        unless File.exist?(rspec_binary)
+          puts "\n Ruby => #{ruby_version}:  I searched the rspec bin path and I don't find nothing. You have the rspec installed in this version?"
         else
-          results[ruby_version] = "rvm '#{ruby_version}' 'ruby' '#{shell_result} #{spec_files}'"
+          results[ruby_version] = "rvm #{ruby_version} ruby #{rspec_binary} #{spec_files}"
         end
       end
       results
     end
     
-    def error_in_the_shell?(shell_result)
-      shell_result =~ /Appears that you/
+    def search_rspec_two(environment)
+      File.expand_path(rvm_bin_path(environment, 'rspec'))
+    end
+    
+    def search_rspec_one(environment)
+      File.expand_path(rvm_bin_path(environment, 'spec'))
+    end
+    
+    def rvm_bin_path(environment, rspec_bin)
+      "~/.rvm/gems/#{environment.expanded_name}/bin/#{rspec_bin}"
     end
     
     def parse_results(results)

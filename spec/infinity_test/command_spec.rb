@@ -26,6 +26,22 @@ module InfinityTest
     it "should have the line variable as Array" do
       Command.new.line.should be_instance_of(Array)
     end
+
+    describe '#push_in_the_results' do
+      
+      before do
+        @command = Command.new
+      end
+      
+      it "should parse correct the results when have in the ree" do
+        @command.line = [27, 91, 51, 51, 109, 49, 50, 49, 32, 101, 120, 97, 109, 112, 108, 101, 115, 44, 32, 48, 32, 102, 97, 105, 108, 117, 114, 101, 115, 44, 32, 50, 32, 112, 101, 110, 100, 105, 110, 103, 27, 91, 48, 109, 10]
+        @command.should_receive(:ree?).and_return(true)
+        @command.push_in_the_results(?\n)
+        @command.results.should == ["\e[33m121 examples, 0 failures, 2 pending\e[0m\n"]
+      end
+      
+      
+    end
     
   end
 end

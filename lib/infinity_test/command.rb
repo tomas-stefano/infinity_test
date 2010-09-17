@@ -8,7 +8,9 @@ module InfinityTest
       @results = []
       @line = []
     end
-        
+
+    # Code taken in Autotest gem and change a little
+    #
     def run!
       old_sync = $stdout.sync
       $stdout.sync = true
@@ -28,12 +30,16 @@ module InfinityTest
       @results = @results.join
       self
     end
-    
+
     def push_in_the_results(test_line)
-      if end_of_line?(test_line) then
-        @results << @line.join
+      if end_of_line?(test_line)
+        @results.push(ree? ? @line.pack('c*') : @line.join)
         @line.clear
       end
+    end
+    
+    def ree?
+      RVM::Environment.current_ruby_string =~ /ree/
     end
     
     def end_of_line?(test_line)

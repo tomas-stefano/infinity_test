@@ -23,7 +23,7 @@ module InfinityTest
       results = Hash.new
       RVM.environments(@rubies) do |environment|
         ruby_version = environment.environment_name
-        results[ruby_version] = "rvm '#{ruby_version}' 'ruby' ' -Ilib:test #{test_files}'"
+        results[ruby_version] = "rvm #{ruby_version} ruby -I'lib:test' #{test_files}"
       end
       results
     end
