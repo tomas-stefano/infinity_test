@@ -69,7 +69,9 @@ So create the global file or project file called:
       
       end
 
-<b>If you want to customize and understand the .infinity_test file, <a href='http://github.com/tomas-stefano/infinity_test/wiki/Customize-Infinity-Test'>Read this Page</a> </b>
+### Customize the .infinity_test file
+
+#### If you want to customize and understand the .infinity_test file, <a href='http://github.com/tomas-stefano/infinity_test/wiki/Customize-Infinity-Test'>Read this Page</a>
 
 ## Tested Rubies
 
