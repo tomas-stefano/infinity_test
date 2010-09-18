@@ -16,8 +16,6 @@ giving the possibility to test with all <b>Rubies</b> that you have in your RVM 
 
      gem install infinity_test
 
-This gem will be released in September 17.
-
 ## Running Tests only in one ruby
 
 With Rspec:
