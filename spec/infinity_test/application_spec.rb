@@ -183,5 +183,18 @@ module InfinityTest
 
     end
     
+    describe '#verbose?' do
+
+      it "should return to false when not set verbose" do
+        @application.verbose?.should equal false
+      end
+         
+      it "should return true when set verbose to true" do
+        @application.config.verbose = true
+        @application.verbose?.should be_true
+      end
+      
+    end
+    
   end
 end

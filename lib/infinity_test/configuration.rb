@@ -4,7 +4,7 @@ module InfinityTest
     SUPPORTED_FRAMEWORKS = [:growl, :lib_notify] # :snarl, :lib_notify
     
     attr_accessor :notification_framework, :sucess_image, :failure_image, :pending_image, :rubies, :cucumber, :test_framework, 
-                  :exceptions_to_ignore, :before_callback, :after_callback
+                  :exceptions_to_ignore, :before_callback, :after_callback, :verbose
     
     IMAGES_DIR = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'images'))
     
@@ -17,6 +17,7 @@ module InfinityTest
       @failure_image = 'failure'
       @pending_image = 'pending'
       @test_framework = :test_unit
+      @verbose = false
     end
     
     # Set the notification framework to use with Infinity Test.
@@ -53,7 +54,7 @@ module InfinityTest
     #
     def show_images(options={})
       switch_mode!(options[:mode]) if options[:mode]
-      @sucess_image = setting_image(options[:sucess])   || search_image(@sucess_image)
+      @sucess_image  = setting_image(options[:sucess])  || search_image(@sucess_image)
       @failure_image = setting_image(options[:failure]) || search_image(@failure_image)
       @pending_image = setting_image(options[:pending]) || search_image(@pending_image)
     end
@@ -95,6 +96,7 @@ module InfinityTest
       @rubies = (rubies.is_a?(Array) ? rubies.join(',') : rubies) || []
       @cucumber = options[:cucumber] || false
       @test_framework = options[:test_framework] || @test_framework
+      @verbose = options[:verbose] || @verbose
     end
     
     # Method to use to ignore some dir/files changes
@@ -104,7 +106,7 @@ module InfinityTest
     # ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
     #
     # This is useless right now in the Infinity Test because the library 
-    # only monitoring lib and test/spec folder.
+    # only monitoring lib and test/spec/feature folder.
     #
     def ignore(options={})
       @exceptions_to_ignore = options[:exceptions] || []

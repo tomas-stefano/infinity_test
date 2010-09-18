@@ -45,6 +45,11 @@ module InfinityTest
         @options[:rubies].should eql '1.8.7-p249,1.9.1-p378'
       end
       
+      it "should parse --verbose" do
+        parse_options('--verbose')
+        @options[:verbose].should be_true
+      end
+      
     end
 
     describe "#rspec?" do

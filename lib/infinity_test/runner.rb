@@ -18,7 +18,8 @@ module InfinityTest
       @application.config.use(
         :rubies => (options[:rubies] || @application.rubies),
         :test_framework => (options[:test_framework] || @application.config.test_framework), 
-        :cucumber => (options.include?(:cucumber) ? options[:cucumber] : @application.cucumber?)
+        :cucumber => (options.include?(:cucumber) ? options[:cucumber] : @application.cucumber?),
+        :verbose => options[:verbose] || @application.config.verbose
       )
     end
     

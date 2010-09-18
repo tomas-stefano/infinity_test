@@ -15,10 +15,7 @@ module InfinityTest
     end
 
     def run!(commands)
-      return if commands.empty?
-      @application.before_callback.call if @application.before_callback
-      @application.run!(commands)
-      @application.after_callback.call if @application.after_callback
+      @application.run!(commands) unless commands.empty?
     end
 
     ##################

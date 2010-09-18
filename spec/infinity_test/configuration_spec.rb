@@ -87,6 +87,15 @@ module InfinityTest
         config.test_framework.should equal :test_unit
       end
       
+      it "should set the verbose option" do
+        config.use :verbose => true
+        config.verbose.should be_true
+      end
+      
+      it "should set to false as default" do
+        config.verbose.should equal false
+      end
+      
     end
 
     describe '#ignore' do

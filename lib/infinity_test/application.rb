@@ -89,12 +89,14 @@ module InfinityTest
     end
     
     def run!(commands)
+      before_callback.call if before_callback
       commands.each do |ruby_version, command|
-        puts; puts "* { :ruby => #{ruby_version} }" ; puts
-        puts command
+        puts; puts "* { :ruby => #{ruby_version} }"
+        puts command if verbose?
         command = Command.new(:ruby_version => ruby_version, :command => command).run!
         notify!(:results => command.results, :ruby_version => ruby_version)
-      end      
+      end
+      after_callback.call if after_callback
     end
     
     def notify!(options)
@@ -114,6 +116,10 @@ module InfinityTest
       else
         sucess_image
       end      
+    end
+    
+    def verbose?
+      config.verbose
     end
     
     private
