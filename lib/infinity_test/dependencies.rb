@@ -29,12 +29,17 @@ rescue LoadError, NameError
   exit
 end
 
-begin
-  require 'watchr'
-rescue LoadError
-  require 'rubygems'
-  require 'watchr'
+def require_without_rubygems(options)
+  gem_name = options[:gem]
+  begin
+    require gem_name
+  rescue LoadError
+    require 'rubygems'
+    require gem_name
+  end
 end
+
+require_without_rubygems :gem => 'watchr'
 
 require 'ostruct'
 
