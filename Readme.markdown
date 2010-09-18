@@ -14,7 +14,7 @@ giving the possibility to test with all <b>Rubies</b> that you have in your RVM 
 
 ## Install
 
-*   The Infinity Test gem don't have a version, but <b>is looking for contributors</b>. =]
+     gem install infinity_test
 
 This gem will be released in September 17.
 
