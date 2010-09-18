@@ -73,17 +73,6 @@ So create the global file or project file called:
 
 #### If you want to customize and understand the .infinity_test file, <a href='http://github.com/tomas-stefano/infinity_test/wiki/Customize-Infinity-Test'>Read this Page</a>
 
-## Tested Rubies
-
-Pass all the entire test suite in the following rubies:
-
-* 1.8.7
-* 1.9.1
-* 1.9.2
-* REE
-* JRuby
-* Rubinius
-
 ## You Like it the Idea?
 
 <b>So make a fork and start contributing =].</b>
