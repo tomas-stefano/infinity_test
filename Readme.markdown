@@ -58,50 +58,32 @@ If you like to add cucumber too:
 
 ### Simple Domain Specific Language for Configuration file
 
-If you don't set all the time the rubies that you want you can write some code that infinity_test understand.
+If you don't set all the time the rubies that you want, test framework that you want, notifications that you want,
+you can write some code that infinity_test understand.
 
 So create the global file or project file called:
 
-    ~/.infinity_test or .infinity_test
+      ~/.infinity_test or .infinity_test
 
-<b>Note:</b> The project file will override the configuration of global file if have the same options!.
-
-      # ~/.infinity_test or .infinity_test
-      
       infinity_test do
       
-        notifications :growl do
-		  show_images :sucess => :default, :failure => :default # :sucess => 'Path/To/My/Image.png', :failure => 'Path/To/My/Other/Image.png'
-        end
-        
-        use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec, :cucumber => true
-        
-        before_run do
-          clear :terminal
-        end
-        
-        after_run do
-          puts 'Finished!'
-        end
+          notifications :growl do
+		    show_images :mode => :mario_bros
+          end
+          
+          use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec, :cucumber => true
+          
+          before_run do
+            clear :terminal
+          end
+          
+          after_run do
+            puts 'Finished!'
+          end
       
       end
 
-* The notification receives a block with contain that images that you want dysplay.
-
-*  The rubies options accept any ruby that you have installed via RVM.
-
-<b>Obs.: If you use rspec and cucumber make sure that you have Rspec and Cucumber installed for each :rubies option.</b>
-
-*  The options for test_framework in the #use method are:
-
-   * Rspec  - :rspec
-   * Test::Unit - :test_unit
-
-* If you want cucumber just add `:cucumber => true` to #use method.
-
-* The #before_run method run before all tests.
-
-* The #after_run method run after all tests.
+<b>If you want to customize and understand the .infinity_test file, <a href='http://github.com/tomas-stefano/infinity_test/wiki/Customize-Infinity-Test'>read this page</a> </b>
 
 ## You Like it the Idea?
 
@@ -113,12 +95,12 @@ So create the global file or project file called:
 
 ## TODO
 
-* Make work the system notification in Lib Notify
-* Make work the system notification in Growl for Test::Unit and Cucumber
-* Make work with cucumber
+* Make work the system notification for Cucumber
+* Edit the wiki
+* Using Red Green for Test::Unit
 * Working in focus files and run only the modified file (Strategies for Test::Unit, Rspec and Cucumber)
 
 # Acknowledgments
 
-* Thanks to watchr library.
+* Thanks to Mynyml and Watchr library.
 * Thanks to Waynee Seguin and the RVM.
