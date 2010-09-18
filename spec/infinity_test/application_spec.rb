@@ -33,23 +33,6 @@ module InfinityTest
       app.config.after_run(&proc)
       app.after_callback.should equal proc
     end
-
-    describe '#contruct_commands' do
-      
-      before do
-        @application = Application.new
-      end
-      
-      it "should return one element when not have rubies" do
-        @application.construct_commands.should have(1).items
-      end
-      
-      it "should return each element is a string" do
-        @application.config.use :rubies => '1.8.7,1.9.1'
-        @application.construct_commands.should have(2).items
-      end
-      
-    end
    
     describe '#image_to_show' do
 

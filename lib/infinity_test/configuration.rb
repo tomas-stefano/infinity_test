@@ -96,6 +96,9 @@ module InfinityTest
       @rubies = (rubies.is_a?(Array) ? rubies.join(',') : rubies) || []
       @test_framework = options[:test_framework] || @test_framework
       @verbose = options[:verbose] || @verbose
+      if options[:gemset]
+        @rubies = @rubies.split(',').collect { |ruby| ruby << "@#{options[:gemset]}" }.join(',')
+      end
     end
     
     # Method to use to ignore some dir/files changes

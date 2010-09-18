@@ -42,7 +42,7 @@ Or with Test::Unit:
 
 ## Configuration file
 
-### Simple Domain Specific Language for Configuration file
+### Simple Domain Specific Language for Infinity Test file
 
 If you don't set all the time the rubies that you want, test framework that you want, notifications that you want,
 you can write some code that infinity_test understand.
@@ -69,7 +69,7 @@ So create the global file or project file called:
       
       end
 
-<b>If you want to customize and understand the .infinity_test file, <a href='http://github.com/tomas-stefano/infinity_test/wiki/Customize-Infinity-Test'>read this page</a> </b>
+<b>If you want to customize and understand the .infinity_test file, <a href='http://github.com/tomas-stefano/infinity_test/wiki/Customize-Infinity-Test'>Read this Page</a> </b>
 
 ## Tested Rubies
 
