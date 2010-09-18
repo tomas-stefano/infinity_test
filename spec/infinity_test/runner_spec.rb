@@ -11,10 +11,6 @@ module InfinityTest
         runner_class.new({:test_framework => :rspec}).commands.should eql []
       end
       
-      it "should set the options variable" do
-        runner_class.new({:cucumber => true}).options.should be == {:cucumber => true}
-      end
-      
       it "should set the application object" do
         runner_class.new({:test_framework => :test_unit}).application.should be_instance_of(Application)
       end

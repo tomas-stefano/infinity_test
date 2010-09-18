@@ -30,7 +30,6 @@ Feature: Infinity test
     Usage: infinity_test [options]
 	Starts a continuous test server.
             --rspec                      Rspec Framework
-            --cucumber                   Cucumber Library
             --rvm-versions=rubies        Specify the Ruby Versions for Testing with several Rubies
             --help                       You're looking at it.
 	"""

@@ -25,16 +25,6 @@ module InfinityTest
         @options[:test_framework].should_not equal :test_unit
       end
       
-      it "should parse --cucumber and return cucumber" do
-        parse_options('--cucumber')
-        @options[:cucumber].should be_true
-      end
-      
-      it "should return false when not have cucumber option" do
-        parse_options('--rspec')
-        @options[:cucumber].should be_false
-      end
-      
       it "should parse --rvm-versions and return an array" do
         parse_options('--rubies=1.8.6,1.8.7')
         @options[:rubies].should eql '1.8.6,1.8.7'
@@ -60,7 +50,7 @@ module InfinityTest
       end
       
       it "should explicity return false if not using rspec" do
-        parse_options('--cucumber')
+        parse_options('--test-unit')
         @options.rspec?.should be_false
       end
       
@@ -71,25 +61,6 @@ module InfinityTest
       
     end
     
-    describe "#cucumber?" do
-      
-      it "should return true when using cucumber" do
-        parse_options('--cucumber')
-        @options.cucumber?.should be_true
-      end
-      
-      it "should return false when not using cucumber" do
-        parse_options('--rspec')
-        @options.cucumber?.should be_false
-      end
-      
-      it "should not be nil when not have cucumber" do
-        parse_options('--rspec')
-        @options.cucumber?.should_not be_nil
-      end
-      
-    end
-
     def parse_options(*arguments)
       @options = InfinityTest::Options.new(arguments)
     end

@@ -21,27 +21,34 @@ module InfinityTest
     end
     
     it "should return the before callback" do
-      app = application_with(:cucumber => true)
+      app = application_with(:test_framework => :rspec)
       proc = Proc.new { 'To Infinity and beyond!' }
       app.config.before_run(&proc)
       app.before_callback.should equal proc
     end
 
-    it "should return true when use cucumber" do
-      app = application_with(:cucumber => true)
-      app.cucumber?.should be_true    
-    end
-    
-    it "should return true when use cucumber" do
-      app = application_with(:cucumber => false)
-      app.cucumber?.should be_false    
-    end
-
     it "should return the block when set after callback" do
-      app = application_with(:cucumber => true)
+      app = application_with(:test_framework => :rspec)
       proc = Proc.new { 'To Infinity and beyond!' }
       app.config.after_run(&proc)
       app.after_callback.should equal proc
+    end
+
+    describe '#contruct_commands' do
+      
+      before do
+        @application = Application.new
+      end
+      
+      it "should return one element when not have rubies" do
+        @application.construct_commands.should have(1).items
+      end
+      
+      it "should return each element is a string" do
+        @application.config.use :rubies => '1.8.7,1.9.1'
+        @application.construct_commands.should have(2).items
+      end
+      
     end
    
     describe '#image_to_show' do

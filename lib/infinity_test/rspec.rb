@@ -1,5 +1,6 @@
 module InfinityTest
   class Rspec
+    include BinaryPath
     attr_accessor :rubies, :test_directory_pattern, :message, :test_pattern, :failure, :sucess, :pending
     
     #
@@ -27,8 +28,8 @@ module InfinityTest
         ruby_version = environment.environment_name
         rspec_binary = search_rspec_two(environment)
         rspec_binary = search_rspec_one(environment) unless File.exist?(rspec_binary)
-        unless File.exist?(rspec_binary)
-          puts "\n Ruby => #{ruby_version}:  I searched the rspec bin path and I don't find nothing. You have the rspec installed in this version?"
+        unless have_binary?(rspec_binary)
+          print_message('rspec', ruby_version)
         else
           results[ruby_version] = "rvm #{ruby_version} ruby #{rspec_binary} #{spec_files}"
         end
@@ -37,15 +38,11 @@ module InfinityTest
     end
     
     def search_rspec_two(environment)
-      File.expand_path(rvm_bin_path(environment, 'rspec'))
+      search_binary('rspec', :environment => environment)
     end
     
     def search_rspec_one(environment)
-      File.expand_path(rvm_bin_path(environment, 'spec'))
-    end
-    
-    def rvm_bin_path(environment, rspec_bin)
-      "~/.rvm/gems/#{environment.expanded_name}/bin/#{rspec_bin}"
+      search_binary('spec', :environment => environment)
     end
     
     def parse_results(results)

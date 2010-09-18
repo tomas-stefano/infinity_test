@@ -2,7 +2,7 @@
 
 
 Infinity Test is a continuous testing library and a flexible alternative to Autotest, 
-using Watchr library with Rspec OR Test::Unit AND Cucumber with RVM funcionality,
+using Watchr library with Rspec OR Test::Unit with RVM funcionality,
 giving the possibility to test with all <b>Rubies</b> that you have in your RVM configuration.
 
 ## To Infinity and Beyond!
@@ -24,17 +24,9 @@ With Rspec:
 
     infinity_test --rspec
 
-With Rspec and Cucumber:
-
-    infinity_test --rspec --cucumber
-
 With Test::Unit:
 
 	infinity_test --test-unit
-
-With Test::Unit and Cucumber:
-
-    infinity_test --test-unit --cucumber
 
 ## Running Tests with many Rubies
 
@@ -46,13 +38,7 @@ Or with Test::Unit:
 
     infinity_test --test-unit --rubies=1.8.7,jruby,ree,1.9.2
 
-If you like to add cucumber too:
-
-    infinity_test --rspec --rubies=1.8.7,jruby,1.9.2  --cucumber
-
-    infinity_test --test-unit --rubies=1.8.7,jruby,1.9.2  --cucumber
-
-<b>And you are ready to Test with all ruby versions your Rspec or Test::Unit Suite and Cucumber Suite with Autotest-like Behavior.</b>
+<b>And you are ready to Test with all ruby versions your Rspec or Test::Unit Suite with Autotest-like Behavior.</b>
 
 ## Configuration file
 
@@ -71,7 +57,7 @@ So create the global file or project file called:
 		    show_images :mode => :mario_bros
           end
           
-          use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec, :cucumber => true
+          use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec
           
           before_run do
             clear :terminal
@@ -106,9 +92,7 @@ Pass all the entire test suite in the following rubies:
 
 ## TODO
 
-* Make work the system notification for Cucumber
 * Edit the wiki
-* Using Red Green for Test::Unit
 * Working in focus files and run only the modified file (Strategies for Test::Unit, Rspec and Cucumber)
 
 # Acknowledgments

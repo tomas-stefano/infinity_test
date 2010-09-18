@@ -3,13 +3,13 @@ module InfinityTest
     
     SUPPORTED_FRAMEWORKS = [:growl, :lib_notify] # :snarl, :lib_notify
     
-    attr_accessor :notification_framework, :sucess_image, :failure_image, :pending_image, :rubies, :cucumber, :test_framework, 
+    attr_accessor :notification_framework, :sucess_image, :failure_image, :pending_image, :rubies, :test_framework, 
                   :exceptions_to_ignore, :before_callback, :after_callback, :verbose
     
     IMAGES_DIR = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'images'))
     
-    # Initialize the Configuration object that keeps the images, callbacks
-    # and rubies, cucumber and the test framework
+    # Initialize the Configuration object that keeps the images, callbacks, rubies
+    # and the test framework
     # 
     def initialize
       @default_dir_image = File.join(IMAGES_DIR, 'simpson')
@@ -81,20 +81,19 @@ module InfinityTest
     end
     
     # The options method to set:
+    #
     # * test framework 
     # * ruby versions
-    # * use cucumber or not
     # 
     # Here is the example of Little Domain Language:
     #
-    # use :rubies => ['1.9.1', '1.9.2'], :test_framework => :rspec, :cucumber => true
+    # use :rubies => ['1.9.1', '1.9.2'], :test_framework => :rspec
     #
     # use :rubies => [ '1.8.7-p249', '1.9.2@rails3'], :test_framework => :test_unit
     #
     def use(options={})
       rubies = options[:rubies]
       @rubies = (rubies.is_a?(Array) ? rubies.join(',') : rubies) || []
-      @cucumber = options[:cucumber] || false
       @test_framework = options[:test_framework] || @test_framework
       @verbose = options[:verbose] || @verbose
     end
@@ -134,12 +133,6 @@ module InfinityTest
     #
     def after_run(&block)
       @after_callback = block
-    end
-    
-    # Return true if the user set the cucumber option or otherwise return false
-    #
-    def use_cucumber?
-      @cucumber
     end
     
     # Clear the terminal (Useful in the before callback)

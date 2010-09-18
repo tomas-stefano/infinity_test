@@ -62,12 +62,6 @@ module InfinityTest
       config.rubies
     end
     
-    # Return true if use cucumber 
-    #
-    def cucumber?
-      config.use_cucumber?
-    end
-    
     def construct_commands
       test_framework.construct_commands
     end

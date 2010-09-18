@@ -57,21 +57,6 @@ module InfinityTest
         config.rubies.should be == '1.9.1,1.9.2'
       end
       
-      it "should return a empty collection when not set the rvm option" do
-        config.use :cucumber => true
-        config.rubies.should be_empty
-      end
-      
-      it "should set the cucumber option" do
-        config.use :cucumber => true
-        config.use_cucumber?.should be_true
-      end
-      
-      it "should return the false object when not use cucumber" do
-        config.use :rvm => []
-        config.use_cucumber?.should equal false
-      end
-      
       it "should set the test unit when not set the test framework" do
         config.use
         config.test_framework.should equal :test_unit

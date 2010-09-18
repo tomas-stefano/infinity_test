@@ -8,7 +8,6 @@ module InfinityTest
       @options = OptionParser.new do |options|
         parse_rspec(options)
         parse_test_unit(options)
-        parse_cucumber(options)
         parse_rubies(options)
         parse_verbose(options)
         options.banner = [ "Usage: infinity_test [options]", "Starts a continuous test server."].join("\n")        
@@ -32,12 +31,6 @@ module InfinityTest
       end
     end
     
-    def parse_cucumber(options)
-      options.on('--cucumber', 'Cucumber Library') do
-        self[:cucumber] = true
-      end
-    end
-    
     def parse_rubies(options)
       options.on('--rubies=rubies', 'Specify the Ruby Versions for Testing with several Rubies') do |versions|
         self[:rubies] = versions
@@ -52,11 +45,6 @@ module InfinityTest
     
     def rspec?
       return true if self[:test_framework].equal?(:rspec)
-      false
-    end
-    
-    def cucumber?
-      return true if self[:cucumber]
       false
     end
     
