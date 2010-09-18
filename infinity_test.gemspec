@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{infinity_test}
-  s.version = "0.0.0"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tomas D'Stefano"]
@@ -53,6 +53,7 @@ Gem::Specification.new do |s|
      "images/toy_story/failure.gif",
      "images/toy_story/pending.png",
      "images/toy_story/sucess.png",
+     "infinity_test.gemspec",
      "lib/infinity_test.rb",
      "lib/infinity_test/application.rb",
      "lib/infinity_test/binary_path.rb",
