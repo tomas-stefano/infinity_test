@@ -32,12 +32,11 @@ begin
     gemspec.homepage = "http://github.com/tomas-stefano/infinity_test"
     gemspec.authors = ["Tomas D'Stefano"]
 
-    gemspec.add_dependency('watchr', '>= 1.3.0')
+    gemspec.add_dependency('watchr', '>= 0.7')
 
     gemspec.add_development_dependency('rspec', '>= 1.3.0')
     gemspec.add_development_dependency('cucumber', '>= 0.6.2')
     gemspec.add_development_dependency('aruba', '>= 0.1.7')
-    gemspec.add_development_dependency('watchr', '>= 1.3.0')
     
     gemspec.post_install_message = POST_MESSAGE
   end
