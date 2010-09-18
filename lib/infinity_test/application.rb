@@ -112,6 +112,21 @@ module InfinityTest
       end      
     end
     
+    def run_changed_lib_file(file)
+      file = File.basename(file[1])
+      files = test_framework.all_files.grep(/#{file}/i)
+      run_commands_for_file(files.join(' ')) unless files.empty?
+    end
+    
+    def run_changed_test_file(file)
+      run_commands_for_file(file)
+    end
+    
+    def run_commands_for_file(file)
+      commands = test_framework.construct_commands(file)
+      run!(commands)      
+    end
+    
     def verbose?
       config.verbose
     end

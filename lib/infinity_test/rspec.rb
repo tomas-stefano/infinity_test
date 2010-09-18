@@ -1,7 +1,8 @@
 module InfinityTest
   class Rspec
     include BinaryPath
-    attr_accessor :rubies, :test_directory_pattern, :message, :test_pattern, :failure, :sucess, :pending
+    attr_accessor :rubies, :test_directory_pattern, :message, :test_pattern, 
+                  :failure, :sucess, :pending
     
     #
     # rspec = InfinityTest::Rspec.new(:rubies => '1.9.1,1.9.2')
@@ -13,16 +14,20 @@ module InfinityTest
       @test_pattern = options[:test_pattern] || 'spec/**/*_spec.rb'
     end
     
-    def construct_commands
+    def construct_commands(file=nil)
       @rubies << RVM::Environment.current.environment_name if @rubies.empty?
-      construct_rubies_commands
+      construct_rubies_commands(file)
+    end
+    
+    def all_files
+      Dir[@test_pattern]
     end
     
     def spec_files
-      Dir[@test_pattern].collect { |file| file }.join(' ')
+      all_files.collect { |file| file }.join(' ')
     end
     
-    def construct_rubies_commands
+    def construct_rubies_commands(file=nil)
       results = Hash.new
       RVM.environments(@rubies) do |environment|
         ruby_version = environment.environment_name
@@ -31,10 +36,17 @@ module InfinityTest
         unless have_binary?(rspec_binary)
           print_message('rspec', ruby_version)
         else
-          results[ruby_version] = "rvm #{ruby_version} ruby #{rspec_binary} #{spec_files}"
+          results[ruby_version] = "rvm #{ruby_version} ruby #{rspec_binary} #{decide_files(file)}"
         end
       end
       results
+    end
+    
+    # TODO: I'm not satisfied yet
+    #
+    def decide_files(file)
+      return file if file
+      spec_files
     end
     
     def search_rspec_two(environment)

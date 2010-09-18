@@ -53,7 +53,23 @@ module InfinityTest
       end
       
     end
-    
+
+    describe '#decide_files' do
+      
+      before { @rspec = Rspec.new }
+      
+      it "should not call the spec file when match pattern" do
+        @rspec.should_not_receive(:spec_files)
+        @rspec.decide_files('application_spec.rb')
+      end
+
+      it "should call the spec files when pattern is nil" do
+        @rspec.should_receive(:spec_files)
+        @rspec.decide_files(nil)
+      end
+      
+    end
+
     describe '#handle_results' do
       
       before do
