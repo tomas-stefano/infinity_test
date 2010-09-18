@@ -7,18 +7,13 @@ $:.unshift(File.dirname(__FILE__) + '/lib')
 POST_MESSAGE = <<-POST_INSTALL_MESSAGE
 
   #{ '-' * 80}
-                          T O    I N F I N I T Y   A N D   B E Y O N D !!!
+                  T O    I N F I N I T Y   A N D   B E Y O N D !!!
 
    The Infinity uses the awesome RVM to run. 
-   
    If you don't have the RVM installed, stop what you doing =p.
-   
    RVM Installation Instructions:
-   
-       http://rvm.beginrescueend.com/rvm/install/
-       
+       http://rvm.beginrescueend.com/rvm/install/ 
    And don't forget to see how you can customize Infinity Test here: 
-   
        http://github.com/tomas-stefano/infinity_test/wiki/Customize-Infinity-Test
 
    Happy Coding! :)
