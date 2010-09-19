@@ -81,7 +81,6 @@ So create the global file or project file called:
 
 ## TODO
 
-* Edit the wiki
 * Working in focus files and run only the modified file (Strategies for Test::Unit, Rspec and Cucumber)
 
 # Acknowledgments
