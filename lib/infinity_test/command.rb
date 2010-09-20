@@ -38,7 +38,7 @@ module InfinityTest
     #
     def push_in_the_results(test_line)
       if end_of_line?(test_line)
-        @results.push(ree? ? @line.pack('c*') : @line.join)
+        @results.push((ree? or ruby_1_8?) ? @line.pack('c*') : @line.join)
         @line.clear
       end
     end
@@ -47,6 +47,10 @@ module InfinityTest
     #
     def ree?
       RVM::Environment.current_ruby_string =~ /ree/
+    end
+    
+    def ruby_1_8?
+      RVM::Environment.current_ruby_string =~ /ruby-1.8.7/
     end
     
     def end_of_line?(test_line)

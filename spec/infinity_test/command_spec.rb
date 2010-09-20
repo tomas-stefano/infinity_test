@@ -40,6 +40,12 @@ module InfinityTest
         @command.results.should == ["\e[33m121 examples, 0 failures, 2 pending\e[0m\n"]
       end
       
+      it "should parse correct the results in ruby 1.8" do
+        @command.line = [46, 46, 46, 46, 46, 42, 46, 42]
+        @command.should_receive(:ruby_1_8?).and_return(true)
+        @command.push_in_the_results(?\n)
+        @command.results.should == [".....*.*"]
+      end
       
     end
     
