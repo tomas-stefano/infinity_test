@@ -50,7 +50,7 @@ module InfinityTest
     end
     
     def ruby_1_8?
-      RVM::Environment.current_ruby_string =~ /ruby-1.8.7/
+      RVM::Environment.current_ruby_string =~ /ruby-1.8/
     end
     
     def end_of_line?(test_line)
