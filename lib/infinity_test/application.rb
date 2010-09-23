@@ -152,15 +152,14 @@ module InfinityTest
     end
 
     def load_global_configuration
-      load_file :file => File.expand_path('~/.infinity_test')
+      load_file(File.expand_path('~/.infinity_test'))
     end
     
     def load_project_configuration
-      load_file :file => './.infinity_test'
+      load_file('./.infinity_test')
     end
     
-    def load_file(options)
-      file = options[:file]
+    def load_file(file)
       load(file) if File.exist?(file)
     end
 

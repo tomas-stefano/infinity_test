@@ -62,7 +62,7 @@ So create the global file or project file called:
           end
           
           after_run do
-            puts 'Finished!'
+            ... some code
           end
       
       end
@@ -82,6 +82,7 @@ So create the global file or project file called:
 ## TODO
 
 * Working in focus files and run only the modified file (Strategies for Test::Unit, Rspec and Cucumber)
+* Working in support Rails applications (Sinatra/Rack/Padrino too!)
 
 # Acknowledgments
 
