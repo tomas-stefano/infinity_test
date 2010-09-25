@@ -6,7 +6,7 @@ Bugfix
 ------
 
 * When not have notifications framework do nothing instead raise an Exception (thanks to Nelson Minor Haraguchi)
-
+* When you don't use a block in #notifications method in .infinity_test, then Infinity Test will use the simpson default images
 
 v0.1.0
 ======
