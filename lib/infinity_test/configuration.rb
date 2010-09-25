@@ -18,6 +18,9 @@ module InfinityTest
     def initialize
       @default_dir_image = File.join(IMAGES_DIR, 'simpson')
       @test_framework = :test_unit
+      @sucess_image  = search_image(SUCESS)
+      @failure_image = search_image(FAILURE)
+      @pending_image = search_image(PENDING)
       @verbose = false
     end
     
@@ -33,14 +36,12 @@ module InfinityTest
     #   # block
     # end
     #
+    # notifications :lib_notify
+    #
     def notifications(framework, &block)
       raise NotificationFrameworkDontSupported, "Notification :#{framework} don't supported. The Frameworks supported are: #{SUPPORTED_FRAMEWORKS.join(',')}" unless SUPPORTED_FRAMEWORKS.include?(framework)
       @notification_framework = framework
-      if block_given?
-        yield self
-      else
-        show_images
-      end
+      yield self if block_given?
       self
     end
 
