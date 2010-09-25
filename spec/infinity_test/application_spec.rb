@@ -145,5 +145,14 @@ module InfinityTest
       
     end
 
+    describe '#notify!' do
+      
+      it "should do nothing when not have notification framework" do
+        application.should_receive(:notification_framework).and_return(nil)
+        application.notify!(:results => '0 examples, 0 failures', :ruby_version => '1.9.2').should be_nil
+      end
+      
+    end
+
   end
 end

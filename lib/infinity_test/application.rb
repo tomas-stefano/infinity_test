@@ -94,8 +94,12 @@ module InfinityTest
     end
     
     def notify!(options)
-      message = parse_results(options[:results])
-      notification_framework.notify(:title => options[:ruby_version], :message => message, :image => image_to_show)
+      if notification_framework
+        message = parse_results(options[:results])
+        notification_framework.notify(:title => options[:ruby_version], :message => message, :image => image_to_show)
+      else
+        # skip(do nothing) when not have notification framework
+      end
     end
     
     def parse_results(results)
