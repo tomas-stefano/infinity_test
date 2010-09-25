@@ -149,7 +149,13 @@ module InfinityTest
       
       it "should do nothing when not have notification framework" do
         application.should_receive(:notification_framework).and_return(nil)
-        application.notify!(:results => '0 examples, 0 failures', :ruby_version => '1.9.2').should be_nil
+        application.notify!(:results => '0 examples', :ruby_version => '1.9.2').should be_nil
+      end
+      
+      it "should notify when have notification framework" do
+        application.config.notifications :growl
+        application.notification_framework.should_receive(:notify)
+        application.notify!(:results => '0 examples', :ruby_version => '1.8.7')
       end
       
     end
