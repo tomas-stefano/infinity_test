@@ -42,7 +42,8 @@ module InfinityTest
       
       it "should parse correct the results in ruby 1.8" do
         @command.line = [46, 46, 46, 46, 46, 42, 46, 42]
-        @command.should_receive(:ruby_1_8?).and_return(true)
+        @command.should_receive(:ree?).and_return(false)        
+        @command.should_receive(:mri?).and_return(true)
         @command.push_in_the_results(?\n)
         @command.results.should == [".....*.*"]
       end

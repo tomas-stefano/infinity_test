@@ -34,11 +34,12 @@ module InfinityTest
     end
 
     # Push in the results the test line
-    # If have in the Ruby Enterpise Edition pack the numbers return. Join otherwise.
+    # If have in the Ruby Enterpise Edition or Ruby 1.8.* pack the numbers returned.
+    # Join otherwise.
     #
     def push_in_the_results(test_line)
       if end_of_line?(test_line)
-        @results.push((ree? or ruby_1_8?) ? @line.pack('c*') : @line.join)
+        @results.push((ree? or mri?) ? @line.pack('c*') : @line.join)
         @line.clear
       end
     end
@@ -49,7 +50,9 @@ module InfinityTest
       RVM::Environment.current_ruby_string =~ /ree/
     end
     
-    def ruby_1_8?
+    # Using mri?
+    #
+    def mri?
       RVM::Environment.current_ruby_string =~ /ruby-1.8/
     end
     
