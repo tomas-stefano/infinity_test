@@ -8,14 +8,15 @@ module InfinityTest
     
     IMAGES_DIR = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'images'))
     
+    SUCESS  = 'sucess'
+    FAILURE = 'failure'
+    PENDING = 'pending'
+    
     # Initialize the Configuration object that keeps the images, callbacks, rubies
     # and the test framework
     # 
     def initialize
       @default_dir_image = File.join(IMAGES_DIR, 'simpson')
-      @sucess_image  = 'sucess'
-      @failure_image = 'failure'
-      @pending_image = 'pending'
       @test_framework = :test_unit
       @verbose = false
     end
@@ -35,7 +36,11 @@ module InfinityTest
     def notifications(framework, &block)
       raise NotificationFrameworkDontSupported, "Notification :#{framework} don't supported. The Frameworks supported are: #{SUPPORTED_FRAMEWORKS.join(',')}" unless SUPPORTED_FRAMEWORKS.include?(framework)
       @notification_framework = framework
-      yield self if block_given?
+      if block_given?
+        yield self
+      else
+        show_images
+      end
       self
     end
 
@@ -54,9 +59,9 @@ module InfinityTest
     #
     def show_images(options={})
       switch_mode!(options[:mode]) if options[:mode]
-      @sucess_image  = setting_image(options[:sucess])  || search_image(@sucess_image)
-      @failure_image = setting_image(options[:failure]) || search_image(@failure_image)
-      @pending_image = setting_image(options[:pending]) || search_image(@pending_image)
+      @sucess_image  = options[:sucess]  || search_image(SUCESS)
+      @failure_image = options[:failure] || search_image(FAILURE)
+      @pending_image = options[:pending] || search_image(PENDING)
     end
     
     # Switch the image directory to show
@@ -68,10 +73,6 @@ module InfinityTest
       when String
         @default_dir_image = File.expand_path(File.join(mode))
       end
-    end
-    
-    def setting_image(image)
-      image unless image.equal?(:default)
     end
     
     # Search the sucess, failure or pending images and return the first in the pattern
@@ -97,7 +98,9 @@ module InfinityTest
       @test_framework = options[:test_framework] || @test_framework
       @verbose = options[:verbose] || @verbose
       if options[:gemset]
-        @rubies = @rubies.split(',').collect { |ruby| ruby << "@#{options[:gemset]}" }.join(',')
+        @rubies = @rubies.split(',').collect { |ruby| 
+          ruby << "@#{options[:gemset]}" 
+        }.join(',')
       end
     end
     

@@ -116,10 +116,17 @@ module InfinityTest
       
       before { @config = Configuration.new }
       
-      it "should have a default success image" do
-        @config.notifications :growl
-        @config.show_images :sucess => :default
-        @config.sucess_image.should == image('simpson/sucess.jpg')
+      context 'on default images' do
+        before { @config.notifications :growl }
+        
+        let(:config) { @config }
+          
+        it { config.sucess_image.should == image('simpson/sucess.jpg') }
+        
+        it { config.pending_image.should == image('simpson/pending.jpg') }
+        
+        it { config.failure_image.should == image('simpson/failure.gif') }
+        
       end
 
       it "should be possible to customize success image" do
@@ -128,22 +135,10 @@ module InfinityTest
         @config.sucess_image.should == image('other.png')
       end
 
-      it "should have a default failure image" do
-        @config.notifications :growl
-        @config.show_images :failure => :default
-        @config.failure_image.should == image('simpson/failure.gif')
-      end
-
       it "should be possible to customize failure image" do
         @config.notifications :growl
         @config.show_images :failure => image('failure_picture.png')
         @config.failure_image.should == image('failure_picture.png')
-      end
-
-      it "should have a default failure image" do
-        @config.notifications :growl
-        @config.show_images :pending => :default
-        @config.pending_image.should == image('simpson/pending.jpg')
       end
 
       it "should be possible to customize failure image" do
