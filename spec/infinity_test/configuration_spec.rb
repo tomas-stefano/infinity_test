@@ -4,7 +4,8 @@ module InfinityTest
   describe Configuration do
     before { @config = Configuration.new }
     let(:config) { @config }
-    
+    let(:block) { Proc.new { 'To Infinity and beyond!' } }
+
     describe '#initialize' do
       
       it "should set the test_unit as default test framework" do
@@ -184,6 +185,64 @@ module InfinityTest
         proc = Proc.new { 'To Infinity and beyond!' }
         config.after_run(&proc)
         config.after_callback.should be == proc
+      end
+      
+    end
+
+    describe '#before' do
+      
+      it "should set the before callback if pass not hook" do
+        config.before(&block)
+        config.before_callback.should == block
+      end
+      
+      it "should possible to set the before_run block" do
+        config.before(:all, &block)
+        config.before_callback.should == block
+      end
+      
+      it "should possible to set before each ruby block" do
+        config.before(:each_ruby, &block)
+        config.before_each_ruby_callback.should == block
+      end
+      
+      it "should not set before_run block in :each_ruby option" do
+        config.before(:each_ruby, &block)
+        config.before_callback.should be_nil
+      end
+
+      it "should not set before_run block in :all option" do
+        config.before(:all, &block)
+        config.before_each_ruby_callback.should be_nil
+      end
+      
+    end
+
+    describe '#after' do
+      
+      it "should set the after callback if pass not hook" do
+        config.after(&block)
+        config.after_callback.should == block
+      end
+      
+      it "should possible to set the after block" do
+        config.after(:all, &block)
+        config.after_callback.should == block
+      end
+      
+      it "should possible to set after each ruby block" do
+        config.after(:each_ruby, &block)
+        config.after_each_ruby_callback.should == block
+      end
+      
+      it "should not set after block in :each_ruby option" do
+        config.after(:each_ruby, &block)
+        config.after_callback.should be_nil
+      end
+
+      it "should not set after each ruby block in :all option" do
+        config.after(:all, &block)
+        config.after_each_ruby_callback.should be_nil
       end
       
     end

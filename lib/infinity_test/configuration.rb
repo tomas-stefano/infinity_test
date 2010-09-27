@@ -3,8 +3,13 @@ module InfinityTest
     
     SUPPORTED_FRAMEWORKS = [:growl, :lib_notify] # :snarl, :lib_notify
     
-    attr_accessor :notification_framework, :sucess_image, :failure_image, :pending_image, :rubies, :test_framework, 
-                  :exceptions_to_ignore, :before_callback, :after_callback, :verbose
+    attr_accessor :notification_framework, 
+                  :sucess_image, :failure_image, :pending_image, 
+                  :rubies, :test_framework, 
+                  :exceptions_to_ignore, 
+                  :before_callback, :before_each_ruby_callback,
+                  :after_callback, :after_each_ruby_callback,
+                  :verbose
     
     IMAGES_DIR = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'images'))
     
@@ -142,10 +147,65 @@ module InfinityTest
       @after_callback = block
     end
     
+    # Callback method to handle before or after all run and for each ruby too!
+    #
+    # Example:
+    #
+    # before(:all) do
+    #   clear :terminal
+    # end
+    #
+    # before(:each_ruby) do
+    #   ...
+    # end
+    #
+    # Or if you pass not then will use :all option
+    #
+    # before do
+    #  clear :terminal
+    # end
+    #
+    #
+    def before(hook=:all, &block)
+      setting_callback(hook, :all => :@before_callback, :each_ruby => :@before_each_ruby_callback, &block)
+    end
+    
+    # Callback method to handle before or after all run and for each ruby too!
+    #
+    # Example:
+    #
+    # after(:all) do
+    #   clear :terminal
+    # end
+    #
+    # after(:each_ruby) do
+    #   ...
+    # end
+    #
+    # Or if you pass not then will use :all option
+    #
+    # after do
+    #  clear :terminal
+    # end
+    #
+    def after(hook=:all, &block)
+      setting_callback(hook, :all => :@after_callback, :each_ruby => :@after_each_ruby_callback, &block)
+    end
+    
     # Clear the terminal (Useful in the before callback)
     #
     def clear(option)
       system('clear') if option == :terminal
+    end
+
+    private
+    
+    def setting_callback(hook, callback, &block)
+      if hook == :all
+        instance_variable_set(callback[:all], block)
+      elsif hook == :each_ruby
+        instance_variable_set(callback[:each_ruby], block)
+      end
     end
     
   end

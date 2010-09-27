@@ -85,9 +85,7 @@ module InfinityTest
     def run!(commands)
       before_callback.call if before_callback
       commands.each do |ruby_version, command|
-        puts; puts "* { :ruby => #{ruby_version} }"
-        puts command if verbose?
-        command = Command.new(:ruby_version => ruby_version, :command => command).run!
+        command = say_the_ruby_version_and_run_the_command!(ruby_version, command) # This method exist because it's easier to test
         notify!(:results => command.results, :ruby_version => ruby_version)
       end
       after_callback.call if after_callback
@@ -136,6 +134,12 @@ module InfinityTest
     end
     
     private
+    
+    def say_the_ruby_version_and_run_the_command!(ruby_version, command)
+      puts; puts "* { :ruby => #{ruby_version} }"
+      puts command if verbose?
+      Command.new(:ruby_version => ruby_version, :command => command).run!      
+    end
     
     def setting_test_framework
       case config.test_framework

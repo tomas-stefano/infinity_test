@@ -160,5 +160,24 @@ module InfinityTest
       
     end
 
+    describe '#run!' do
+      let(:block) { Proc.new { 'w00t!' } }
+
+      it 'should call the before all callback' do
+        application_with_rspec.config.before(&block)
+        application_with_rspec.before_callback.should_receive(:call).and_return(true)
+        run_the_command(application_with_rspec)
+      end
+      
+      def run_the_command(app)
+        command = mock(Command)
+        command.should_receive(:results).at_least(:once).and_return('0 examples, 0 failures')
+        app.should_receive(:say_the_ruby_version_and_run_the_command!).at_least(:once).and_return(command)
+        app.should_receive(:notify!).and_return(nil)
+        app.run!(['spec'])
+      end
+      
+    end
+
   end
 end
