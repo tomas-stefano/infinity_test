@@ -10,26 +10,26 @@ Features
 
    # ~/.infinity_test or ./.infinity_test
 
-   infinity_test do
+     infinity_test do
 
-      before(:each_ruby) do |environment|
-        environment.ruby('some_ruby_file') # run a ruby file in each ruby that you setup
-        environment.rake('Rakefile', 'compile') # run rake compile in each ruby that you setup
-      end
+       before(:each_ruby) do |environment|
+         environment.ruby('some_ruby_file') # run a ruby file in each ruby that you setup
+         environment.rake('Rakefile', 'compile') # run rake compile in each ruby that you setup
+       end
 
-      after(:each_ruby) do |environment|
-        ...
-      end
+       after(:each_ruby) do |environment|
+         ...
+       end
 
-      before(:all) do
-        clear :terminal
-      end
+       before(:all) do
+         clear :terminal
+       end
 
-      after(:all) do
-        ...
-      end
+       after(:all) do
+         ...
+       end
 
-   end
+     end
 
 Bugfix
 ------
