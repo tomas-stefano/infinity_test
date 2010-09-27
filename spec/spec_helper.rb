@@ -65,3 +65,12 @@ require 'watchr'
   def custom_image_dir
     File.expand_path(File.join(File.dirname(__FILE__), 'factories', 'images'))
   end
+  
+  def run_the_command(app)
+    command = mock(InfinityTest::Command)
+    command.should_receive(:results).at_least(:once).and_return('0 examples, 0 failures')
+    app.should_receive(:say_the_ruby_version_and_run_the_command!).at_least(:once).and_return(command)
+    app.should_receive(:notify!).and_return(nil)
+    app.run!(['spec'])
+  end
+  

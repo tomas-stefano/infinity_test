@@ -56,6 +56,14 @@ module InfinityTest
       config.after_callback
     end
     
+    def before_each_ruby_callback
+      config.before_each_ruby_callback
+    end
+    
+    def after_each_ruby_callback
+      config.after_each_ruby_callback
+    end
+    
     # Return the rubies setting in the config file or the command line
     #
     def rubies
@@ -85,8 +93,10 @@ module InfinityTest
     def run!(commands)
       before_callback.call if before_callback
       commands.each do |ruby_version, command|
-        command = say_the_ruby_version_and_run_the_command!(ruby_version, command) # This method exist because it's easier to test
+        call_each_ruby_callback(:before_each_ruby_callback, ruby_version)
+        command = say_the_ruby_version_and_run_the_command!(ruby_version, command) # This method exist because it's more easier to test
         notify!(:results => command.results, :ruby_version => ruby_version)
+        call_each_ruby_callback(:after_each_ruby_callback, ruby_version)
       end
       after_callback.call if after_callback
     end
@@ -134,6 +144,11 @@ module InfinityTest
     end
     
     private
+    
+    def call_each_ruby_callback(callback_type, ruby_version)
+      callback = send(callback_type)
+      callback.call(RVM::Environment.new(ruby_version)) if callback
+    end
     
     def say_the_ruby_version_and_run_the_command!(ruby_version, command)
       puts; puts "* { :ruby => #{ruby_version} }"

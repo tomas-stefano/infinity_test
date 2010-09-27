@@ -165,16 +165,26 @@ module InfinityTest
 
       it 'should call the before all callback' do
         application_with_rspec.config.before(&block)
-        application_with_rspec.before_callback.should_receive(:call).and_return(true)
+        application_with_rspec.before_callback.should_receive(:call)
         run_the_command(application_with_rspec)
       end
       
-      def run_the_command(app)
-        command = mock(Command)
-        command.should_receive(:results).at_least(:once).and_return('0 examples, 0 failures')
-        app.should_receive(:say_the_ruby_version_and_run_the_command!).at_least(:once).and_return(command)
-        app.should_receive(:notify!).and_return(nil)
-        app.run!(['spec'])
+      it "should call the after all callback" do
+        application_with_rspec.config.after(&block)
+        application_with_rspec.after_callback.should_receive(:call)
+        run_the_command(application_with_rspec)
+      end
+      
+      it "should call the before each ruby callback" do
+        application_with_rspec.config.before(:each_ruby, &block)
+        application_with_rspec.before_each_ruby_callback.should_receive(:call)
+        run_the_command(application_with_rspec)
+      end
+      
+      it "should call the after each ruby callback" do
+        application_with_rspec.config.after(:each_ruby, &block)
+        application_with_rspec.after_each_ruby_callback.should_receive(:call)
+        run_the_command(application_with_rspec)        
       end
       
     end
