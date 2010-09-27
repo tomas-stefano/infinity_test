@@ -26,7 +26,7 @@ Features
        after(:all) do
          ...
        end
-     end
+      end
 
 Bugfix
 ------
