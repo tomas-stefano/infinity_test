@@ -5,20 +5,23 @@
 
 Gem::Specification.new do |s|
   s.name = %q{infinity_test}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tomas D'Stefano"]
-  s.date = %q{2010-09-18}
+  s.date = %q{2010-09-29}
+  s.default_executable = %q{infinity_test}
   s.description = %q{Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with Rspec OR Test::Unit with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration.}
   s.email = %q{tomasdestefi@gmail.com}
-  s.executables = ["infinity_test", "infinity_test.compiled.rbc"]
+  s.executables = ["infinity_test"]
   s.files = [
     ".gitignore",
      ".infinity_test",
      ".rspec",
      ".rvmrc",
      "Gemfile",
+     "Gemfile.lock",
+     "History.markdown",
      "Rakefile",
      "Readme.markdown",
      "Tasks",
@@ -27,8 +30,6 @@ Gem::Specification.new do |s|
      "buzz_images/buzz_lightyear.jpg",
      "buzz_images/buzz_lightyear_continencia.gif",
      "buzz_images/to_infinity_and_beyond.png",
-     "features/infinity_test.feature",
-     "features/support/env.rb",
      "images/faces/failure.png",
      "images/faces/pending.png",
      "images/faces/sucess.png",
