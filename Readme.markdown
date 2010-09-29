@@ -56,7 +56,15 @@ So create the global file or project file called:
           end
           
           use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec
-          
+
+          before(:each_ruby) do |environment|
+            ...
+          end
+
+          after(:each_ruby) do |environment|
+            ...
+          end        
+
           before_run do
             clear :terminal
           end
