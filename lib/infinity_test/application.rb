@@ -201,6 +201,8 @@ module InfinityTest
         Rspec.new :rubies => rubies
       when :test_unit
         TestUnit.new :rubies => rubies
+      when :bacon
+        Bacon.new :rubies => rubies
       end
     end
 

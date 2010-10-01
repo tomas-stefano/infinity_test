@@ -15,6 +15,16 @@ module InfinityTest
         @options[:test_framework].should_not equal :rspec
       end
       
+      it "should parse --bacon and return bacon" do
+        parse_options('--bacon')
+        @options[:test_framework].should equal :bacon
+      end
+      
+      it "should not parse --test-unit" do
+        parse_options('--rspec')
+        @options[:test_framework].should_not equal :bacon
+      end
+      
       it "should parse --test-unit and return test_unit" do
         parse_options('--test-unit')
         @options[:test_framework].should equal :test_unit
@@ -57,6 +67,25 @@ module InfinityTest
       it "should not return nil when not using rspec" do
         parse_options('--rubies=1.8.6')
         @options.rspec?.should_not be_nil
+      end
+      
+    end
+    
+    describe "#bacon?" do
+
+      it "should return true if using bacon" do
+        parse_options('--bacon')
+        @options.bacon?.should be_true
+      end
+      
+      it "should explicity return false if not using bacon" do
+        parse_options('--test-unit')
+        @options.bacon?.should be_false
+      end
+      
+      it "should not return nil when not using bacon" do
+        parse_options('--rubies=1.8.6')
+        @options.bacon?.should_not be_nil
       end
       
     end

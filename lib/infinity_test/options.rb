@@ -7,6 +7,7 @@ module InfinityTest
       super()
       @options = OptionParser.new do |options|
         parse_rspec(options)
+        parse_bacon(options)
         parse_test_unit(options)
         parse_rubies(options)
         parse_verbose(options)
@@ -31,6 +32,12 @@ module InfinityTest
       end
     end
     
+    def parse_bacon(options)
+      options.on('--bacon', 'Bacon') do
+        self[:test_framework] = :bacon
+      end
+    end
+    
     def parse_rubies(options)
       options.on('--rubies=rubies', 'Specify the Ruby Versions for Testing with several Rubies') do |versions|
         self[:rubies] = versions
@@ -45,6 +52,11 @@ module InfinityTest
     
     def rspec?
       return true if self[:test_framework].equal?(:rspec)
+      false
+    end
+    
+    def bacon?
+      return true if self[:test_framework].equal?(:bacon)
       false
     end
     
