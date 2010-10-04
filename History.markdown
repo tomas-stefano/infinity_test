@@ -1,3 +1,17 @@
+In Development
+==============
+
+Features
+--------
+
+- Possible to setup the lib pattern, test pattern.
+ 
+					before_env do |application|
+            application.test_framework.test_directory_pattern = "^my_unusual_spec_directory/unit/(.*)_spec.rb"
+            application.test_framework.test_pattern           = "my_unusual_spec_directory/unit/*_spec.rb"
+            application.library_directory_pattern             = '^my_unusual_lib_directory/*/(.*).rb'
+          end
+
 v0.2.0
 ==============================
 
