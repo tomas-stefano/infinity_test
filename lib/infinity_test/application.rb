@@ -97,7 +97,7 @@ module InfinityTest
     end
     
     def run_before_environment_callback!
-      before_environment_callback.call(self)
+      before_environment_callback.call(self) if before_environment_callback
     end
     
     def run!(commands)
