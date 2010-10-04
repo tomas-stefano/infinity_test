@@ -51,6 +51,12 @@ module InfinityTest
     end
     
     # Return the block object setting in the config file
+    #    
+    def before_environment_callback
+      config.before_environment_callback
+    end
+    
+    # Return the block object setting in the config file
     #
     def after_callback
       config.after_callback
@@ -90,14 +96,20 @@ module InfinityTest
       @notification_framework ||= setting_notification
     end
     
+    def run_before_environment_callback!
+      before_environment_callback.call(self)
+    end
+    
     def run!(commands)
       before_callback.call if before_callback
+      
       commands.each do |ruby_version, command|
         call_each_ruby_callback(:before_each_ruby_callback, ruby_version)
         command = say_the_ruby_version_and_run_the_command!(ruby_version, command) # This method exist because it's more easier to test
         notify!(:results => command.results, :ruby_version => ruby_version)
         call_each_ruby_callback(:after_each_ruby_callback, ruby_version)
       end
+      
       after_callback.call if after_callback
     end
     

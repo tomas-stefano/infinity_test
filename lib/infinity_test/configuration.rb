@@ -7,7 +7,7 @@ module InfinityTest
                   :sucess_image, :failure_image, :pending_image, 
                   :rubies, :test_framework, 
                   :exceptions_to_ignore, 
-                  :before_callback, :before_each_ruby_callback,
+                  :before_callback, :before_each_ruby_callback, :before_environment_callback,
                   :after_callback, :after_each_ruby_callback,
                   :verbose
     
@@ -135,6 +135,18 @@ module InfinityTest
       @before_callback = block
     end
     
+    # Callback method to run anything you want, before the environment is fully set up
+    # 
+    # Example:
+    #
+    # before_env do |application|
+    #   # some code that I want to run before the environment is set up
+    # end
+    #
+    def before_env(&block)
+      @before_environment_callback = block
+    end
+    
     # Callback method to run anything you want, after the run the test suite command
     # 
     # Example:
@@ -167,7 +179,7 @@ module InfinityTest
     #
     #
     def before(hook=:all, &block)
-      setting_callback(hook, :all => :@before_callback, :each_ruby => :@before_each_ruby_callback, &block)
+      setting_callback(hook, :all => :@before_callback, :each_ruby => :@before_each_ruby_callback, :env => :@before_environment_callback, &block)
     end
     
     # Callback method to handle before or after all run and for each ruby too!
@@ -205,6 +217,8 @@ module InfinityTest
         instance_variable_set(callback[:all], block)
       elsif hook == :each_ruby
         instance_variable_set(callback[:each_ruby], block)
+      elsif hook == :env
+        instance_variable_set(callback[:env], block)
       end
     end
     

@@ -18,8 +18,7 @@ module InfinityTest
       @application.config.use(
         :rubies => (options[:rubies] || @application.rubies),
         :test_framework => (options[:test_framework] || @application.config.test_framework),
-        :verbose => options[:verbose] || @application.config.verbose
-      )
+        :verbose => options[:verbose] || @application.config.verbose)
     end
     
     def start_continuous_testing!

@@ -52,17 +52,17 @@ So create the global file or project file called:
       infinity_test do
       
           notifications :growl do
-		    show_images :mode => :mario_bros
+            show_images :mode => :mario_bros
           end
           
           use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec
 
           before(:each_ruby) do |environment|
-            ...
+            # ...
           end
 
           after(:each_ruby) do |environment|
-            ...
+            # ...
           end        
 
           before_run do
@@ -70,9 +70,14 @@ So create the global file or project file called:
           end
           
           after_run do
-            ... some code
+            # ...
           end
       
+          before_env do |application|
+            application.test_framework.test_directory_pattern = "^my_unusual_spec_directory/unit/(.*)_spec.rb"
+            application.test_framework.test_pattern           = "my_unusual_spec_directory/unit/*_spec.rb"
+            application.library_directory_pattern             = '^my_unusual_lib_directory/*/(.*).rb'
+          end
       end
 
 ## Customize the .infinity_test file

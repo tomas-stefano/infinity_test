@@ -4,12 +4,14 @@ module InfinityTest
     
     def initialize(options)
       @application = options[:application]
-      @global_commands = @application.construct_commands
     end
     
     # Start the Continuous Testing Server and begin to audit the files for changes
     #
     def start!
+      puts %Q{#{__FILE__} - start!: #{caller.join("\n")}}
+      @application.run_before_environment_callback!
+      @global_commands = @application.construct_commands
       run!(@global_commands)
       initialize_watchr!
     end
