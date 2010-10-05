@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tomas D'Stefano"]
-  s.date = %q{2010-09-29}
+  s.date = %q{2010-10-05}
   s.default_executable = %q{infinity_test}
   s.description = %q{Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with Rspec OR Test::Unit with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration.}
   s.email = %q{tomasdestefi@gmail.com}
@@ -103,44 +103,44 @@ Gem::Specification.new do |s|
   --------------------------------------------------------------------------------
                   T O    I N F I N I T Y   A N D   B E Y O N D !!!
 
-   The Infinity uses the awesome RVM to run. 
+   The Infinity uses the awesome RVM to run.
    If you don't have the RVM installed, stop what you doing =p.
    RVM Installation Instructions:
-       http://rvm.beginrescueend.com/rvm/install/ 
-   And don't forget to see how you can customize Infinity Test here: 
+       http://rvm.beginrescueend.com/rvm/install/
+   And don't forget to see how you can customize Infinity Test here:
        http://github.com/tomas-stefano/infinity_test/wiki/Customize-Infinity-Test
 
    Happy Coding! :)
 
   --------------------------------------------------------------------------------
-  
+
 }
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Continuous testing and a flexible alternative to Autotest using watchr and RVM}
   s.test_files = [
-    "spec/factories/buzz/lib/buzz.rb",
-     "spec/factories/buzz/spec/buzz_spec.rb",
-     "spec/factories/company/lib/company.rb",
-     "spec/factories/company/test/company_test.rb",
-     "spec/factories/slinky/spec/slinky/slinky_spec.rb",
-     "spec/factories/travel/lib/travel.rb",
+    "spec/factories/travel/lib/travel.rb",
      "spec/factories/travel/test/partner_test.rb",
      "spec/factories/travel/test/travel_test.rb",
+     "spec/factories/company/lib/company.rb",
+     "spec/factories/company/test/company_test.rb",
+     "spec/factories/buzz/lib/buzz.rb",
+     "spec/factories/buzz/spec/buzz_spec.rb",
      "spec/factories/wood/lib/wood.rb",
      "spec/factories/wood/spec/wood_spec.rb",
-     "spec/infinity_test/application_spec.rb",
-     "spec/infinity_test/command_spec.rb",
-     "spec/infinity_test/configuration_spec.rb",
+     "spec/factories/slinky/spec/slinky/slinky_spec.rb",
+     "spec/infinity_test_spec.rb",
      "spec/infinity_test/continuous_testing_spec.rb",
      "spec/infinity_test/notifications/growl_spec.rb",
      "spec/infinity_test/notifications/lib_notify_spec.rb",
-     "spec/infinity_test/options_spec.rb",
-     "spec/infinity_test/rspec_spec.rb",
-     "spec/infinity_test/runner_spec.rb",
      "spec/infinity_test/test_unit_spec.rb",
-     "spec/infinity_test_spec.rb",
+     "spec/infinity_test/options_spec.rb",
+     "spec/infinity_test/application_spec.rb",
+     "spec/infinity_test/runner_spec.rb",
+     "spec/infinity_test/rspec_spec.rb",
+     "spec/infinity_test/configuration_spec.rb",
+     "spec/infinity_test/command_spec.rb",
      "spec/spec_helper.rb"
   ]
 
@@ -151,19 +151,13 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<watchr>, [">= 0.7"])
       s.add_development_dependency(%q<rspec>, [">= 1.3.0"])
-      s.add_development_dependency(%q<cucumber>, [">= 0.6.2"])
-      s.add_development_dependency(%q<aruba>, [">= 0.1.7"])
     else
       s.add_dependency(%q<watchr>, [">= 0.7"])
       s.add_dependency(%q<rspec>, [">= 1.3.0"])
-      s.add_dependency(%q<cucumber>, [">= 0.6.2"])
-      s.add_dependency(%q<aruba>, [">= 0.1.7"])
     end
   else
     s.add_dependency(%q<watchr>, [">= 0.7"])
     s.add_dependency(%q<rspec>, [">= 1.3.0"])
-    s.add_dependency(%q<cucumber>, [">= 0.6.2"])
-    s.add_dependency(%q<aruba>, [">= 0.1.7"])
   end
 end
 

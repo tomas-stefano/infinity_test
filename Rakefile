@@ -9,17 +9,17 @@ POST_MESSAGE = <<-POST_INSTALL_MESSAGE
   #{ '-' * 80}
                   T O    I N F I N I T Y   A N D   B E Y O N D !!!
 
-   The Infinity uses the awesome RVM to run. 
+   The Infinity uses the awesome RVM to run.
    If you don't have the RVM installed, stop what you doing =p.
    RVM Installation Instructions:
-       http://rvm.beginrescueend.com/rvm/install/ 
-   And don't forget to see how you can customize Infinity Test here: 
+       http://rvm.beginrescueend.com/rvm/install/
+   And don't forget to see how you can customize Infinity Test here:
        http://github.com/tomas-stefano/infinity_test/wiki/Customize-Infinity-Test
 
    Happy Coding! :)
 
   #{ '-' * 80}
-  
+
 POST_INSTALL_MESSAGE
 
 begin
@@ -35,9 +35,7 @@ begin
     gemspec.add_dependency('watchr', '>= 0.7')
 
     gemspec.add_development_dependency('rspec', '>= 1.3.0')
-    gemspec.add_development_dependency('cucumber', '>= 0.6.2')
-    gemspec.add_development_dependency('aruba', '>= 0.1.7')
-    
+
     gemspec.post_install_message = POST_MESSAGE
   end
   Jeweler::GemcutterTasks.new
