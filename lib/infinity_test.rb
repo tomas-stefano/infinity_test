@@ -11,21 +11,21 @@ module InfinityTest
   autoload :Runner, 'infinity_test/runner'
   autoload :TestUnit, 'infinity_test/test_unit'
 
-  def self.application
-    @application ||= Application.new
-  end
-  
-  def self.configuration
-    @configuration ||= Configuration.new
-  end
-  
-  def self.start!
-    Runner.new(Options.new(ARGV)).run!    
-  end
-  
   module Notifications
     autoload :Growl, 'infinity_test/notifications/growl'
     autoload :LibNotify, 'infinity_test/notifications/lib_notify'
+  end
+
+  def self.application
+    @application ||= Application.new
+  end
+
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.start!
+    Runner.new(ARGV).run!
   end
 
 end
