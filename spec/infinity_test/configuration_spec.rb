@@ -78,6 +78,11 @@ module InfinityTest
         config.test_framework.should equal :rspec
       end
       
+      it "should return bacon too for the test framework" do
+        config.use :test_framework => :bacon
+        config.test_framework.should equal :bacon
+      end
+      
       it "should possible to set the test unit for test framework" do
         config.use :test_framework => :test_unit
         config.test_framework.should equal :test_unit

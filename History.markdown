@@ -31,6 +31,7 @@ Features
        before(:each_ruby) do |environment|
          environment.ruby('some_ruby_file') # run a ruby file in each ruby that you setup
          environment.rake('Rakefile', 'compile') # run rake compile in each ruby that you setup
+         environment.system('rake compile') # or with system command
        end
 
        after(:each_ruby) do |environment|
