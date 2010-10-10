@@ -4,11 +4,12 @@ In Development
 Features
 --------
 
+- Support Bacon - for more information see - http://github.com/chneukirchen/bacon (thanks to Ng Tze Yang)
 - Possible to setup the lib pattern, test pattern (thanks to Jason Rogers).
  
       # ~/.infinity_test or ./.infinity_test
          infinity_test do
-					 before_env do |application|
+		   before_env do |application|
              application.test_framework.test_directory_pattern = "^my_unusual_spec_directory/unit/(.*)_spec.rb"
              application.test_framework.test_pattern           = "my_unusual_spec_directory/unit/*_spec.rb"
              application.library_directory_pattern             = '^my_unusual_lib_directory/*/(.*).rb'
