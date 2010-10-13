@@ -14,10 +14,14 @@ module InfinityTest
 
     # Load the Configuration file
     #
-    # Load first global file in => ~/.infinity_test
-    # After load the project file => ./.infinity_test
     #
-    # If the Project file has the same methods in the global, will override the configurations
+    # Command line options can be persisted in a .infinity_test file in a project. 
+    # You can also store a .infinity_test file in your home directory (~/.infinity_test) with global options. 
+    #
+    # Precedence is:
+    # command line
+    # ./.infinity_test
+    # ~/.infinity_test
     #
     # Example:
     #
@@ -167,6 +171,8 @@ module InfinityTest
       end
     end
 
+    # After change the file the infinity_test will search a similar file to run
+    #
     def run_changed_lib_file(file)
       file = File.basename(file[1])
       files = test_framework.all_files.grep(/#{file}/i)
