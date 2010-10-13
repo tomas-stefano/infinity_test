@@ -117,23 +117,23 @@ module InfinityTest
       
       it "should return the instance of Rspec when test framework is Rspec" do
         @application.config.use :test_framework => :rspec
-        @application.test_framework.should be_instance_of(InfinityTest::Rspec)
+        @application.test_framework.should be_instance_of(InfinityTest::TestLibrary::Rspec)
       end
 
       it "should return the instance of Rspec when test framework is Rspec" do
         @application.config.use :test_framework => :test_unit
-        @application.test_framework.should be_instance_of(InfinityTest::TestUnit)
+        @application.test_framework.should be_instance_of(InfinityTest::TestLibrary::TestUnit)
       end
       
       it "should pass all the rubies for the test_framework TestUnit" do
         @application.config.use :test_framework => :test_unit, :rubies => ['1.9.1', '1.9.2']
-        TestUnit.should_receive(:new).with(:rubies => '1.9.1,1.9.2')
+        InfinityTest::TestLibrary::TestUnit.should_receive(:new).with(:rubies => '1.9.1,1.9.2')
         @application.test_framework
       end
 
       it "should pass all the rubies for the test_framework Rspec" do
         @application.config.use :test_framework => :rspec, :rubies => ['1.9.1', '1.9.2']
-        Rspec.should_receive(:new).with(:rubies => '1.9.1,1.9.2')
+        InfinityTest::TestLibrary::Rspec.should_receive(:new).with(:rubies => '1.9.1,1.9.2')
         @application.test_framework
       end
       

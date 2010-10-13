@@ -7,10 +7,13 @@ module InfinityTest
   autoload :Configuration, 'infinity_test/configuration'
   autoload :ContinuousTesting, 'infinity_test/continuous_testing'
   autoload :Options, 'infinity_test/options'
-  autoload :Rspec, 'infinity_test/rspec'
-  autoload :Bacon, 'infinity_test/bacon'
   autoload :Runner, 'infinity_test/runner'
-  autoload :TestUnit, 'infinity_test/test_unit'
+  
+  module TestLibrary
+    autoload :Bacon, 'infinity_test/test_library/bacon'
+    autoload :Rspec, 'infinity_test/test_library/rspec'
+    autoload :TestUnit, 'infinity_test/test_library/test_unit'
+  end
 
   module Notifications
     autoload :Growl, 'infinity_test/notifications/growl'

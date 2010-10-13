@@ -12,3 +12,8 @@ Bugs
 ====
 
 - Coloring the output (maybe using RedGreen)
+
+Refactoring
+===========
+
+- Refactoring all the tests frameworks to become more easier to add a new test library

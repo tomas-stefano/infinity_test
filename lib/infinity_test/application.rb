@@ -1,7 +1,8 @@
 module InfinityTest
   class Application
-    include Notifications
-
+    include InfinityTest::Notifications
+    include InfinityTest::TestLibrary
+    
     attr_accessor :config, :library_directory_pattern
 
     # Initialize the Application object with the configuration instance to
