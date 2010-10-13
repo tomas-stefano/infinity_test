@@ -160,13 +160,13 @@ module InfinityTest
         
         it "should return true when have pending" do
           rspec.pending = 1
-          rspec.failure = 0
+          rspec.failures = 0
           rspec.pending?.should be_true
         end
     
         it "should return false when have pending bu thave failures" do
           rspec.pending = 1
-          rspec.failure = 1
+          rspec.failures = 1
           rspec.pending?.should equal false
         end
         

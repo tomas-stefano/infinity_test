@@ -77,7 +77,7 @@ module InfinityTest
     
         it "should parse when have a exception" do
           @test_unit.parse_results("")
-          @test_unit.message.should == "An exception ocurred"
+          @test_unit.message.should == "An exception occurred"
         end
         
         it "should parse and set correctly the tests" do
@@ -131,8 +131,8 @@ module InfinityTest
         it "should parse when have a exception and set failure to 1" do
           @test_unit.parse_results("")
           @test_unit.failures.should == 1
-          @test_unit.tests.should == 0
-          @test_unit.assertions.should == 0
+          @test_unit.tests.should == 1
+          @test_unit.assertions.should == 1
           @test_unit.errors.should == 1
         end
     

@@ -78,33 +78,27 @@ module InfinityTest
         end
         
         it "should handle a example that succeed" do
-          results = "........Finished in 0.299817 seconds\n\n105 examples, 0 failures, 0 pending\n"
+          results = "should be true\n\n2 specifications (2 requirements), 0 failures, 0 errors\n"
           @bacon.parse_results(results)
-          @bacon.message.should == "105 examples, 0 failures, 0 pending"
+          @bacon.message.should == "2 specifications (2 requirements), 0 failures, 0 errors"
         end
         
         it "should parse without the terminal ansi color" do
-          results = "ork\e[0m\n\e[90m    # No reason given\e[0m\n\e[90m    # ./spec/infinity_test/configuration_spec.rb:31\e[0m\n\nFinished in 0.10487 seconds\n\e[33m406 examples, 5 failures, 2 pending\e[0m\n"
+          results = "should be true\n\n3 specifications (2 requirements), 0 failures, 0 errors\n"
           @bacon.parse_results(results)
-          @bacon.message.should == "406 examples, 5 failures, 2 pending"
+          @bacon.message.should == "3 specifications (2 requirements), 0 failures, 0 errors"
         end
     
         it "should handle a example that succeed and return false for failure?" do
-          results = "........Finished in 0.299817 seconds\n\n105 examples, 0 failures, 0 pending\n"
+          results = "3 specifications (2 requirements), 0 failures, 0 errors"
           @bacon.parse_results(results)
           @bacon.failure?.should equal false
         end
         
         it "should parse without the terminal ansi color and grep the failure" do
-          results = "ork\e[0m\n\e[90m    # No reason given\e[0m\n\e[90m    # ./spec/infinity_test/configuration_spec.rb:31\e[0m\n\nFinished in 0.10487 seconds\n\e[33m406 examples, 5 failures, 2 pending\e[0m\n"
+          results = "\n\e[33m3 specifications (2 requirements), 10 failures, 0 errors\e[0m\n"
           @bacon.parse_results(results)
           @bacon.failure?.should be_true
-        end
-    
-        it "should parse without the terminal ansi color and grep the pending" do
-          results = "ork\e[0m\n\e[90m    # No reason given\e[0m\n\e[90m    # ./spec/infinity_test/configuration_spec.rb:31\e[0m\n\nFinished in 0.10487 seconds\n\e[33m406 examples, 0 failures, 2 pending\e[0m\n"
-          @bacon.parse_results(results)
-          @bacon.pending?.should be_true
         end
     
         it "should parse bacon tests errors" do
@@ -123,67 +117,24 @@ module InfinityTest
           results = "/Users/tomas/.rvm/gems/ruby-1.9.2@infinity_test/gems/my_class/bin/klass:2:in `require': no such file to load -- MyClass (LoadError)"
           @bacon.parse_results(results)
           @bacon.sucess?.should equal false
-        end
-    
-        it "should parse bacon tests errors" do
-          results = "/Users/tomas/.rvm/gems/ruby-1.9.2@infinity_test/gems/my_class/bin/klass:2:in `require': no such file to load -- MyClass (LoadError)"
-          @bacon.parse_results(results)
-          @bacon.pending?.should equal false
-        end            
+        end         
       end
       
       describe '#sucess?' do
         before { @bacon = Bacon.new }
         
         it "should return false when have failures" do
-          results = "ork\e[0m\n\e[90m    # No reason given\e[0m\n\e[90m    # ./spec/infinity_test/configuration_spec.rb:31\e[0m\n\nFinished in 0.10487 seconds\n\e[33m406 examples, 5 failures, 2 pending\e[0m\n"
+          results = "3 specifications (3 requirements), 3 failures, 0 errors"
           @bacon.parse_results(results)
           @bacon.sucess?.should equal false
         end
-    
-        it "should return false when have pending" do
-          results = "ork\e[0m\n\e[90m    # No reason given\e[0m\n\e[90m    # ./spec/infinity_test/configuration_spec.rb:31\e[0m\n\nFinished in 0.10487 seconds\n\e[33m806 examples, 0 failures, 2 pending\e[0m\n"
-          @bacon.parse_results(results)
-          @bacon.sucess?.should be_false
-        end
         
         it "should return true when have zero failures and zero pending" do
-          results = "........Finished in 0.299817 seconds\n\n105 examples, 0 failures, 0 pending\n"
+          results = "13 specifications (20 requirements), 0 failures, 0 errors"
           @bacon.parse_results(results)
           @bacon.sucess?.should be_true
         end
         
-      end
-      
-      describe '#pending?' do
-        let(:bacon) { Bacon.new }
-        
-        it "should return true when have pending" do
-          bacon.pending = 1
-          bacon.failure = 0
-          bacon.pending?.should be_true
-        end
-    
-        it "should return false when have pending bu thave failures" do
-          bacon.pending = 1
-          bacon.failure = 1
-          bacon.pending?.should equal false
-        end
-        
-      end
-      
-      def redefine_const(name,value)
-        if Object.const_defined?(name)
-          old_value = Object.const_get(name)
-          Object.send(:remove_const, name)
-        else
-          old_value = value
-        end      
-        Object.const_set(name,value)
-        yield
-      ensure
-        Object.send(:remove_const, name)
-        Object.const_set(name, old_value)
       end
       
     end

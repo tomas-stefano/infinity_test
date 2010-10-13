@@ -54,13 +54,29 @@ module InfinityTest
     end
     
     it "should create a message based in the keys of framework" do
-      some_framework.parse_results(".....\n200 examples, 0 failues, 1 pending")
-      some_framework.message.should == "200 examples, 0 failues, 1 pending"
+      some_framework.parse_results(".....\n200 examples, 0 failures, 1 pending")
+      some_framework.message.should == "200 examples, 0 failures, 1 pending"
     end
     
     it "should create a error message to runtime errors and similars" do
       some_framework.parse_results("RunTimeError: undefined method 'my_method' ...")
       some_framework.message.should == "An exception occurred"
+    end
+    
+    it "should parse the results correctly(when not have in last line)" do
+      other_framework.parse_results("....\n10 tests, 35 assertions, 0 failures, 0 errors\nTest run options: --seed 18841")
+      other_framework.tests.should == 10
+      other_framework.assertions.should == 35
+    end
+    
+    it "should clear the term ansi colors strings" do
+      other_framework.parse_results("seconds\n\e[33m406 tests, 34 assertions, 0 failures, 2 pending\e[0m\n")
+      other_framework.message.should == "406 tests, 34 assertions, 0 failures, 2 pending"
+    end
+    
+    it "should clear the term ansi colors strings" do
+      some_framework.parse_results("seconds\n\e[33m406 examples, 0 failures, 2 pending\e[0m\n")
+      some_framework.message.should == "406 examples, 0 failures, 2 pending"
     end
     
     it "should raise error when not have patterns" do

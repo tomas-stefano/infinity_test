@@ -1,10 +1,13 @@
 module InfinityTest
   module TestLibrary  
-    class Rspec
+    class Rspec < TestFramework
+
       include BinaryPath
       attr_accessor :rubies, :test_directory_pattern, :message, :test_pattern, 
                     :failure, :sucess, :pending
       
+      parse_results :examples => /(\d+) example/, :failures => /(\d+) failure/, :pending => /(\d+) pending/
+
       #
       # rspec = InfinityTest::Rspec.new(:rubies => '1.9.1,1.9.2')
       # rspec.rubies # => '1.9.1,1.9.2'
@@ -58,26 +61,13 @@ module InfinityTest
         search_binary('spec', :environment => environment)
       end
       
-      def parse_results(results)
-        shell_result = results.split("\n").last
-        if shell_result =~ /example/
-          @example = shell_result[/(\d+) example/, 1].to_i
-          @failure = shell_result[/(\d+) failure/, 1].to_i
-          @pending = shell_result[/(\d+) pending/, 1].to_i
-          @message = "#{@example} examples, #{@failure} failures, #{@pending} pending"
-        else
-          @example, @pending, @failure = 0, 0, 1
-          @message = "An exception occurred"
-        end
-      end
-      
       def sucess?
         return false if failure? or pending?
         true
       end
       
       def failure?
-        @failure > 0
+        @failures > 0
       end
       
       def pending?

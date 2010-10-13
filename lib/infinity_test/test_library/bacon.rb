@@ -2,6 +2,7 @@ module InfinityTest
   module TestLibrary
     class Bacon < TestFramework
       
+      parse_results :specifications => /(\d+) specifications/, :requirements => /(\d+) requirements/, :failures => /(\d+) failure/, :errors => /(\d+) errors/
       
       #
       # test_pattern = 'spec/**/*_spec.rb'
@@ -20,7 +21,7 @@ module InfinityTest
       #   end
       # end
       #
-      # parse_results :examples => /(\d+) example/, :failures => /(\d+) failure/, :pending => /(\d+) pending/
+      # 
       #
 
       include BinaryPath
@@ -58,7 +59,7 @@ module InfinityTest
           unless have_binary?(bacon_binary)
             print_message('bacon', ruby_version)
           else
-            results[ruby_version] = "rvm #{ruby_version} ruby #{bacon_binary} #{decide_files(file)}"
+            results[ruby_version] = "rvm #{ruby_version} ruby #{bacon_binary} -Ilib -d #{decide_files(file)}"
           end
         end
         results
@@ -74,31 +75,14 @@ module InfinityTest
       def search_bacon(environment)
         search_binary('bacon', :environment => environment)
       end
-      
-      def parse_results(results)
-        shell_result = results.split("\n").last
-        if shell_result =~ /example/
-          @example = shell_result[/(\d+) example/, 1].to_i
-          @failure = shell_result[/(\d+) failure/, 1].to_i
-          @pending = shell_result[/(\d+) pending/, 1].to_i
-          @message = "#{@example} examples, #{@failure} failures, #{@pending} pending"
-        else
-          @example, @pending, @failure = 0, 0, 1
-          @message = "An exception occurred"
-        end
-      end
-      
+            
       def sucess?
-        return false if failure? or pending?
+        return false if failure?
         true
       end
       
       def failure?
-        @failure > 0
-      end
-      
-      def pending?
-        @pending > 0 and not failure?
+        @failures > 0
       end
       
     end    
