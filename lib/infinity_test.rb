@@ -8,6 +8,7 @@ module InfinityTest
   autoload :ContinuousTesting, 'infinity_test/continuous_testing'
   autoload :Options, 'infinity_test/options'
   autoload :Runner, 'infinity_test/runner'
+  autoload :TestFramework, 'infinity_test/test_framework'
   
   module TestLibrary
     autoload :Bacon, 'infinity_test/test_library/bacon'

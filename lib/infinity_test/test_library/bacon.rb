@@ -1,6 +1,28 @@
 module InfinityTest
   module TestLibrary
-    class Bacon
+    class Bacon < TestFramework
+      
+      
+      #
+      # test_pattern = 'spec/**/*_spec.rb'
+      #
+      # files.to.test(Dir[test_pattern])
+      #
+      # watch :pattern => '^spec/*/(.*)_spec.rb'
+      #
+      # construct_commands do |environment|
+      #   ruby_version = environment.environment_name
+      #   bacon_binary = search_bacon(environment)
+      #   unless have_binary?(bacon_binary)
+      #     print_message('bacon', ruby_version)
+      #   else
+      #     results[ruby_version] = "rvm #{ruby_version} ruby #{bacon_binary} #{decide_files(file)}"
+      #   end
+      # end
+      #
+      # parse_results :examples => /(\d+) example/, :failures => /(\d+) failure/, :pending => /(\d+) pending/
+      #
+
       include BinaryPath
       attr_accessor :rubies, :test_directory_pattern, :message, :test_pattern, 
                     :failure, :sucess, :pending
