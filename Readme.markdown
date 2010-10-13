@@ -87,11 +87,6 @@ So create the global file or project file called:
 
 <b>Contact me in Github and let's talk! =] </b>
 
-## TODO
-
-* Working in focus files and run only the modified file (Strategies for Test::Unit, Rspec and Cucumber)
-* Working in support Rails applications (Sinatra/Rack/Padrino too!)
-
 # Acknowledgments
 
 * Thanks to Mynyml and Watchr library.
