@@ -27,10 +27,6 @@ module InfinityTest
         Rspec.new.test_pattern.should == 'spec/**/*_spec.rb'
       end
       
-      it "should possible to set the test pattern" do
-        Rspec.new(:test_pattern => 'spec/**/spec_*.rb').test_pattern.should == 'spec/**/spec_*.rb'
-      end
-      
       describe '#spec_files' do
         
         let(:rspec) { Rspec.new }

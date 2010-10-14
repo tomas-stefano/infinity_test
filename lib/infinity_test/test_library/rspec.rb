@@ -11,16 +11,14 @@ module InfinityTest
       attr_accessor :rubies, :test_directory_pattern, :message, :test_pattern, 
                     :failure, :sucess, :pending
       
-      
-
       #
       # rspec = InfinityTest::Rspec.new(:rubies => '1.9.1,1.9.2')
       # rspec.rubies # => '1.9.1,1.9.2'
       #
       def initialize(options={})
-        @rubies = options[:rubies] || []
+        super(options)
         @test_directory_pattern = "^spec/*/(.*)_spec.rb"
-        @test_pattern = options[:test_pattern] || 'spec/**/*_spec.rb'
+        @test_pattern = 'spec/**/*_spec.rb'
       end
       
       def construct_commands(file=nil)

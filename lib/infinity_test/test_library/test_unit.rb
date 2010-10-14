@@ -7,7 +7,7 @@ module InfinityTest
       parse_results :tests => /(\d+) tests/, :assertions => /(\d+) assertions/, :failures => /(\d+) failures/, :errors => /(\d+) errors/
 
       def initialize(options={})
-        @rubies = options[:rubies] || []
+        super(options)
         @test_directory_pattern = "^test/*/(.*)_test.rb"
         @test_pattern = 'test/**/*_test.rb'
       end

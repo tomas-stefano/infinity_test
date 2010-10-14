@@ -7,14 +7,8 @@ module InfinityTest
       parse_results :specifications => /(\d+) specifications/, :requirements => /(\d+) requirements/, :failures => /(\d+) failure/, :errors => /(\d+) errors/
       
       #
-      # test_pattern = 'spec/**/*_spec.rb'
-      #
-      # files.to.test(Dir[test_pattern])
-      #
-      # watch :pattern => '^spec/*/(.*)_spec.rb'
-      #
-      # construct_commands do |environment|
-      #   ruby_version = environment.environment_name
+      # construct_commands do |environment, ruby_version|
+      #   command = "rvm #{ruby_version} ruby"
       #   bacon_binary = search_bacon(environment)
       #   unless have_binary?(bacon_binary)
       #     print_message('bacon', ruby_version)
@@ -24,7 +18,6 @@ module InfinityTest
       # end
       #
       #
-
       attr_accessor :rubies, :test_directory_pattern, :message, :test_pattern, 
                     :failure, :sucess, :pending
       
@@ -33,7 +26,7 @@ module InfinityTest
       # bacon.rubies # => '1.9.1,1.9.2'
       #
       def initialize(options={})
-        @rubies = options[:rubies] || []
+        super(options)
         @test_directory_pattern = "^spec/*/(.*)_spec.rb"
         @test_pattern = options[:test_pattern] || 'spec/**/*_spec.rb'
       end

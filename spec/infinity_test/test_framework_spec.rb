@@ -1,22 +1,23 @@
 require 'spec_helper'
 
 module InfinityTest
+
   class SomeFramework < TestFramework
+    @@test_directory_pattern = "^spec/*/(.*)_spec.rb"
     parse_results :examples => /(\d+) example/, :failures => /(\d+) failure/, :pending => /(\d+) pending/
   end
   
   class OtherFramework < TestFramework
+    @@test_directory_pattern = "^test/*/(.*)_test.rb"
     parse_results :tests => /(\d+) tests/, :assertions => /(\d+) assertions/, :failures => /(\d+) failures/, :errors => /(\d+) errors/
   end
   
-  describe '#parse_results' do
-    before do
-      @some_framework = SomeFramework.new
-      @other_framework = OtherFramework.new
-    end
+  describe "Test Framework" do
+
+    let(:some_framework) { SomeFramework.new }
+    let(:other_framework) { OtherFramework.new }
     
-    let(:some_framework) { @some_framework }
-    let(:other_framework) { @other_framework }
+    describe '#parse_results' do
     
     it "should create the examples instance variable" do
       some_framework.parse_results("0 examples, 0 failures, 0 pending")
@@ -88,6 +89,8 @@ module InfinityTest
       }.should raise_exception(ArgumentError, 'patterns should not be empty')
     end
     
+  end
+  
   end
   
 end

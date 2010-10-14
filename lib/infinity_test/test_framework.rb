@@ -1,7 +1,11 @@
 module InfinityTest
   class TestFramework
     attr_accessor :message
-
+    
+    def initialize(options={})
+      @rubies = options[:rubies] || []
+    end
+    
     # Method used in the subclasses of TestFramework
     #
     # Example:
