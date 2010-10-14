@@ -74,6 +74,14 @@ require 'watchr'
     app.run!(['spec'])
   end
   
+  def factory_company_gemfile
+    File.expand_path(File.join(File.dirname(__FILE__), 'factories', 'company', 'Gemfile'))
+  end
+  
+  def factory_buzz_gemfile
+    File.expand_path(File.join(File.dirname(__FILE__), 'factories', 'buzz', 'Gemfile'))
+  end
+  
   def current_env
     RVM::Environment.current
   end

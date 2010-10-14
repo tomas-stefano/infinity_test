@@ -9,11 +9,7 @@ module InfinityTest
         @test_pattern = 'test/**/*_test.rb'
       end
       
-      def construct_rubies_commands(file=nil)
-        # ruby_command.for_rubies(@rubies) do |ruby_version|
-        #          /             \
-        # RubyCommand.new     rubies(@rubies)
-        #      
+      def construct_rubies_commands(file=nil)   
         results = Hash.new
         RVM.environments(@rubies) do |environment|
           ruby_version = environment.environment_name

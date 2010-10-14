@@ -35,16 +35,11 @@ module InfinityTest
       #  def create_command(options)
       #    ruby_version = options[:ruby_version]   
       #    binary_name = options[:binary]
-      #    if have_gemfile?
+      #    if application.have_gemfile?
       #      run_with_bundler!
       #    else
       #      run_without_bundler!
       #    end
-      #  end
-      #
-      #  def have_gemfile?
-      #    gemfile = File.join(File.dirname(__FILE__), 'Gemfile')
-      #    File.exist?(gemfile)
       #  end
       #
       

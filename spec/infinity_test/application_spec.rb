@@ -6,6 +6,7 @@ module InfinityTest
     
     before(:each) do
       @application = Application.new
+      @current_dir = Dir.pwd
     end
     
     it "should return test_unit pattern for test unit" do
@@ -45,6 +46,20 @@ module InfinityTest
       proc = Proc.new { 'To Infinity and beyond!' }
       app.config.after_run(&proc)
       app.after_callback.should equal proc
+    end
+   
+    describe '#have_gemfile?' do
+      
+      it "should return true when Gemfile exists" do
+        application.should_receive(:gemfile).and_return(factory_company_gemfile)
+        application.have_gemfile?.should be_true
+      end
+      
+      it "should return false when Gemfile not exists" do
+        application.should_receive(:gemfile).and_return(factory_buzz_gemfile)
+        application.have_gemfile?.should be_false
+      end
+      
     end
    
     describe '#image_to_show' do

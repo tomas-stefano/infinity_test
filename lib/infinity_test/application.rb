@@ -97,6 +97,17 @@ module InfinityTest
     def verbose?
       config.verbose
     end
+    
+    # Return true if the user application has a Gemfile
+    # Return false if not exist the Gemfile
+    #
+    def have_gemfile?
+      File.exist?(gemfile)
+    end
+    
+    def gemfile
+      File.join(File.dirname(__FILE__), 'Gemfile')
+    end
 
     # Contruct all the commands for the test framework
     #
