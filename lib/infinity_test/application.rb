@@ -2,7 +2,7 @@ module InfinityTest
   class Application
     include InfinityTest::Notifications
     include InfinityTest::TestLibrary
-    
+
     attr_accessor :config, :library_directory_pattern
 
     # Initialize the Application object with the configuration instance to
@@ -115,6 +115,18 @@ module InfinityTest
     def test_framework
       @test_framework ||= setting_test_framework
     end
+    
+    #Return a instance of the app framework class
+    #
+    def app_framework
+      @app_framework||=setting_app_framework
+    end
+    
+    #Return the app_watch directory pattern
+    #
+    def app_directory_pattern
+      app_framework.app_watch_path
+    end
 
     # Return a instance of the Notification Framework class
     #
@@ -188,7 +200,12 @@ module InfinityTest
       commands = test_framework.construct_commands(file)
       run!(commands)
     end
+    
+    
 
+    
+    
+    
     private
 
     def call_each_ruby_callback(callback_type, ruby_version)
@@ -210,6 +227,13 @@ module InfinityTest
         TestUnit.new :rubies => rubies
       when :bacon
         Bacon.new :rubies => rubies
+      end
+    end
+
+    def setting_app_framework
+      case config.app_framework 
+      when :rails
+        Rails.new :test_framework => test_framework
       end
     end
 

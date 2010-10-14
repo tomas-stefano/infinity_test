@@ -202,5 +202,12 @@ module InfinityTest
       
     end
 
+
+    describe "#app framework" do
+      it "should equal app_framework's watch_file_path" do
+        app=application_with(:app_framework => :rails)
+        app.app_directory_pattern.should == ["^app/*/(.*)\.rb", "^app/views/(.*)"]
+      end
+    end
   end
 end

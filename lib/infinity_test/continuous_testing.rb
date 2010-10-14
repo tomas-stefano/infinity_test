@@ -27,6 +27,7 @@ module InfinityTest
       script = Watchr::Script.new
       # add_rule script, :rule => @application.library_directory_pattern
       watch_lib_folder(script, @application.library_directory_pattern)
+      watch_app_falder(script, @application.app_directory_patterns) if @application.app_directory_patterns
       add_rule script, :rule => @application.test_directory_pattern
       add_signal
       Watchr::Controller.new(script, Watchr.handler.new).run
@@ -37,7 +38,15 @@ module InfinityTest
         @application.run_changed_lib_file(file)
       end
     end
-
+    
+    def watch_lib_folder(script, library_directory_pattern)
+      script.watch(library_directory_pattern) do |file|
+        @application.run_changed_lib_file(file)
+        #TODO
+        #Not run all file but only the changed for all test_framework
+      end
+    end
+    
     def add_rule(script, options={})
       script.watch(options[:rule]) do |file|
         @application.run_changed_test_file(file)
