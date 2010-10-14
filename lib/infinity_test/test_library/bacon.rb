@@ -7,7 +7,8 @@ module InfinityTest
       parse_results :specifications => /(\d+) specifications/, :requirements => /(\d+) requirements/, :failures => /(\d+) failure/, :errors => /(\d+) errors/
       
       #
-      # construct_commands do |environment, ruby_version|
+      # construct_commands(:bacon) do |environment, ruby_version|
+      #
       #   command = "rvm #{ruby_version} ruby"
       #   bacon_binary = search_bacon(environment)
       #   unless have_binary?(bacon_binary)
@@ -16,11 +17,6 @@ module InfinityTest
       #     results[ruby_version] = "rvm #{ruby_version} ruby #{bacon_binary} #{decide_files(file)}"
       #   end
       # end
-      #
-      #
-      attr_accessor :rubies, :test_directory_pattern, :message, :test_pattern, 
-                    :failure, :sucess, :pending
-      
       #
       # bacon = InfinityTest::Bacon.new(:rubies => '1.9.1,1.9.2')
       # bacon.rubies # => '1.9.1,1.9.2'
@@ -31,18 +27,26 @@ module InfinityTest
         @test_pattern = options[:test_pattern] || 'spec/**/*_spec.rb'
       end
       
-      def construct_commands(file=nil)
-        @rubies << RVM::Environment.current.environment_name if @rubies.empty?
-        construct_rubies_commands(file)
-      end
-      
-      def all_files
-        Dir[@test_pattern]
-      end
-      
-      def spec_files
-        all_files.collect { |file| file }.join(' ')
-      end
+      #  environments do |environment, ruby_version|
+      #    bacon_binary = search_bacon(environment)
+      #    create_command(:ruby_version => ruby_version, :binary => bacon_binary)
+      #  end
+      #
+      #  def create_command(options)
+      #    ruby_version = options[:ruby_version]   
+      #    binary_name = options[:binary]
+      #    if have_gemfile?
+      #      run_with_bundler!
+      #    else
+      #      run_without_bundler!
+      #    end
+      #  end
+      #
+      #  def have_gemfile?
+      #    gemfile = File.join(File.dirname(__FILE__), 'Gemfile')
+      #    File.exist?(gemfile)
+      #  end
+      #
       
       def construct_rubies_commands(file=nil)
         results = Hash.new
@@ -56,13 +60,6 @@ module InfinityTest
           end
         end
         results
-      end
-      
-      # TODO: I'm not satisfied yet
-      #
-      def decide_files(file)
-        return file if file
-        spec_files
       end
             
       def sucess?

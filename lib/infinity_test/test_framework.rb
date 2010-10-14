@@ -1,9 +1,29 @@
 module InfinityTest
   class TestFramework
-    attr_accessor :message
+    attr_accessor :message, :test_directory_pattern, :rubies, :test_pattern
     
     def initialize(options={})
       @rubies = options[:rubies] || []
+    end
+    
+    def construct_commands(file=nil)
+      @rubies << RVM::Environment.current.environment_name if @rubies.empty?
+      construct_rubies_commands(file)
+    end
+    
+    # Return all the files match by test_pattern
+    #
+    def all_files
+      Dir[@test_pattern]
+    end
+    
+    def test_files
+      all_files.collect { |file| file }.join(' ')
+    end
+    
+    def decide_files(file)
+      return file if file
+      test_files
     end
     
     # Method used in the subclasses of TestFramework
@@ -60,7 +80,7 @@ module InfinityTest
         number = shell_result[pattern, 1].to_i
         instance_variable_set("@#{key}", number)
       end      
-      @message = shell_result.gsub(/\e\[\d+?m/, '')
+      @message = shell_result.gsub(/\e\[\d+?m/, '') # Clean ANSIColor strings
     end
     
     # Return the message of the tests

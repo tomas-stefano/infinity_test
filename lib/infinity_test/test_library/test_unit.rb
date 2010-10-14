@@ -1,9 +1,6 @@
 module InfinityTest
   module TestLibrary
     class TestUnit < TestFramework
-      
-      attr_reader :rubies, :message, :test_directory_pattern, :tests, :assertions, :failures, :errors
-
       parse_results :tests => /(\d+) tests/, :assertions => /(\d+) assertions/, :failures => /(\d+) failures/, :errors => /(\d+) errors/
 
       def initialize(options={})
@@ -12,12 +9,11 @@ module InfinityTest
         @test_pattern = 'test/**/*_test.rb'
       end
       
-      def construct_commands(file=nil)
-        @rubies << RVM::Environment.current.environment_name if @rubies.empty?
-        construct_rubies_commands(file)
-      end
-      
       def construct_rubies_commands(file=nil)
+        # ruby_command.for_rubies(@rubies) do |ruby_version|
+        #          /             \
+        # RubyCommand.new     rubies(@rubies)
+        #      
         results = Hash.new
         RVM.environments(@rubies) do |environment|
           ruby_version = environment.environment_name
@@ -26,21 +22,8 @@ module InfinityTest
         results
       end
       
-      def decide_files(file)
-        return file if file
-        test_files
-      end
-      
       def test_files
-        collect_test_files.unshift(test_loader).join(' ')
-      end
-    
-      def collect_test_files
-        all_files.collect { |file| file }
-      end
-      
-      def all_files
-        Dir[@test_pattern]
+        super.split.unshift(test_loader).join(' ')
       end
     
       def test_loader

@@ -27,25 +27,25 @@ module InfinityTest
         Rspec.new.test_pattern.should == 'spec/**/*_spec.rb'
       end
       
-      describe '#spec_files' do
+      describe '#test_files' do
         
         let(:rspec) { Rspec.new }
         
         it "return should include the spec files" do
           Dir.chdir("#{@current_dir}/spec/factories/buzz") do
-            rspec.spec_files.should be == "spec/buzz_spec.rb"
+            rspec.test_files.should be == "spec/buzz_spec.rb"
           end
         end
         
         it "return should include the spec files to test them" do
           Dir.chdir("#{@current_dir}/spec/factories/wood") do
-            rspec.spec_files.should be == "spec/wood_spec.rb"
+            rspec.test_files.should be == "spec/wood_spec.rb"
           end
         end
         
         it "return should include the spec files to test them in two level of the spec folder" do
           Dir.chdir("#{@current_dir}/spec/factories/slinky") do
-            rspec.spec_files.should be == "spec/slinky/slinky_spec.rb"
+            rspec.test_files.should be == "spec/slinky/slinky_spec.rb"
           end
         end
         
@@ -56,12 +56,12 @@ module InfinityTest
         before { @rspec = Rspec.new }
         
         it "should not call the spec file when match pattern" do
-          @rspec.should_not_receive(:spec_files)
+          @rspec.should_not_receive(:test_files)
           @rspec.decide_files('application_spec.rb')
         end
     
         it "should call the spec files when pattern is nil" do
-          @rspec.should_receive(:spec_files)
+          @rspec.should_receive(:test_files)
           @rspec.decide_files(nil)
         end
         

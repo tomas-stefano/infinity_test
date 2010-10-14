@@ -36,14 +36,26 @@ module InfinityTest
     
           it "return should include test/company_test.rb" do
             Dir.chdir("#{@current_dir}/spec/factories/company") do
-              test_unit.collect_test_files.should eql ["test/company_test.rb"]
+              test_unit.all_files.should eql ["test/company_test.rb"]
             end
           end
     
           it "return should include more than one file to test" do
             Dir.chdir("#{@current_dir}/spec/factories/travel") do
-              test_unit.collect_test_files.should eql ["test/partner_test.rb","test/travel_test.rb"]
+              test_unit.all_files.should eql ["test/partner_test.rb","test/travel_test.rb"]
             end
+          end
+          
+          it "should include all the tests file" do
+            Dir.chdir("#{@current_dir}/spec/factories/travel") do
+              test_unit.test_files.should include "test/partner_test.rb test/travel_test.rb"
+            end
+          end
+          
+          it "should include test loader" do
+            Dir.chdir("#{@current_dir}/spec/factories/travel") do
+              test_unit.test_files.should include "#{@current_dir}/lib/infinity_test/test_unit_loader.rb"
+            end            
           end
           
         end

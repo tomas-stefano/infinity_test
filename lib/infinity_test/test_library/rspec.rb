@@ -8,30 +8,16 @@ module InfinityTest
       
       parse_results :examples => /(\d+) example/, :failures => /(\d+) failure/, :pending => /(\d+) pending/
       
-      attr_accessor :rubies, :test_directory_pattern, :message, :test_pattern, 
-                    :failure, :sucess, :pending
-      
       #
       # rspec = InfinityTest::Rspec.new(:rubies => '1.9.1,1.9.2')
       # rspec.rubies # => '1.9.1,1.9.2'
+      # rspec.test_directory_pattern # => "^spec/*/(.*)_spec.rb"
+      # rspec.test_pattern # => 'spec/**/*_spec.rb'
       #
       def initialize(options={})
         super(options)
         @test_directory_pattern = "^spec/*/(.*)_spec.rb"
         @test_pattern = 'spec/**/*_spec.rb'
-      end
-      
-      def construct_commands(file=nil)
-        @rubies << RVM::Environment.current.environment_name if @rubies.empty?
-        construct_rubies_commands(file)
-      end
-      
-      def all_files
-        Dir[@test_pattern]
-      end
-      
-      def spec_files
-        all_files.collect { |file| file }.join(' ')
       end
       
       def construct_rubies_commands(file=nil)
@@ -47,13 +33,6 @@ module InfinityTest
           end
         end
         results
-      end
-      
-      # TODO: I'm not satisfied yet
-      #
-      def decide_files(file)
-        return file if file
-        spec_files
       end
       
       def sucess?

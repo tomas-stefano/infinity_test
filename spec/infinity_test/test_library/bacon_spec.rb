@@ -33,25 +33,25 @@ module InfinityTest
         Bacon.new(:test_pattern => 'spec/**/spec_*.rb').test_pattern.should == 'spec/**/spec_*.rb'
       end
       
-      describe '#spec_files' do
+      describe '#test_files' do
         
         let(:bacon) { Bacon.new }
         
         it "return should include the spec files" do
           Dir.chdir("#{@current_dir}/spec/factories/buzz") do
-            bacon.spec_files.should be == "spec/buzz_spec.rb"
+            bacon.test_files.should be == "spec/buzz_spec.rb"
           end
         end
         
         it "return should include the spec files to test them" do
           Dir.chdir("#{@current_dir}/spec/factories/wood") do
-            bacon.spec_files.should be == "spec/wood_spec.rb"
+            bacon.test_files.should be == "spec/wood_spec.rb"
           end
         end
         
         it "return should include the spec files to test them in two level of the spec folder" do
           Dir.chdir("#{@current_dir}/spec/factories/slinky") do
-            bacon.spec_files.should be == "spec/slinky/slinky_spec.rb"
+            bacon.test_files.should be == "spec/slinky/slinky_spec.rb"
           end
         end
         
@@ -62,12 +62,12 @@ module InfinityTest
         before { @bacon = Bacon.new }
         
         it "should not call the spec file when match pattern" do
-          @bacon.should_not_receive(:spec_files)
+          @bacon.should_not_receive(:test_files)
           @bacon.decide_files('application_spec.rb')
         end
     
         it "should call the spec files when pattern is nil" do
-          @bacon.should_receive(:spec_files)
+          @bacon.should_receive(:test_files)
           @bacon.decide_files(nil)
         end
         
