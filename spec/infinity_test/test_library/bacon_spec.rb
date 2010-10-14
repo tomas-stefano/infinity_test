@@ -33,6 +33,10 @@ module InfinityTest
         Bacon.new(:test_pattern => 'spec/**/spec_*.rb').test_pattern.should == 'spec/**/spec_*.rb'
       end
       
+      it "should return false for #pending method" do
+        Bacon.new.pending?.should be_false
+      end
+      
       describe '#test_files' do
         
         let(:bacon) { Bacon.new }
@@ -144,6 +148,63 @@ module InfinityTest
         
         it "should match bacon in the string" do
           Bacon.new.search_bacon(current_env).should match /bacon/
+        end
+        
+      end
+      
+      describe '#construct_rubies_commands' do
+        
+        before do
+          @bacon = Bacon.new
+          @bacon.stub(:have_binary?).and_return(true)
+          @bacon.application.stub(:have_gemfile?).and_return(false)
+        end
+        
+        it "should return a Hash" do
+          @bacon.construct_rubies_commands.should be_instance_of(Hash)
+        end
+        
+        it "should return the keys of the rubies" do
+          bacon = Bacon.new(:rubies => '1.9.2')
+          bacon.should_receive(:have_binary?).and_return(true)
+          bacon.construct_rubies_commands.keys.should == ["1.9.2"]
+        end
+        
+        it "should return the rvm with the environment name" do
+          first_element(@bacon.construct_commands).should match /^rvm #{environment_name}/
+        end
+        
+        it "should include ruby command" do
+          first_element(@bacon.construct_commands).should =~ / ruby /
+        end
+        
+        it "should include bacon(nhame nhame) in the command" do
+          first_element(@bacon.construct_commands).should =~ /\/bacon /
+        end
+        
+        it "should include the load path with lib and spec directory" do
+          first_element(@bacon.construct_commands).should match /-I"lib:spec"/
+        end
+        
+        it "should include the files to test" do
+          first_element(@bacon.construct_commands).should match /spec.rb/
+        end
+        
+        it "should not include bundle exec when Gemfile is not present" do
+          application_without_gemfile(@bacon.application)
+          first_element(@bacon.construct_commands).should_not =~ /bundle exec /          
+        end
+        
+        it "should include bundle exec when Gemfile is present" do
+          application_with_gemfile(@bacon.application)
+          first_element(@bacon.construct_commands).should =~ /\/bundle exec /
+        end
+        
+        def first_element(hash, hash_size=1)
+          hash.should have(hash_size).item
+          command = hash.each { |ruby_version, command_to_run| 
+            return command_to_run 
+          }
         end
         
       end

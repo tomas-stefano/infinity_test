@@ -1,8 +1,6 @@
 module InfinityTest
   module TestLibrary  
     class Rspec < TestFramework
-      include BinaryPath
-
       binary :rspec, :name => :rspec_two
       binary :spec,  :name => :rspec_one
       
@@ -20,19 +18,18 @@ module InfinityTest
         @test_pattern = 'spec/**/*_spec.rb'
       end
       
+      # Construct all the commands for each ruby
+      # First, try to find the rspec one binary, and if dont have installed try to find rspec two, and raise/puts an Error if don't find it.
+      # After that, verifying if the user have a Gemfile, and if has, run with "bundle exec" command, else will run normally
+      #
       def construct_rubies_commands(file=nil)
-        results = Hash.new
-        RVM.environments(@rubies) do |environment|
-          ruby_version = environment.environment_name
+        commands = {}
+        environments do |environment, ruby_version|
           rspec_binary = search_rspec_two(environment)
-          rspec_binary = search_rspec_one(environment) unless File.exist?(rspec_binary)
-          unless have_binary?(rspec_binary)
-            print_message('rspec', ruby_version)
-          else
-            results[ruby_version] = "rvm #{ruby_version} ruby #{rspec_binary} #{decide_files(file)}"
-          end
+          rspec_binary = search_rspec_one(environment) unless have_binary?(rspec_binary)
+          commands[ruby_version] = construct_command(:for => ruby_version, :binary => rspec_binary, :file => file, :environment => environment)
         end
-        results
+        commands
       end
       
       def sucess?

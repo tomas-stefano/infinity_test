@@ -106,7 +106,7 @@ module InfinityTest
     end
     
     def gemfile
-      File.join(File.dirname(__FILE__), 'Gemfile')
+      File.join(Dir.pwd, 'Gemfile')
     end
 
     # Contruct all the commands for the test framework

@@ -10,12 +10,11 @@ module InfinityTest
       end
       
       def construct_rubies_commands(file=nil)   
-        results = Hash.new
-        RVM.environments(@rubies) do |environment|
-          ruby_version = environment.environment_name
-          results[ruby_version] = "rvm #{ruby_version} ruby -I'lib:test' #{decide_files(file)}"
+        command = {}
+        environments do |environment, ruby_version|
+          command[ruby_version] = construct_command :for => ruby_version, :load_path => 'lib:test', :file => file, :environment => environment, :skip_binary? => true
         end
-        results
+        command
       end
       
       def test_files

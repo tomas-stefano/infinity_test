@@ -1,12 +1,5 @@
-require 'rubygems'
 
 require 'infinity_test'
-
-begin
-  require 'spec'
-rescue LoadError
-  require 'rspec'
-end
 
 require 'watchr'
 
@@ -86,3 +79,14 @@ require 'watchr'
     RVM::Environment.current
   end
   
+  def environment_name
+    current_env.environment_name
+  end
+  
+  def application_with_gemfile(application)
+    application.should_receive(:have_gemfile?).and_return(true)
+  end
+  
+  def application_without_gemfile(application)
+    application.should_receive(:have_gemfile?).and_return(false)    
+  end

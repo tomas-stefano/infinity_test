@@ -15,20 +15,24 @@ module InfinityTest
     
     describe '.binary' do
       
+      before do
+        @example = Example.new
+      end
+      
       it "should create the binary for bacon framework" do
-        lambda { Example.new.search_bacon(current_env) }.should_not raise_exception
+        lambda { @example.search_bacon(current_env) }.should_not raise_exception
       end
       
       it "should create the binary for cucumber framework" do
-        lambda { Example.new.search_cucumber(current_env) }.should_not raise_exception
+        lambda { @example.search_cucumber(current_env) }.should_not raise_exception
       end
       
       it "should create the binary for rspec two with sufix of rspec_two" do
-        lambda { Example.new.search_rspec_two(current_env) }.should_not raise_exception
+        lambda { @example.search_rspec_two(current_env) }.should_not raise_exception
       end
       
       it "should create the binary for rspec one with sufix of rspec_one" do
-        lambda { Example.new.search_rspec_one(current_env) }.should_not raise_exception
+        lambda { @example.search_rspec_one(current_env) }.should_not raise_exception
       end
       
     end

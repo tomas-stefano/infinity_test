@@ -177,21 +177,53 @@ module InfinityTest
       describe '#search_rspec_two' do
         it { InfinityTest::TestLibrary::Rspec.new.search_rspec_two(current_env).should match /rspec\z/ }
       end
-      
-      def redefine_const(name,value)
-        if Object.const_defined?(name)
-          old_value = Object.const_get(name)
-          Object.send(:remove_const, name)
-        else
-          old_value = value
-        end      
-        Object.const_set(name,value)
-        yield
-      ensure
-        Object.send(:remove_const, name)
-        Object.const_set(name, old_value)
+
+      describe '#construct_rubies_commands' do
+        
+        before do
+          @rspec = Rspec.new
+          @rspec.application.stub(:have_gemfile?).and_return(false)
+        end
+        
+        it "should return a Hash" do
+          @rspec.construct_rubies_commands.should be_instance_of(Hash)
+        end
+        
+        it "should return the rvm with the environment name" do
+          first_element(@rspec.construct_commands).should match /^rvm #{environment_name}/
+        end
+        
+        it "should include ruby command" do
+          first_element(@rspec.construct_commands).should =~ / ruby /
+        end
+        
+        it "should include bacon(nhame nhame) in the command" do
+          first_element(@rspec.construct_commands).should =~ /\/rspec /
+        end
+        
+        it "should include the files to test" do
+          first_element(@rspec.construct_commands).should match /_spec.rb/
+        end
+        
+        it "should not include bundle exec when Gemfile is not present" do
+          application_without_gemfile(@rspec.application)
+          first_element(@rspec.construct_commands).should_not =~ /\/bundle exec /          
+        end
+        
+        it "should include bundle exec when Gemfile is present" do
+          application_with_gemfile(@rspec.application)
+          first_element(@rspec.construct_commands).should =~ /\/bundle exec /
+        end
+        
+        def first_element(hash, hash_size=1)
+          hash.should have(hash_size).item
+          command = hash.each { |ruby_version, command_to_run| 
+            return command_to_run 
+          }
+        end
+        
       end
-      
+
     end
   end
 end

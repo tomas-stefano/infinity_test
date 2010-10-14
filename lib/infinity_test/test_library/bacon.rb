@@ -6,55 +6,33 @@ module InfinityTest
       binary :bacon
       parse_results :specifications => /(\d+) specifications/, :requirements => /(\d+) requirements/, :failures => /(\d+) failure/, :errors => /(\d+) errors/
       
+      # Bacon Framework
       #
-      # construct_commands(:bacon) do |environment, ruby_version|
-      #
-      #   command = "rvm #{ruby_version} ruby"
-      #   bacon_binary = search_bacon(environment)
-      #   unless have_binary?(bacon_binary)
-      #     print_message('bacon', ruby_version)
-      #   else
-      #     results[ruby_version] = "rvm #{ruby_version} ruby #{bacon_binary} #{decide_files(file)}"
-      #   end
-      # end
+      # For more information about the Bacon see: http://github.com/chneukirchen/bacon
       #
       # bacon = InfinityTest::Bacon.new(:rubies => '1.9.1,1.9.2')
       # bacon.rubies # => '1.9.1,1.9.2'
-      #
+      # bacon.test_directory_pattern # => "^spec/*/(.*)_spec.rb"
+      # bacon.test_pattern # => 'spec/**/*_spec.rb'
+      # 
       def initialize(options={})
         super(options)
         @test_directory_pattern = "^spec/*/(.*)_spec.rb"
         @test_pattern = options[:test_pattern] || 'spec/**/*_spec.rb'
       end
       
-      #  environments do |environment, ruby_version|
-      #    bacon_binary = search_bacon(environment)
-      #    create_command(:ruby_version => ruby_version, :binary => bacon_binary)
-      #  end
+      # Construct all the commands for each ruby
+      # First, try to find the bacon binary, and raise/puts an Error if don't find it.
+      # After that, verifying if the user have a Gemfile, and if has, run with "bundle exec" command, else will run normally
       #
-      #  def create_command(options)
-      #    ruby_version = options[:ruby_version]   
-      #    binary_name = options[:binary]
-      #    if application.have_gemfile?
-      #      run_with_bundler!
-      #    else
-      #      run_without_bundler!
-      #    end
-      #  end
-      #
-      
       def construct_rubies_commands(file=nil)
-        results = Hash.new
-        RVM.environments(@rubies) do |environment|
-          ruby_version = environment.environment_name
+        commands = {}
+        environments do |environment, ruby_version|
           bacon_binary = search_bacon(environment)
-          unless have_binary?(bacon_binary)
-            print_message('bacon', ruby_version)
-          else
-            results[ruby_version] = "rvm #{ruby_version} ruby #{bacon_binary} -Ilib -d #{decide_files(file)}"
-          end
+          command = construct_command(:for => ruby_version, :binary => bacon_binary, :load_path => 'lib:spec', :file => file, :environment => environment) || next
+          commands[ruby_version] = command
         end
-        results
+        commands
       end
             
       def sucess?
@@ -64,6 +42,10 @@ module InfinityTest
       
       def failure?
         @failures > 0
+      end
+      
+      def pending?
+        false # Don't have pending in Bacon
       end
       
     end    

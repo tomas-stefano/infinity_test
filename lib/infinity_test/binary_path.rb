@@ -26,6 +26,8 @@ module InfinityTest
       
       # Set the binary to search in the RVM binary folder
       #
+      # binary :bundle
+      #
       def binary(binary_name, options={})
         method_sufix = options[:name] || binary_name
         eval <<-EVAL

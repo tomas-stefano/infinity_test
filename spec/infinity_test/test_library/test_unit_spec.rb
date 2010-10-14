@@ -190,7 +190,48 @@ module InfinityTest
         end
         
       end
-    
+
+      describe '#construct_rubies_command' do
+        before do
+          @test_unit = TestUnit.new
+          @test_unit.application.stub(:have_gemfile?).and_return(false)
+        end
+        
+        it "should return a Hash" do
+          @test_unit.construct_rubies_commands.should be_instance_of(Hash)
+        end
+        
+        it "should return the rvm with the environment name" do
+          first_element(@test_unit.construct_commands).should match /^rvm #{environment_name}/
+        end
+        
+        it "should include ruby command" do
+          first_element(@test_unit.construct_commands).should =~ / ruby /
+        end
+        
+        it "should include the files to test" do
+          first_element(@test_unit.construct_commands).should match /test_unit_loader.rb/
+        end
+        
+        it "should not include bundle exec when Gemfile is not present" do
+          application_without_gemfile(@test_unit.application)
+          first_element(@test_unit.construct_commands).should_not =~ /\/bundle exec /          
+        end
+        
+        it "should include bundle exec when Gemfile is present" do
+          application_with_gemfile(@test_unit.application)
+          first_element(@test_unit.construct_commands).should =~ /\/bundle exec /
+        end
+        
+        def first_element(hash, hash_size=1)
+          hash.should have(hash_size).item
+          command = hash.each { |ruby_version, command_to_run| 
+            return command_to_run 
+          }
+        end
+        
+      end
+
     end    
   end
 end

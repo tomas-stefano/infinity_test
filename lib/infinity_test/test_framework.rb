@@ -1,11 +1,61 @@
 module InfinityTest
   class TestFramework
-    attr_accessor :message, :test_directory_pattern, :rubies, :test_pattern
+    include BinaryPath
+
+    binary :bundle
+
+    attr_accessor :application, :message, :test_directory_pattern, :rubies, :test_pattern
     
     def initialize(options={})
+      @application = InfinityTest.application
       @rubies = options[:rubies] || []
     end
     
+    # Run in context of each Ruby Environment, and the Ruby Version
+    #
+    def environments(&block)
+      raise unless block_given?
+      RVM.environments(rubies).each do |environment|
+        ruby_version = environment.environment_name
+        block.call(environment, ruby_version)
+      end
+    end
+    
+    #
+    #  if application.have_gemfile?
+    #    run_with_bundler!
+    #  else
+    #    run_without_bundler!
+    #  end
+    #
+    def construct_command(options)
+      binary_name, ruby_version, command, file, environment = resolve_options(options)
+      unless have_binary?(binary_name) || options[:skip_binary?]
+        print_message(binary_name, ruby_version)
+      else
+        command = "ruby #{command} #{decide_files(file)}"
+        rvm_ruby_version = "rvm #{ruby_version}"
+        if application.have_gemfile?
+          run_with_bundler!(rvm_ruby_version, command, environment)
+        else
+          run_without_bundler!(rvm_ruby_version, command)
+        end
+      end
+    end
+    
+    def run_with_bundler!(rvm_ruby_version, command, environment)
+      bundle_binary = search_bundle(environment)
+      %{#{rvm_ruby_version} #{bundle_binary} exec #{command}}      
+    end
+    
+    def run_without_bundler!(rvm_ruby_version, command)
+      %{#{rvm_ruby_version} #{command}}
+    end
+    
+    # Contruct all the Commands for each ruby instance variable
+    # If don't want to run with many rubies, add the current ruby to the rubies instance
+    # and create the command with current ruby
+    #
     def construct_commands(file=nil)
       @rubies << RVM::Environment.current.environment_name if @rubies.empty?
       construct_rubies_commands(file)
@@ -92,6 +142,17 @@ module InfinityTest
       lines = output.split("\n")
       lines.select { |line| line =~ patterns.values.first }.first
     end
+    
+    private
+     def resolve_options(options)
+       ruby_version = options[:for]
+       binary_name = options[:skip_binary?] ? '' : options[:binary]
+       load_path = %{-I"#{options[:load_path]}"} if options[:load_path]
+       environment = options[:environment]
+       file = options[:file]
+       command = [ binary_name, load_path].compact.join(' ')
+       [binary_name, ruby_version, command, file, environment]
+     end
     
   end
 end
