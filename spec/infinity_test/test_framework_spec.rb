@@ -70,8 +70,8 @@ module InfinityTest
     end
     
     it "should clear the term ansi colors strings" do
-      other_framework.parse_results("seconds\n\e[33m406 tests, 34 assertions, 0 failures, 2 pending\e[0m\n")
-      other_framework.message.should == "406 tests, 34 assertions, 0 failures, 2 pending"
+      other_framework.parse_results("seconds\n\e[33m406 tests, 34 assertions, 0 failures, 2 errors\e[0m\n")
+      other_framework.message.should == "406 tests, 34 assertions, 0 failures, 2 errors"
     end
     
     it "should clear the term ansi colors strings" do

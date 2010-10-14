@@ -3,6 +3,8 @@ require 'spec_helper'
 module InfinityTest
   module TestLibrary      
     describe Bacon do
+      let(:current_env) { RVM::Environment.current }
+
       before do
         @current_dir = Dir.pwd
       end
@@ -133,6 +135,15 @@ module InfinityTest
           results = "13 specifications (20 requirements), 0 failures, 0 errors"
           @bacon.parse_results(results)
           @bacon.sucess?.should be_true
+        end
+        
+      end
+      
+      describe '#search_bacon' do
+        # humm ... Bacon ... nhame nhame =]
+        
+        it "should match bacon in the string" do
+          Bacon.new.search_bacon(current_env).should match /bacon/
         end
         
       end

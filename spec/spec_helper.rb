@@ -74,3 +74,7 @@ require 'watchr'
     app.run!(['spec'])
   end
   
+  def current_env
+    RVM::Environment.current
+  end
+  

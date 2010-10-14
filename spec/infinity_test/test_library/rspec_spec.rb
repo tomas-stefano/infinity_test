@@ -172,6 +172,16 @@ module InfinityTest
         
       end
       
+      describe '#search_rspec_one' do
+        
+        it { InfinityTest::TestLibrary::Rspec.new.search_rspec_one(current_env).should match /spec\z/ }
+        
+      end
+      
+      describe '#search_rspec_two' do
+        it { InfinityTest::TestLibrary::Rspec.new.search_rspec_two(current_env).should match /rspec\z/ }
+      end
+      
       def redefine_const(name,value)
         if Object.const_defined?(name)
           old_value = Object.const_get(name)

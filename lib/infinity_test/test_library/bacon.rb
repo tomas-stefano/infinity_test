@@ -1,7 +1,9 @@
 module InfinityTest
   module TestLibrary
     class Bacon < TestFramework
+      include BinaryPath
       
+      binary :bacon
       parse_results :specifications => /(\d+) specifications/, :requirements => /(\d+) requirements/, :failures => /(\d+) failure/, :errors => /(\d+) errors/
       
       #
@@ -21,10 +23,8 @@ module InfinityTest
       #   end
       # end
       #
-      # 
       #
 
-      include BinaryPath
       attr_accessor :rubies, :test_directory_pattern, :message, :test_pattern, 
                     :failure, :sucess, :pending
       
@@ -70,10 +70,6 @@ module InfinityTest
       def decide_files(file)
         return file if file
         spec_files
-      end
-      
-      def search_bacon(environment)
-        search_binary('bacon', :environment => environment)
       end
             
       def sucess?

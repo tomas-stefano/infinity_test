@@ -1,12 +1,17 @@
 module InfinityTest
   module TestLibrary  
     class Rspec < TestFramework
-
       include BinaryPath
+
+      binary :rspec, :name => :rspec_two
+      binary :spec,  :name => :rspec_one
+      
+      parse_results :examples => /(\d+) example/, :failures => /(\d+) failure/, :pending => /(\d+) pending/
+      
       attr_accessor :rubies, :test_directory_pattern, :message, :test_pattern, 
                     :failure, :sucess, :pending
       
-      parse_results :examples => /(\d+) example/, :failures => /(\d+) failure/, :pending => /(\d+) pending/
+      
 
       #
       # rspec = InfinityTest::Rspec.new(:rubies => '1.9.1,1.9.2')
@@ -51,14 +56,6 @@ module InfinityTest
       def decide_files(file)
         return file if file
         spec_files
-      end
-      
-      def search_rspec_two(environment)
-        search_binary('rspec', :environment => environment)
-      end
-      
-      def search_rspec_one(environment)
-        search_binary('spec', :environment => environment)
       end
       
       def sucess?
