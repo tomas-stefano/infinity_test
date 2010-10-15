@@ -9,11 +9,14 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tomas D'Stefano"]
-  s.date = %q{2010-10-05}
+  s.date = %q{2010-10-14}
   s.default_executable = %q{infinity_test}
   s.description = %q{Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with Rspec OR Test::Unit with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration.}
   s.email = %q{tomasdestefi@gmail.com}
   s.executables = ["infinity_test"]
+  s.extra_rdoc_files = [
+    "LICENSE.txt"
+  ]
   s.files = [
     ".gitignore",
      ".infinity_test",
@@ -22,8 +25,10 @@ Gem::Specification.new do |s|
      "Gemfile",
      "Gemfile.lock",
      "History.markdown",
+     "LICENSE.txt",
      "Rakefile",
      "Readme.markdown",
+     "TODO.markdown",
      "Tasks",
      "VERSION.yml",
      "bin/infinity_test",
@@ -65,12 +70,15 @@ Gem::Specification.new do |s|
      "lib/infinity_test/notifications/growl.rb",
      "lib/infinity_test/notifications/lib_notify.rb",
      "lib/infinity_test/options.rb",
-     "lib/infinity_test/rspec.rb",
      "lib/infinity_test/runner.rb",
-     "lib/infinity_test/test_unit.rb",
+     "lib/infinity_test/test_framework.rb",
+     "lib/infinity_test/test_library/bacon.rb",
+     "lib/infinity_test/test_library/rspec.rb",
+     "lib/infinity_test/test_library/test_unit.rb",
      "lib/infinity_test/test_unit_loader.rb",
      "spec/factories/buzz/lib/buzz.rb",
      "spec/factories/buzz/spec/buzz_spec.rb",
+     "spec/factories/company/Gemfile",
      "spec/factories/company/lib/company.rb",
      "spec/factories/company/test/company_test.rb",
      "spec/factories/images/failure.png",
@@ -85,15 +93,18 @@ Gem::Specification.new do |s|
      "spec/factories/wood/lib/wood.rb",
      "spec/factories/wood/spec/wood_spec.rb",
      "spec/infinity_test/application_spec.rb",
+     "spec/infinity_test/binary_path_spec.rb",
      "spec/infinity_test/command_spec.rb",
      "spec/infinity_test/configuration_spec.rb",
      "spec/infinity_test/continuous_testing_spec.rb",
      "spec/infinity_test/notifications/growl_spec.rb",
      "spec/infinity_test/notifications/lib_notify_spec.rb",
      "spec/infinity_test/options_spec.rb",
-     "spec/infinity_test/rspec_spec.rb",
      "spec/infinity_test/runner_spec.rb",
-     "spec/infinity_test/test_unit_spec.rb",
+     "spec/infinity_test/test_framework_spec.rb",
+     "spec/infinity_test/test_library/bacon_spec.rb",
+     "spec/infinity_test/test_library/rspec_spec.rb",
+     "spec/infinity_test/test_library/test_unit_spec.rb",
      "spec/infinity_test_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
@@ -120,27 +131,30 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Continuous testing and a flexible alternative to Autotest using watchr and RVM}
   s.test_files = [
-    "spec/factories/travel/lib/travel.rb",
-     "spec/factories/travel/test/partner_test.rb",
-     "spec/factories/travel/test/travel_test.rb",
+    "spec/factories/buzz/lib/buzz.rb",
+     "spec/factories/buzz/spec/buzz_spec.rb",
      "spec/factories/company/lib/company.rb",
      "spec/factories/company/test/company_test.rb",
-     "spec/factories/buzz/lib/buzz.rb",
-     "spec/factories/buzz/spec/buzz_spec.rb",
+     "spec/factories/slinky/spec/slinky/slinky_spec.rb",
+     "spec/factories/travel/lib/travel.rb",
+     "spec/factories/travel/test/partner_test.rb",
+     "spec/factories/travel/test/travel_test.rb",
      "spec/factories/wood/lib/wood.rb",
      "spec/factories/wood/spec/wood_spec.rb",
-     "spec/factories/slinky/spec/slinky/slinky_spec.rb",
-     "spec/infinity_test_spec.rb",
+     "spec/infinity_test/application_spec.rb",
+     "spec/infinity_test/binary_path_spec.rb",
+     "spec/infinity_test/command_spec.rb",
+     "spec/infinity_test/configuration_spec.rb",
      "spec/infinity_test/continuous_testing_spec.rb",
      "spec/infinity_test/notifications/growl_spec.rb",
      "spec/infinity_test/notifications/lib_notify_spec.rb",
-     "spec/infinity_test/test_unit_spec.rb",
      "spec/infinity_test/options_spec.rb",
-     "spec/infinity_test/application_spec.rb",
      "spec/infinity_test/runner_spec.rb",
-     "spec/infinity_test/rspec_spec.rb",
-     "spec/infinity_test/configuration_spec.rb",
-     "spec/infinity_test/command_spec.rb",
+     "spec/infinity_test/test_framework_spec.rb",
+     "spec/infinity_test/test_library/bacon_spec.rb",
+     "spec/infinity_test/test_library/rspec_spec.rb",
+     "spec/infinity_test/test_library/test_unit_spec.rb",
+     "spec/infinity_test_spec.rb",
      "spec/spec_helper.rb"
   ]
 

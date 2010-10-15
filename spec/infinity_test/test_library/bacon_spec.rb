@@ -153,46 +153,39 @@ module InfinityTest
       end
       
       describe '#construct_rubies_commands' do
-        
-        before do
+
+        before(:each) do
           @bacon = Bacon.new
-          @bacon.stub(:have_binary?).and_return(true)
+          @bacon.stub!(:have_binary?).and_return(true)
           @bacon.application.stub(:have_gemfile?).and_return(false)
         end
         
         it "should return a Hash" do
-          @bacon.construct_rubies_commands.should be_instance_of(Hash)
-        end
-        
-        it "should return the keys of the rubies" do
-          bacon = Bacon.new(:rubies => '1.9.2')
-          bacon.should_receive(:have_binary?).and_return(true)
-          bacon.construct_rubies_commands.keys.should == ["1.9.2"]
+          commands.should be_instance_of(Hash)
         end
         
         it "should return the rvm with the environment name" do
-          first_element(@bacon.construct_commands).should match /^rvm #{environment_name}/
+          first_element(commands).should match /^rvm #{environment_name}/
         end
         
         it "should include ruby command" do
-          first_element(@bacon.construct_commands).should =~ / ruby /
+          first_element(commands).should =~ / ruby /
         end
         
         it "should include bacon(nhame nhame) in the command" do
-          first_element(@bacon.construct_commands).should =~ /\/bacon /
+          first_element(commands).should =~ /\/bacon /
         end
         
         it "should include the load path with lib and spec directory" do
-          first_element(@bacon.construct_commands).should match /-I"lib:spec"/
+          first_element(commands).should match /-I"lib:spec"/
         end
         
         it "should include the files to test" do
-          first_element(@bacon.construct_commands).should match /spec.rb/
+          first_element(commands).should match /spec.rb/
         end
         
         it "should not include bundle exec when Gemfile is not present" do
-          application_without_gemfile(@bacon.application)
-          first_element(@bacon.construct_commands).should_not =~ /bundle exec /          
+          first_element(commands).should_not =~ /bundle exec /          
         end
         
         it "should include bundle exec when Gemfile is present" do
@@ -205,6 +198,10 @@ module InfinityTest
           command = hash.each { |ruby_version, command_to_run| 
             return command_to_run 
           }
+        end
+        
+        def commands
+          @commands ||= @bacon.construct_commands
         end
         
       end
