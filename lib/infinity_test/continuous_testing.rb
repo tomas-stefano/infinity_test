@@ -39,11 +39,11 @@ module InfinityTest
       end
     end
     
-    def watch_lib_folder(script, library_directory_pattern)
-      script.watch(library_directory_pattern) do |file|
-        @application.run_changed_lib_file(file)
-        #TODO
-        #Not run all file but only the changed for all test_framework
+    def watch_app_falder(script, app_directory_patterns)
+      app_directory_patterns.each do |directory|
+        script.watch(directory) do |file|
+          @application.run_changed_app_file(file)
+        end
       end
     end
     

@@ -115,16 +115,16 @@ module InfinityTest
     def test_framework
       @test_framework ||= setting_test_framework
     end
-    
+
     #Return a instance of the app framework class
     #
     def app_framework
       @app_framework||=setting_app_framework
     end
-    
+
     #Return the app_watch directory pattern
     #
-    def app_directory_pattern
+    def app_directory_patterns
       app_framework.app_watch_path
     end
 
@@ -200,12 +200,16 @@ module InfinityTest
       commands = test_framework.construct_commands(file)
       run!(commands)
     end
-    
-    
 
-    
-    
-    
+    def run_changed_app_file(file)
+     run_changed_lib_file(file)
+     #TODO
+     #when changed file ,not run all tests,only the changed match test file
+    end
+
+
+
+
     private
 
     def call_each_ruby_callback(callback_type, ruby_version)
