@@ -40,7 +40,7 @@ Or with Test::Unit:
 
 With Rails:
 
-   infinity_test --rails
+    infinity_test --rails
 
 Or add :app_framework => :rails in .infinity_test
    
