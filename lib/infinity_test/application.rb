@@ -124,8 +124,8 @@ module InfinityTest
 
     #Return the app_watch directory pattern
     #
-    def app_directory_patterns
-      app_framework.app_watch_path
+    def app_directory_pattern
+      app_framework.app_watch_path if app_framework
     end
 
     # Return a instance of the Notification Framework class
@@ -186,6 +186,12 @@ module InfinityTest
 
     # After change the file the infinity_test will search a similar file to run
     #
+    def run_changed_app_file(file)
+      test_files=app_framework.test_files_for(file.to_s)
+      puts test_files
+      run_commands_for_file(test_files.join(' ')) unless test_files.empty?
+    end
+    
     def run_changed_lib_file(file)
       file = File.basename(file[1])
       files = test_framework.all_files.grep(/#{file}/i)
@@ -200,14 +206,6 @@ module InfinityTest
       commands = test_framework.construct_commands(file)
       run!(commands)
     end
-
-    def run_changed_app_file(file)
-     run_changed_lib_file(file)
-     #TODO
-     #when changed file ,not run all tests,only the changed match test file
-    end
-
-
 
 
     private

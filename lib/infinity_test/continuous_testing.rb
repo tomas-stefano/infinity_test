@@ -27,7 +27,7 @@ module InfinityTest
       script = Watchr::Script.new
       # add_rule script, :rule => @application.library_directory_pattern
       watch_lib_folder(script, @application.library_directory_pattern)
-      watch_app_falder(script, @application.app_directory_patterns) if @application.app_directory_patterns
+      watch_app_falder(script, @application.app_directory_pattern) if @application.app_directory_pattern
       add_rule script, :rule => @application.test_directory_pattern
       add_signal
       Watchr::Controller.new(script, Watchr.handler.new).run

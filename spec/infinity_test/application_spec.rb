@@ -206,17 +206,17 @@ module InfinityTest
     describe "#app framework" do
       before(:each) do
         @app_rails=application_with(:app_framework => :rails)
+        @rails=@app_rails.app_framework
       end
-      it "should equal app_framework's watch_file_path" do
-        @app_rails.app_directory_patterns.should == @app_rails.app_framework.app_watch_path
+      it "should return the instance of Rails when app framework is Rails" do
+        @app_rails.app_framework.should be_instance_of(InfinityTest::Rails)
       end
-
-      it "should return the map files" do
-        # @app_rails.run_changed_app_file("app/models/post.rb")
-        #       @app_rails.run_changed_app_file("app/controllers/post.rb")
-        @app_rails.app_framework.map_file("app/models/post.rb").should == ["spec/models/post_spec.rb"]
-        # @app_rails.run_changed_app_file("app/models/post.rb")
+      
+      it "should return the rails app_watch_path" do
+        @app_rails.app_directory_pattern.should == @rails.app_watch_path
       end
+      
+      
     end
   end
 end
