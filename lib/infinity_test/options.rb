@@ -11,6 +11,7 @@ module InfinityTest
         parse_test_unit(options)
         parse_rubies(options)
         parse_verbose(options)
+        parse_rails(options)
         options.banner = [ "Usage: infinity_test [options]", "Starts a continuous test server."].join("\n")        
         options.on_tail("--help", "You're looking at it.") do
           print options.help
@@ -49,6 +50,12 @@ module InfinityTest
         self[:verbose] = true
       end
     end
+    
+     def parse_rails(options)
+        options.on('--rails', 'Rails') do
+          self[:app_framework] = :rails
+        end
+      end
     
     def rspec?
       return true if self[:test_framework].equal?(:rspec)

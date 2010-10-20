@@ -45,6 +45,9 @@ module InfinityTest
         @pending > 0 and not failure?
       end
       
+      
+      #For rails file change
+      
     end
   end
 end

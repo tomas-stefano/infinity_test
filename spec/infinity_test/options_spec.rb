@@ -50,6 +50,10 @@ module InfinityTest
         @options[:verbose].should be_true
       end
       
+      it "should  return rails as app framework when  parse rails" do
+        parse_options('--rails')
+        @options[:app_framework].should equal :rails
+      end
     end
 
     describe "#rspec?" do

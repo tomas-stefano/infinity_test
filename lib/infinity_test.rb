@@ -9,7 +9,7 @@ module InfinityTest
   autoload :Options, 'infinity_test/options'
   autoload :Runner, 'infinity_test/runner'
   autoload :TestFramework, 'infinity_test/test_framework'
-  
+  autoload :Rails ,"infinity_test/rails"
   module TestLibrary
     autoload :Bacon, 'infinity_test/test_library/bacon'
     autoload :Rspec, 'infinity_test/test_library/rspec'
