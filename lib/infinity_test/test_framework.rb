@@ -139,17 +139,12 @@ module InfinityTest
     # test_message('....\n4 examples, 0 failures', { :examples => /(\d) examples/}) # => '4 examples, 0 failures'
     #
     def test_message(output, patterns)
-      # require 'ruby-debug'
-      # debugger
       lines = output.split("\n")
       final_result = []
       patterns.each do |key, pattern|
         final_result << lines.select { |line| line =~ pattern }
       end
       final_result.flatten.first
-      
-#      result.empty? ? nil : result.first.join
-      # lines.select { |line| line =~ value }
     end
     
     private

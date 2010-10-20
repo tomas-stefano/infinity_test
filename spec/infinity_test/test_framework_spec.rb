@@ -126,6 +126,10 @@ module InfinityTest
         some_framework.test_message("\n880 examples, 0 failures", { :pending => /(\d+) pending/, :example => /(\d+) example/, :errors => /(\d+) errors/ }).should eql '880 examples, 0 failures'
       end
       
+      it "should return nil when not have any patterns" do
+        other_framework.test_message("NameError: You fail!! by Chuck Norris", { :pending => /(\d+) pending/, :example => /(\d+) example/ }).should be_nil
+      end
+      
     end
 
   end
