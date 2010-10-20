@@ -36,6 +36,14 @@ Or with Test::Unit:
 
     infinity_test --test-unit --rubies=1.8.7,jruby,ree,1.9.2
 
+## Running Tests with Rails
+
+With Rails:
+
+   infinity_test --rails
+
+Or add :app_framework => :rails in .infinity_test
+   
 <b>And you are ready to Test with all ruby versions your Rspec or Test::Unit Suite with Autotest-like Behavior.</b>
 
 ## Configuration file
@@ -55,7 +63,7 @@ So create the global file or project file called:
             show_images :mode => :mario_bros
           end
           
-          use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec
+          use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec #,:app_framework => :rails
 
           before(:each_ruby) do |environment|
             # ...
