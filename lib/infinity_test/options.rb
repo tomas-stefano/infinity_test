@@ -28,7 +28,7 @@ module InfinityTest
     end
     
     def parse_test_unit(options)
-      options.on('--test-unit', 'Test Unit') do
+      options.on('--test-unit', 'Test Unit [Default]') do
         self[:test_framework] = :test_unit
       end
     end
