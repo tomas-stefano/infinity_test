@@ -33,8 +33,8 @@ module InfinityTest
       unless have_binary?(binary_name) || options[:skip_binary?]
         print_message(binary_name, ruby_version)
       else
-        command = "ruby #{command} #{decide_files(file)}"
-        rvm_ruby_version = "rvm #{ruby_version}"
+        command = "#{command} #{decide_files(file)}"
+        rvm_ruby_version = "rvm #{ruby_version} ruby"
         if application.have_gemfile?
           run_with_bundler!(rvm_ruby_version, command, environment)
         else

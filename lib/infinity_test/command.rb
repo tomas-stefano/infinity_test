@@ -7,6 +7,7 @@ module InfinityTest
     def initialize(options={})
       @command = options[:command]
       @ruby_version = options[:ruby_version]
+      @current_ruby_string = RVM::Environment.current_ruby_string
       @results = []
       @line = []
     end
@@ -21,7 +22,11 @@ module InfinityTest
           until file.eof? do
             test_line = file.getc 
             break unless test_line
-            putc(test_line)
+            if yarv?
+              print(test_line)
+            else
+              putc(test_line)
+            end
             @line.push(test_line)
             push_in_the_results(test_line)
           end
@@ -47,13 +52,17 @@ module InfinityTest
     # Using Ruby Enterprise Edition?
     #
     def ree?
-      RVM::Environment.current_ruby_string =~ /ree/
+      @current_ruby_string =~ /ree/
     end
     
     # Using mri?
     #
     def mri?
-      RVM::Environment.current_ruby_string =~ /ruby-1.8/
+      @current_ruby_string =~ /ruby-1.8/
+    end
+    
+    def yarv?
+      @current_ruby_string =~ /ruby-1.9/
     end
     
     def end_of_line?(test_line)
