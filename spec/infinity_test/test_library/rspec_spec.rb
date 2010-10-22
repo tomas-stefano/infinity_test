@@ -190,8 +190,8 @@ module InfinityTest
           @command.should be_instance_of(Hash)
         end
         
-        it "should return the rvm with the environment name" do
-          first_element(@command).should match /^rvm #{environment_name}/
+        it "should return the rvm with the environment name and the ruby string" do
+          first_element(@command).should match /^rvm #{environment_name} ruby/
         end
         
         it "should include ruby command" do
@@ -213,7 +213,9 @@ module InfinityTest
         
         it "should include bundle exec when Gemfile is present" do
           application_with_gemfile(@rspec.application)
-          first_element(@rspec.construct_commands).should =~ /\/bundle exec /
+          result = first_element(@rspec.construct_commands)
+          result.should match /^rvm #{environment_name} ruby/
+          result.should match /\/bundle exec /
         end
         
         def first_element(hash, hash_size=1)

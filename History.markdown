@@ -4,6 +4,7 @@ In Development
 Features
 --------
 
+- Support Bundler (if have a Gemfile run with "bundle exec #{command}" else run "command")
 - Support Bacon - for more information see - http://github.com/chneukirchen/bacon (thanks to Ng Tze Yang)
 - Possible to setup the lib pattern, test pattern (thanks to Jason Rogers).
  
@@ -15,6 +16,11 @@ Features
              application.library_directory_pattern             = '^my_unusual_lib_directory/*/(.*).rb'
            end
          end
+
+Refactoring
+-----------
+
+- Refactoring all the tests frameworks to become more easier to add a new test library
 
 v0.2.0
 ==============================

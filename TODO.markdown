@@ -1,7 +1,6 @@
 Future
 =======
 
-- Support Bundler (if have a gemfile run with "bundle exec #{command}" else "command")
 - Support Cucumber 
 - Support Steak
 - Support Rails apps
@@ -13,7 +12,3 @@ Bugs
 
 - Coloring the output (maybe using RedGreen)
 
-Refactoring
-===========
-
-- Refactoring all the tests frameworks to become more easier to add a new test library
