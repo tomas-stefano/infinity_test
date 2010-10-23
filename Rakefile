@@ -46,3 +46,11 @@ rescue LoadError
   [sudo] gem install jeweler"
   puts("-" * 80)
 end
+
+
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new("spec") do |t|
+  t.pattern = "./spec/infinity_test/**/*_spec.rb"
+end
+
+task :default => :spec
