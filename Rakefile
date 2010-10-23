@@ -34,7 +34,7 @@ begin
 
     gemspec.add_dependency('watchr', '>= 0.7')
 
-    gemspec.add_development_dependency('rspec', '>= 1.3.0')
+    gemspec.add_development_dependency('rspec', '>= 2.0.1')
 
     gemspec.post_install_message = POST_MESSAGE
   end

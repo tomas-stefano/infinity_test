@@ -130,7 +130,7 @@ module InfinityTest
     #Return a instance of the app framework class
     #
     def app_framework
-      @app_framework||=setting_app_framework
+      @app_framework ||= setting_app_framework
     end
 
     #Return the app_watch directory pattern
@@ -217,7 +217,6 @@ module InfinityTest
       commands = test_framework.construct_commands(file)
       run!(commands)
     end
-
 
     private
 

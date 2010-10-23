@@ -7,7 +7,7 @@ module InfinityTest
     end
     
     def rvm_bin_path(environment, binary)
-      "~/.rvm/gems/#{environment.expanded_name}/bin/#{binary}"
+      environment.path_for(binary)
     end
     
     def print_message(gem_name, ruby_version)
@@ -15,7 +15,7 @@ module InfinityTest
     end
     
     def search_binary(binary_name, options)
-      File.expand_path(rvm_bin_path(options[:environment], binary_name))
+      rvm_bin_path(options[:environment], binary_name)
     end
     
     def have_binary?(binary)

@@ -2,6 +2,7 @@ require 'spec_helper'
 
 module InfinityTest
   describe BinaryPath do
+    include BinaryPath    
     let(:current_env) { RVM::Environment.current }
 
     class Example
@@ -20,7 +21,7 @@ module InfinityTest
       end
       
       it "should create the binary for bacon framework" do
-        lambda { @example.search_bacon(current_env) }.should_not raise_exception
+        expect { @example.search_bacon(current_env) }.to_not raise_exception
       end
       
       it "should create the binary for cucumber framework" do
@@ -36,6 +37,6 @@ module InfinityTest
       end
       
     end
-    
+   
   end
 end

@@ -22,12 +22,6 @@ module InfinityTest
     end
     
     #
-    #  if application.have_gemfile?
-    #    run_with_bundler!
-    #  else
-    #    run_without_bundler!
-    #  end
-    #
     def construct_command(options)
       binary_name, ruby_version, command, file, environment = resolve_options(options)
       unless have_binary?(binary_name) || options[:skip_binary?]
@@ -45,7 +39,11 @@ module InfinityTest
     
     def run_with_bundler!(rvm_ruby_version, command, environment)
       bundle_binary = search_bundle(environment)
-      %{#{rvm_ruby_version} #{bundle_binary} exec #{command}}      
+      unless have_binary?(bundle_binary)
+        print_message('bundle', environment.expanded_name)
+      else
+        %{#{rvm_ruby_version} #{bundle_binary} exec #{command}}
+      end
     end
     
     def run_without_bundler!(rvm_ruby_version, command)

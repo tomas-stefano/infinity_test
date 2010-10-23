@@ -3,7 +3,7 @@ require 'spec_helper'
 module InfinityTest
   module TestLibrary      
     describe Bacon do
-      let(:current_env) { RVM::Environment.current }
+      let(:current_env) { RVM.current }
 
       before do
         @current_dir = Dir.pwd
@@ -147,6 +147,7 @@ module InfinityTest
         # humm ... Bacon ... nhame nhame =]
         
         it "should match bacon in the string" do
+          current_env.should_receive(:path_for).and_return('bacon')
           Bacon.new.search_bacon(current_env).should match /bacon/
         end
         
@@ -170,10 +171,6 @@ module InfinityTest
         
         it "should include ruby command" do
           first_element(commands).should =~ / ruby /
-        end
-        
-        it "should include bacon(nhame nhame) in the command" do
-          first_element(commands).should =~ /\/bacon /
         end
         
         it "should include the load path with lib and spec directory" do
