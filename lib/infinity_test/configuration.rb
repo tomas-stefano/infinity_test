@@ -109,128 +109,141 @@ module InfinityTest
           ruby << "@#{options[:gemset]}" 
           }.join(',')
         end
-      end
-
-      # Method to use to ignore some dir/files changes
-      # 
-      # Example:
-      #
-      # ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
-      #
-      # This is useless right now in the Infinity Test because the library 
-      # only monitoring lib and test/spec/feature folder.
-      #
-      def ignore(options={})
-        @exceptions_to_ignore = options[:exceptions] || []
-      end
-
-      # Callback method to run anything you want, before the run the test suite command
-      # 
-      # Example:
-      #
-      # before_run do
-      #   clear :terminal
-      # end
-      #
-      def before_run(&block)
-        @before_callback = block
-      end
-
-      # Callback method to run anything you want, before the environment is fully set up
-      # 
-      # Example:
-      #
-      # before_env do |application|
-      #   # some code that I want to run before the environment is set up
-      # end
-      #
-      def before_env(&block)
-        @before_environment_callback = block
-      end
-
-      # Callback method to run anything you want, after the run the test suite command
-      # 
-      # Example:
-      #
-      # after_run do
-      #   # some code that I want to run after all the rubies run
-      # end
-      #
-      def after_run(&block)
-        @after_callback = block
-      end
-
-      # Callback method to handle before or after all run and for each ruby too!
-      #
-      # Example:
-      #
-      # before(:all) do
-      #   clear :terminal
-      # end
-      #
-      # before(:each_ruby) do
-      #   ...
-      # end
-      #
-      # Or if you pass not then will use :all option
-      #
-      # before do
-      #  clear :terminal
-      # end
-      #
-      #
-      def before(hook=:all, &block)
-        setting_callback(hook, :all => :@before_callback, :each_ruby => :@before_each_ruby_callback, :env => :@before_environment_callback, &block)
-      end
-
-      # Callback method to handle before or after all run and for each ruby too!
-      #
-      # Example:
-      #
-      # after(:all) do
-      #   clear :terminal
-      # end
-      #
-      # after(:each_ruby) do
-      #   ...
-      # end
-      #
-      # Or if you pass not then will use :all option
-      #
-      # after do
-      #  clear :terminal
-      # end
-      #
-      def after(hook=:all, &block)
-        setting_callback(hook, :all => :@after_callback, :each_ruby => :@after_each_ruby_callback, &block)
-      end
-
-      # Clear the terminal (Useful in the before callback)
-      #
-      def clear(option)
-        system('clear') if option == :terminal
-      end
-
-      private
-
-      def setting_callback(hook, callback, &block)
-        if hook == :all
-          instance_variable_set(callback[:all], block)
-        elsif hook == :each_ruby
-          instance_variable_set(callback[:each_ruby], block)
-        elsif hook == :env
-          instance_variable_set(callback[:env], block)
-        end
-      end
-
     end
-  end
+      
+    # InfinityTest try to use bundler if Gemfile is present.
+    # This method tell to InfinityTest to not use this convention.
+    #
+    def skip_bundler!
+      @skip_bundler = true
+    end
+    
+    # Return false if you want the InfinityTest run with bundler
+    #
+    def skip_bundler?
+      @skip_bundler ? true : false
+    end
+    
+    # Method to use to ignore some dir/files changes
+    # 
+    # Example:
+    #
+    # ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
+    #
+    # This is useless right now in the Infinity Test because the library 
+    # only monitoring lib and test/spec/feature folder.
+    #
+    def ignore(options={})
+      @exceptions_to_ignore = options[:exceptions] || []
+    end
+    
+    # Callback method to run anything you want, before the run the test suite command
+    # 
+    # Example:
+    #
+    # before_run do
+    #   clear :terminal
+    # end
+    #
+    def before_run(&block)
+      @before_callback = block
+    end
+    
+    # Callback method to run anything you want, before the environment is fully set up
+    # 
+    # Example:
+    #
+    # before_env do |application|
+    #   # some code that I want to run before the environment is set up
+    # end
+    #
+    def before_env(&block)
+      @before_environment_callback = block
+    end
+    
+    # Callback method to run anything you want, after the run the test suite command
+    # 
+    # Example:
+    #
+    # after_run do
+    #   # some code that I want to run after all the rubies run
+    # end
+    #
+    def after_run(&block)
+      @after_callback = block
+    end
+    
+    # Callback method to handle before or after all run and for each ruby too!
+    #
+    # Example:
+    #
+    # before(:all) do
+    #   clear :terminal
+    # end
+    #
+    # before(:each_ruby) do
+    #   ...
+    # end
+    #
+    # Or if you pass not then will use :all option
+    #
+    # before do
+    #  clear :terminal
+    # end
+    #
+    #
+    def before(hook=:all, &block)
+      setting_callback(hook, :all => :@before_callback, :each_ruby => :@before_each_ruby_callback, :env => :@before_environment_callback, &block)
+    end
+    
+    # Callback method to handle before or after all run and for each ruby too!
+    #
+    # Example:
+    #
+    # after(:all) do
+    #   clear :terminal
+    # end
+    #
+    # after(:each_ruby) do
+    #   ...
+    # end
+    #
+    # Or if you pass not then will use :all option
+    #
+    # after do
+    #  clear :terminal
+    # end
+    #
+    def after(hook=:all, &block)
+      setting_callback(hook, :all => :@after_callback, :each_ruby => :@after_each_ruby_callback, &block)
+    end
+    
+    # Clear the terminal (Useful in the before callback)
+    #
+    def clear(option)
+      system('clear') if option == :terminal
+    end
+    
+    private
+    
+    def setting_callback(hook, callback, &block)
+      if hook == :all
+        instance_variable_set(callback[:all], block)
+      elsif hook == :each_ruby
+        instance_variable_set(callback[:each_ruby], block)
+      elsif hook == :env
+        instance_variable_set(callback[:env], block)
+      end
+    end
 
-  class NotificationFrameworkDontSupported < StandardError
   end
+end
 
-  def infinity_test(&block)
-    configuration = InfinityTest.configuration
-    configuration.instance_eval(&block)
-    configuration
-  end
+class NotificationFrameworkDontSupported < StandardError
+end
+
+def infinity_test(&block)
+  configuration = InfinityTest.configuration
+  configuration.instance_eval(&block)
+  configuration
+end

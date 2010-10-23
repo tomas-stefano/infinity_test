@@ -99,6 +99,19 @@ module InfinityTest
       
     end
 
+    describe '#skip_bundler!' do
+      
+      it "should return true if skip bundler" do
+        config.skip_bundler!
+        config.skip_bundler?.should be_true
+      end
+      
+      it "should return false if not skip bundler (default)" do
+        config.skip_bundler?.should be_false
+      end
+      
+    end
+
     describe '#ignore' do
       
       it "should be empty when not have dir/files to ignore" do

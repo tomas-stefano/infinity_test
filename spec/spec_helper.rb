@@ -85,8 +85,9 @@ require 'watchr'
   
   def application_with_gemfile(application)
     application.should_receive(:have_gemfile?).and_return(true)
+    application.should_receive(:skip_bundler?).and_return(false)
   end
   
   def application_without_gemfile(application)
-    application.should_receive(:have_gemfile?).and_return(false)    
+    application.should_receive(:have_gemfile?).and_return(false)
   end

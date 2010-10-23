@@ -12,6 +12,7 @@ module InfinityTest
         parse_rubies(options)
         parse_verbose(options)
         parse_rails(options)
+        parse_bundler(options)
         options.banner = [ "Usage: infinity_test [options]", "Starts a continuous test server."].join("\n")        
         options.on_tail("--help", "You're looking at it.") do
           print options.help
@@ -46,7 +47,7 @@ module InfinityTest
     end
     
     def parse_verbose(options)
-      options.on('--verbose', 'The Infinity Test dont print the commands. To print the command set this options!') do
+      options.on('--verbose', 'The Infinity Test dont print the commands', 'To print the commands set this option!') do
         self[:verbose] = true
       end
     end
@@ -56,6 +57,12 @@ module InfinityTest
           self[:app_framework] = :rails
         end
       end
+    
+    def parse_bundler(options)
+      options.on('--skip-bundler', "InfinityTest try to use bundler if Gemfile is present.", "Don't use this convention in this option.") do
+        self[:skip_bundler?] = true
+      end
+    end
     
     def rspec?
       return true if self[:test_framework].equal?(:rspec)

@@ -3,7 +3,7 @@ require 'spec_helper'
 module InfinityTest
   describe Application do
     let(:application) { Application.new }
-
+    let(:config) { Configuration.new }
     before(:each) do
       @application = Application.new
       @current_dir = Dir.pwd
@@ -58,6 +58,20 @@ module InfinityTest
       it "should return false when Gemfile not exists" do
         application.should_receive(:gemfile).and_return(factory_buzz_gemfile)
         application.have_gemfile?.should be_false
+      end
+      
+    end
+
+    describe '#skip_bundler?' do
+      
+      it "should return true if skip_bundler! is set" do
+        application.config.skip_bundler!
+        application.skip_bundler?.should be_true
+      end
+      
+      it "should return false if skip_bundler! is not set" do
+        InfinityTest.should_receive(:configuration).and_return(config)
+        Application.new.skip_bundler?.should be_false
       end
       
     end

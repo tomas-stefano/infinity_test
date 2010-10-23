@@ -104,9 +104,12 @@ module InfinityTest
     def have_gemfile?
       File.exist?(gemfile)
     end
-    
-    def gemfile
-      File.join(Dir.pwd, 'Gemfile')
+
+    # Return false if you want the InfinityTest run with bundler
+    # Return true otherwise
+    #
+    def skip_bundler?
+      config.skip_bundler?
     end
 
     # Contruct all the commands for the test framework
@@ -268,6 +271,10 @@ module InfinityTest
 
     def load_file(file)
       load(file) if File.exist?(file)
+    end
+    
+    def gemfile
+      File.join(Dir.pwd, 'Gemfile')
     end
 
   end

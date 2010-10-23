@@ -50,6 +50,16 @@ module InfinityTest
         @options[:verbose].should be_true
       end
       
+      it "should parse --skip-bundler" do
+        parse_options('--skip-bundler')
+        @options[:skip_bundler?].should be_true
+      end
+      
+      it "should return false for --skip-bundler option" do
+        parse_options('--rails')
+        @options[:skip_bundler?].should be_false
+      end
+      
       it "should  return rails as app framework when  parse rails" do
         parse_options('--rails')
         @options[:app_framework].should equal :rails

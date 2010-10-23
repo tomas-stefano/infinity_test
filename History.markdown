@@ -4,8 +4,20 @@ In Development
 Features
 --------
 
-- Support Bundler (if have a Gemfile run with "bundle exec #{command}" else run "command")
+- Support Bundler: 
+The InfinityTest try to discover If the user have a Gemfile in the project root and
+if Gemfile exists InfinityTest will run with "bundle exec #{command}" else will run "command" normally.
+
+Obs.: <b>In any case, you don't want this "magic" just run infinity_test with --skip-bundler flag.
+Or write this in .infinity_test file:</b>
+
+      # ~/.infinity_test or ./.infinity_test
+         infinity_test do
+            skip_bundler!
+         end
+
 - Support Bacon - for more information see - http://github.com/chneukirchen/bacon (thanks to Ng Tze Yang)
+
 - Possible to setup the lib pattern, test pattern (thanks to Jason Rogers).
  
       # ~/.infinity_test or ./.infinity_test
