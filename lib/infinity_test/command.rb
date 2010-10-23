@@ -20,8 +20,7 @@ module InfinityTest
       begin
         open("| #{@command}", "r") do |file|
           until file.eof? do
-            test_line = file.getc 
-            break unless test_line
+            test_line = file.getc or break
             if yarv?
               print(test_line)
             else
@@ -43,8 +42,8 @@ module InfinityTest
     # Join otherwise.
     #
     def push_in_the_results(test_line)
-      if end_of_line?(test_line)
-        @results.push((ree? or mri?) ? @line.pack('c*') : @line.join)
+      if test_line == ?\n
+        @results.push(yarv? ? @line.join : @line.pack('c*'))
         @line.clear
       end
     end
@@ -61,12 +60,10 @@ module InfinityTest
       @current_ruby_string =~ /ruby-1.8/
     end
     
+    # Using yarv?
+    #
     def yarv?
       @current_ruby_string =~ /ruby-1.9/
-    end
-    
-    def end_of_line?(test_line)
-      test_line == ?\n
     end
     
   end

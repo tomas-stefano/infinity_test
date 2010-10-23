@@ -2,7 +2,7 @@
 
 
 Infinity Test is a continuous testing library and a flexible alternative to Autotest, 
-using Watchr library with Rspec OR Test::Unit with RVM funcionality,
+using the awesome Watchr library with Rspec, Test::Unit, Bacon and with RVM funcionality,
 giving the possibility to test with all <b>Rubies</b> that you have in your RVM configuration.
 
 ## To Infinity and Beyond!
@@ -36,15 +36,15 @@ Or with Test::Unit:
 
     infinity_test --test-unit --rubies=1.8.7,jruby,ree,1.9.2
 
-## Running Tests with Rails
+<b>And you are ready to Test with all ruby versions your Rspec or Test::Unit Suite with Autotest-like Behavior.</b>
+
+## Running Tests with Rails (only in master branch!)
 
 With Rails:
 
     infinity_test --rails
 
 Or add :app_framework => :rails in .infinity_test
-   
-<b>And you are ready to Test with all ruby versions your Rspec or Test::Unit Suite with Autotest-like Behavior.</b>
 
 ## Configuration file
 

@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 class InfinityTest < Morpheus::Base
-  rspec :spec, :rvm_versions => %w(1.8.7-p249, 1.9.1, 1.9.2 jruby)
+  rspec :spec, :rvm_versions => %w(1.8.7 ree 1.9.2 jruby)
 end

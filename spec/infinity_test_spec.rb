@@ -26,4 +26,15 @@ describe InfinityTest do
     
   end
   
+  describe '#watchr' do
+    
+    it { InfinityTest.watchr.should be_instance_of(Watchr::Script) }
+    
+    it "should cache the instance of Watchr script class" do
+      watchr = InfinityTest.watchr
+      watchr.should equal InfinityTest.watchr
+    end
+    
+  end
+  
 end

@@ -10,6 +10,10 @@ module InfinityTest
   autoload :Runner, 'infinity_test/runner'
   autoload :TestFramework, 'infinity_test/test_framework'
   autoload :Rails , 'infinity_test/rails'
+  
+  module ApplicationLibrary
+    autoload :RubyGems, 'infinity_test/application_library/rubygems'
+  end
 
   module TestLibrary
     autoload :Bacon, 'infinity_test/test_library/bacon'
@@ -28,6 +32,10 @@ module InfinityTest
 
   def self.configuration
     @configuration ||= Configuration.new
+  end
+  
+  def self.watchr
+    @watchr ||= Watchr::Script.new
   end
 
   def self.start!
