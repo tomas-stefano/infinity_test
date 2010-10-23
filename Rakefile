@@ -35,6 +35,7 @@ begin
     gemspec.add_dependency('watchr', '>= 0.7')
 
     gemspec.add_development_dependency('rspec', '>= 2.0.1')
+    gemspec.add_development_dependency('jeweler', '>= 1.4.0')
 
     gemspec.post_install_message = POST_MESSAGE
   end
