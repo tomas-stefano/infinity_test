@@ -238,6 +238,16 @@ module InfinityTest
       @heuristics
     end
     
+    # Set #watch methods (For more information see Watchr gem)
+    #
+    # If don't want the heuristics 'magic'
+    #
+    def watch(pattern, &block)
+      @script ||= InfinityTest.watchr
+      @script.watch(pattern, &block)
+      @script
+    end
+    
     private
     
     def setting_callback(hook, callback, &block)

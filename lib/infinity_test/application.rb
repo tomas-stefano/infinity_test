@@ -227,6 +227,9 @@ module InfinityTest
       run!(commands)
     end
 
+    # Return true if the application is using Test::Unit
+    # Return false otherwise
+    #
     def using_test_unit?
       test_framework.instance_of?(TestUnit)
     end

@@ -22,11 +22,12 @@ module InfinityTest
           end
           
           add(@test_directory) do |file|
-            run file
+            run :test => file
           end
                     
         end
       end
+
       #   
       # script.watch(library_directory_pattern) do |file|
       #   @application.run_changed_lib_file(file)

@@ -38,6 +38,16 @@ module InfinityTest
       end
       
     end
+
+    describe '#watch' do
+      
+      it "should evaluate in the watchr script class" do
+        config.watch("^lib/*/(.*)\.rb") do |file|
+          do_something!
+        end.should equal InfinityTest.watchr
+      end
+      
+    end
     
     describe '#notifications' do
       
