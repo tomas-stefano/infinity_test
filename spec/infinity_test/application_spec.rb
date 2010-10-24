@@ -264,6 +264,20 @@ module InfinityTest
       
       
     end
+
+    describe '#using_test_unit?' do
+      
+      it "should return true when using Test::Unit" do
+        app = application_with_test_unit
+        app.using_test_unit?.should be_true
+      end
+      
+      it "should return false when using Rspec" do
+        app = application_with_rspec
+        app.using_test_unit?.should be_false
+      end
+      
+    end
   
   end
 end

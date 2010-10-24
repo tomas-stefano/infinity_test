@@ -227,6 +227,10 @@ module InfinityTest
       run!(commands)
     end
 
+    def using_test_unit?
+      test_framework.instance_of?(TestUnit)
+    end
+
     private
 
     def call_each_ruby_callback(callback_type, ruby_version)

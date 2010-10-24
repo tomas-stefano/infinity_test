@@ -45,7 +45,8 @@ module InfinityTest
     # notifications :lib_notify
     #
     def notifications(framework, &block)
-      raise NotificationFrameworkDontSupported, "Notification :#{framework} don't supported. The Frameworks supported are: #{SUPPORTED_FRAMEWORKS.join(',')}" unless SUPPORTED_FRAMEWORKS.include?(framework)
+      message = "Notification :#{framework} don't supported. The Frameworks supported are: #{SUPPORTED_FRAMEWORKS.join(',')}"
+      raise NotificationFrameworkDontSupported, message unless SUPPORTED_FRAMEWORKS.include?(framework)
       @notification_framework = framework
       yield self if block_given?
       self
@@ -256,7 +257,6 @@ class NotificationFrameworkDontSupported < StandardError
 end
 
 def infinity_test(&block)
-  configuration = InfinityTest.configuration
-  configuration.instance_eval(&block)
-  configuration
+  InfinityTest.configuration.instance_eval(&block)
+  InfinityTest.configuration
 end

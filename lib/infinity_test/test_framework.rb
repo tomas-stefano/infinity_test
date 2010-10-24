@@ -96,13 +96,7 @@ module InfinityTest
       raise(ArgumentError, 'patterns should not be empty') if patterns.empty?
       create_accessors(patterns)
       define_method(:parse_results) do |results|
-        shell_result = test_message(results, patterns)
-        if shell_result
-          create_pattern_instance_variables(patterns, shell_result)
-        else
-          patterns.each { |instance, pattern| instance_variable_set("@#{instance}", 1) } # set all to 1 to show that an error occurred
-          @message = "An exception occurred"
-        end
+        create_instances(:shell_result => test_message(results, patterns), :patterns => patterns)
       end
     end
     
@@ -146,15 +140,26 @@ module InfinityTest
     end
     
     private
-     def resolve_options(options)
-       ruby_version = options[:for]
-       binary_name = options[:skip_binary?] ? '' : options[:binary]
-       load_path = %{-I"#{options[:load_path]}"} if options[:load_path]
-       environment = options[:environment]
-       file = options[:file]
-       command = [ binary_name, load_path].compact.join(' ')
-       [binary_name, ruby_version, command, file, environment]
-     end
+    
+      def create_instances(options)
+        shell_result, patterns = options[:shell_result], options[:patterns]
+        if shell_result
+          create_pattern_instance_variables(patterns, shell_result)
+        else
+          patterns.each { |instance, pattern| instance_variable_set("@#{instance}", 1) } # set all to 1 to show that an error occurred
+          @message = "An exception occurred"
+        end      
+      end
+    
+      def resolve_options(options)
+        ruby_version = options[:for]
+        binary_name = options[:skip_binary?] ? '' : options[:binary]
+        load_path = %{-I"#{options[:load_path]}"} if options[:load_path]
+        environment = options[:environment]
+        file = options[:file]
+        command = [ binary_name, load_path].compact.join(' ')
+        [binary_name, ruby_version, command, file, environment]
+      end
     
   end
 end

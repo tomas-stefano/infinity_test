@@ -1,6 +1,46 @@
 module InfinityTest
   module ApplicationLibrary
     class RubyGems
+      include HeuristicsHelper
+      attr_accessor :lib_pattern, :test_pattern, :application
+      
+      def initialize
+        @application = InfinityTest.application
+        @lib_pattern = "^lib/*/(.*)\.rb"
+        @test_pattern = @application.using_test_unit? ? "^test/*/(.*)_test.rb" : "^spec/*/(.*)_spec.rb"
+        add_heuristics!
+      end
+      
+      # Add Heuristics to send to Watchr Methods
+      # This methods aren't tested!
+      #
+      def add_heuristics!
+        heuristics do
+          
+          add(@lib_pattern) do |file|
+            run file
+          end
+          
+          add(@test_directory) do |file|
+            run file
+          end
+                    
+        end
+      end
+      #   
+      # script.watch(library_directory_pattern) do |file|
+      #   @application.run_changed_lib_file(file)
+      # end
+      #   add(library_directory) do |file|
+      #     run file
+      #   end
+      #   
+      #   add(test_directory) do |file|
+      #     run_test_file file
+      #   end
+      #   
+      # end
+      
       #
       # heuristics do
       #
@@ -11,8 +51,6 @@ module InfinityTest
       # end
       #
       # application.heuristics # => <Heuristics patterns={}>
-      
-      
       
       # def heuristics(&block)
       #   application.heuristics.instance_eval(&block)
