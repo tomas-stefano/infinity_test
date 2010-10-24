@@ -15,13 +15,14 @@ module InfinityTest
       # This methods aren't tested!
       #
       def add_heuristics!
+        rubygems = self
         heuristics do
-          
-          add(@lib_pattern) do |file|
+
+          add(rubygems.lib_pattern) do |file|
             run file
           end
           
-          add(@test_directory) do |file|
+          add(rubygems.test_pattern) do |file|
             run :test => file
           end
                     

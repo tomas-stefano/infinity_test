@@ -9,7 +9,6 @@ module InfinityTest
         heuristics do
         end.should be_instance_of(InfinityTest::Heuristics)
       end
-      
     end
     
   end

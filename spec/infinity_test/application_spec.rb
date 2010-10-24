@@ -250,18 +250,14 @@ module InfinityTest
     end
 
     describe "#app framework" do
-      before(:each) do
-        @app_rails=application_with(:app_framework => :rails)
-        @rails=@app_rails.app_framework
-      end
+      
       it "should return the instance of Rails when app framework is Rails" do
-        @app_rails.app_framework.should be_instance_of(InfinityTest::Rails)
+        application_with_rails.app_framework.should be_instance_of(InfinityTest::Rails)
       end
       
-      it "should return the rails app_watch_path" do
-        @app_rails.app_directory_pattern.should == @rails.app_watch_path
+      it "should return the instance of Rubygems when app framework is Rubygems" do
+        application_with_rubygems.app_framework.should be_instance_of(InfinityTest::ApplicationLibrary::RubyGems)
       end
-      
       
     end
 

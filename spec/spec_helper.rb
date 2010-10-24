@@ -21,15 +21,19 @@ RSpec.configure do |config|
   end
   
   def application_with_rspec
-    application = InfinityTest::Application.new
-    application.config.use(:test_framework => :rspec)
-    application
+    application_with(:test_framework => :rspec)
   end
 
   def application_with_test_unit
-    application = InfinityTest::Application.new
-    application.config.use(:test_framework => :test_unit)
-    application
+    application_with(:test_framework => :test_unit)
+  end
+  
+  def application_with_rails
+    application_with(:app_framework => :rails)
+  end
+  
+  def application_with_rubygems
+    application_with(:app_framework => :rubygems)
   end
   
   def application_with_growl

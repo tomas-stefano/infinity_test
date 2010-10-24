@@ -36,7 +36,6 @@ module InfinityTest
         end
         heuristics.should equal same_heuristics
       end
-      
     end
 
     describe '#watch' do

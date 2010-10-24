@@ -2,6 +2,7 @@ module InfinityTest
   class Application
     include InfinityTest::Notifications
     include InfinityTest::TestLibrary
+    include InfinityTest::ApplicationLibrary
 
     attr_accessor :config, :library_directory_pattern
 
@@ -262,6 +263,8 @@ module InfinityTest
       case config.app_framework 
       when :rails
         Rails.new :test_framework => test_framework
+      when :rubygems
+        RubyGems.new
       end
     end
 
