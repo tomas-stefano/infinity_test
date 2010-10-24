@@ -23,6 +23,7 @@ module InfinityTest
     def initialize
       @default_dir_image = File.join(IMAGES_DIR, 'simpson')
       @test_framework = :test_unit
+      @app_framework = :rubygems
       @sucess_image  = search_image(SUCESS)
       @failure_image = search_image(FAILURE)
       @pending_image = search_image(PENDING)
@@ -91,6 +92,8 @@ module InfinityTest
     #
     # * test framework 
     # * ruby versions
+    # * verbose mode
+    # * app_framework
     # 
     # Here is the example of Little Domain Language:
     #
@@ -98,17 +101,19 @@ module InfinityTest
     #
     # use :rubies => [ '1.8.7-p249', '1.9.2@rails3'], :test_framework => :test_unit
     #
+    # use :test_framework => :rspec, :app_framework => :rails
+    #
     def use(options={})
       rubies = options[:rubies]
       @rubies = (rubies.is_a?(Array) ? rubies.join(',') : rubies) || []
       @test_framework = options[:test_framework] || @test_framework
-      @app_framework=options[:app_framework] || @app_framework
-      @verbose = options[:verbose] || @verbose
-      if options[:gemset]
-        @rubies = @rubies.split(',').collect { |ruby| 
-          ruby << "@#{options[:gemset]}" 
-          }.join(',')
-        end
+      @app_framework  = options[:app_framework]  || @app_framework
+      @verbose        = options[:verbose]        || @verbose
+      setting_gemset_for_each_rubies(options[:gemset]) if options[:gemset]
+    end
+    
+    def setting_gemset_for_each_rubies(gemset)
+      @rubies = @rubies.split(',').collect { |ruby| ruby << "@#{gemset}" }.join(',')
     end
       
     # InfinityTest try to use bundler if Gemfile is present.
@@ -222,6 +227,14 @@ module InfinityTest
     #
     def clear(option)
       system('clear') if option == :terminal
+    end
+    
+    # Added heuristics to the User application
+    #
+    def heuristics(&block)
+      @heuristics ||= Heuristics.new
+      @heuristics.instance_eval(&block)
+      @heuristics
     end
     
     private

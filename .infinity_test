@@ -5,7 +5,16 @@ infinity_test do
   use :rubies => ['1.8.7', '1.9.2', 'jruby', 'ree'], :gemset => 'infinity_test', :test_framework => :rspec
   
   # heuristics do
-  #   watch :dir => 'app/models' do |file|
+  #
+  #  add :dir => 'app/models' do |file|
+  #    run_test :for => file
+  #  end
+  #
+  #  add %r%^(test|spec)/fixtures/(.*).yml$% do |file|
+  #    run_test :for => file, :in_dir => "test"
+  #  end
+  #
+  #   application_library.watch :dir => 'app/models' do |file|
   #     run :test => "spec/models/"
   #   end
   #   

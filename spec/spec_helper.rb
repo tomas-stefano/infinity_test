@@ -3,6 +3,8 @@ require 'infinity_test'
 
 require 'watchr'
 
+RSpec.configure do |config|
+        
   def stub_home_config(options)
     File.should_receive(:expand_path).with('~/.infinity_test').and_return(options[:file])
   end
@@ -91,3 +93,11 @@ require 'watchr'
   def application_without_gemfile(application)
     application.should_receive(:have_gemfile?).and_return(false)
   end
+end
+
+  
+RSpec::Matchers.define :have_pattern do |expected|
+  match do |heuristics|
+    heuristics.patterns.should have_key(expected)
+  end
+end

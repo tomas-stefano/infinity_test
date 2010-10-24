@@ -4,11 +4,7 @@ describe InfinityTest::Runner do
 
   let(:runner_class) { InfinityTest::Runner }
 
-  context "on default values" do
-
-    it "commands should have a empty Array" do
-      runner_class.new(['--rspec']).commands.should eql []
-    end
+  describe '#initialize' do
 
     it "should set the application object" do
       runner_class.new(['--test-unit']).application.should be_instance_of(InfinityTest::Application)

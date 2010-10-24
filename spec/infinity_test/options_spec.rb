@@ -64,6 +64,12 @@ module InfinityTest
         parse_options('--rails')
         @options[:app_framework].should equal :rails
       end
+      
+      it "should return rubygems as app framework when parse rubygems" do
+        parse_options('--rubygems')
+        @options[:app_framework].should equal :rubygems
+      end
+      
     end
 
     describe "#rspec?" do

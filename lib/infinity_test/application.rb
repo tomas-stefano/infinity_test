@@ -130,10 +130,16 @@ module InfinityTest
       @test_framework ||= setting_test_framework
     end
 
-    #Return a instance of the app framework class
+    # Return a instance of the app framework class
     #
     def app_framework
       @app_framework ||= setting_app_framework
+    end
+
+    # Return all the Heuristics of the application
+    #
+    def heuristics
+      config.instance_variable_get(:@heuristics)
     end
 
     #Return the app_watch directory pattern

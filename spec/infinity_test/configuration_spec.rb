@@ -14,12 +14,27 @@ module InfinityTest
       
     end
     
-    describe '#infinity_test' do
+    describe '#heuristics' do
       
-      it "Infinity test Dsl of config file should yield in the Configuration scope" do
-        infinity_test do
-          use
-        end.class.should equal Configuration
+      it "should return a instance of Heuristics class" do
+        config.heuristics do
+        end.should be_instance_of(InfinityTest::Heuristics)
+      end
+      
+      it "should be possible to add heuristics to the application" do
+        heuristics = config.heuristics do
+          add("^lib/*/(.*)\.rb") do |file|
+          end
+        end
+        heuristics.should have_pattern("^lib/*/(.*)\.rb")
+      end
+      
+      it "should cache the heuristics instance variable" do
+        heuristics = config.heuristics do
+        end
+        same_heuristics = config.heuristics do
+        end
+        heuristics.should equal same_heuristics
       end
       
     end
@@ -95,6 +110,16 @@ module InfinityTest
       
       it "should set to false as default" do
         config.verbose.should equal false
+      end
+      
+      it "should be possible to use Rails framework" do
+        config.use :app_framework => :rails
+        config.app_framework.should equal :rails
+      end
+      
+      it "should set the rubygems as default app framework" do
+        config.use
+        config.app_framework.should equal :rubygems
       end
       
     end
@@ -266,4 +291,18 @@ module InfinityTest
     end
 
   end
+end
+
+describe '#infinity_test' do
+  it 'should return a instance of Configuration class' do
+    infinity_test do
+    end.should be_instance_of(InfinityTest::Configuration)
+  end
+  
+  it "Infinity test Dsl of config file should yield in the Configuration scope" do
+    infinity_test do
+      use
+    end.class.should equal InfinityTest::Configuration
+  end
+  
 end

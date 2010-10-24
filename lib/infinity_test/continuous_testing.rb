@@ -1,9 +1,10 @@
 module InfinityTest
   class ContinuousTesting
-    attr_accessor :application, :global_commands
+    attr_accessor :application, :watchr, :global_commands
     
-    def initialize(options)
-      @application = options[:application]
+    def initialize
+      @application = InfinityTest.application
+      @watchr = InfinityTest.watchr
     end
     
     # Start the Continuous Testing Server and begin to audit the files for changes
@@ -24,13 +25,12 @@ module InfinityTest
     #################
     
     def initialize_watchr!
-      script = Watchr::Script.new
       # add_rule script, :rule => @application.library_directory_pattern
-      watch_lib_folder(script, @application.library_directory_pattern)
-      watch_app_falder(script, @application.app_directory_pattern) if @application.app_directory_pattern
-      add_rule script, :rule => @application.test_directory_pattern
+      watch_lib_folder(@watchr, @application.library_directory_pattern)
+      watch_app_falder(@watchr, @application.app_directory_pattern) if @application.app_directory_pattern
+      add_rule @watchr, :rule => @application.test_directory_pattern
       add_signal
-      Watchr::Controller.new(script, Watchr.handler.new).run
+      Watchr::Controller.new(@watchr, Watchr.handler.new).run
     end
     
     def watch_lib_folder(script, library_directory_pattern)

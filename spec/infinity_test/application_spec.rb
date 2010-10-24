@@ -4,50 +4,68 @@ module InfinityTest
   describe Application do
     let(:application) { Application.new }
     let(:config) { Configuration.new }
+
     before(:each) do
       @application = Application.new
       @current_dir = Dir.pwd
     end
 
-    it "should return test_unit pattern for test unit" do
-      @application.library_directory_pattern.should eql "^lib/*/(.*)\.rb"
+    describe '#initialize' do
+      
+      it "should return test_unit pattern for test unit" do
+        @application.library_directory_pattern.should eql "^lib/*/(.*)\.rb"
+      end
+      
+      it "should return the rubies in the config" do
+        application_with(:rubies => ['1.8.7']).rubies.should == '1.8.7'
+      end
+      
+      it "should return the rubies in the config" do
+        application_with(:rubies => ['1.9.2']).rubies.should == '1.9.2'
+      end
+      
+      it "should return the before_env callback" do
+        app = application_with(:test_framework => :rspec)
+        proc = Proc.new { |application| application.test_framework.test_pattern = 'foo'; application.library_directory_pattern = 'bar' }
+        app.config.before_env(&proc)
+        app.before_environment_callback.should equal proc
+        app.test_framework.test_pattern.should_not == 'foo'
+        app.library_directory_pattern.should_not == 'bar'
+      
+        app.run_before_environment_callback!
+        app.test_framework.test_pattern.should == 'foo'
+        app.library_directory_pattern.should == 'bar'
+      end
+      
+      it "should return the before callback" do
+        app = application_with(:test_framework => :rspec)
+        proc = Proc.new { 'To Infinity and beyond!' }
+        app.config.before_run(&proc)
+        app.before_callback.should equal proc
+      end
+      
+      it "should return the block when set after callback" do
+        app = application_with(:test_framework => :rspec)
+        proc = Proc.new { 'To Infinity and beyond!' }
+        app.config.after_run(&proc)
+        app.after_callback.should equal proc
+      end
     end
 
-    it "should return the rubies in the config" do
-      application_with(:rubies => ['1.8.7']).rubies.should == '1.8.7'
-    end
+    describe '#heuristics' do
 
-    it "should return the rubies in the config" do
-      application_with(:rubies => ['1.9.2']).rubies.should == '1.9.2'
+      it "should be instance of Heuristics class" do
+        @application.config.heuristics {}
+        @application.heuristics.should be_instance_of(InfinityTest::Heuristics)
+      end
+      
+      it "should be the same heuristics setting in the configuration file" do
+        heuristics = @application.config.heuristics {}
+        heuristics.should equal @application.heuristics
+      end
+      
     end
-
-    it "should return the before_env callback" do
-      app = application_with(:test_framework => :rspec)
-      proc = Proc.new { |application| application.test_framework.test_pattern = 'foo'; application.library_directory_pattern = 'bar' }
-      app.config.before_env(&proc)
-      app.before_environment_callback.should equal proc
-      app.test_framework.test_pattern.should_not == 'foo'
-      app.library_directory_pattern.should_not == 'bar'
-
-      app.run_before_environment_callback!
-      app.test_framework.test_pattern.should == 'foo'
-      app.library_directory_pattern.should == 'bar'
-    end
-
-    it "should return the before callback" do
-      app = application_with(:test_framework => :rspec)
-      proc = Proc.new { 'To Infinity and beyond!' }
-      app.config.before_run(&proc)
-      app.before_callback.should equal proc
-    end
-
-    it "should return the block when set after callback" do
-      app = application_with(:test_framework => :rspec)
-      proc = Proc.new { 'To Infinity and beyond!' }
-      app.config.after_run(&proc)
-      app.after_callback.should equal proc
-    end
-   
+    
     describe '#have_gemfile?' do
       
       it "should return true when Gemfile exists" do
@@ -246,5 +264,6 @@ module InfinityTest
       
       
     end
+  
   end
 end

@@ -1,10 +1,9 @@
 module InfinityTest
   class Runner
-    attr_reader :commands, :options, :application
+    attr_reader :options, :application
 
     def initialize(argv)
       @options = Options.new(argv)
-      @commands = []
       @application = InfinityTest.application
     end
 
@@ -28,7 +27,7 @@ module InfinityTest
       @application.config.use(
          :rubies => (options[:rubies] || @application.rubies),
          :test_framework => (options[:test_framework] || @application.config.test_framework),
-         :app_framework => (options[:app_framework] || @application.config.app_framework),
+         :app_framework => (options[:app_framework]   || @application.config.app_framework),
          :verbose => options[:verbose] || @application.config.verbose)
       @application.config.skip_bundler! if options[:skip_bundler?]
     end
@@ -36,7 +35,7 @@ module InfinityTest
     # Start Continuous Server using Watchr
     #
     def start_continuous_testing!
-      InfinityTest::ContinuousTesting.new(:application => @application).start!
+      InfinityTest::ContinuousTesting.new.start!
     end
 
   end
