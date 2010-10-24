@@ -97,6 +97,29 @@ RSpec.configure do |config|
   def application_without_gemfile(application)
     application.should_receive(:have_gemfile?).and_return(false)
   end
+  
+  # Factories! Or Fixtures - Whathever
+  
+  def buzz_library(&block)
+    factories_for('buzz', &block)
+  end
+  
+  def wood_library(&block)
+    factories_for('wood', &block)
+  end
+  
+  def slinky_library(&block)
+    factories_for('slinky', &block)
+  end
+  
+  def factories_for(directory, &block)
+    Dir.chdir("#{infinity_test_root}/spec/factories/#{directory}", &block)
+  end
+  
+  def infinity_test_root
+    File.expand_path(File.join(File.dirname(__FILE__), '..'))
+  end
+  
 end
 
   

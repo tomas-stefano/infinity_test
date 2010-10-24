@@ -143,7 +143,11 @@ module InfinityTest
       config.instance_variable_get(:@heuristics)
     end
 
-    #Return the app_watch directory pattern
+    def add_heuristics!
+      app_framework.add_heuristics!
+    end
+
+    # Return the app_watch directory pattern
     #
     def app_directory_pattern
       app_framework.app_watch_path if app_framework
@@ -205,6 +209,26 @@ module InfinityTest
       end
     end
 
+    def files_to_run!(options)
+      if options.is_a?(Symbol) or options.is_a?(Hash)
+        return all_test_files if options.equal?(:all)
+        return all_test_files if options.include?(:all)
+        search_file(options[:test_for][1]) if options.include?(:test_for)
+      else
+        options.to_s
+      end
+    end
+    
+    def search_file(file_pattern)
+      all_test_files.grep(/#{file_pattern}_spec/i).join(' ')
+    end
+
+    # Return all the tests files in the User application
+    #
+    def all_test_files
+      test_framework.all_files
+    end
+    
     # After change the file the infinity_test will search a similar file to run
     #
     def run_changed_app_file(file)
@@ -247,7 +271,7 @@ module InfinityTest
       puts command if verbose?
       Command.new(:ruby_version => ruby_version, :command => command).run!
     end
-
+    
     def setting_test_framework
       case config.test_framework
       when :rspec

@@ -32,6 +32,10 @@ module InfinityTest
         commands
       end
       
+      def search_files(file_pattern)
+        'spec/wood_spec.rb'
+      end
+      
       def sucess?
         return false if failure? or pending?
         true

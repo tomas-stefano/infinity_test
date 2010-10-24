@@ -5,6 +5,7 @@ module InfinityTest
     def initialize
       @patterns = {}
       @script = InfinityTest.watchr
+      @application = InfinityTest.application
     end
     
     def add(pattern, &block)
@@ -13,9 +14,9 @@ module InfinityTest
       @patterns
     end
     
-    # [ <Heuristics>, <Heuristics> ]
-    
-    # <Heuristics patterns={:pattern => &block}>
+    def run(options)
+      @application.run_commands_for_file(@application.files_to_run!(options))
+    end
     
   end
 end

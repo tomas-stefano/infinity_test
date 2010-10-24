@@ -3,6 +3,8 @@ require 'spec_helper'
 module InfinityTest
   module TestLibrary    
     describe Rspec do
+      let(:rspec) { Rspec.new }
+      
       before do
         @current_dir = Dir.pwd
       end
@@ -29,22 +31,20 @@ module InfinityTest
       
       describe '#test_files' do
         
-        let(:rspec) { Rspec.new }
-        
         it "return should include the spec files" do
-          Dir.chdir("#{@current_dir}/spec/factories/buzz") do
+          buzz_library do
             rspec.test_files.should be == "spec/buzz_spec.rb"
           end
         end
         
         it "return should include the spec files to test them" do
-          Dir.chdir("#{@current_dir}/spec/factories/wood") do
+          wood_library do
             rspec.test_files.should be == "spec/wood_spec.rb"
           end
         end
         
         it "return should include the spec files to test them in two level of the spec folder" do
-          Dir.chdir("#{@current_dir}/spec/factories/slinky") do
+          slinky_library do
             rspec.test_files.should be == "spec/slinky/slinky_spec.rb"
           end
         end
@@ -223,6 +223,16 @@ module InfinityTest
           command = hash.each { |ruby_version, command_to_run| 
             return command_to_run 
           }
+        end
+        
+      end
+
+      describe '#search_files' do
+        
+        it "should return all the files the match the pattern" do
+          wood_library do
+            rspec.search_files('wood').should be == "spec/wood_spec.rb"
+          end          
         end
         
       end

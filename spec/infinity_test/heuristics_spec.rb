@@ -49,5 +49,24 @@ module InfinityTest
       
     end
     
+    describe '#run' do
+      
+      it "should call the contruct commands for test file" do
+        pending
+        @heuristics.run(:test => 'some_file.rb')
+      end
+      
+      it "should call the construct commands for app file" do
+        pending
+        @heuristics.run('some_file.rb', :in_dir => 'spec')
+      end
+      
+      it "should run all the test files" do
+        pending
+        @heuristics.run(:all)
+      end
+      
+    end
+    
   end
 end

@@ -22,13 +22,14 @@ module InfinityTest
 
     ##################
     # Watchr Methods #
-    #################
+    ##################
     
     def initialize_watchr!
       # add_rule script, :rule => @application.library_directory_pattern
       # watch_lib_folder(@watchr, @application.library_directory_pattern)
       # watch_app_falder(@watchr, @application.app_directory_pattern) if @application.app_directory_pattern
-      add_rule @watchr, :rule => @application.test_directory_pattern
+#      add_rule @watchr, :rule => @application.test_directory_pattern
+      @application.add_heuristics!
       add_signal
       Watchr::Controller.new(@watchr, Watchr.handler.new).run
     end
