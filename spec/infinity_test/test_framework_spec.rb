@@ -3,12 +3,10 @@ require 'spec_helper'
 module InfinityTest
 
   class SomeFramework < TestFramework
-    @@test_directory_pattern = "^spec/*/(.*)_spec.rb"
     parse_results :examples => /(\d+) example/, :failures => /(\d+) failure/, :pending => /(\d+) pending/
   end
   
   class OtherFramework < TestFramework
-    @@test_directory_pattern = "^test/*/(.*)_test.rb"
     parse_results :tests => /(\d+) tests/, :assertions => /(\d+) assertions/, :failures => /(\d+) failures/, :errors => /(\d+) errors/
   end
   
@@ -124,6 +122,10 @@ module InfinityTest
 
       it "should parse the message in the tests results" do
         some_framework.test_message("\n880 examples, 0 failures", { :pending => /(\d+) pending/, :example => /(\d+) example/, :errors => /(\d+) errors/ }).should eql '880 examples, 0 failures'
+      end
+      
+      it "should parse message when ==== is the last line" do
+        some_framework.test_message("\n880 examples, 0 failures\n============", { :example => /(\d+) example/}).should == '880 examples, 0 failures'
       end
       
       it "should return nil when not have any patterns" do

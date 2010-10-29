@@ -220,7 +220,7 @@ module InfinityTest
     end
     
     def search_file(file_pattern)
-      all_test_files.grep(/#{file_pattern}_spec/i).join(' ')
+      all_test_files.grep(/#{file_pattern}/i).join(' ')
     end
 
     # Return all the tests files in the User application

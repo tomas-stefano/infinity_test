@@ -25,9 +25,6 @@ module InfinityTest
             run file
           end
           
-          # add('spec_helper') do |file|
-          #   run :all
-          # end
         end
       end
 

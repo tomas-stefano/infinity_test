@@ -10,7 +10,7 @@ module InfinityTest
     
     def add(pattern, &block)
       @patterns[pattern] = block
-      @script.watch(pattern, &block)
+      @script.watch(pattern, &block) # Watchr
       @patterns
     end
     

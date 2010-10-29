@@ -33,7 +33,7 @@ module InfinityTest
       end
       
       def search_files(file_pattern)
-        'spec/wood_spec.rb'
+        all_files.grep(/#{file_pattern}/i).join(' ')
       end
       
       def sucess?

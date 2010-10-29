@@ -13,6 +13,8 @@ module InfinityTest
     
     # Run in context of each Ruby Environment, and the Ruby Version
     #
+    # This is NOT RESPONSABILITY of TEST FRAMEWORKS!!!
+    #
     def environments(&block)
       raise unless block_given?
       RVM.environments(rubies).each do |environment|
@@ -21,6 +23,7 @@ module InfinityTest
       end
     end
     
+    # This is NOT RESPONSABILITY of TEST FRAMEWORKS!!!
     #
     def construct_command(options)
       binary_name, ruby_version, command, file, environment = resolve_options(options)
@@ -36,7 +39,9 @@ module InfinityTest
         end
       end
     end
-    
+
+    # This is NOT RESPONSABILITY of TEST FRAMEWORKS!!!
+    #    
     def run_with_bundler!(rvm_ruby_version, command, environment)
       bundle_binary = search_bundle(environment)
       unless have_binary?(bundle_binary)
@@ -46,10 +51,14 @@ module InfinityTest
       end
     end
     
+    # This is NOT RESPONSABILITY of TEST FRAMEWORKS!!!
+    #
     def run_without_bundler!(rvm_ruby_version, command)
       %{#{rvm_ruby_version} #{command}}
     end
     
+    # THIS IS NOT RESPONSABILITY OF TEST FRAMEWORKS!!
+    #
     # Contruct all the Commands for each ruby instance variable
     # If don't want to run with many rubies, add the current ruby to the rubies instance
     # and create the command with current ruby

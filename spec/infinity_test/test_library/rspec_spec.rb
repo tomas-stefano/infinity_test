@@ -235,6 +235,12 @@ module InfinityTest
           end          
         end
         
+        it "should return the files match by the pattern" do
+          buzz_library do
+            rspec.search_files('buzz').should be == 'spec/buzz_spec.rb'
+          end
+        end
+        
       end
 
     end
