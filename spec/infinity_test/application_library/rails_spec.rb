@@ -23,8 +23,7 @@ module InfinityTest
         end
         
         it "should return the pattern for Rspec " do
-          app = application_with_rspec
-          InfinityTest.stub!(:application).and_return(app)
+          stub_application_with_rspec
           rails.test_pattern.should == "^spec/*/(.*)_spec.rb"
         end
         
@@ -65,6 +64,44 @@ module InfinityTest
         it "should be possible to set the routes pattern" do
           rails.routes_pattern = "^config/routes_s\.rb"
           rails.routes_pattern.should == "^config/routes_s\.rb"
+        end
+        
+      end
+      
+      describe '#fixtures_pattern' do
+        
+        it "should set the fixtures pattern" do
+          rails.fixtures_pattern.should == "^test/fixtures/(.*).yml"
+        end
+        
+        it "should set a diferent fixtures pattern" do
+          stub_application_with_rspec
+          rails.fixtures_pattern.should == "^spec/fixtures/(.*).yml"
+        end
+        
+      end
+      
+      describe '#controllers_pattern' do
+        
+        it "should set the controllers pattern" do
+          rails.controllers_pattern.should == "^app/controllers/(.*)\.rb"
+        end
+        
+        it "should be possible to set the controllers pattern" do
+          rails.controllers_pattern = "^app/super_controllers/(.*)\.rb"
+          rails.controllers_pattern.should == "^app/super_controllers/(.*)\.rb"
+        end
+        
+      end
+      
+      describe '#models_pattern' do
+        it "should set the controllers pattern" do
+          rails.models_pattern.should == "^app/models/(.*)\.rb"
+        end
+        
+        it "should be possible to set the controllers pattern" do
+          rails.models_pattern = "^app/super_models/(.*)\.rb"
+          rails.models_pattern.should == "^app/super_models/(.*)\.rb"
         end
         
       end

@@ -25,33 +25,9 @@ module InfinityTest
     ##################
     
     def initialize_watchr!
-      # add_rule script, :rule => @application.library_directory_pattern
-      # watch_lib_folder(@watchr, @application.library_directory_pattern)
-      # watch_app_falder(@watchr, @application.app_directory_pattern) if @application.app_directory_pattern
-#      add_rule @watchr, :rule => @application.test_directory_pattern
       @application.add_heuristics!
       add_signal
       Watchr::Controller.new(@watchr, Watchr.handler.new).run
-    end
-    
-    def watch_lib_folder(script, library_directory_pattern)
-      script.watch(library_directory_pattern) do |file|
-        @application.run_changed_lib_file(file)
-      end
-    end
-    
-    def watch_app_falder(script, app_directory_patterns)
-      app_directory_patterns.each do |directory|
-        script.watch(directory) do |file|
-          @application.run_changed_app_file(file)
-        end
-      end
-    end
-    
-    def add_rule(script, options={})
-      script.watch(options[:rule]) do |file|
-        @application.run_changed_test_file(file)
-      end
     end
     
     def add_signal

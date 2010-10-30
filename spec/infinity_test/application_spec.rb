@@ -293,6 +293,25 @@ module InfinityTest
       
     end
 
+    describe '#run_commands_for_file' do
+      
+      it "should run when have a file to run" do
+        @application.should_receive(:run!)
+        @application.run_commands_for_file('file.rb')
+      end
+      
+      it "should not run when file is nil" do
+        @application.should_not_receive(:run!)
+        @application.run_commands_for_file(nil)
+      end
+      
+      it "should not run when file is empty string" do
+        @application.should_not_receive(:run!)
+        @application.run_commands_for_file('')
+      end
+      
+    end
+
     describe '#files_to_run!' do
       
       it "should return all files when option Hash key is :all" do
@@ -327,6 +346,11 @@ module InfinityTest
       it "should return all the tests files in the Dir specified" do
         @application.should_receive(:all_test_files).and_return(["spec/models/post_spec.rb", "spec/models/comment_spec.rb", "spec/people_spec.rb", "spec/controllers/posts_controller_spec.rb"])
         @application.files_to_run!(:all => :files, :in_dir => 'spec/models').should == "spec/models/post_spec.rb spec/models/comment_spec.rb"
+      end
+      
+      it "should return all the tests files in the dir specified as a symbol" do
+        @application.should_receive(:all_test_files).and_return(["spec/models/post_spec.rb", "spec/models/comment_spec.rb", "spec/people_spec.rb", "spec/controllers/posts_controller_spec.rb"])
+        @application.files_to_run!(:all => :files, :in_dir => :models).should == "spec/models/post_spec.rb spec/models/comment_spec.rb"
       end
             
     end

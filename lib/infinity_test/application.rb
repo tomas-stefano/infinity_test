@@ -224,7 +224,7 @@ module InfinityTest
         
     def search_files_in_dir(files, options)
       in_dir = options[:in_dir]
-      files = files.select { |file| file.match(in_dir) } if in_dir
+      files = files.select { |file| file.match(in_dir.to_s) } if in_dir
       files
     end
     
@@ -234,27 +234,11 @@ module InfinityTest
       test_framework.all_files
     end
     
-    # After change the file the infinity_test will search a similar file to run
-    #
-    def run_changed_app_file(file)
-      test_files = app_framework.test_files_for(file.to_s)
-      puts test_files
-      run_commands_for_file(test_files.join(' ')) unless test_files.empty?
-    end
-    
-    def run_changed_lib_file(file)
-      file = File.basename(file[1])
-      files = test_framework.all_files.grep(/#{file}/i)
-      run_commands_for_file(files.join(' ')) unless files.empty?
-    end
-
-    def run_changed_test_file(file)
-      run_commands_for_file(file)
-    end
-
     def run_commands_for_file(file)
-      commands = test_framework.construct_commands(file)
-      run!(commands)
+      if file and !file.empty?
+        commands = test_framework.construct_commands(file)
+        run!(commands)
+      end
     end
 
     # Return true if the application is using Test::Unit

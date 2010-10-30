@@ -2,15 +2,13 @@ module InfinityTest
   module ApplicationLibrary
     class Rails
       include HeuristicsHelper
-      attr_accessor :lib_pattern, :test_pattern, :configuration_pattern, :app_pattern, :routes_pattern
+      attr_accessor :lib_pattern, :test_pattern, :configuration_pattern, 
+                    :app_pattern, :routes_pattern, :fixtures_pattern,
+                    :controllers_pattern, :models_pattern
       
       def initialize
         @application  = InfinityTest.application
-        @configuration_pattern = "^config/application.rb"
-        @routes_pattern = "^config/routes\.rb"
-        @lib_pattern  = "^lib/*/(.*)\.rb"
-        @test_pattern = @application.using_test_unit? ? "^test/*/(.*)_test.rb" : "^spec/*/(.*)_spec.rb"
-        @app_pattern = "^app/*/(.*)\.rb"
+        resolve_patterns!
       end
 
       def add_heuristics!
@@ -25,6 +23,14 @@ module InfinityTest
             run(:all => :files)
           end
           
+          add(rails.controllers_pattern) do |file|
+            run :test_for => file, :in_dir => :controllers
+          end
+          
+          add(rails.models_pattern) do |file|
+            run :test_for => file, :in_dir => :models
+          end
+          
           add(rails.lib_pattern) do |file|
             run :test_for => file
           end
@@ -37,81 +43,37 @@ module InfinityTest
             run :test_for => file
           end
           
+          add(rails.fixtures_pattern) do |file|
+            run :all, :in_dir => :models
+          end
+          
         end
+      end
+      
+      def resolve_patterns!
+        @configuration_pattern = "^config/application.rb"
+        @routes_pattern = "^config/routes\.rb"
+        @lib_pattern  = "^lib/*/(.*)\.rb"
+        if @application.using_test_unit?
+          @test_pattern = "^test/*/(.*)_test.rb"
+          @fixtures_pattern = "^test/fixtures/(.*).yml"
+        else
+          @test_pattern = "^spec/*/(.*)_spec.rb"
+          @fixtures_pattern = "^spec/fixtures/(.*).yml"
+        end
+        @app_pattern = "^app/*/(.*)\.rb"
+        @controllers_pattern = "^app/controllers/(.*)\.rb"
+        @models_pattern = "^app/models/(.*)\.rb"
       end
       
     end
   end
 end
-
-# module InfinityTest
-#   class Rails
-#     attr_accessor :test_framework,:test_mappings
-# 
-#     def initialize(options={})
-#       @test_framework= :rspec
-#       @test_mappings=[]
-#       init_add_mappings
-#     end
 #     
-#     #Retrun files for test
-#     #
-#     def test_files_for(filename)
-#       result = @test_mappings.find { |file_re, ignored| filename =~ file_re }
-#       result = result.nil? ? [] : [result.last.call(filename, $~)].flatten
-#     end
-# 
-#     #Return the rails watch_path
-#     def app_watch_path
-#       ["^app/*/(.*)\.rb", "^app/views/(.*)", "^config/((boot|environment(s/test)?).rb|database.yml)"]
-#     end
-# 
-#     #init test_mappings
-#     #
-#     def init_add_mappings
-#       case @test_framework
-#       when InfinityTest::TestLibrary::Rspec
-#         rspec_mapping
-#       when InfinityTest::TestLibrary::TestUnit
-#         test_unit_mapping
-#       end
-#       nil
-#     end
-# 
-# 
-#     #Return the test_framework files match reg
-#     #
-#     def files_matching(reg)
-#       @test_framework.all_files.select { |k| k =~ reg }
-#     end
-# 
-#    #Add test_mappings,come from Autotest
-#    #
-#     def add_mapping(regexp, prepend = false, &proc)
-#       if prepend then
-#         @test_mappings.unshift [regexp, proc]
-#       else
-#         @test_mappings.push [regexp, proc]
-#       end
-#       nil
-#     end
-# 
-# 
-# 
-#     private
 #     #rspec and test_unit mappings  from Autotest
 #     def rspec_mapping
 #       add_mapping(%r%^(test|spec)/fixtures/(.*).yml$%) { |_, m|
 #         ["spec/models/#{m[2].singularize}_spec.rb"] + files_matching(%r%^spec\/views\/#{m[2]}/.*_spec\.rb$%)
-#       }
-#       add_mapping(%r%^spec/(models|controllers|routing|views|helpers|mailers|requests|lib)/.*rb$%) { |filename, _|
-#         filename
-#       }
-#       add_mapping(%r%^app/models/(.*)\.rb$%) { |_, m|
-#         ["spec/models/#{m[1]}_spec.rb"]
-#       }
-#       add_mapping(%r%^app/views/(.*)$%) { |_, m|
-#         files_matching %r%^spec/views/#{m[1]}_spec.rb$%
 #       }
 #       add_mapping(%r%^app/controllers/(.*)\.rb$%) { |_, m|
 #         if m[1] == "application_controller"

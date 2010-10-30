@@ -14,6 +14,10 @@ RSpec.configure do |config|
     @application.load_configuration_file
   end
   
+  def stub_application_with_rspec
+    InfinityTest.stub!(:application).and_return(application_with_rspec)   
+  end
+  
   def application_with(options)
     application = InfinityTest::Application.new
     application.config.use(options)
