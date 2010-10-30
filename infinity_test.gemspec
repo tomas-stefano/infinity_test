@@ -72,7 +72,6 @@ Gem::Specification.new do |s|
      "lib/infinity_test/heuristics.rb",
      "lib/infinity_test/heuristics_helper.rb",
      "lib/infinity_test/options.rb",
-     "lib/infinity_test/rails.rb",
      "lib/infinity_test/runner.rb",
      "lib/infinity_test/test_framework.rb",
      "lib/infinity_test/test_library/bacon.rb",

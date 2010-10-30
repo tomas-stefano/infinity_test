@@ -76,8 +76,8 @@ module InfinityTest
       end
       
       it "should run all the test files" do
-        @application.should_receive(:run_commands_for_file).with(@application.all_test_files)
-        @heuristics.run(:all)
+        @application.should_receive(:run_commands_for_file).with(@application.all_test_files.join(' '))
+        @heuristics.run(:all => :files)
       end
       
     end

@@ -209,19 +209,25 @@ module InfinityTest
     end
 
     def files_to_run!(options)
-      if options.is_a?(Symbol) or options.is_a?(Hash)
-        return all_test_files if options.equal?(:all)
-        return all_test_files if options.include?(:all)
-        search_file(options[:test_for][1]) if options.include?(:test_for)
+      return options.to_s if options.is_a?(MatchData)
+      if options.equal?(:all) or options.include?(:all)
+        search_files_in_dir(all_test_files, :in_dir => options[:in_dir]).join(' ')
       else
-        options.to_s
+        search_file(:pattern => options[:test_for][1], :in_dir => options[:in_dir]) if options.include?(:test_for)
       end
     end
-    
-    def search_file(file_pattern)
-      all_test_files.grep(/#{file_pattern}/i).join(' ')      
-    end
 
+    def search_file(options)
+      files = all_test_files.grep(/#{options[:pattern]}/i)
+      search_files_in_dir(files, :in_dir => options[:in_dir]).join(' ')
+    end
+        
+    def search_files_in_dir(files, options)
+      in_dir = options[:in_dir]
+      files = files.select { |file| file.match(in_dir) } if in_dir
+      files
+    end
+    
     # Return all the tests files in the User application
     #
     def all_test_files

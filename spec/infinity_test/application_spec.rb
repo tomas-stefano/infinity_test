@@ -296,11 +296,11 @@ module InfinityTest
     describe '#files_to_run!' do
       
       it "should return all files when option Hash key is :all" do
-        @application.files_to_run!(:all => 'spec_helper').should eql @application.all_test_files
+        @application.files_to_run!(:all => 'spec_helper').should eql @application.all_test_files.join(' ')
       end
       
       it "should return all files when options symbol is :all" do
-         @application.files_to_run!(:all).should eql @application.all_test_files
+         @application.files_to_run!(:all => :files).should eql @application.all_test_files.join(' ')
       end
       
       it "should return the test file the matchs with changed logic file" do
@@ -316,6 +316,17 @@ module InfinityTest
       it "should return the test file the matchs with the changed file when Test::Unit" do
         match_data = /(infinity_test\/application)/.match('infinity_test/application') #<MatchData "infinity_test/application" 1:"infinity_test/application">
         application_with_rspec.files_to_run!(:test_for => match_data).should include 'spec/infinity_test/application_spec.rb'        
+      end
+      
+      it "should return the test file the matchs with the changed file AND the dir specified" do
+        @application.should_receive(:all_test_files).and_return(["spec/addressbook/people_spec.rb", "spec/people_spec.rb"])
+        match_data = /(people_spec.rb)/.match('people_spec.rb')
+        @application.files_to_run!(:test_for => match_data, :in_dir => 'spec/addressbook').should == "spec/addressbook/people_spec.rb"
+      end
+      
+      it "should return all the tests files in the Dir specified" do
+        @application.should_receive(:all_test_files).and_return(["spec/models/post_spec.rb", "spec/models/comment_spec.rb", "spec/people_spec.rb", "spec/controllers/posts_controller_spec.rb"])
+        @application.files_to_run!(:all => :files, :in_dir => 'spec/models').should == "spec/models/post_spec.rb spec/models/comment_spec.rb"
       end
             
     end
