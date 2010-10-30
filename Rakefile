@@ -33,7 +33,8 @@ begin
     gemspec.authors = ["Tomas D'Stefano"]
 
     gemspec.add_dependency('watchr', '>= 0.7')
-
+    gemspec.add_dependency('notifiers', '>= 1.1.0')
+    
     gemspec.add_development_dependency('rspec', '>= 2.0.1')
     gemspec.add_development_dependency('jeweler', '>= 1.4.0')
 

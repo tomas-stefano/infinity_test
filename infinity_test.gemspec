@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tomas D'Stefano"]
-  s.date = %q{2010-10-14}
+  s.date = %q{2010-10-30}
   s.default_executable = %q{infinity_test}
   s.description = %q{Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with Rspec OR Test::Unit with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration.}
   s.email = %q{tomasdestefi@gmail.com}
@@ -62,14 +62,17 @@ Gem::Specification.new do |s|
      "infinity_test.gemspec",
      "lib/infinity_test.rb",
      "lib/infinity_test/application.rb",
+     "lib/infinity_test/application_library/rails.rb",
+     "lib/infinity_test/application_library/rubygems.rb",
      "lib/infinity_test/binary_path.rb",
      "lib/infinity_test/command.rb",
      "lib/infinity_test/configuration.rb",
      "lib/infinity_test/continuous_testing.rb",
      "lib/infinity_test/dependencies.rb",
-     "lib/infinity_test/notifications/growl.rb",
-     "lib/infinity_test/notifications/lib_notify.rb",
+     "lib/infinity_test/heuristics.rb",
+     "lib/infinity_test/heuristics_helper.rb",
      "lib/infinity_test/options.rb",
+     "lib/infinity_test/rails.rb",
      "lib/infinity_test/runner.rb",
      "lib/infinity_test/test_framework.rb",
      "lib/infinity_test/test_library/bacon.rb",
@@ -92,13 +95,15 @@ Gem::Specification.new do |s|
      "spec/factories/travel/test/travel_test.rb",
      "spec/factories/wood/lib/wood.rb",
      "spec/factories/wood/spec/wood_spec.rb",
+     "spec/infinity_test/application_library/rails_spec.rb",
+     "spec/infinity_test/application_library/rubygems_spec.rb",
      "spec/infinity_test/application_spec.rb",
      "spec/infinity_test/binary_path_spec.rb",
      "spec/infinity_test/command_spec.rb",
      "spec/infinity_test/configuration_spec.rb",
      "spec/infinity_test/continuous_testing_spec.rb",
-     "spec/infinity_test/notifications/growl_spec.rb",
-     "spec/infinity_test/notifications/lib_notify_spec.rb",
+     "spec/infinity_test/heuristics_helper_spec.rb",
+     "spec/infinity_test/heuristics_spec.rb",
      "spec/infinity_test/options_spec.rb",
      "spec/infinity_test/runner_spec.rb",
      "spec/infinity_test/test_framework_spec.rb",
@@ -141,13 +146,15 @@ Gem::Specification.new do |s|
      "spec/factories/travel/test/travel_test.rb",
      "spec/factories/wood/lib/wood.rb",
      "spec/factories/wood/spec/wood_spec.rb",
+     "spec/infinity_test/application_library/rails_spec.rb",
+     "spec/infinity_test/application_library/rubygems_spec.rb",
      "spec/infinity_test/application_spec.rb",
      "spec/infinity_test/binary_path_spec.rb",
      "spec/infinity_test/command_spec.rb",
      "spec/infinity_test/configuration_spec.rb",
      "spec/infinity_test/continuous_testing_spec.rb",
-     "spec/infinity_test/notifications/growl_spec.rb",
-     "spec/infinity_test/notifications/lib_notify_spec.rb",
+     "spec/infinity_test/heuristics_helper_spec.rb",
+     "spec/infinity_test/heuristics_spec.rb",
      "spec/infinity_test/options_spec.rb",
      "spec/infinity_test/runner_spec.rb",
      "spec/infinity_test/test_framework_spec.rb",
@@ -164,14 +171,20 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<watchr>, [">= 0.7"])
-      s.add_development_dependency(%q<rspec>, [">= 1.3.0"])
+      s.add_runtime_dependency(%q<notifiers>, [">= 1.1.0"])
+      s.add_development_dependency(%q<rspec>, [">= 2.0.1"])
+      s.add_development_dependency(%q<jeweler>, [">= 1.4.0"])
     else
       s.add_dependency(%q<watchr>, [">= 0.7"])
-      s.add_dependency(%q<rspec>, [">= 1.3.0"])
+      s.add_dependency(%q<notifiers>, [">= 1.1.0"])
+      s.add_dependency(%q<rspec>, [">= 2.0.1"])
+      s.add_dependency(%q<jeweler>, [">= 1.4.0"])
     end
   else
     s.add_dependency(%q<watchr>, [">= 0.7"])
-    s.add_dependency(%q<rspec>, [">= 1.3.0"])
+    s.add_dependency(%q<notifiers>, [">= 1.1.0"])
+    s.add_dependency(%q<rspec>, [">= 2.0.1"])
+    s.add_dependency(%q<jeweler>, [">= 1.4.0"])
   end
 end
 
