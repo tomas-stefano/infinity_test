@@ -9,7 +9,7 @@ GEM
       git (>= 1.2.5)
       rubyforge (>= 2.0.0)
     json_pure (1.4.6)
-    notifiers (1.0)
+    notifiers (1.1.0)
     rspec (2.0.1)
       rspec-core (~> 2.0.1)
       rspec-expectations (~> 2.0.1)
@@ -30,6 +30,6 @@ PLATFORMS
 
 DEPENDENCIES
   jeweler
-  notifiers (= 1.0)
+  notifiers (= 1.1.0)
   rspec (>= 2.0.1)
   watchr

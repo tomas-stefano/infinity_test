@@ -23,11 +23,6 @@ module InfinityTest
     autoload :TestUnit, 'infinity_test/test_library/test_unit'
   end
 
-  module Notifications
-    autoload :Growl, 'infinity_test/notifications/growl'
-    autoload :LibNotify, 'infinity_test/notifications/lib_notify'
-  end
-
   def self.application
     @application ||= Application.new
   end

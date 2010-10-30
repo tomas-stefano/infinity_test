@@ -1,9 +1,9 @@
 module InfinityTest
   class Application
-    include InfinityTest::Notifications
     include InfinityTest::TestLibrary
     include InfinityTest::ApplicationLibrary
-
+    include Notifiers
+    
     attr_accessor :config, :library_directory_pattern
 
     # Initialize the Application object with the configuration instance to
@@ -153,12 +153,6 @@ module InfinityTest
       app_framework.app_watch_path if app_framework
     end
 
-    # Return a instance of the Notification Framework class
-    #
-    def notification_framework
-      @notification_framework ||= setting_notification
-    end
-
     def run_before_environment_callback!
       before_environment_callback.call(self) if before_environment_callback
     end
@@ -176,12 +170,17 @@ module InfinityTest
       after_callback.call if after_callback
     end
 
+    def notification_framework
+      config.notification_framework
+    end
+
     # Send the message,image and the actual ruby version to show in the notification system
     #
     def notify!(options)
       if notification_framework
         message = parse_results(options[:results])
-        notification_framework.notify(:title => options[:ruby_version], :message => message, :image => image_to_show)
+        title = options[:ruby_version]
+        send(notification_framework).title(title).message(message).image(image_to_show).notify!
       else
         # skip(do nothing) when not have notification framework
       end
@@ -289,15 +288,6 @@ module InfinityTest
         Rails.new
       when :rubygems
         RubyGems.new
-      end
-    end
-
-    def setting_notification
-      case config.notification_framework
-      when :growl
-        Growl.new
-      when :lib_notify
-        LibNotify.new
       end
     end
 

@@ -153,12 +153,12 @@ module InfinityTest
 
       it "should return the Growl notification framework if has :growl" do
         application.config.notifications :growl
-        application.notification_framework.should be_instance_of InfinityTest::Notifications::Growl
+        application.notification_framework.should equal :growl
       end
 
       it "should return the Lib Notify if has :lib_notify" do
         application.config.notifications :lib_notify
-        application.notification_framework.should be_instance_of InfinityTest::Notifications::LibNotify
+        application.notification_framework.should equal :lib_notify
       end
 
       it "should cache notification" do
@@ -220,6 +220,10 @@ module InfinityTest
 
     describe '#notify!' do
 
+      before do
+        @growl = Growl.new
+      end
+
       it "should do nothing when not have notification framework" do
         application.should_receive(:notification_framework).and_return(nil)
         application.notify!(:results => '0 examples', :ruby_version => '1.9.2').should be_nil
@@ -227,7 +231,8 @@ module InfinityTest
 
       it "should notify when have notification framework" do
         application.config.notifications :growl
-        application.notification_framework.should_receive(:notify)
+        application.should_receive(:growl).and_return(@growl)
+        @growl.should_receive(:notify!)
         application.notify!(:results => '0 examples', :ruby_version => '1.8.7')
       end
 
