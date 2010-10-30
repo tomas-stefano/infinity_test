@@ -12,29 +12,12 @@ module InfinityTest
 
     describe '#initialize' do
       
-      it "should return test_unit pattern for test unit" do
-        @application.library_directory_pattern.should eql "^lib/*/(.*)\.rb"
-      end
-      
       it "should return the rubies in the config" do
         application_with(:rubies => ['1.8.7']).rubies.should == '1.8.7'
       end
       
       it "should return the rubies in the config" do
         application_with(:rubies => ['1.9.2']).rubies.should == '1.9.2'
-      end
-      
-      it "should return the before_env callback" do
-        app = application_with(:test_framework => :rspec)
-        proc = Proc.new { |application| application.test_framework.test_pattern = 'foo'; application.library_directory_pattern = 'bar' }
-        app.config.before_env(&proc)
-        app.before_environment_callback.should equal proc
-        app.test_framework.test_pattern.should_not == 'foo'
-        app.library_directory_pattern.should_not == 'bar'
-      
-        app.run_before_environment_callback!
-        app.test_framework.test_pattern.should == 'foo'
-        app.library_directory_pattern.should == 'bar'
       end
       
       it "should return the before callback" do

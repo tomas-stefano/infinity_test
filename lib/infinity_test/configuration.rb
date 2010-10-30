@@ -113,6 +113,10 @@ module InfinityTest
       setting_gemset_for_each_rubies(options[:gemset]) if options[:gemset]
     end
     
+    # Setting a gemset for each rubies
+    #
+    # setting_gemset_for_each_rubies('infinity_test') # => ['1.8.7@infinity_test', '1.9.2@infinity_test']
+    #
     def setting_gemset_for_each_rubies(gemset)
       @rubies = @rubies.split(',').collect { |ruby| ruby << "@#{gemset}" }.join(',')
     end
@@ -153,18 +157,6 @@ module InfinityTest
     #
     def before_run(&block)
       @before_callback = block
-    end
-    
-    # Callback method to run anything you want, before the environment is fully set up
-    # 
-    # Example:
-    #
-    # before_env do |application|
-    #   # some code that I want to run before the environment is set up
-    # end
-    #
-    def before_env(&block)
-      @before_environment_callback = block
     end
     
     # Callback method to run anything you want, after the run the test suite command
@@ -228,6 +220,12 @@ module InfinityTest
     #
     def clear(option)
       system('clear') if option == :terminal
+    end
+    
+    def replace_patterns
+      application_framework = InfinityTest.application.app_framework
+      # application_framework.instance_eval(&block)
+      application_framework
     end
     
     # Added heuristics to the User application

@@ -4,14 +4,13 @@ module InfinityTest
     include InfinityTest::ApplicationLibrary
     include Notifiers
     
-    attr_accessor :config, :library_directory_pattern
+    attr_accessor :config
 
     # Initialize the Application object with the configuration instance to
     # load configuration and set properly
     #
     def initialize
       @config = InfinityTest.configuration
-      @library_directory_pattern = "^lib/*/(.*)\.rb"
     end
 
     # Load the Configuration file
@@ -60,12 +59,6 @@ module InfinityTest
     #
     def before_callback
       config.before_callback
-    end
-
-    # Return the block object setting in the config file
-    #
-    def before_environment_callback
-      config.before_environment_callback
     end
 
     # Return the block object setting in the config file
@@ -119,18 +112,19 @@ module InfinityTest
       test_framework.construct_commands
     end
 
-    # Return the test directory pattern setting in the .infinity_test file
-    #
-    def test_directory_pattern
-      test_framework.test_directory_pattern
-    end
-
     # Return a instance of the test framework class
     #
     def test_framework
       @test_framework ||= setting_test_framework
     end
 
+    # Return true if the application is using Test::Unit
+    # Return false otherwise
+    #
+    def using_test_unit?
+      test_framework.instance_of?(TestUnit)
+    end
+    
     # Return a instance of the app framework class
     #
     def app_framework
@@ -143,6 +137,8 @@ module InfinityTest
       config.instance_variable_get(:@heuristics)
     end
 
+    # Triggers the #add_heuristics! method in the application_framework
+    #
     def add_heuristics!
       app_framework.add_heuristics!
     end
@@ -153,10 +149,10 @@ module InfinityTest
       app_framework.app_watch_path if app_framework
     end
 
-    def run_before_environment_callback!
-      before_environment_callback.call(self) if before_environment_callback
-    end
-
+    # Pass many commands(expecting something that talk like Hash) and run them
+    # First, triggers all the before each callbacks, run the commands
+    # and last, triggers after each callbacks
+    #
     def run!(commands)
       before_callback.call if before_callback
 
@@ -170,6 +166,9 @@ module InfinityTest
       after_callback.call if after_callback
     end
 
+    # Return the notification_framework setting in the configuration file
+    # Maybe is: :growl, :lib_notify
+    #
     def notification_framework
       config.notification_framework
     end
@@ -208,6 +207,17 @@ module InfinityTest
       end
     end
 
+    # Return the files that match by the options
+    # This very used in the #run method called in the heuristics instances
+    #
+    # Example:
+    #
+    #  files_to_run!(:all) # => Return all test files
+    #  files_to_run!(:all, :in_dir => :models) # => Return all the test files in the models directory
+    #  files_to_run!(:test_for => match_data)  # => Return the tests that match with the MatchData Object
+    #  files_to_run!(:test_for => match_data, :in_dir => :controllers) # => Return the tests that match with the MatchData Object
+    #  files_to_run!(match_data) # => return the test file
+    #
     def files_to_run!(options)
       return options.to_s if options.is_a?(MatchData)
       if options.equal?(:all) or options.include?(:all)
@@ -217,11 +227,15 @@ module InfinityTest
       end
     end
 
+    # Search files that matches with the pattern
+    #
     def search_file(options)
       files = all_test_files.grep(/#{options[:pattern]}/i)
       search_files_in_dir(files, :in_dir => options[:in_dir]).join(' ')
     end
-        
+
+    # Search files under the dir specified
+    #
     def search_files_in_dir(files, options)
       in_dir = options[:in_dir]
       files = files.select { |file| file.match(in_dir.to_s) } if in_dir
@@ -233,19 +247,15 @@ module InfinityTest
     def all_test_files
       test_framework.all_files
     end
-    
+
+    # Run commands for a file
+    # If dont have a file, do nothing
+    #
     def run_commands_for_file(file)
       if file and !file.empty?
         commands = test_framework.construct_commands(file)
         run!(commands)
       end
-    end
-
-    # Return true if the application is using Test::Unit
-    # Return false otherwise
-    #
-    def using_test_unit?
-      test_framework.instance_of?(TestUnit)
     end
 
     private

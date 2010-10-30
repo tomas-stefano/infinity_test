@@ -299,6 +299,19 @@ module InfinityTest
       
     end
 
+    describe '#replace_patterns' do
+      
+      it "should evaluate in the context of application framework" do
+        config.replace_patterns do |application_framework|
+        end.should be_instance_of(InfinityTest::ApplicationLibrary::RubyGems)
+      end
+      
+      it "should return the same object match in the InfinityTest.application.app_framework" do
+        config.replace_patterns do |application_framework|
+        end.should equal InfinityTest.application.app_framework        
+      end
+      
+    end
   end
 end
 
