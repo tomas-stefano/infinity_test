@@ -265,7 +265,7 @@ module InfinityTest
     describe "#app framework" do
       
       it "should return the instance of Rails when app framework is Rails" do
-        application_with_rails.app_framework.should be_instance_of(InfinityTest::Rails)
+        application_with_rails.app_framework.should be_instance_of(InfinityTest::ApplicationLibrary::Rails)
       end
       
       it "should return the instance of Rubygems when app framework is Rubygems" do

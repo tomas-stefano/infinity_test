@@ -1,0 +1,74 @@
+require 'spec_helper'
+
+module InfinityTest
+  module ApplicationLibrary
+    describe Rails do
+      let(:rails) { Rails.new }
+      
+      describe '#lib_pattern' do
+
+        it { rails.lib_pattern.should == "^lib/*/(.*)\.rb" }
+        
+        it "should be possible to change the library pattern" do
+          rails.lib_pattern = "^another_lib/*/(.*)\.rb"
+          rails.lib_pattern.should == "^another_lib/*/(.*)\.rb"
+        end
+        
+      end
+
+      describe '#test_pattern' do
+        
+        it "should return the pattern for Test::Unit" do
+          rails.test_pattern.should == "^test/*/(.*)_test.rb"
+        end
+        
+        it "should return the pattern for Rspec " do
+          app = application_with_rspec
+          InfinityTest.stub!(:application).and_return(app)
+          rails.test_pattern.should == "^spec/*/(.*)_spec.rb"
+        end
+        
+      end
+
+      describe '#configuration_pattern' do
+        
+        it "should set to config/application.rb" do
+          rails.configuration_pattern.should ==  "^config/application.rb"
+        end
+        
+        it "should possible to change the configuration_pattern" do
+          rails.configuration_pattern = "^config/environment.rb"
+          rails.configuration_pattern.should == "^config/environment.rb"
+        end
+        
+      end
+      
+      describe '#app_pattern' do
+        
+        it "should return the app pattern" do
+          rails.app_pattern.should == "^app/*/(.*)\.rb"
+        end
+        
+        it "should be possible to set the app pattern" do
+          rails.app_pattern = "^app/something/*/(.*)\.rb"
+          rails.app_pattern.should == "^app/something/*/(.*)\.rb"
+        end
+        
+      end
+      
+      describe '#routes_pattern' do
+        
+        it "should return the routes_pattern" do
+          rails.routes_pattern.should == "^config/routes\.rb"
+        end
+        
+        it "should be possible to set the routes pattern" do
+          rails.routes_pattern = "^config/routes_s\.rb"
+          rails.routes_pattern.should == "^config/routes_s\.rb"
+        end
+        
+      end
+      
+    end
+  end
+end

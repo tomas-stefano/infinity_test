@@ -286,7 +286,7 @@ module InfinityTest
     def setting_app_framework
       case config.app_framework 
       when :rails
-        Rails.new :test_framework => test_framework
+        Rails.new
       when :rubygems
         RubyGems.new
       end

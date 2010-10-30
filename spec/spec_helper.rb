@@ -82,11 +82,11 @@ RSpec.configure do |config|
   end
   
   def current_env
-    RVM::Environment.current
+    @current_env ||= RVM::Environment.current
   end
   
   def environment_name
-    current_env.environment_name
+    @environment_name ||= current_env.environment_name
   end
   
   def application_with_gemfile(application)

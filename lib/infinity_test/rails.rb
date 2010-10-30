@@ -2,8 +2,8 @@ module InfinityTest
   class Rails
     attr_accessor :test_framework,:test_mappings
 
-    def initialize(options)
-      @test_framework=options[:test_framework]
+    def initialize(options={})
+      @test_framework= :rspec
       @test_mappings=[]
       init_add_mappings
     end
