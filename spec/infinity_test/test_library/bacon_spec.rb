@@ -21,10 +21,6 @@ module InfinityTest
         Bacon.new.rubies.should be_empty
       end
       
-      it "should have the pattern for spec directory" do
-        Bacon.new.test_directory_pattern.should be == "^spec/*/(.*)_spec.rb"
-      end
-      
       it 'should set a default test pattern when have none' do
         Bacon.new.test_pattern.should == 'spec/**/*_spec.rb'
       end

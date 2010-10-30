@@ -17,7 +17,6 @@ module InfinityTest
       # 
       def initialize(options={})
         super(options)
-        @test_directory_pattern = "^spec/*/(.*)_spec.rb"
         @test_pattern = options[:test_pattern] || 'spec/**/*_spec.rb'
       end
       

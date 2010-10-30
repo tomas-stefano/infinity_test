@@ -5,7 +5,6 @@ module InfinityTest
 
       def initialize(options={})
         super(options)
-        @test_directory_pattern = "^test/*/(.*)_test.rb"
         @test_pattern = 'test/**/*_test.rb'
       end
       

@@ -21,10 +21,6 @@ module InfinityTest
         Rspec.new.rubies.should be_empty
       end
       
-      it "should have the pattern for spec directory" do
-        Rspec.new.test_directory_pattern.should be == "^spec/*/(.*)_spec.rb"
-      end
-      
       it 'should set a default test pattern when have none' do
         Rspec.new.test_pattern.should == 'spec/**/*_spec.rb'
       end

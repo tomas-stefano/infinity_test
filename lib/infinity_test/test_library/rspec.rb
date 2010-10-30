@@ -9,12 +9,10 @@ module InfinityTest
       #
       # rspec = InfinityTest::Rspec.new(:rubies => '1.9.1,1.9.2')
       # rspec.rubies # => '1.9.1,1.9.2'
-      # rspec.test_directory_pattern # => "^spec/*/(.*)_spec.rb"
       # rspec.test_pattern # => 'spec/**/*_spec.rb'
       #
       def initialize(options={})
         super(options)
-        @test_directory_pattern = "^spec/*/(.*)_spec.rb"
         @test_pattern = 'spec/**/*_spec.rb'
       end
       
