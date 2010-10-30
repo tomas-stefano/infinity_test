@@ -40,6 +40,7 @@ def require_without_rubygems(options)
 end
 
 require_without_rubygems :gem => 'watchr'
+require_without_rubygems :gem => 'notifiers'
 
 require 'ostruct'
 
