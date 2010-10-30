@@ -4,7 +4,9 @@ module InfinityTest
   describe Heuristics do
     
     before do
+      @application = application_with_rspec
       InfinityTest.stub!(:watchr).and_return(Watchr::Script.new)
+      InfinityTest.stub!(:application).and_return(@application)
       @heuristics = Heuristics.new
     end
       
@@ -48,21 +50,33 @@ module InfinityTest
       end
       
     end
+
+    describe '#all' do
+      
+      it "should return all the patterns" do
+        @heuristics.add('^lib/*_spec.rb')
+        @heuristics.all.should eql ['^lib/*_spec.rb']
+      end
+      
+      it "should return all the patterns the InfinityTest will watch" do
+        @heuristics.add('^config/application.rb')
+        @heuristics.add('^spec/spec_helper.rb')
+        @heuristics.all.should eql ['^config/application.rb', '^spec/spec_helper.rb']
+      end
+      
+    end
     
     describe '#run' do
       
+      let(:binary_path_match_data) { match_data = /(infinity_test\/binary_path)/.match('infinity_test/binary_path') }
+            
       it "should call the contruct commands for test file" do
-        pending
-        @heuristics.run(:test => 'some_file.rb')
-      end
-      
-      it "should call the construct commands for app file" do
-        pending
-        @heuristics.run('some_file.rb', :in_dir => 'spec')
+        @application.should_receive(:run_commands_for_file).with('spec/infinity_test/binary_path_spec.rb')
+        @heuristics.run(:test_for => binary_path_match_data)
       end
       
       it "should run all the test files" do
-        pending
+        @application.should_receive(:run_commands_for_file).with(@application.all_test_files)
         @heuristics.run(:all)
       end
       

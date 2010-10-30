@@ -300,17 +300,17 @@ module InfinityTest
       
       it "should return the test file the matchs with changed logic file" do
         match_data = /(infinity_test\/heuristics)/.match('infinity_test/heuristics') #<MatchData "infinity_test/heuristics" 1:"infinity_test/heuristics">
-        application_with_rspec.files_to_run!(:test_for => match_data).should eql 'spec/infinity_test/heuristics_spec.rb'
+        application_with_rspec.files_to_run!(:test_for => match_data).should include 'spec/infinity_test/heuristics_spec.rb'
       end
       
       it "should return the test file the match with the changed file" do
         match_data = /(infinity_test\/application)/.match('infinity_test/application') #<MatchData "infinity_test/application" 1:"infinity_test/application">
-        application_with_rspec.files_to_run!(:test_for => match_data).should eql 'spec/infinity_test/application_spec.rb'
+        application_with_rspec.files_to_run!(:test_for => match_data).should include 'spec/infinity_test/application_spec.rb'
       end
       
       it "should return the test file the matchs with the changed file when Test::Unit" do
         match_data = /(infinity_test\/application)/.match('infinity_test/application') #<MatchData "infinity_test/application" 1:"infinity_test/application">
-        application_with_rspec.files_to_run!(:test_for => match_data).should eql 'spec/infinity_test/application_spec.rb'        
+        application_with_rspec.files_to_run!(:test_for => match_data).should include 'spec/infinity_test/application_spec.rb'        
       end
             
     end

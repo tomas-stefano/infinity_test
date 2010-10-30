@@ -220,7 +220,7 @@ module InfinityTest
     end
     
     def search_file(file_pattern)
-      all_test_files.grep(/#{file_pattern}/i).join(' ')
+      all_test_files.grep(/#{file_pattern}/i).join(' ')      
     end
 
     # Return all the tests files in the User application
@@ -232,7 +232,7 @@ module InfinityTest
     # After change the file the infinity_test will search a similar file to run
     #
     def run_changed_app_file(file)
-      test_files=app_framework.test_files_for(file.to_s)
+      test_files = app_framework.test_files_for(file.to_s)
       puts test_files
       run_commands_for_file(test_files.join(' ')) unless test_files.empty?
     end

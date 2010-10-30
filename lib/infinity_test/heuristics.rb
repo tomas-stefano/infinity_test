@@ -14,6 +14,10 @@ module InfinityTest
       @patterns
     end
     
+    def all
+      @patterns.keys
+    end
+    
     def run(options)
       @application.run_commands_for_file(@application.files_to_run!(options))
     end
