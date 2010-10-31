@@ -212,8 +212,8 @@ module InfinityTest
     #
     # Example:
     #
-    #  files_to_run!(:all) # => Return all test files
-    #  files_to_run!(:all, :in_dir => :models) # => Return all the test files in the models directory
+    #  files_to_run!(:all => :files) # => Return all test files
+    #  files_to_run!(:all => :files, :in_dir => :models) # => Return all the test files in the models directory
     #  files_to_run!(:test_for => match_data)  # => Return the tests that match with the MatchData Object
     #  files_to_run!(:test_for => match_data, :in_dir => :controllers) # => Return the tests that match with the MatchData Object
     #  files_to_run!(match_data) # => return the test file
@@ -238,7 +238,13 @@ module InfinityTest
     #
     def search_files_in_dir(files, options)
       in_dir = options[:in_dir]
-      files = files.select { |file| file.match(in_dir.to_s) } if in_dir
+      if in_dir.respond_to?(:each)
+        files = in_dir.map.each do |directory|
+           files.select { |file| file.match(directory.to_s) }
+         end
+      else
+        files = files.select { |file| file.match(in_dir.to_s) } if in_dir
+      end
       files
     end
     

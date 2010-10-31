@@ -335,6 +335,17 @@ module InfinityTest
         @application.should_receive(:all_test_files).and_return(["spec/models/post_spec.rb", "spec/models/comment_spec.rb", "spec/people_spec.rb", "spec/controllers/posts_controller_spec.rb"])
         @application.files_to_run!(:all => :files, :in_dir => :models).should == "spec/models/post_spec.rb spec/models/comment_spec.rb"
       end
+      
+      it "should return all the test files in all dirs specified" do
+        @application.should_receive(:all_test_files).and_return(['spec/models/post_spec.rb', 'spec/support/blueprints.rb', 'spec/controllers/comments_controller_spec.rb', 'spec/views/comments/index_spec.rb'])
+        @application.files_to_run!(:all => :files, :in_dir => [:models, :controllers]).should == 'spec/models/post_spec.rb spec/controllers/comments_controller_spec.rb'
+      end
+      
+      it "should return all the test files that match with file changed in the dirs specified" do
+        @application.should_receive(:all_test_files).and_return(['spec/models/post_spec.rb', 'spec/controllers/post_controllers_spec.rb', 'spec/views/posts/index_spec.rb'])
+        match_data = /(post)/.match('post')
+        @application.files_to_run!(:test_for => match_data, :in_dir => [:models, :controllers]).should == 'spec/models/post_spec.rb spec/controllers/post_controllers_spec.rb'
+      end
             
     end
 
