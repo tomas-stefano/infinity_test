@@ -20,6 +20,14 @@ module InfinityTest
         application_with(:rubies => ['1.9.2']).rubies.should == '1.9.2'
       end
       
+      it "should return the watchr script instance" do
+        application_with_rspec.watchr.should be_instance_of(Watchr::Script)
+      end
+      
+      it "should return the same object in the infinity test watchr" do
+        application_with_rspec.watchr.should equal InfinityTest.watchr
+      end
+      
       it "should return the before callback" do
         app = application_with(:test_framework => :rspec)
         proc = Proc.new { 'To Infinity and beyond!' }
@@ -61,7 +69,27 @@ module InfinityTest
       end
       
     end
-    
+
+    describe '#heuristics_users_high_priority!' do
+
+      before do
+        @application = application_with(:test_framework => :rspec, :app_framework => :rubygems)
+        @application.heuristics.add('my_rule.rb') do
+            'my_rule'
+        end
+        @application.heuristics.add('other_rule.rb') do
+            'other_rule'
+        end
+      end
+      
+      it "should reverse the rules of watchr" do
+        @application.heuristics_users_high_priority!
+        @application.watchr.patterns[0].should == 'other_rule.rb'
+        @application.watchr.patterns[1].should == 'my_rule.rb'
+      end
+      
+    end
+   
     describe '#have_gemfile?' do
       
       it "should return true when Gemfile exists" do

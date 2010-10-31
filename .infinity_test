@@ -3,7 +3,13 @@
 infinity_test do
   
   use :rubies => ['1.8.7', '1.9.2', 'jruby', 'ree'], :gemset => 'infinity_test', :test_framework => :rspec
-  
+
+  heuristics do
+    add '^lib/infinity_test/dependencies.rb' do |file|
+      run :all => :files
+    end
+  end
+
   # heuristics do
   #
   #  add :dir => 'app/models' do |file|

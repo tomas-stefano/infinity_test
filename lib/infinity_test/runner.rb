@@ -35,7 +35,6 @@ module InfinityTest
     # Start Continuous Server using Watchr
     #
     def start_continuous_testing!
-      @application.add_heuristics!      
       InfinityTest::ContinuousTesting.new.start!
     end
 

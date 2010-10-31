@@ -4,13 +4,14 @@ module InfinityTest
     include InfinityTest::ApplicationLibrary
     include Notifiers
     
-    attr_accessor :config
+    attr_accessor :config, :watchr
 
     # Initialize the Application object with the configuration instance to
     # load configuration and set properly
     #
     def initialize
       @config = InfinityTest.configuration
+      @watchr = InfinityTest.watchr
     end
 
     # Load the Configuration file
@@ -141,6 +142,10 @@ module InfinityTest
     #
     def add_heuristics!
       app_framework.add_heuristics!
+    end
+
+    def heuristics_users_high_priority!
+      @watchr.rules.reverse!
     end
 
     # Return the app_watch directory pattern
