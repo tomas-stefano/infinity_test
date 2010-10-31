@@ -21,6 +21,7 @@ module InfinityTest
     
     def load_configuration_file
       @application.load_configuration_file
+      @application.add_heuristics!
     end
     
     def setup!

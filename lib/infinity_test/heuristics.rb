@@ -14,6 +14,16 @@ module InfinityTest
       @patterns
     end
     
+    def remove(pattern)
+      if pattern == :all
+        @patterns.clear
+        @script.rules.clear
+      else
+        @patterns.delete(pattern)
+        @script.rules.delete_if { |rule| rule.pattern == pattern }
+      end
+    end
+    
     def all
       @patterns.keys
     end

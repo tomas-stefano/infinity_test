@@ -24,7 +24,6 @@ module InfinityTest
     ##################
     
     def initialize_watchr!
-      @application.add_heuristics!
       add_signal
       Watchr::Controller.new(@watchr, Watchr.handler.new).run
     end

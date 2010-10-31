@@ -311,6 +311,17 @@ module InfinityTest
         end.should equal InfinityTest.application.app_framework        
       end
       
+      it "should replace patterns to the application framework" do
+        config.replace_patterns do |application_framework|
+          application_framework.lib_pattern = "^lib/(.*)\.rb"
+        end
+        InfinityTest.application.app_framework.lib_pattern.should == "^lib/(.*)\.rb"
+      end
+      
+      it "should replace patterns and replace the test pattern to test framework lookup" do
+        pending
+      end
+      
     end
   end
 end

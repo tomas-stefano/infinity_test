@@ -222,9 +222,9 @@ module InfinityTest
       system('clear') if option == :terminal
     end
     
-    def replace_patterns
+    def replace_patterns(&block)
       application_framework = InfinityTest.application.app_framework
-      # application_framework.instance_eval(&block)
+      application_framework.instance_eval(&block)
       application_framework
     end
     

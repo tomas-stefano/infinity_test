@@ -81,6 +81,39 @@ module InfinityTest
       end
       
     end
+
+    describe '#remove' do
+      
+      before do
+        @heuristics.add('^lib/*/(.*)_spec.rb')
+        @heuristics.add('^spec/*/(.*)_spec.rb')
+      end
+      
+      it { @heuristics.patterns.should have(2).items }
+      
+      it { @heuristics.script.rules.should have(2).items }
+      
+      it "should remove the pattern from patterns" do
+        @heuristics.remove('^lib/*/(.*)_spec.rb')
+        @heuristics.should_not have_pattern('^lib/*/(.*)_spec.rb')
+      end
+      
+      it "should remove the rules from watchr" do
+        @heuristics.remove('^lib/*/(.*)_spec.rb')
+        @heuristics.script.rules.should have(1).items
+      end
+      
+      it "should remove all the rules from watchr" do
+        @heuristics.remove :all
+        @heuristics.script.rules.should be_empty
+      end
+      
+      it "should remove all the patterns" do
+        @heuristics.remove :all
+        @heuristics.patterns.should be_empty
+      end
+      
+    end
    
   end
 end
