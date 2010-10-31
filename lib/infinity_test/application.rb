@@ -219,8 +219,6 @@ module InfinityTest
     #  files_to_run!(match_data) # => return the test file
     #
     def files_to_run!(options)
-      require 'ruby-debug'
-      debugger
       return options.to_s if options.is_a?(MatchData)
       if options.equal?(:all) or options.include?(:all)
         search_files_in_dir(all_test_files, :in_dir => options[:in_dir]).join(' ')

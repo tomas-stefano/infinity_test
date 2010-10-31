@@ -21,7 +21,6 @@ module InfinityTest
     
     def load_configuration_file
       @application.load_configuration_file
-      @application.add_heuristics!
     end
     
     def setup!
@@ -36,6 +35,7 @@ module InfinityTest
     # Start Continuous Server using Watchr
     #
     def start_continuous_testing!
+      @application.add_heuristics!      
       InfinityTest::ContinuousTesting.new.start!
     end
 
