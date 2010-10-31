@@ -224,7 +224,7 @@ module InfinityTest
     
     def replace_patterns(&block)
       application_framework = InfinityTest.application.app_framework
-      application_framework.instance_eval(&block)
+      block.call(application_framework, InfinityTest.application)
       application_framework
     end
     
