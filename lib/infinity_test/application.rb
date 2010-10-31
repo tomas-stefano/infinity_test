@@ -227,6 +227,16 @@ module InfinityTest
       end
     end
 
+    # Search files under the dir(s) specified
+    #
+    def search_files_in_dir(files, options)
+      dirs = [options[:in_dir]].compact.flatten
+      match_files = dirs.collect do |directory|
+         files.select { |file| file.match(directory.to_s) }
+      end
+      match_files.empty? ? files : match_files
+    end
+    
     # Search files that matches with the pattern
     #
     def search_file(options)
@@ -234,20 +244,6 @@ module InfinityTest
       search_files_in_dir(files, :in_dir => options[:in_dir]).join(' ')
     end
 
-    # Search files under the dir specified
-    #
-    def search_files_in_dir(files, options)
-      in_dir = options[:in_dir]
-      if in_dir.respond_to?(:each)
-        files = in_dir.map.each do |directory|
-           files.select { |file| file.match(directory.to_s) }
-         end
-      else
-        files = files.select { |file| file.match(in_dir.to_s) } if in_dir
-      end
-      files
-    end
-    
     # Return all the tests files in the User application
     #
     def all_test_files
