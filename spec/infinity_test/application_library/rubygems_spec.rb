@@ -33,6 +33,19 @@ module InfinityTest
         end
         
       end
+
+      describe '#test_helper_pattern' do
+        it "should return the pattern for Test::Unit" do
+          rubygems.test_helper_pattern.should == "^test/*/test_helper.rb"
+        end
+        
+        it "should return the pattern for Rspec" do
+          app = application_with_rspec
+          InfinityTest.stub!(:application).and_return(app)
+          rubygems.test_helper_pattern.should == "^spec/*/spec_helper.rb"
+        end
+        
+      end
       
     end
   end

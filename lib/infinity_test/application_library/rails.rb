@@ -3,7 +3,7 @@ module InfinityTest
     class Rails
       include HeuristicsHelper
       attr_accessor :lib_pattern, :test_pattern, :configuration_pattern, 
-                    :app_pattern, :routes_pattern, :fixtures_pattern,
+                    :routes_pattern, :fixtures_pattern,
                     :controllers_pattern, :models_pattern
       
       def initialize
@@ -39,10 +39,6 @@ module InfinityTest
             run file
           end
           
-          add(rails.app_pattern) do |file|
-            run :test_for => file
-          end
-          
           add(rails.fixtures_pattern) do |file|
             run :all, :in_dir => :models
           end
@@ -61,7 +57,6 @@ module InfinityTest
           @test_pattern = "^spec/*/(.*)_spec.rb"
           @fixtures_pattern = "^spec/fixtures/(.*).yml"
         end
-        @app_pattern = "^app/*/(.*)\.rb"
         @controllers_pattern = "^app/controllers/(.*)\.rb"
         @models_pattern = "^app/models/(.*)\.rb"
       end

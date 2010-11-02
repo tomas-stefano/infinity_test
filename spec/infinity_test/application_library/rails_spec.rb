@@ -42,19 +42,6 @@ module InfinityTest
         
       end
       
-      describe '#app_pattern' do
-        
-        it "should return the app pattern" do
-          rails.app_pattern.should == "^app/*/(.*)\.rb"
-        end
-        
-        it "should be possible to set the app pattern" do
-          rails.app_pattern = "^app/something/*/(.*)\.rb"
-          rails.app_pattern.should == "^app/something/*/(.*)\.rb"
-        end
-        
-      end
-      
       describe '#routes_pattern' do
         
         it "should return the routes_pattern" do
@@ -105,7 +92,7 @@ module InfinityTest
         end
         
       end
-      
+     
     end
   end
 end
