@@ -48,18 +48,6 @@ module InfinityTest
       end
     end
     
-    # Using Ruby Enterprise Edition?
-    #
-    def ree?
-      @current_ruby_string =~ /ree/
-    end
-    
-    # Using mri?
-    #
-    def mri?
-      @current_ruby_string =~ /ruby-1.8/
-    end
-    
     # Using yarv?
     #
     def yarv?
