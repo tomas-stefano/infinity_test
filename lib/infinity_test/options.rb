@@ -6,14 +6,9 @@ module InfinityTest
     def initialize(arguments)
       super()
       @options = OptionParser.new do |options|
-        parse_test_unit(options)        
-        parse_rspec(options)
-        parse_bacon(options)
-        parse_rubygems(options)
-        parse_rails(options)
-        parse_rubies(options)
-        parse_verbose(options)
-        parse_bundler(options)
+        [:test_unit, :rspec, :bacon, :rubygems, :rails, :rubies, :cucumber, :verbose, :bundler].each do |name|
+          send("parse_#{name}", options)
+        end
         options.banner = [ "Usage: infinity_test [options]", "Starts a continuous test server."].join("\n")        
         options.on_tail("--help", "You're looking at it.") do
           print options.help
@@ -62,6 +57,12 @@ module InfinityTest
     def parse_rubygems(options)
       options.on('--rubygems', 'Application Framework: Rubygems (Default)') do
         self[:app_framework] = :rubygems
+      end
+    end
+    
+    def parse_cucumber(options)
+      options.on('--cucumber', 'Run with the Cucumber too') do
+        self[:cucumber?] = true
       end
     end
     

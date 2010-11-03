@@ -70,6 +70,11 @@ module InfinityTest
         @options[:app_framework].should equal :rubygems
       end
       
+      it "should parse the cucumber option" do
+        parse_options('--cucumber')
+        @options[:cucumber?].should be_true
+      end
+      
     end
 
     def parse_options(*arguments)
