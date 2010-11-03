@@ -32,7 +32,7 @@ module InfinityTest
           end
           
           add(rubygems.test_helper_pattern) do |file|
-            run :all => :files
+            run :all => :tests
           end
           
         end

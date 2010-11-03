@@ -38,6 +38,14 @@ If you want run all tests in a particular dir, you can do too:
         end
       end
 
+You can pass an array of dirs too (w00t!!):
+
+      heuristics do
+        add('some_file.rb') do |file|
+          run :all => :tests, :in_dir => [:controllers, :models]
+        end
+      end
+
 - Support Bundler: 
 The InfinityTest try to discover If the user have a Gemfile in the project root and
 if Gemfile exists InfinityTest will run with "bundle exec #{command}" else will run "command" normally.

@@ -16,11 +16,11 @@ module InfinityTest
         heuristics do
           
           add(rails.configuration_pattern) do |file|
-            run(:all => :files)
+            run(:all => :tests)
           end
           
           add(rails.routes_pattern) do |file|
-            run(:all => :files)
+            run(:all => :tests)
           end
           
           add(rails.controllers_pattern) do |file|
@@ -65,11 +65,6 @@ module InfinityTest
   end
 end
 #     
-#     #rspec and test_unit mappings  from Autotest
-#     def rspec_mapping
-#       add_mapping(%r%^(test|spec)/fixtures/(.*).yml$%) { |_, m|
-#         ["spec/models/#{m[2].singularize}_spec.rb"] + files_matching(%r%^spec\/views\/#{m[2]}/.*_spec\.rb$%)
-#       }
 #       add_mapping(%r%^app/controllers/(.*)\.rb$%) { |_, m|
 #         if m[1] == "application_controller"
 #           files_matching %r%^spec/controllers/.*_spec\.rb$%
