@@ -12,7 +12,7 @@ module InfinityTest
           @test_helper_pattern = "^test/*/test_helper.rb"
         else
           @test_pattern = "^spec/*/(.*)_spec.rb"
-          @test_helper_pattern = "^spec/*/spec_helper.rb"          
+          @test_helper_pattern = "^spec/*/spec_helper.rb"
         end        
       end
       

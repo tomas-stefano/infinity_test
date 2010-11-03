@@ -171,10 +171,14 @@ module InfinityTest
       after_callback.call if after_callback
     end
 
+    # Construct the Global Commands and cache for all suite
+    #
     def global_commands
       @global_commands ||= construct_commands
     end
 
+    # Run the global commands
+    #
     def run_global_commands!
       run!(global_commands)
     end
