@@ -4,6 +4,40 @@ In Development
 Features
 --------
 
+- Added the Heuristics feature(<b>For users who want to add your own paths</b>)
+This example tell to InfinityTest <b>run all the tests when some_file.rb is changed</b> 
+This basic DSL you will put in the <b>infinity_test file</b>:
+
+      heuristics do
+        add('some_file.rb') do |file|
+          run :all => :tests
+        end
+      end
+
+If you want run only the similar test file you can do too:
+
+      heuristics do
+        add('some_file.rb') do |file|
+          run :test_for => file
+        end
+      end
+
+If you want run only the similar test in some dir, you can do too:
+
+      heuristics do
+        add('some_file.rb') do |file|
+          run :test_for => file, :in_dir => :models
+        end
+      end
+
+If you want run all tests in a particular dir, you can do too:
+
+      heuristics do
+        add('some_file.rb') do |file|
+          run :all => :tests, :in_dir => :controllers
+        end
+      end
+
 - Support Bundler: 
 The InfinityTest try to discover If the user have a Gemfile in the project root and
 if Gemfile exists InfinityTest will run with "bundle exec #{command}" else will run "command" normally.
