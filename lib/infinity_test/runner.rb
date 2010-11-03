@@ -17,6 +17,7 @@ module InfinityTest
     def load_configuration_file_or_read_the_options!
       load_configuration_file
       setup!
+      run_global_commands!
     end
     
     def load_configuration_file
@@ -30,6 +31,12 @@ module InfinityTest
          :app_framework => (options[:app_framework]   || @application.config.app_framework),
          :verbose => options[:verbose] || @application.config.verbose)
       @application.config.skip_bundler! if options[:skip_bundler?]
+      @application.add_heuristics!
+      @application.heuristics_users_high_priority!
+    end
+    
+    def run_global_commands!
+      @application.run_global_commands!
     end
 
     # Start Continuous Server using Watchr

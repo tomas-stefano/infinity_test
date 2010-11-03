@@ -109,7 +109,7 @@ module InfinityTest
       end
       
     end
-    
+
     def parse_options(*arguments)
       @options = InfinityTest::Options.new(arguments)
     end

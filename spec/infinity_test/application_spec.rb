@@ -89,7 +89,7 @@ module InfinityTest
       end
       
     end
-   
+  
     describe '#have_gemfile?' do
       
       it "should return true when Gemfile exists" do
@@ -276,6 +276,30 @@ module InfinityTest
         run_the_command(application_with_rspec)        
       end
 
+    end
+
+    describe '#global_commands' do
+      
+      it "should call construct commands and assign to the global_commands" do
+        @application.should_receive(:construct_commands).and_return(['rvm ...'])
+        @application.global_commands.should == ['rvm ...']
+      end
+      
+      it "should cache the global_commands instance variable" do
+        expected = ['rvm 1.9.2']
+        @application.should_receive(:construct_commands).once.and_return(expected)
+        2. times { @application.global_commands.should equal expected }
+      end
+      
+    end
+
+    describe '#run_global_commands!' do
+      
+      it "should run with the global_commands instance variable command" do
+        @application.should_receive(:run!).with(@application.global_commands).and_return(true)
+        @application.run_global_commands!
+      end
+      
     end
 
     describe "#app framework" do

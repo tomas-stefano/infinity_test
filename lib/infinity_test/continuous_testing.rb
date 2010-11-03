@@ -10,13 +10,7 @@ module InfinityTest
     # Start the Continuous Testing Server and begin to audit the files for changes
     #
     def start!
-      @global_commands = @application.construct_commands
-      run!(@global_commands)
       initialize_watchr!
-    end
-
-    def run!(commands)
-      @application.run!(commands) unless commands.empty?
     end
 
     ##################
@@ -24,8 +18,6 @@ module InfinityTest
     ##################
     
     def initialize_watchr!
-      @application.add_heuristics!
-      @application.heuristics_users_high_priority!
       add_signal
       Watchr::Controller.new(@watchr, Watchr.handler.new).run
     end
@@ -39,7 +31,7 @@ module InfinityTest
            puts " Interrupt a second time to quit"
            @sent_an_int = true
            Kernel.sleep 1.1
-           run! @global_commands
+           @application.run_global_commands!
            @sent_an_int = false 
         end       
       end      

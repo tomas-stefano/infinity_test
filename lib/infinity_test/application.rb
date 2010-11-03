@@ -4,7 +4,7 @@ module InfinityTest
     include InfinityTest::ApplicationLibrary
     include Notifiers
     
-    attr_accessor :config, :watchr
+    attr_accessor :config, :watchr, :global_commands
 
     # Initialize the Application object with the configuration instance to
     # load configuration and set properly
@@ -169,6 +169,14 @@ module InfinityTest
       end
 
       after_callback.call if after_callback
+    end
+
+    def global_commands
+      @global_commands ||= construct_commands
+    end
+
+    def run_global_commands!
+      run!(global_commands)
     end
 
     # Return the notification_framework setting in the configuration file

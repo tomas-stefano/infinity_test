@@ -9,8 +9,8 @@ module InfinityTest
         parse_test_unit(options)        
         parse_rspec(options)
         parse_bacon(options)
-        parse_rails(options)
         parse_rubygems(options)
+        parse_rails(options)
         parse_rubies(options)
         parse_verbose(options)
         parse_bundler(options)
@@ -66,7 +66,7 @@ module InfinityTest
     end
     
     def parse_bundler(options)
-      options.on('--skip-bundler', "InfinityTest try to use bundler if Gemfile is present.", "If you don't want to use this convention, set this option.") do
+      options.on('--skip-bundler', "InfinityTest try to use bundler if Gemfile is present. If you don't want to use this convention, set this option.") do
         self[:skip_bundler?] = true
       end
     end
