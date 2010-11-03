@@ -91,7 +91,12 @@ module InfinityTest
         config.use :rubies => ['1.9.1', '1.9.2'], :gemset => 'other_gemset'
         config.rubies.should be == '1.9.1@other_gemset,1.9.2@other_gemset'
       end
-      
+
+      it "should set many ruby versions with nil gemset key" do
+        config.use :rubies => ['1.9.1', '1.9.2'], :gemset => nil
+        config.rubies.should be == '1.9.1,1.9.2'
+      end
+            
       it "should set the test unit when not set the test framework" do
         config.use
         config.test_framework.should equal :test_unit
