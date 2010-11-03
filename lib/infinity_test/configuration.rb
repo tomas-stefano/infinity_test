@@ -6,7 +6,7 @@ module InfinityTest
     attr_accessor :notification_framework, 
     :sucess_image, :failure_image, :pending_image, 
     :rubies, :test_framework, :app_framework,
-    :exceptions_to_ignore, 
+    :exceptions_to_ignore, :cucumber,
     :before_callback, :before_each_ruby_callback, :before_environment_callback,
     :after_callback, :after_each_ruby_callback,
     :verbose
@@ -110,6 +110,7 @@ module InfinityTest
       @test_framework = options[:test_framework] || @test_framework
       @app_framework  = options[:app_framework]  || @app_framework
       @verbose        = options[:verbose]        || @verbose
+      @cucumber       = options[:cucumber]
       setting_gemset_for_each_rubies(options[:gemset]) if options[:gemset]
     end
     
@@ -132,6 +133,10 @@ module InfinityTest
     #
     def skip_bundler?
       @skip_bundler ? true : false
+    end
+
+    def cucumber?
+      @cucumber
     end
     
     # Method to use to ignore some dir/files changes

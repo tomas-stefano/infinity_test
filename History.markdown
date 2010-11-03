@@ -59,6 +59,7 @@ Or write this in .infinity_test file:</b>
          end
 
 - Support Bacon - for more information see - http://github.com/chneukirchen/bacon (thanks to Ng Tze Yang)
+If you want run with Bacon just run with --bacon flag or add :test_framework => :bacon to infinity_test file
 
 - Possible to setup the lib pattern, test pattern (thanks to Jason Rogers).
  

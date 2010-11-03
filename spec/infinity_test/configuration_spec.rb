@@ -136,6 +136,15 @@ module InfinityTest
         config.app_framework.should equal :rubygems
       end
       
+      it "should be possible to set the cucumber option" do
+        config.use :cucumber => true
+        config.cucumber?.should be_true
+      end
+      
+      it "should be false as default" do
+        config.cucumber?.should be_false
+      end
+      
     end
 
     describe '#skip_bundler!' do
