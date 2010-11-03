@@ -23,7 +23,7 @@ rescue LoadError, NameError
   puts "The RVM is installed?"
   puts "If not, please see http://rvm.beginrescueend.com/rvm/install/"
   puts "If so, try to run:"
-  puts "\t rvm update --head"
+  puts "\t rvm update --head (or if you're using the head of rvm try: rvm get head)"
   puts "If the error continues, please create an issue in http://github.com/tomas-stefano/infinity_test"
   puts 'Thanks :)'
   exit
