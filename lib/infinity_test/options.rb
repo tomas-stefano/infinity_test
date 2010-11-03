@@ -71,15 +71,5 @@ module InfinityTest
       end
     end
     
-    def rspec?
-      return true if self[:test_framework].equal?(:rspec)
-      false
-    end
-    
-    def bacon?
-      return true if self[:test_framework].equal?(:bacon)
-      false
-    end
-    
   end
 end
