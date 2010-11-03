@@ -145,6 +145,11 @@ module InfinityTest
         config.cucumber?.should be_false
       end
       
+      it "should return false if cucumber is nil in #use method" do
+        config.use :cucumber => nil
+        config.cucumber?.should be_false
+      end
+      
     end
 
     describe '#skip_bundler!' do

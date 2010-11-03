@@ -72,7 +72,7 @@ module InfinityTest
       
       it "should parse the cucumber option" do
         parse_options('--cucumber')
-        @options[:cucumber?].should be_true
+        @options[:cucumber].should be_true
       end
       
     end

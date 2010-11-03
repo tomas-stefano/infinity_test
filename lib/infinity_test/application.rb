@@ -38,6 +38,20 @@ module InfinityTest
       load_project_configuration   # because it's more easy to test
     end
 
+    # Setup over a precendence show below.
+    #
+    def setup!(options)
+      config.use(
+         :rubies => (options[:rubies] || rubies),
+         :test_framework => (options[:test_framework] || config.test_framework),
+         :app_framework => (options[:app_framework]   || config.app_framework),
+         :cucumber => options[:cucumber],
+         :verbose => options[:verbose] || config.verbose)
+      config.skip_bundler! if options[:skip_bundler?]
+      add_heuristics!
+      heuristics_users_high_priority!
+    end
+
     # Return the sucess image to show in the notifications
     #
     def sucess_image

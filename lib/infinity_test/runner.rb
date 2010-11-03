@@ -25,14 +25,7 @@ module InfinityTest
     end
     
     def setup!
-      @application.config.use(
-         :rubies => (options[:rubies] || @application.rubies),
-         :test_framework => (options[:test_framework] || @application.config.test_framework),
-         :app_framework => (options[:app_framework]   || @application.config.app_framework),
-         :verbose => options[:verbose] || @application.config.verbose)
-      @application.config.skip_bundler! if options[:skip_bundler?]
-      @application.add_heuristics!
-      @application.heuristics_users_high_priority!
+      @application.setup!(options)
     end
     
     def run_global_commands!

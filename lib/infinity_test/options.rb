@@ -62,7 +62,7 @@ module InfinityTest
     
     def parse_cucumber(options)
       options.on('--cucumber', 'Run with the Cucumber too') do
-        self[:cucumber?] = true
+        self[:cucumber] = true
       end
     end
     
