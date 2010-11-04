@@ -75,6 +75,11 @@ module InfinityTest
         @options[:cucumber].should be_true
       end
       
+      it "should parse the patterns options" do
+        parse_options('--patterns')
+        @options[:show_patterns?].should be_true
+      end
+      
     end
 
     def parse_options(*arguments)

@@ -1,7 +1,8 @@
 module InfinityTest
   module TestLibrary
     class TestUnit < TestFramework
-      parse_results :tests => /(\d+) tests/, :assertions => /(\d+) assertions/, :failures => /(\d+) failures/, :errors => /(\d+) errors/
+      parse_results :tests => /(\d+) tests/, :assertions => /(\d+) assertions/, 
+                    :failures => /(\d+) failures/, :errors => /(\d+) errors/
 
       def initialize(options={})
         super(options)
@@ -11,7 +12,12 @@ module InfinityTest
       def construct_rubies_commands(file=nil)   
         command = {}
         environments do |environment, ruby_version|
-          command[ruby_version] = construct_command :for => ruby_version, :load_path => 'lib:test', :file => file, :environment => environment, :skip_binary? => true
+          command[ruby_version] = construct_command(
+                                  :for => ruby_version, 
+                                  :load_path => 'lib:test', 
+                                  :file => file, 
+                                  :environment => environment, 
+                                  :skip_binary? => true)
         end
         command
       end

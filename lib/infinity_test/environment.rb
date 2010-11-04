@@ -5,7 +5,7 @@ module InfinityTest
     #
     def environments(&block)
       raise unless block_given?
-      RVM.environments(self.rubies).each do |environment|
+      RVM.environments(rubies).each do |environment|
         ruby_version = environment.environment_name
         block.call(environment, ruby_version)
       end
