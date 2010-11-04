@@ -4,7 +4,7 @@ module InfinityTest
 
     binary :bundle
 
-    attr_accessor :application, :message, :test_directory_pattern, :rubies, :test_pattern
+    attr_accessor :application, :message, :rubies, :test_pattern
     
     def initialize(options={})
       @application = InfinityTest.application
