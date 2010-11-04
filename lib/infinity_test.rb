@@ -19,6 +19,7 @@ module InfinityTest
 
   module TestLibrary
     autoload :Bacon, 'infinity_test/test_library/bacon'
+    autoload :Cucumber, 'infinity_test/test_library/cucumber'
     autoload :Rspec, 'infinity_test/test_library/rspec'
     autoload :TestUnit, 'infinity_test/test_library/test_unit'
   end
