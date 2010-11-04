@@ -25,10 +25,6 @@ module InfinityTest
         Bacon.new.test_pattern.should == 'spec/**/*_spec.rb'
       end
       
-      it "should possible to set the test pattern" do
-        Bacon.new(:test_pattern => 'spec/**/spec_*.rb').test_pattern.should == 'spec/**/spec_*.rb'
-      end
-      
       it "should return false for #pending method" do
         Bacon.new.pending?.should be_false
       end

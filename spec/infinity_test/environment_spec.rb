@@ -9,6 +9,7 @@ module InfinityTest
       end
       
       it "should run in the scope of RVM environment" do
+        pending
         lambda {
           environments do |environment, ruby_version| 
              environment.should be_instance_of(RVM::Environment)

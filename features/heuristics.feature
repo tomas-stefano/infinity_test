@@ -11,3 +11,13 @@ Feature: Infinity test Heuristics
 	- "^spec/*/(.*)_spec.rb"
 	- "^spec/*/spec_helper.rb"
   	"""
+  
+  Scenario: Show the default patterns to RubyGems
+    When I run "ruby ../../bin/infinity_test --patterns --rubygems --test-unit"
+    Then the output should contain:
+    """
+	- "^lib/*/(.*)\.rb"
+	- "^test/*/(.*)_test.rb"
+	- "^test/*/test_helper.rb"
+  	"""
+  

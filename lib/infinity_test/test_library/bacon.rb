@@ -15,7 +15,7 @@ module InfinityTest
       # 
       def initialize(options={})
         super(options)
-        @test_pattern = options[:test_pattern] || 'spec/**/*_spec.rb'
+        @test_pattern = 'spec/**/*_spec.rb'
       end
       
       # Construct all the commands for each ruby
@@ -26,7 +26,12 @@ module InfinityTest
         commands = {}
         environments do |environment, ruby_version|
           bacon_binary = search_bacon(environment)
-          command = construct_command(:for => ruby_version, :binary => bacon_binary, :load_path => 'lib:spec', :file => file, :environment => environment) || next
+          command = construct_command(
+                        :for => ruby_version, 
+                        :binary => bacon_binary, 
+                        :load_path => 'lib:spec', 
+                        :file => file,
+                        :environment => environment) || next
           commands[ruby_version] = command
         end
         commands

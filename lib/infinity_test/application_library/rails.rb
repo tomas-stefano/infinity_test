@@ -7,7 +7,7 @@ module InfinityTest
                     :controllers_pattern, :models_pattern
       
       def initialize
-        @application  = InfinityTest.application
+        @application = InfinityTest.application
         resolve_patterns!
       end
 
