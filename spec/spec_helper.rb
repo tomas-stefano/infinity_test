@@ -119,7 +119,6 @@ RSpec.configure do |config|
   end
   
 end
-
   
 RSpec::Matchers.define :have_pattern do |expected|
   match do |heuristics|

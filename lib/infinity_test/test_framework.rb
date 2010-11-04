@@ -1,7 +1,6 @@
 module InfinityTest
   class TestFramework
     include BinaryPath
-
     binary :bundle
 
     attr_accessor :application, :message, :rubies, :test_pattern

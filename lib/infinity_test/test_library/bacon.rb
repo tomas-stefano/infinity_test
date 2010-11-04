@@ -1,8 +1,6 @@
 module InfinityTest
   module TestLibrary
     class Bacon < TestFramework
-      include BinaryPath
-      
       binary :bacon
       parse_results :specifications => /(\d+) specifications/, :requirements => /(\d+) requirements/, :failures => /(\d+) failure/, :errors => /(\d+) errors/
       
