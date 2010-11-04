@@ -14,22 +14,6 @@ module InfinityTest
 
     let(:some_framework) { SomeFramework.new }
     let(:other_framework) { OtherFramework.new }
-
-    describe '#environments' do
-      
-      it "should run in the scope of RVM environment" do
-        lambda {
-          some_framework.environments do |environment, ruby_version| 
-             environment.should be_instance_of(RVM::Environment)
-          end
-        }.should_not raise_exception
-      end
-      
-      it "should raise an error when not have block" do
-        lambda {some_framework.environments}.should raise_exception
-      end
-      
-    end
     
     describe '#application' do
       it { some_framework.application.should equal InfinityTest.application}

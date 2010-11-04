@@ -6,6 +6,7 @@ module InfinityTest
   autoload :Command, 'infinity_test/command'
   autoload :Configuration, 'infinity_test/configuration'
   autoload :ContinuousTesting, 'infinity_test/continuous_testing'
+  autoload :Environment, 'infinity_test/environment'
   autoload :Heuristics, 'infinity_test/heuristics'
   autoload :HeuristicsHelper, 'infinity_test/heuristics_helper'
   autoload :Options, 'infinity_test/options'

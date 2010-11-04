@@ -1,6 +1,7 @@
 module InfinityTest
   class TestFramework
     include BinaryPath
+    include Environment
     binary :bundle
 
     attr_accessor :application, :message, :rubies, :test_pattern
@@ -8,18 +9,6 @@ module InfinityTest
     def initialize(options={})
       @application = InfinityTest.application
       @rubies = options[:rubies] || []
-    end
-    
-    # Run in context of each Ruby Environment, and the Ruby Version
-    #
-    # This is NOT RESPONSABILITY of TEST FRAMEWORKS!!!
-    #
-    def environments(&block)
-      raise unless block_given?
-      RVM.environments(rubies).each do |environment|
-        ruby_version = environment.environment_name
-        block.call(environment, ruby_version)
-      end
     end
     
     # This is NOT RESPONSABILITY of TEST FRAMEWORKS!!!

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe InfinityTest do
   
-  describe '#application' do
+  describe '.application' do
   
     it "should be a instace of Application" do
       InfinityTest.application.should be_instance_of(InfinityTest::Application)
@@ -15,7 +15,7 @@ describe InfinityTest do
   
   end
   
-  describe '#configuration' do
+  describe '.configuration' do
     
     it { InfinityTest.configuration.should be_instance_of(InfinityTest::Configuration) }
     
@@ -26,7 +26,7 @@ describe InfinityTest do
     
   end
   
-  describe '#watchr' do
+  describe '.watchr' do
     
     it { InfinityTest.watchr.should be_instance_of(Watchr::Script) }
     
