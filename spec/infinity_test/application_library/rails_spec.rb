@@ -19,6 +19,7 @@ module InfinityTest
       describe '#test_pattern' do
         
         it "should return the pattern for Test::Unit" do
+          stub_application_with_test_unit
           rails.test_pattern.should == "^test/*/(.*)_test.rb"
         end
         
@@ -58,6 +59,7 @@ module InfinityTest
       describe '#fixtures_pattern' do
         
         it "should set the fixtures pattern" do
+          stub_application_with_test_unit
           rails.fixtures_pattern.should == "^test/fixtures/(.*).yml"
         end
         

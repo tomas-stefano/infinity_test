@@ -61,7 +61,15 @@ module InfinityTest
       it "should return all the patterns the InfinityTest will watch" do
         @heuristics.add('^config/application.rb')
         @heuristics.add('^spec/spec_helper.rb')
-        @heuristics.all.should eql ['^config/application.rb', '^spec/spec_helper.rb']
+        @heuristics.all.should have(2).items
+      end
+      
+      it "should include all the patterns the InfinityTest will watch each" do
+        @heuristics.add '^config/application.rb'
+        @heuristics.add '^spec/spec_helper.rb'
+        all = @heuristics.all
+        all.should include '^config/application.rb'
+        all.should include '^spec/spec_helper.rb'
       end
       
     end

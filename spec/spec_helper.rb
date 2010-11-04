@@ -1,23 +1,17 @@
 
 require 'infinity_test'
-
 require 'watchr'
 
 RSpec.configure do |config|
-        
-  def stub_home_config(options)
-    File.should_receive(:expand_path).with('~/.infinity_test').and_return(options[:file])
-  end
-  
-  def read_and_load_home_config(options)
-    stub_home_config :file => options[:file]
-    @application.load_configuration_file
-  end
-  
+
   def stub_application_with_rspec
-    InfinityTest.stub!(:application).and_return(application_with_rspec)   
+    InfinityTest.stub!(:application).and_return(application_with_rspec)
   end
-  
+
+  def stub_application_with_test_unit
+    InfinityTest.stub!(:application).and_return(application_with_test_unit)
+  end
+
   def application_with(options)
     application = InfinityTest::Application.new
     application.config.use(options)

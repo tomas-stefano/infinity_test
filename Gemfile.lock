@@ -49,9 +49,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aruba
-  cucumber
+  aruba (= 0.2.1)
+  cucumber (= 0.9.0)
   jeweler
   notifiers (= 1.1.0)
   rspec (>= 2.0.1)
-  watchr
+  watchr (= 0.7)
