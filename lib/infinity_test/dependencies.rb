@@ -19,7 +19,7 @@ begin
   require_home_rvm
 rescue LoadError, NameError
   puts
-  puts "It appears that you have not installed the RVM in #{RVM_LIBRARY_DIRECTORY} or RVM is very old.\n"
+  puts "It appears that you have not installed the RVM in #{RVM_LIBRARY_DIRECTORY} or RVM is very old (or is => RVM System Wide).\n"
   puts "The RVM is installed?"
   puts "If not, please see http://rvm.beginrescueend.com/rvm/install/"
   puts "If so, try to run:"

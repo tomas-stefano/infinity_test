@@ -17,15 +17,21 @@ module InfinityTest
       end
       
       # Construct all the commands for each ruby
-      # First, try to find the rspec one binary, and if dont have installed try to find rspec two, and raise/puts an Error if don't find it.
-      # After that, verifying if the user have a Gemfile, and if has, run with "bundle exec" command, else will run normally
+      # First, try to find the rspec one binary, and if don't have installed 
+      # try to find rspec two, and raise/puts an Error if don't find it.
+      # After that, verifying if the user have a Gemfile, and if has, 
+      # run with "bundle exec" command, else will run normally
       #
       def construct_rubies_commands(file=nil)
         commands = {}
         environments do |environment, ruby_version|
           rspec_binary = search_rspec_two(environment)
           rspec_binary = search_rspec_one(environment) unless have_binary?(rspec_binary)
-          commands[ruby_version] = construct_command(:for => ruby_version, :binary => rspec_binary, :file => file, :environment => environment)
+          commands[ruby_version] = construct_command(
+                                      :for => ruby_version, 
+                                      :binary => rspec_binary, 
+                                      :file => file, 
+                                      :environment => environment)
         end
         commands
       end
@@ -46,8 +52,6 @@ module InfinityTest
       def pending?
         @pending > 0 and not failure?
       end
-      
-      #For rails file change
       
     end
   end
