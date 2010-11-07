@@ -9,11 +9,10 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tomas D'Stefano"]
-  s.date = %q{2010-11-03}
-  s.default_executable = %q{infinity_test}
+  s.date = %q{2010-11-07}
   s.description = %q{Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with Rspec OR Test::Unit with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration.}
   s.email = %q{tomasdestefi@gmail.com}
-  s.executables = ["infinity_test"]
+  s.executables = ["infinity_test", "infinity_test.compiled.rbc"]
   s.extra_rdoc_files = [
     "LICENSE.txt"
   ]
@@ -71,12 +70,14 @@ Gem::Specification.new do |s|
      "lib/infinity_test/configuration.rb",
      "lib/infinity_test/continuous_testing.rb",
      "lib/infinity_test/dependencies.rb",
+     "lib/infinity_test/environment.rb",
      "lib/infinity_test/heuristics.rb",
      "lib/infinity_test/heuristics_helper.rb",
      "lib/infinity_test/options.rb",
      "lib/infinity_test/runner.rb",
      "lib/infinity_test/test_framework.rb",
      "lib/infinity_test/test_library/bacon.rb",
+     "lib/infinity_test/test_library/cucumber.rb",
      "lib/infinity_test/test_library/rspec.rb",
      "lib/infinity_test/test_library/test_unit.rb",
      "lib/infinity_test/test_unit_loader.rb",
@@ -103,16 +104,17 @@ Gem::Specification.new do |s|
      "spec/infinity_test/command_spec.rb",
      "spec/infinity_test/configuration_spec.rb",
      "spec/infinity_test/continuous_testing_spec.rb",
+     "spec/infinity_test/environment_spec.rb",
      "spec/infinity_test/heuristics_helper_spec.rb",
      "spec/infinity_test/heuristics_spec.rb",
      "spec/infinity_test/options_spec.rb",
      "spec/infinity_test/runner_spec.rb",
      "spec/infinity_test/test_framework_spec.rb",
      "spec/infinity_test/test_library/bacon_spec.rb",
+     "spec/infinity_test/test_library/cucumber_spec.rb",
      "spec/infinity_test/test_library/rspec_spec.rb",
      "spec/infinity_test/test_library/test_unit_spec.rb",
      "spec/infinity_test_spec.rb",
-     "spec/spec.opts",
      "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/tomas-stefano/infinity_test}
@@ -154,12 +156,14 @@ Gem::Specification.new do |s|
      "spec/infinity_test/command_spec.rb",
      "spec/infinity_test/configuration_spec.rb",
      "spec/infinity_test/continuous_testing_spec.rb",
+     "spec/infinity_test/environment_spec.rb",
      "spec/infinity_test/heuristics_helper_spec.rb",
      "spec/infinity_test/heuristics_spec.rb",
      "spec/infinity_test/options_spec.rb",
      "spec/infinity_test/runner_spec.rb",
      "spec/infinity_test/test_framework_spec.rb",
      "spec/infinity_test/test_library/bacon_spec.rb",
+     "spec/infinity_test/test_library/cucumber_spec.rb",
      "spec/infinity_test/test_library/rspec_spec.rb",
      "spec/infinity_test/test_library/test_unit_spec.rb",
      "spec/infinity_test_spec.rb",
