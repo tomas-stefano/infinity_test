@@ -15,20 +15,8 @@ module InfinityTest
     # Load Configuration file first and after that, read the options, parse in the ARGV
     #
     def load_configuration_file_or_read_the_options!
-      load_configuration_file
-      setup!
-      run_global_commands!
-    end
-    
-    def load_configuration_file
       @application.load_configuration_file
-    end
-    
-    def setup!
       @application.setup!(options)
-    end
-    
-    def run_global_commands!
       @application.run_global_commands!
     end
 
