@@ -13,9 +13,14 @@ module InfinityTest
       @config = InfinityTest.configuration
       @watchr = InfinityTest.watchr
     end
+    
+    def load_configuration_file_or_read_the_options!(options)
+      load_configuration_file
+      setup!(options)
+      run_global_commands!
+    end
 
     # Load the Configuration file
-    #
     #
     # Command line options can be persisted in a .infinity_test file in a project. 
     # You can also store a .infinity_test file in your home directory (~/.infinity_test) with global options. 
