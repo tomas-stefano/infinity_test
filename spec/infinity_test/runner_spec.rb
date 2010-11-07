@@ -16,6 +16,16 @@ describe InfinityTest::Runner do
 
   end
 
+  describe '#run!' do
+    let(:heuristics_runner) { runner_class.new(['--heuristics']) }
+    
+    it "should call list heuristics" do
+      heuristics_runner.should_receive(:list_heuristics!)
+      heuristics_runner.run!
+    end
+    
+  end
+
   describe "#start_continuous_testing!" do
     let(:empty_runner) { InfinityTest::Runner.new([]) }
     let(:mock_continuous_testing) { @mock ||= mock(InfinityTest::ContinuousTesting) }

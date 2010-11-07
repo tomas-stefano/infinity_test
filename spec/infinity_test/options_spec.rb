@@ -76,8 +76,8 @@ module InfinityTest
       end
       
       it "should parse the patterns options" do
-        parse_options('--patterns')
-        @options[:show_patterns?].should be_true
+        parse_options('--heuristics')
+        @options[:show_heuristics?].should be_true
       end
       
     end

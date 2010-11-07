@@ -67,8 +67,8 @@ module InfinityTest
     end
     
     def parse_patterns(options)
-      options.on('--patterns', 'Show all the Default Patterns and added by #heuristics method and EXIT.') do
-        self[:show_patterns?] = true
+      options.on('--heuristics', 'Show all the Default Patterns and added by #heuristics method and EXIT.') do
+        self[:show_heuristics?] = true
       end
     end
     

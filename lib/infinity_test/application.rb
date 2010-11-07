@@ -17,7 +17,6 @@ module InfinityTest
     def load_configuration_file_or_read_the_options!(options)
       load_configuration_file
       setup!(options)
-      run_global_commands!
     end
 
     # Load the Configuration file

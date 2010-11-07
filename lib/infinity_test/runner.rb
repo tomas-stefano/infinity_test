@@ -8,8 +8,24 @@ module InfinityTest
     end
 
     def run!
+      load_configuration_file_or_read_the_options!
+      if @options[:show_heuristics?]
+        list_heuristics!
+      else
+        @application.run_global_commands!
+        start_continuous_testing!
+      end
+    end
+    
+    def list_heuristics!
+      @application.heuristics.patterns.keys.each do |pattern|
+        puts %{- "#{pattern}"}
+      end
+      exit
+    end
+    
+    def load_configuration_file_or_read_the_options!
       @application.load_configuration_file_or_read_the_options!(@options)
-      start_continuous_testing!
     end
 
     # Start Continuous Server using Watchr

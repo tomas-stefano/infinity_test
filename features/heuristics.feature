@@ -4,7 +4,7 @@ Feature: Infinity test Heuristics
   I want to add/remove my own patterns to monitoring changes
 
   Scenario: Show the default patterns to RubyGems
-    When I run "ruby ../../bin/infinity_test --patterns --rubygems"
+    When I run "ruby ../../bin/infinity_test --heuristics --rubygems --rspec"
     Then the output should contain:
     """
 	- "^lib/*/(.*)\.rb"
@@ -13,7 +13,7 @@ Feature: Infinity test Heuristics
   	"""
   
   Scenario: Show the default patterns to RubyGems
-    When I run "ruby ../../bin/infinity_test --patterns --rubygems --test-unit"
+    When I run "ruby ../../bin/infinity_test --heuristics --rubygems --test-unit"
     Then the output should contain:
     """
 	- "^lib/*/(.*)\.rb"
