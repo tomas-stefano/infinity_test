@@ -45,6 +45,8 @@ module InfinityTest
 
     # Setup over a precendence show below.
     #
+    # THIS IS NOT RESPONSABILITY OF Application instances!!!
+    #
     def setup!(options)
       config.use(
          :rubies => (options[:rubies] || rubies),
@@ -55,6 +57,18 @@ module InfinityTest
       config.skip_bundler! if options[:skip_bundler?]
       add_heuristics!
       heuristics_users_high_priority!
+    end
+
+    # Run the global commands
+    #
+    def run_global_commands!
+      run!(global_commands)
+    end
+
+    # Construct the Global Commands and cache for all suite
+    #
+    def global_commands
+      @global_commands ||= construct_commands
     end
 
     # Return the sucess image to show in the notifications
@@ -188,18 +202,6 @@ module InfinityTest
       end
 
       after_callback.call if after_callback
-    end
-
-    # Construct the Global Commands and cache for all suite
-    #
-    def global_commands
-      @global_commands ||= construct_commands
-    end
-
-    # Run the global commands
-    #
-    def run_global_commands!
-      run!(global_commands)
     end
 
     # Return the notification_framework setting in the configuration file
