@@ -296,6 +296,7 @@ module InfinityTest
     describe '#run_global_commands!' do
       
       it "should run with the global_commands instance variable command" do
+        @application.stub!(:global_commands).and_return('rvm 1.9.2 ruby -S rspec')
         @application.should_receive(:run!).with(@application.global_commands).and_return(true)
         @application.run_global_commands!
       end
@@ -331,6 +332,7 @@ module InfinityTest
     describe '#run_commands_for_file' do
       
       it "should run when have a file to run" do
+        @application.test_framework.should_receive(:construct_commands).and_return('rvm 1.9.2 ruby -S rspec')
         @application.should_receive(:run!)
         @application.run_commands_for_file('file.rb')
       end

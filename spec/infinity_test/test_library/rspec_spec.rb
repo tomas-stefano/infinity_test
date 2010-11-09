@@ -163,10 +163,6 @@ module InfinityTest
         end
         
       end
-      
-      describe '#search_rspec_two' do
-        it { InfinityTest::TestLibrary::Rspec.new.search_rspec_two(current_env).should match /rspec\z/ }
-      end
 
       describe '#search_files' do
         
