@@ -1,4 +1,5 @@
 *.sw?
+coverage
 .DS_STORE
 .DS_Store
 log*

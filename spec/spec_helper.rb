@@ -1,7 +1,9 @@
 
 require 'infinity_test'
 require 'watchr'
-
+require 'simplecov'
+SimpleCov.start
+  
 RSpec.configure do |config|
 
   def stub_application_with_rspec
