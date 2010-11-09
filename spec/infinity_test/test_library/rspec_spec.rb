@@ -168,55 +168,6 @@ module InfinityTest
         it { InfinityTest::TestLibrary::Rspec.new.search_rspec_two(current_env).should match /rspec\z/ }
       end
 
-      describe '#construct_rubies_commands' do
-
-        before(:all) do
-          @rspec = Rspec.new
-          @rspec.application.stub(:have_gemfile?).and_return(false)
-          @command = @rspec.construct_commands
-        end
-        
-        it "should return a Hash" do
-          @command.should be_instance_of(Hash)
-        end
-        
-        it "should return the rvm with the environment name and the ruby string" do
-          first_element(@command).should match /^rvm #{environment_name} ruby/
-        end
-        
-        it "should include ruby command" do
-          first_element(@command).should =~ / ruby /
-        end
-        
-        it "should include bacon(nhame nhame) in the command" do
-          first_element(@command).should =~ /\/rspec /
-        end
-        
-        it "should include the files to test" do
-          first_element(@command).should match /_spec.rb/
-        end
-        
-        it "should not include bundle exec when Gemfile is not present" do
-          application_without_gemfile(@rspec.application)
-          first_element(@rspec.construct_commands).should_not =~ /\/bundle exec /          
-        end
-        
-        it "should include bundle exec when Gemfile is present" do
-          application_with_gemfile(@rspec.application)
-          result = first_element(@rspec.construct_commands)
-          result.should match /^rvm #{environment_name} ruby/
-          result.should match /\/bundle exec /
-        end
-        
-        def first_element(hash, hash_size=1)
-          hash.should have(hash_size).item
-          command = hash.each { |ruby_version, command_to_run| 
-            return command_to_run 
-          }
-        end
-        
-      end
-
       describe '#search_files' do
         
         it "should return all the files the match the pattern" do

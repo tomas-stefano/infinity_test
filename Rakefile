@@ -3,7 +3,7 @@ require 'rubygems'
 require 'rake'
 
 require 'rake/clean'
-CLEAN.include('lib/*/*.rbc', 'spec/*.rbc', 'spec/*/*.rbc')
+CLEAN.include('lib/*rbc','lib/*/*.rbc', 'spec/*.rbc', 'spec/*/*.rbc', 'lib/*/*/*rbc', 'spec/*/*/*rbc')
 
 $:.unshift(File.dirname(__FILE__) + '/lib')
 

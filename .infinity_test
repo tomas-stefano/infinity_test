@@ -9,6 +9,10 @@ infinity_test do
       run :all => :files
     end
   end
+  
+  after(:all) do
+    system('rake clean')
+  end
 
   # heuristics do
   #

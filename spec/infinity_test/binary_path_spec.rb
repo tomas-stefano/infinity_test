@@ -3,7 +3,9 @@ require 'spec_helper'
 module InfinityTest
   describe BinaryPath do
     include BinaryPath    
-    let(:current_env) { RVM::Environment.current }
+    before :all do
+      @current = RVM::Environment.current
+    end
 
     class Example
       include BinaryPath
@@ -21,19 +23,23 @@ module InfinityTest
       end
       
       it "should create the binary for bacon framework" do
-        expect { @example.search_bacon(current_env) }.to_not raise_exception
+        @current.should_receive(:path_for).with('bacon')
+        @example.search_bacon(@current)
       end
       
       it "should create the binary for cucumber framework" do
-        lambda { @example.search_cucumber(current_env) }.should_not raise_exception
+        @current.should_receive(:path_for).with('cucumber')
+        @example.search_cucumber(@current)
       end
       
       it "should create the binary for rspec two with sufix of rspec_two" do
-        lambda { @example.search_rspec_two(current_env) }.should_not raise_exception
+        @current.should_receive(:path_for).with('rspec')        
+        @example.search_rspec_two(@current)
       end
       
       it "should create the binary for rspec one with sufix of rspec_one" do
-        lambda { @example.search_rspec_one(current_env) }.should_not raise_exception
+        @current.should_receive(:path_for).with('spec')
+        @example.search_rspec_one(@current)
       end
       
     end

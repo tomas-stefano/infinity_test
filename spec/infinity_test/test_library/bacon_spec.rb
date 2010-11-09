@@ -145,56 +145,6 @@ module InfinityTest
         
       end
       
-      describe '#construct_rubies_commands' do
-
-        before(:each) do
-          @bacon = Bacon.new
-          @bacon.stub!(:have_binary?).and_return(true)
-          @bacon.application.stub(:have_gemfile?).and_return(false)
-        end
-        
-        it "should return a Hash" do
-          commands.should be_instance_of(Hash)
-        end
-        
-        it "should return the rvm with the environment name" do
-          first_element(commands).should match /^rvm #{environment_name}/
-        end
-        
-        it "should include ruby command" do
-          first_element(commands).should =~ / ruby /
-        end
-        
-        it "should include the load path with lib and spec directory" do
-          first_element(commands).should match /-I"lib:spec"/
-        end
-        
-        it "should include the files to test" do
-          first_element(commands).should match /spec.rb/
-        end
-        
-        it "should not include bundle exec when Gemfile is not present" do
-          first_element(commands).should_not =~ /bundle exec /          
-        end
-        
-        it "should include bundle exec when Gemfile is present" do
-          application_with_gemfile(@bacon.application)
-          first_element(@bacon.construct_commands).should =~ /\/bundle exec /
-        end
-        
-        def first_element(hash, hash_size=1)
-          hash.should have(hash_size).item
-          command = hash.each { |ruby_version, command_to_run| 
-            return command_to_run 
-          }
-        end
-        
-        def commands
-          @commands ||= @bacon.construct_commands
-        end
-        
-      end
-      
     end
   end
 end
