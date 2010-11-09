@@ -2,6 +2,9 @@
 require 'rubygems'
 require 'rake'
 
+require 'rake/clean'
+CLEAN.include('lib/*/*.rbc', 'spec/*.rbc', 'spec/*/*.rbc')
+
 $:.unshift(File.dirname(__FILE__) + '/lib')
 
 POST_MESSAGE = <<-POST_INSTALL_MESSAGE
