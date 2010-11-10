@@ -234,6 +234,13 @@ module InfinityTest
         end
 
         it "should possible to change the dir of the images" do
+          config.show_images :mode => :fuuu
+          config.sucess_image.should == image('fuuu/sucess.png')
+          config.pending_image.should == image('fuuu/pending.png')
+          config.failure_image.should == image('fuuu/failure.png')
+        end
+
+        it "should possible to change the dir of the images" do
           config.show_images :mode => custom_image_dir
           config.sucess_image.should == custom_image('images/sucess.png')
         end
