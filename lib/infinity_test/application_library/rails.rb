@@ -5,7 +5,9 @@ module InfinityTest
       attr_accessor :lib_pattern, :test_pattern, :configuration_pattern, 
                     :routes_pattern, :fixtures_pattern,
                     :controllers_pattern, :models_pattern,
-                    :application_controller_pattern
+                    :application_controller_pattern,
+                    :application_helper_pattern,
+                    :helpers_pattern
       
       def initialize
         @application = InfinityTest.application
@@ -18,6 +20,10 @@ module InfinityTest
           
           add(rails.application_controller_pattern) do |file|
             run :all => :tests, :in_dir => :controllers
+          end
+          
+          add(rails.application_helper_pattern) do |file|
+            run :all => :tests, :in_dir => [:helpers, :views]
           end
           
           add(rails.configuration_pattern) do |file|
@@ -36,8 +42,12 @@ module InfinityTest
             run :test_for => file, :in_dir => :models
           end
           
+          add(rails.helpers_pattern) do |file|
+            run :test_for => file, :in_dir => :helpers
+          end
+          
           add(rails.lib_pattern) do |file|
-            run :test_for => file
+            run :test_for => file, :in_dir => :lib
           end
           
           add(rails.test_pattern) do |file|
@@ -63,32 +73,21 @@ module InfinityTest
           @fixtures_pattern = "^spec/fixtures/(.*).yml"
         end
         @controllers_pattern = "^app/controllers/(.*)\.rb"
-        @application_controller_pattern = "^app/controllers/application_controller.rb"
         @models_pattern = "^app/models/(.*)\.rb"
+        @helpers_pattern = "^app/helpers/(.*)\.rb"
+        @application_controller_pattern = "^app/controllers/application_controller.rb"
+        @application_helper_pattern = "^app/helpers/application_helper.rb"
       end
       
     end
   end
 end
 #     
-#       add_mapping(%r%^app/helpers/(.*)_helper\.rb$%) { |_, m|
-#         if m[1] == "application" then
-#           files_matching(%r%^spec/(views|helpers)/.*_spec\.rb$%)
-#         else
-#           ["spec/helpers/#{m[1]}_helper_spec.rb"] + files_matching(%r%^spec\/views\/#{m[1]}/.*_spec\.rb$%)
-#         end
-#       }
 #       add_mapping(%r%^config/routes\.rb$%) {
 #         files_matching %r%^spec/(controllers|routing|views|helpers)/.*_spec\.rb$%
 #       }
-#       add_mapping(%r%^config/database\.yml$%) { |_, m|
-#         files_matching %r%^spec/models/.*_spec\.rb$%
-#       }
 #       add_mapping(%r%^(spec/(spec_helper|support/.*)|config/(boot|environment(s/test)?))\.rb$%) {
 #         files_matching %r%^spec/(models|controllers|routing|views|helpers)/.*_spec\.rb$%
-#       }
-#       add_mapping(%r%^lib/(.*)\.rb$%) { |_, m|
-#         ["spec/lib/#{m[1]}_spec.rb"]
 #       }
 #       add_mapping(%r%^app/mailers/(.*)\.rb$%) { |_, m|
 #         ["spec/mailers/#{m[1]}_spec.rb"]
