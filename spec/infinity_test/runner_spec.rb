@@ -18,12 +18,12 @@ describe InfinityTest::Runner do
 
   describe '#run!' do
     let(:heuristics_runner) { runner_class.new(['--heuristics']) }
-    
+
     it "should call list heuristics" do
       heuristics_runner.should_receive(:list_heuristics!)
       heuristics_runner.run!
     end
-    
+
   end
 
   describe "#start_continuous_testing!" do

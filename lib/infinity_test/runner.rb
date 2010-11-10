@@ -16,14 +16,14 @@ module InfinityTest
         start_continuous_testing!
       end
     end
-    
+
     def list_heuristics!
       @application.heuristics.patterns.keys.each do |pattern|
         puts %{- "#{pattern}"}
       end
       exit
     end
-    
+
     def load_configuration_file_or_read_the_options!
       @application.load_configuration_file_or_read_the_options!(@options)
     end

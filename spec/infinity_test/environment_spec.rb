@@ -7,17 +7,17 @@ module InfinityTest
       it "should raise a exception if not passed a block" do
         expect { environments }.should raise_exception
       end
-      
+
       it "should run in the scope of RVM environment" do
         pending
         expect {
-          environments do |environment, ruby_version| 
+          environments do |environment, ruby_version|
              environment.should be_instance_of(RVM::Environment)
           end
         }.to_not raise_exception
       end
-      
+
     end
-    
+
   end
 end

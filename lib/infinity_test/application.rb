@@ -3,7 +3,7 @@ module InfinityTest
     include InfinityTest::TestLibrary
     include InfinityTest::ApplicationLibrary
     include Notifiers
-    
+
     attr_accessor :config, :watchr, :global_commands
 
     # Initialize the Application object with the configuration instance to
@@ -13,7 +13,7 @@ module InfinityTest
       @config = InfinityTest.configuration
       @watchr = InfinityTest.watchr
     end
-    
+
     def load_configuration_file_or_read_the_options!(options)
       load_configuration_file
       setup!(options)
@@ -21,8 +21,8 @@ module InfinityTest
 
     # Load the Configuration file
     #
-    # Command line options can be persisted in a .infinity_test file in a project. 
-    # You can also store a .infinity_test file in your home directory (~/.infinity_test) with global options. 
+    # Command line options can be persisted in a .infinity_test file in a project.
+    # You can also store a .infinity_test file in your home directory (~/.infinity_test) with global options.
     #
     # Precedence is:
     # command line
@@ -124,7 +124,7 @@ module InfinityTest
     def verbose?
       config.verbose
     end
-    
+
     # Return true if the user application has a Gemfile
     # Return false if not exist the Gemfile
     #
@@ -157,7 +157,7 @@ module InfinityTest
     def using_test_unit?
       test_framework.instance_of?(TestUnit)
     end
-    
+
     # Return a instance of the app framework class
     #
     def app_framework
@@ -267,7 +267,7 @@ module InfinityTest
       end
       match_files.empty? ? files : match_files
     end
-    
+
     # Search files that matches with the pattern
     #
     def search_file(options)
@@ -296,14 +296,14 @@ module InfinityTest
       puts command if verbose?
       Command.new(:ruby_version => ruby_version, :command => command).run!
     end
-    
+
     private
 
     def call_each_ruby_callback(callback_type, ruby_version)
       callback = send(callback_type)
       callback.call(RVM::Environment.new(ruby_version)) if callback
     end
-    
+
     def setting_test_framework
       case config.test_framework
       when :rspec
@@ -316,7 +316,7 @@ module InfinityTest
     end
 
     def setting_app_framework
-      case config.app_framework 
+      case config.app_framework
       when :rails
         Rails.new
       when :rubygems
@@ -335,7 +335,7 @@ module InfinityTest
     def load_file(file)
       load(file) if File.exist?(file)
     end
-    
+
     def gemfile
       File.join(Dir.pwd, 'Gemfile')
     end

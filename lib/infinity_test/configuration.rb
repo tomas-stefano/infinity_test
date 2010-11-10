@@ -3,8 +3,8 @@ module InfinityTest
 
     SUPPORTED_FRAMEWORKS = [:growl, :lib_notify] # :snarl, :lib_notify
 
-    attr_accessor :notification_framework, 
-    :sucess_image, :failure_image, :pending_image, 
+    attr_accessor :notification_framework,
+    :sucess_image, :failure_image, :pending_image,
     :rubies, :test_framework, :app_framework,
     :exceptions_to_ignore, :cucumber,
     :before_callback, :before_each_ruby_callback, :before_environment_callback,
@@ -19,7 +19,7 @@ module InfinityTest
 
     # Initialize the Configuration object that keeps the images, callbacks, rubies
     # and the test framework
-    # 
+    #
     def initialize
       @default_dir_image = File.join(IMAGES_DIR, 'simpson')
       @test_framework = :test_unit
@@ -55,9 +55,9 @@ module InfinityTest
     # Set the Success and Failure image to show in the notification framework
     #
     #   show_images :failure => 'Users/tomas/images/my_custom_image.png', :sucess => 'custom_image.jpg'
-    # 
+    #
     # Or you cant set modes(directory) for show images (please see the images folder in => http://github.com/tomas-stefano/infinity_test/tree/master/images/ )
-    #  
+    #
     #  show_images :mode => :simpson # => This will show images in the folder http://github.com/tomas-stefano/infinity_test/tree/master/images/simpson
     #  show_images :mode => :street_fighter # => This will show images in folder http://github.com/tomas-stefano/infinity_test/tree/master/images/street_fighter
     #  show_images :mode => '~/My/Mode' # => This will show images in the '~/My/Mode' directory
@@ -91,11 +91,11 @@ module InfinityTest
 
     # The options method to set:
     #
-    # * test framework 
+    # * test framework
     # * ruby versions
     # * verbose mode
     # * app_framework
-    # 
+    #
     # Here is the example of Little Domain Language:
     #
     # use :rubies => ['1.9.1', '1.9.2'], :test_framework => :rspec
@@ -113,7 +113,7 @@ module InfinityTest
       @cucumber       = options[:cucumber]
       setting_gemset_for_each_rubies(options[:gemset]) if options[:gemset]
     end
-    
+
     # Setting a gemset for each rubies
     #
     # setting_gemset_for_each_rubies('infinity_test') # => ['1.8.7@infinity_test', '1.9.2@infinity_test']
@@ -121,14 +121,14 @@ module InfinityTest
     def setting_gemset_for_each_rubies(gemset)
       @rubies = @rubies.split(',').collect { |ruby| ruby << "@#{gemset}" }.join(',')
     end
-      
+
     # InfinityTest try to use bundler if Gemfile is present.
     # This method tell to InfinityTest to not use this convention.
     #
     def skip_bundler!
       @skip_bundler = true
     end
-    
+
     # Return false if you want the InfinityTest run with bundler
     #
     def skip_bundler?
@@ -138,22 +138,22 @@ module InfinityTest
     def cucumber?
       @cucumber
     end
-    
+
     # Method to use to ignore some dir/files changes
-    # 
+    #
     # Example:
     #
     # ignore :exceptions => %w(.svn .hg .git vendor tmp config rerun.txt)
     #
-    # This is useless right now in the Infinity Test because the library 
+    # This is useless right now in the Infinity Test because the library
     # only monitoring lib and test/spec/feature folder.
     #
     def ignore(options={})
       @exceptions_to_ignore = options[:exceptions] || []
     end
-    
+
     # Callback method to run anything you want, before the run the test suite command
-    # 
+    #
     # Example:
     #
     # before_run do
@@ -163,9 +163,9 @@ module InfinityTest
     def before_run(&block)
       @before_callback = block
     end
-    
+
     # Callback method to run anything you want, after the run the test suite command
-    # 
+    #
     # Example:
     #
     # after_run do
@@ -175,7 +175,7 @@ module InfinityTest
     def after_run(&block)
       @after_callback = block
     end
-    
+
     # Callback method to handle before or after all run and for each ruby too!
     #
     # Example:
@@ -198,7 +198,7 @@ module InfinityTest
     def before(hook=:all, &block)
       setting_callback(hook, :all => :@before_callback, :each_ruby => :@before_each_ruby_callback, :env => :@before_environment_callback, &block)
     end
-    
+
     # Callback method to handle before or after all run and for each ruby too!
     #
     # Example:
@@ -220,19 +220,19 @@ module InfinityTest
     def after(hook=:all, &block)
       setting_callback(hook, :all => :@after_callback, :each_ruby => :@after_each_ruby_callback, &block)
     end
-    
+
     # Clear the terminal (Useful in the before callback)
     #
     def clear(option)
       system('clear') if option == :terminal
     end
-    
+
     def replace_patterns(&block)
       application_framework = InfinityTest.application.app_framework
       block.call(application_framework, InfinityTest.application)
       application_framework
     end
-    
+
     # Added heuristics to the User application
     #
     def heuristics(&block)
@@ -240,7 +240,7 @@ module InfinityTest
       @heuristics.instance_eval(&block)
       @heuristics
     end
-    
+
     # Set #watch methods (For more information see Watchr gem)
     #
     # If don't want the heuristics 'magic'
@@ -250,9 +250,9 @@ module InfinityTest
       @script.watch(pattern, &block)
       @script
     end
-    
+
     private
-    
+
     def setting_callback(hook, callback, &block)
       if hook == :all
         instance_variable_set(callback[:all], block)

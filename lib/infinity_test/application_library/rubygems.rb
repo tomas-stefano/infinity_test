@@ -3,7 +3,7 @@ module InfinityTest
     class RubyGems
       include HeuristicsHelper
       attr_accessor :lib_pattern, :test_pattern, :application, :test_helper_pattern
-      
+
       def initialize
         @application  = InfinityTest.application
         @lib_pattern  = "^lib/*/(.*)\.rb"
@@ -13,9 +13,9 @@ module InfinityTest
         else
           @test_pattern = "^spec/*/(.*)_spec.rb"
           @test_helper_pattern = "^spec/*/spec_helper.rb"
-        end        
+        end
       end
-      
+
       # Add Heuristics to send to Watchr Methods
       # This methods aren't tested!
       #
@@ -26,15 +26,15 @@ module InfinityTest
           add(rubygems.lib_pattern) do |file|
             run :test_for => file
           end
-          
+
           add(rubygems.test_pattern) do |file|
             run file
           end
-          
+
           add(rubygems.test_helper_pattern) do |file|
             run :all => :tests
           end
-          
+
         end
       end
 

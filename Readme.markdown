@@ -1,7 +1,7 @@
 # Infinity Test
 
 
-Infinity Test is a continuous testing library and a flexible alternative to Autotest, 
+Infinity Test is a continuous testing library and a flexible alternative to Autotest,
 using the awesome Watchr library with Rspec, Test::Unit, Bacon and with RVM funcionality,
 giving the possibility to test with all <b>Rubies</b> that you have in your RVM configuration.
 
@@ -24,8 +24,8 @@ With Rspec:
 
 With Test::Unit:
 
-	infinity_test --test-unit
-	
+    infinity_test --test-unit
+
 With Bacon:
 
     infinity_test --bacon
@@ -64,29 +64,29 @@ So create the global file or project file called:
       ~/.infinity_test or .infinity_test
 
       infinity_test do
-      
-          notifications :growl do
-            show_images :mode => :mario_bros
-          end
-          
-          use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec
 
-          before(:each_ruby) do |environment|
-            # ...
-          end
+        notifications :growl do
+          show_images :mode => :mario_bros
+        end
 
-          after(:each_ruby) do |environment|
-            # ...
-          end        
+        use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec
 
-          before_run do
-            clear :terminal
-          end
-          
-          after_run do
-            # ...
-          end
-      
+        before(:each_ruby) do |environment|
+          # ...
+        end
+
+        after(:each_ruby) do |environment|
+          # ...
+        end
+
+        before_run do
+          clear :terminal
+        end
+
+        after_run do
+          # ...
+        end
+
       end
 
 ## Customize the .infinity_test file

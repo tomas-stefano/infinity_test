@@ -3,7 +3,7 @@ RVM_LIBRARY_DIRECTORY = File.expand_path("~/.rvm/lib")
 
 #
 # Try to require the rvm in home folder
-# If not suceed raise a LoadError 
+# If not suceed raise a LoadError
 # Try to see if the user has the RVM 1.0 or higher for the RVM Ruby API
 # If not raise a NameError
 #

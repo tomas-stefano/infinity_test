@@ -4,11 +4,11 @@ module InfinityTest
       include HeuristicsHelper
       binary :cucumber
       parse_results :passed => /(\d+) passed/, :failed => /(\d+) failed/
-      
+
       def initialize
         add_heuristics!
       end
-      
+
       def add_heuristics!
         heuristics do
           add("^features/*/*feature") do
@@ -16,7 +16,7 @@ module InfinityTest
           end
         end
       end
-      
+
     end
   end
 end

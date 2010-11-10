@@ -1,7 +1,7 @@
 module InfinityTest
   class Command
     attr_accessor :command, :results, :line, :ruby_version
-    
+
     # Create new Command object that receive the ruby_version and the command string
     #
     def initialize(options={})
@@ -18,7 +18,7 @@ module InfinityTest
       begin
         open("| #{@command}", "r") do |file|
           until file.eof? do
-            test_line = file.getc or break            
+            test_line = file.getc or break
             if yarv?
               print(test_line)
             else
@@ -43,12 +43,12 @@ module InfinityTest
         @line.clear
       end
     end
-    
+
     # Using yarv?
     #
     def yarv?
       @current_ruby_string =~ /ruby-1.9/
     end
-    
+
   end
 end

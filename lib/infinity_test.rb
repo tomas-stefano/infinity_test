@@ -13,7 +13,7 @@ module InfinityTest
   autoload :Options, 'infinity_test/options'
   autoload :Runner, 'infinity_test/runner'
   autoload :TestFramework, 'infinity_test/test_framework'
-  
+
   module ApplicationLibrary
     autoload :Rails , 'infinity_test/application_library/rails'
     autoload :RubyGems, 'infinity_test/application_library/rubygems'
@@ -33,7 +33,7 @@ module InfinityTest
   def self.configuration
     @configuration ||= Configuration.new
   end
-  
+
   def self.watchr
     @watchr ||= Watchr::Script.new
   end

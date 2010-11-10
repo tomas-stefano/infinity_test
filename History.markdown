@@ -5,7 +5,7 @@ Features
 --------
 
 - Added the Heuristics feature(<b>For users who want to add your own paths</b>)
-This example tell to InfinityTest <b>run all the tests when some_file.rb is changed</b> 
+This example tell to InfinityTest <b>run all the tests when some_file.rb is changed</b>
 This basic DSL you will put in the <b>infinity_test file</b>:
 
       heuristics do
@@ -46,7 +46,7 @@ You can pass an array of dirs too (w00t!!):
         end
       end
 
-- Support Bundler: 
+- Support Bundler:
 The InfinityTest try to discover If the user have a Gemfile in the project root and
 if Gemfile exists InfinityTest will run with "bundle exec #{command}" else will run "command" normally.
 
@@ -62,10 +62,10 @@ Or write this in .infinity_test file:</b>
 If you want run with Bacon just run with --bacon flag or add :test_framework => :bacon to infinity_test file
 
 - Possible to setup the lib pattern, test pattern (thanks to Jason Rogers).
- 
+
       # ~/.infinity_test or ./.infinity_test
          infinity_test do
-		   before_env do |application|
+          before_env do |application|
              application.test_framework.test_directory_pattern = "^my_unusual_spec_directory/unit/(.*)_spec.rb"
              application.test_framework.test_pattern           = "my_unusual_spec_directory/unit/*_spec.rb"
              application.library_directory_pattern             = '^my_unusual_lib_directory/*/(.*).rb'

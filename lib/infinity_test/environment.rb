@@ -1,6 +1,6 @@
 module InfinityTest
   module Environment
-    
+
     # Run in context of each Ruby Environment, and the Ruby Version
     #
     def environments(&block)

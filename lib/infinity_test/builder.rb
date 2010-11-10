@@ -1,6 +1,6 @@
 module InfinityTest
   module Builder
-    
+
     #
     def construct_command(options)
       binary_name, ruby_version, command, file, environment = resolve_options(options)
@@ -17,7 +17,7 @@ module InfinityTest
       end
     end
 
-    #    
+    #
     def run_with_bundler!(rvm_ruby_version, command, environment)
       bundle_binary = search_bundle(environment)
       unless have_binary?(bundle_binary)
@@ -26,12 +26,12 @@ module InfinityTest
         %{#{rvm_ruby_version} #{bundle_binary} exec #{command}}
       end
     end
-    
+
     #
     def run_without_bundler!(rvm_ruby_version, command)
       %{#{rvm_ruby_version} #{command}}
     end
-    
+
     #
     # Contruct all the Commands for each ruby instance variable
     # If don't want to run with many rubies, add the current ruby to the rubies instance
@@ -51,6 +51,6 @@ module InfinityTest
       command = [ binary_name, load_path].compact.join(' ')
       [binary_name, ruby_version, command, file, environment]
     end
-    
+
   end
 end
