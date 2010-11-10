@@ -23,7 +23,7 @@ module InfinityTest
       end
       
       def test_files
-        super.split.unshift(test_loader).join(' ')
+        super.split.unshift(test_loader).sort.join(' ')
       end
     
       def test_loader

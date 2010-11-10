@@ -16,7 +16,7 @@ module InfinityTest
     # Return all the files match by test_pattern
     #
     def all_files
-      Dir[@test_pattern]
+      Dir[@test_pattern].sort
     end
     
     def test_files
