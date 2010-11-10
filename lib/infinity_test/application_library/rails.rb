@@ -4,7 +4,8 @@ module InfinityTest
       include HeuristicsHelper
       attr_accessor :lib_pattern, :test_pattern, :configuration_pattern, 
                     :routes_pattern, :fixtures_pattern,
-                    :controllers_pattern, :models_pattern
+                    :controllers_pattern, :models_pattern,
+                    :application_controller_pattern
       
       def initialize
         @application = InfinityTest.application
@@ -14,6 +15,10 @@ module InfinityTest
       def add_heuristics!
         rails = self
         heuristics do
+          
+          add(rails.application_controller_pattern) do |file|
+            run :all => :tests, :in_dir => :controllers
+          end
           
           add(rails.configuration_pattern) do |file|
             run(:all => :tests)
@@ -40,7 +45,7 @@ module InfinityTest
           end
           
           add(rails.fixtures_pattern) do |file|
-            run :all, :in_dir => :models
+            run :all => :tests, :in_dir => :models
           end
           
         end
@@ -58,6 +63,7 @@ module InfinityTest
           @fixtures_pattern = "^spec/fixtures/(.*).yml"
         end
         @controllers_pattern = "^app/controllers/(.*)\.rb"
+        @application_controller_pattern = "^app/controllers/application_controller.rb"
         @models_pattern = "^app/models/(.*)\.rb"
       end
       
@@ -65,13 +71,6 @@ module InfinityTest
   end
 end
 #     
-#       add_mapping(%r%^app/controllers/(.*)\.rb$%) { |_, m|
-#         if m[1] == "application_controller"
-#           files_matching %r%^spec/controllers/.*_spec\.rb$%
-#         else
-#           ["spec/controllers/#{m[1]}_spec.rb"]
-#         end
-#       }
 #       add_mapping(%r%^app/helpers/(.*)_helper\.rb$%) { |_, m|
 #         if m[1] == "application" then
 #           files_matching(%r%^spec/(views|helpers)/.*_spec\.rb$%)

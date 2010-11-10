@@ -82,6 +82,12 @@ module InfinityTest
         end
         
       end
+
+      describe '#application_controller_pattern' do
+        it "should return the application controller" do
+          rails.application_controller_pattern.should == "^app/controllers/application_controller.rb"
+        end
+      end
       
       describe '#models_pattern' do
         it "should set the controllers pattern" do
