@@ -2,12 +2,17 @@ module InfinityTest
   module ApplicationLibrary
     class Rails
       include HeuristicsHelper
-      attr_accessor :lib_pattern, :test_pattern, :configuration_pattern, 
-                    :routes_pattern, :fixtures_pattern,
-                    :controllers_pattern, :models_pattern,
+      attr_accessor :lib_pattern, 
+                    :test_pattern, 
+                    :configuration_pattern, 
+                    :routes_pattern, 
+                    :fixtures_pattern,
+                    :controllers_pattern, 
+                    :models_pattern,
+                    :helpers_pattern,
+                    :mailers_pattern,
                     :application_controller_pattern,
-                    :application_helper_pattern,
-                    :helpers_pattern
+                    :application_helper_pattern
       
       def initialize
         @application = InfinityTest.application
@@ -46,6 +51,10 @@ module InfinityTest
             run :test_for => file, :in_dir => :helpers
           end
           
+          add(rails.mailers_pattern) do |file|
+            run :test_for => file, :in_dir => :mailers
+          end
+          
           add(rails.lib_pattern) do |file|
             run :test_for => file, :in_dir => :lib
           end
@@ -75,6 +84,7 @@ module InfinityTest
         @controllers_pattern = "^app/controllers/(.*)\.rb"
         @models_pattern = "^app/models/(.*)\.rb"
         @helpers_pattern = "^app/helpers/(.*)\.rb"
+        @mailers_pattern = "^app/mailers/(.*)\.rb"
         @application_controller_pattern = "^app/controllers/application_controller.rb"
         @application_helper_pattern = "^app/helpers/application_helper.rb"
       end
@@ -109,10 +119,6 @@ end
 # 
 #       add_mapping %r%^app/models/(.*)\.rb$% do |_, m|
 #         "test/unit/#{m[1]}_test.rb"
-#       end
-# 
-#       add_mapping %r%^app/helpers/application_helper.rb% do
-#         files_matching %r%^test/(views|functional)/.*_test\.rb$%
 #       end
 # 
 #       add_mapping %r%^app/helpers/(.*)_helper.rb% do |_, m|

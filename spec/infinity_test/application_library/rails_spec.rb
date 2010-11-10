@@ -84,7 +84,7 @@ module InfinityTest
       end
 
       describe '#helpers_pattern' do
-        it "should set the controllers pattern" do
+        it "should return the controllers pattern" do
           rails.helpers_pattern.should == "^app/helpers/(.*)\.rb"
         end
         
@@ -92,6 +92,19 @@ module InfinityTest
           rails.helpers_pattern = "^app/super_helpers/(.*)\.rb"
           rails.helpers_pattern.should == "^app/super_helpers/(.*)\.rb"
         end        
+      end
+
+      describe '#mailers_pattern' do
+        
+        it "should return the controllers pattern" do
+          rails.mailers_pattern.should == "^app/mailers/(.*)\.rb"
+        end
+        
+        it "should be possible to set the controllers pattern" do
+          rails.mailers_pattern = "^app/super_mailers/(.*)\.rb"
+          rails.mailers_pattern.should == "^app/super_mailers/(.*)\.rb"
+        end        
+        
       end
 
       describe '#application_controller_pattern' do

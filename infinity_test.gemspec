@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tomas D'Stefano"]
-  s.date = %q{2010-11-09}
+  s.date = %q{2010-11-10}
   s.default_executable = %q{infinity_test}
   s.description = %q{Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with Rspec OR Test::Unit with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration.}
   s.email = %q{tomasdestefi@gmail.com}
@@ -142,8 +142,18 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Continuous testing and a flexible alternative to Autotest using watchr and RVM}
   s.test_files = [
-    "spec/infinity_test_spec.rb",
-     "spec/spec_helper.rb",
+    "spec/factories/buzz/lib/buzz.rb",
+     "spec/factories/buzz/spec/buzz_spec.rb",
+     "spec/factories/company/lib/company.rb",
+     "spec/factories/company/test/company_test.rb",
+     "spec/factories/slinky/spec/slinky/slinky_spec.rb",
+     "spec/factories/travel/lib/travel.rb",
+     "spec/factories/travel/test/partner_test.rb",
+     "spec/factories/travel/test/travel_test.rb",
+     "spec/factories/wood/lib/wood.rb",
+     "spec/factories/wood/spec/wood_spec.rb",
+     "spec/infinity_test/application_library/rails_spec.rb",
+     "spec/infinity_test/application_library/rubygems_spec.rb",
      "spec/infinity_test/application_spec.rb",
      "spec/infinity_test/binary_path_spec.rb",
      "spec/infinity_test/builder_spec.rb",
@@ -156,22 +166,12 @@ Gem::Specification.new do |s|
      "spec/infinity_test/options_spec.rb",
      "spec/infinity_test/runner_spec.rb",
      "spec/infinity_test/test_framework_spec.rb",
-     "spec/infinity_test/application_library/rails_spec.rb",
-     "spec/infinity_test/application_library/rubygems_spec.rb",
      "spec/infinity_test/test_library/bacon_spec.rb",
      "spec/infinity_test/test_library/cucumber_spec.rb",
      "spec/infinity_test/test_library/rspec_spec.rb",
      "spec/infinity_test/test_library/test_unit_spec.rb",
-     "spec/factories/wood/lib/wood.rb",
-     "spec/factories/wood/spec/wood_spec.rb",
-     "spec/factories/travel/lib/travel.rb",
-     "spec/factories/travel/test/partner_test.rb",
-     "spec/factories/travel/test/travel_test.rb",
-     "spec/factories/slinky/spec/slinky/slinky_spec.rb",
-     "spec/factories/company/lib/company.rb",
-     "spec/factories/company/test/company_test.rb",
-     "spec/factories/buzz/lib/buzz.rb",
-     "spec/factories/buzz/spec/buzz_spec.rb"
+     "spec/infinity_test_spec.rb",
+     "spec/spec_helper.rb"
   ]
 
   if s.respond_to? :specification_version then
