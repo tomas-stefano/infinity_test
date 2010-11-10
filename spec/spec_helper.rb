@@ -1,6 +1,11 @@
 
 require 'infinity_test'
 require 'watchr'
+# require 'simplecov'
+# SimpleCov.start do
+#   add_filter '/spec'
+#   add_filter './.infinity_test'
+# end
 
 RSpec.configure do |config|
 

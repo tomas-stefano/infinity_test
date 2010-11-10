@@ -258,8 +258,6 @@ module InfinityTest
         instance_variable_set(callback[:all], block)
       elsif hook == :each_ruby
         instance_variable_set(callback[:each_ruby], block)
-      elsif hook == :env
-        instance_variable_set(callback[:env], block)
       end
     end
 

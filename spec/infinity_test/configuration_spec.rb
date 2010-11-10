@@ -347,6 +347,15 @@ module InfinityTest
       end
       
     end
+
+    describe '#clear' do
+      
+      it "should call the clear in the system" do
+        config.should_receive(:system).with('clear')
+        config.clear :terminal
+      end
+      
+    end
   
   end
 end

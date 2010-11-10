@@ -180,12 +180,6 @@ module InfinityTest
       @watchr.rules.reverse!
     end
 
-    # Return the app_watch directory pattern
-    #
-    def app_directory_pattern
-      app_framework.app_watch_path if app_framework
-    end
-
     # Pass many commands(expecting something that talk like Hash) and run them
     # First, triggers all the before each callbacks, run the commands
     # and last, triggers after each callbacks
@@ -297,17 +291,17 @@ module InfinityTest
       end
     end
 
+    def say_the_ruby_version_and_run_the_command!(ruby_version, command)
+      puts; puts "* { :ruby => #{ruby_version} }"
+      puts command if verbose?
+      Command.new(:ruby_version => ruby_version, :command => command).run!
+    end
+    
     private
 
     def call_each_ruby_callback(callback_type, ruby_version)
       callback = send(callback_type)
       callback.call(RVM::Environment.new(ruby_version)) if callback
-    end
-
-    def say_the_ruby_version_and_run_the_command!(ruby_version, command)
-      puts; puts "* { :ruby => #{ruby_version} }"
-      puts command if verbose?
-      Command.new(:ruby_version => ruby_version, :command => command).run!
     end
     
     def setting_test_framework

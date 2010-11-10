@@ -74,12 +74,8 @@ module InfinityTest
 
       before do
         @application = application_with(:test_framework => :rspec, :app_framework => :rubygems)
-        @application.heuristics.add('my_rule.rb') do
-            'my_rule'
-        end
-        @application.heuristics.add('other_rule.rb') do
-            'other_rule'
-        end
+        @application.heuristics.add('my_rule.rb')
+        @application.heuristics.add('other_rule.rb')
       end
       
       it "should reverse the rules of watchr" do
@@ -207,6 +203,11 @@ module InfinityTest
         InfinityTest::TestLibrary::Rspec.should_receive(:new).with(:rubies => '1.9.1,1.9.2')
         @application.test_framework
       end
+      
+      it "should pass the bacon framework too" do
+        @application.config.use :test_framework => :bacon
+        @application.test_framework.should be_instance_of(InfinityTest::TestLibrary::Bacon)
+      end
 
       it "should cache the test framework instance" do
         @application.config.use :test_framework => :rspec
@@ -299,6 +300,15 @@ module InfinityTest
         @application.stub!(:global_commands).and_return('rvm 1.9.2 ruby -S rspec')
         @application.should_receive(:run!).with(@application.global_commands).and_return(true)
         @application.run_global_commands!
+      end
+      
+    end
+
+    describe '#construct_commands' do
+      
+      it "should call construct_commands on the test_framework" do
+        application.test_framework.should_receive(:construct_commands)
+        application.construct_commands
       end
       
     end

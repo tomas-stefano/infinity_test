@@ -6,19 +6,18 @@ module InfinityTest
       @application = InfinityTest.application
       @watchr = InfinityTest.watchr
     end
-    
-    # Start the Continuous Testing Server and begin to audit the files for changes
-    #
-    def start!
-      initialize_watchr!
-    end
 
     ##################
     # Watchr Methods #
     ##################
     
     def initialize_watchr!
-      add_signal
+      add_signal 
+      run_with_watchr!
+    end
+    alias :start! :initialize_watchr!
+    
+    def run_with_watchr!
       Watchr::Controller.new(@watchr, Watchr.handler.new).run
     end
     

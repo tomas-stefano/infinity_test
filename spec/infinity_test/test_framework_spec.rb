@@ -88,7 +88,6 @@ module InfinityTest
           class Abc < TestFramework
             parse_results({})
           end
-          Abc.new.parse_results('0 examples') 
         }.should raise_exception(ArgumentError, 'patterns should not be empty')
       end
     
