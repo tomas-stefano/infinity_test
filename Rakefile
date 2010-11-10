@@ -30,7 +30,7 @@ begin
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "infinity_test"
     gemspec.summary = "Continuous testing and a flexible alternative to Autotest using watchr and RVM"
-    gemspec.description = "Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with Rspec OR Test::Unit with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration."
+    gemspec.description = "Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with Rspec, Test::Unit or Bacon with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration."
     gemspec.email = "tomasdestefi@gmail.com"
     gemspec.homepage = "http://github.com/tomas-stefano/infinity_test"
     gemspec.authors = ["Tomas D'Stefano"]
