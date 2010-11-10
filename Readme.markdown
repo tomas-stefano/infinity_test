@@ -93,6 +93,13 @@ So create the global file or project file called:
 
 #### If you want to customize and understand the .infinity_test file, <a href='http://github.com/tomas-stefano/infinity_test/wiki/Customize-Infinity-Test'>Read this Page</a>
 
+# Color in RSpec
+
+### Put this in your <b>.rspec</b> file:
+
+    --color
+    --autotest
+
 ## You Like it the Idea?
 
 <b>So make a fork and start contributing =].</b>
