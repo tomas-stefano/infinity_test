@@ -9,6 +9,7 @@ group :test do
   gem 'rspec', ">= 2.1.0"
   gem 'cucumber', '0.9.0'
   gem 'aruba', '0.2.1'
+  gem 'fuubar'
 end
 
 group :development do

@@ -82,6 +82,11 @@ module InfinityTest
         some_framework.parse_results("seconds\n\e[33m406 examples, 0 failures, 2 pending\e[0m\n")
         some_framework.message.should == "406 examples, 0 failures, 2 pending"
       end
+      
+      it "should accept other formats (like Fuubar)" do
+        some_framework.parse_results("299 examples: 99% |ooooooooooooooooooooooooooooooooooooooooo | ETA:  00:00:00\r\e[0m\e[31m\e[0m\e[31m297/298:       100% |oooooooooooooooooooooooooooooooooooooooooo| ETA:  00:00:00\r\e[0m\e[31m298/298:       100% |oooooooooooooooooooooooooooooooooooooooooo| Time: 00:00:00\n\e[0m\nPending:\n\e[33m  InfinityTest::Environment#environments should run in the scope of RVM environment\e[0m\n\e[90m    # No reason given\e[0m\n\e[90m    # \e[0m\n\nFinished in 0.43473 seconds\n\e[31m298 examples, 1 failure, 1 pending\e[0m\n")
+        some_framework.message.should == "298 examples, 1 failure, 1 pending"
+      end
 
       it "should raise error when not have patterns" do
         lambda {

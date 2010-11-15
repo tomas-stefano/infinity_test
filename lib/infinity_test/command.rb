@@ -15,6 +15,8 @@ module InfinityTest
     # Code taken in Autotest gem and change a little
     #
     def run!
+      old_sync = $stdout.sync
+      $stdout.sync = true      
       begin
         open("| #{@command}", "r") do |file|
           until file.eof? do
@@ -28,6 +30,8 @@ module InfinityTest
             push_in_the_results(test_line)
           end
         end
+      ensure
+        $stdout.sync = old_sync      
       end
       @results = @results.join
       self

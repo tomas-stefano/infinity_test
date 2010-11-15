@@ -207,7 +207,7 @@ module InfinityTest
     # Send the message,image and the actual ruby version to show in the notification system
     #
     def notify!(options)
-      if notification_framework
+      if notification_framework        
         message = parse_results(options[:results])
         title = options[:ruby_version]
         send(notification_framework).title(title).message(message).image(image_to_show).notify!

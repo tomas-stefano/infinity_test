@@ -10,6 +10,10 @@ GEM
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
     diff-lcs (1.1.2)
+    fuubar (0.0.1)
+      progressbar (~> 0.9)
+      rspec (~> 2.0)
+      rspec-instafail (~> 0.1)
     gemcutter (0.6.1)
     gherkin (2.2.4)
       json (~> 1.4.6)
@@ -28,6 +32,7 @@ GEM
     json (1.4.6-java)
     json_pure (1.4.6)
     notifiers (1.1.0)
+    progressbar (0.9.0)
     rspec (2.1.0)
       rspec-core (~> 2.1.0)
       rspec-expectations (~> 2.1.0)
@@ -35,6 +40,7 @@ GEM
     rspec-core (2.1.0)
     rspec-expectations (2.1.0)
       diff-lcs (~> 1.1.2)
+    rspec-instafail (0.1.2)
     rspec-mocks (2.1.0)
     rubyforge (2.0.4)
       json_pure (>= 1.1.7)
@@ -49,6 +55,7 @@ PLATFORMS
 DEPENDENCIES
   aruba (= 0.2.1)
   cucumber (= 0.9.0)
+  fuubar
   jeweler
   notifiers (= 1.1.0)
   rspec (>= 2.1.0)

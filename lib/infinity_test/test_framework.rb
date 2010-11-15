@@ -90,7 +90,7 @@ module InfinityTest
       patterns.each do |key, pattern|
         final_result << lines.select { |line| line =~ pattern }
       end
-      final_result.flatten.first
+      final_result.flatten.last
     end
 
     private
