@@ -6,7 +6,7 @@ module InfinityTest
     def initialize(arguments)
       super()
       @options = OptionParser.new do |options|
-        [:test_unit, :rspec, :bacon, :rubygems, :rails, :rubies, :cucumber, :verbose, :patterns, :bundler].each do |name|
+        [:test_unit, :rspec, :bacon, :rubygems, :rails, :rubies, :verbose, :patterns, :bundler].each do |name|
           send("parse_#{name}", options)
         end
         options.banner = [ "Usage: infinity_test [options]", "Starts a continuous test server."].join("\n")
@@ -60,11 +60,11 @@ module InfinityTest
       end
     end
 
-    def parse_cucumber(options)
-      options.on('--cucumber', 'Run with the Cucumber too') do
-        self[:cucumber] = true
-      end
-    end
+    # def parse_cucumber(options)
+    #   options.on('--cucumber', 'Run with the Cucumber too') do
+    #     self[:cucumber] = true
+    #   end
+    # end
 
     def parse_patterns(options)
       options.on('--heuristics', 'Show all the Default Patterns and added by #heuristics method and EXIT.') do

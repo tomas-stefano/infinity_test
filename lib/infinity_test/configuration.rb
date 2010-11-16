@@ -228,10 +228,10 @@ module InfinityTest
     end
 
     def replace_patterns(&block)
-      application_framework = InfinityTest.application.app_framework
-      block.call(application_framework, InfinityTest.application)
-      application_framework
+      block.call(InfinityTest.application)
+      InfinityTest.application
     end
+    alias :before_env :replace_patterns
 
     # Added heuristics to the User application
     #

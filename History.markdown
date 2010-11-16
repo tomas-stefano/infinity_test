@@ -1,4 +1,4 @@
-In Development
+v1.0.0
 ==============
 
 Features
@@ -73,6 +73,8 @@ If you want run with Bacon just run with --bacon flag or add :test_framework => 
              application.library_directory_pattern             = '^my_unusual_lib_directory/*/(.*).rb'
            end
          end
+
+OBS.: <b>The #before_env methods is an alias to #replace_patterns method</b>
 
 Refactoring
 -----------

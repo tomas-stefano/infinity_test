@@ -328,25 +328,20 @@ module InfinityTest
     describe '#replace_patterns' do
 
       it "should evaluate in the context of application framework" do
-        config.replace_patterns do |application_framework, application|
-        end.should be_instance_of(InfinityTest::ApplicationLibrary::RubyGems)
-      end
-
-      it "should return the same object match in the InfinityTest.application.app_framework" do
-        config.replace_patterns do |application_framework, application|
-        end.should equal InfinityTest.application.app_framework
+        config.replace_patterns do |application|
+        end.should be_instance_of(InfinityTest::Application)
       end
 
       it "should replace patterns to the application framework" do
-        config.replace_patterns do |application_framework, application|
-          application_framework.lib_pattern = "^lib/(.*)\.rb"
+        config.replace_patterns do |application|
+          application.app_framework.lib_pattern = "^my_lib/(.*)\.rb"
         end
-        InfinityTest.application.app_framework.lib_pattern.should == "^lib/(.*)\.rb"
+        InfinityTest.application.app_framework.lib_pattern.should == "^my_lib/(.*)\.rb"
       end
 
       it "should replace patterns and replace the test pattern to test framework lookup" do
-        config.replace_patterns do |application_framework, application|
-          application_framework.test_pattern = "^my_unusual_spec_directory/unit/(.*)_spec.rb"
+        config.replace_patterns do |application|
+          application.app_framework.test_pattern = "^my_unusual_spec_directory/unit/(.*)_spec.rb"
           application.test_framework.test_pattern = "my_unusual_spec_directory/unit/*_spec.rb"
         end
         InfinityTest.application.app_framework.test_pattern.should == "^my_unusual_spec_directory/unit/(.*)_spec.rb"
