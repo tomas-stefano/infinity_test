@@ -9,6 +9,11 @@ Features
 - Added the RVM System Wide support (For more information see http://rvm.beginrescueend.com/deployment/system-wide/ )
 
 - Added the Heuristics feature(<b>For users who want to add your own paths</b>)
+
+To see the Heuristics that InfinityTest will see type in ther terminal:
+
+     infinity_test --heuristics
+
 This example tell to InfinityTest <b>run all the tests when some_file.rb is changed</b>
 This basic DSL you will put in the <b>infinity_test file</b>:
 
