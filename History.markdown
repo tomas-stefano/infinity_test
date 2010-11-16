@@ -4,6 +4,8 @@ v1.0.0
 Features
 --------
 
+- Added the <b>Fuu</b> images: <a href="https://github.com/tomas-stefano/infinity_test/tree/master/images/fuuu/">https://github.com/tomas-stefano/infinity_test/tree/master/images/fuuu/</a> (thanks to Marcio Giaxia)
+
 - Added the RVM System Wide support (For more information see http://rvm.beginrescueend.com/deployment/system-wide/ )
 
 - Added the Heuristics feature(<b>For users who want to add your own paths</b>)
