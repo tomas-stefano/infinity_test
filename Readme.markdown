@@ -87,6 +87,14 @@ So create the global file or project file called:
           # ...
         end
 
+        heuristics('my_pattern') do |file|
+          # ...
+        end
+
+        replace_patterns do |application|
+          # ...
+        end
+
       end
 
 ## Customize the .infinity_test file
