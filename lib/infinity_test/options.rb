@@ -6,7 +6,7 @@ module InfinityTest
     def initialize(arguments)
       super()
       @options = OptionParser.new do |options|
-        [:test_unit, :rspec, :bacon, :rubygems, :rails, :rubies, :verbose, :patterns, :bundler].each do |name|
+        [:test_unit, :rspec, :bacon, :rubygems, :rails, :rubies, :verbose, :patterns, :bundler, :version].each do |name|
           send("parse_#{name}", options)
         end
         options.banner = [ "Usage: infinity_test [options]", "Starts a continuous test server."].join("\n")
@@ -75,6 +75,13 @@ module InfinityTest
     def parse_bundler(options)
       options.on('--skip-bundler', "InfinityTest try to use bundler if Gemfile is present. If you don't want to use this convention, set this option.") do
         self[:skip_bundler?] = true
+      end
+    end
+    
+    def parse_version(options)
+      options.on("--version", "Show version and exit") do
+        puts InfinityTest.version
+        exit
       end
     end
 

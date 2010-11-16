@@ -1,6 +1,7 @@
 require 'infinity_test/dependencies'
 
 module InfinityTest
+  
   autoload :Application, 'infinity_test/application'
   autoload :BinaryPath, 'infinity_test/binary_path'
   autoload :Builder, 'infinity_test/builder'
@@ -40,6 +41,11 @@ module InfinityTest
 
   def self.start!
     Runner.new(ARGV).run!
+  end
+  
+  def self.version
+    version = YAML.load_file(File.dirname(__FILE__) + '/../VERSION.yml')
+    [version[:major], version[:minor], version[:patch]].compact.join(".")    
   end
 
 end
