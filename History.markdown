@@ -1,3 +1,7 @@
+v1.0.1
+
+- Fix a serious bug for Test::unit users (just run one test file instead of all tests)
+
 v1.0.0
 ==============
 
