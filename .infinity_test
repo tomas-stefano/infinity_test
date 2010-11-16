@@ -11,7 +11,7 @@ infinity_test do
   end
   
   after(:all) do
-    system('rake clean')
+    system('rake clean_without_verbose')
   end
 
   # heuristics do

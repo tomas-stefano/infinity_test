@@ -5,6 +5,11 @@ require 'rake'
 require 'rake/clean'
 CLEAN.include('lib/*rbc','lib/*/*.rbc', 'spec/*.rbc', 'spec/*/*.rbc', 'lib/*/*/*rbc', 'spec/*/*/*rbc')
 
+task :clean_without_verbose do
+  verbose(false)
+  Rake::Task['clean'].invoke
+end
+
 $:.unshift(File.dirname(__FILE__) + '/lib')
 
 POST_MESSAGE = <<-POST_INSTALL_MESSAGE
