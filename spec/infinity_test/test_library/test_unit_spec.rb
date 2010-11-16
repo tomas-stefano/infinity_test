@@ -32,13 +32,13 @@ module InfinityTest
 
           it "return should include test/company_test.rb" do
             Dir.chdir("#{@current_dir}/spec/factories/company") do
-              test_unit.all_files.should eql ["test/company_test.rb"]
+              test_unit.all_files.should include "test/company_test.rb"
             end
           end
 
           it "return should include more than one file to test" do
             Dir.chdir("#{@current_dir}/spec/factories/travel") do
-              test_unit.all_files.should eql ["test/partner_test.rb","test/travel_test.rb"]
+              files = test_unit.all_files.should eql ["test/partner_test.rb", "test/travel_test.rb"]
             end
           end
 

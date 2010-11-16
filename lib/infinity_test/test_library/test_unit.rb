@@ -25,6 +25,12 @@ module InfinityTest
       def test_files
         super.split.unshift(test_loader).sort.join(' ')
       end
+      
+      def decide_files(file)
+        return file if file
+        test_files
+      end
+      
 
       def test_loader
         $LOAD_PATH.each do |path|

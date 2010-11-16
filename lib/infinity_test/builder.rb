@@ -2,18 +2,25 @@ module InfinityTest
   module Builder
 
     #
+    # TODO: Refactoring this Ugly Code
+    #
+    #
     def construct_command(options)
       binary_name, ruby_version, command, file, environment = resolve_options(options)
+      
       unless have_binary?(binary_name) || options[:skip_binary?]
         print_message(binary_name, ruby_version)
+        
       else
         command = "#{command} #{decide_files(file)}"
         rvm_ruby_version = "rvm #{ruby_version} ruby"
+        
         if application.have_gemfile? and not application.skip_bundler?
           run_with_bundler!(rvm_ruby_version, command, environment)
         else
           run_without_bundler!(rvm_ruby_version, command)
         end
+        
       end
     end
 
@@ -42,6 +49,10 @@ module InfinityTest
       construct_rubies_commands(file)
     end
 
+    #
+    # TODO: Refactoring this Ugly Code
+    #
+    #
     def resolve_options(options)
       ruby_version = options[:for]
       binary_name = options[:skip_binary?] ? '' : options[:binary]

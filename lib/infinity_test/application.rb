@@ -250,12 +250,18 @@ module InfinityTest
     #  files_to_run!(match_data) # => return the test file
     #
     def files_to_run!(options)
-      return options.to_s if options.is_a?(MatchData)
-      if options.equal?(:all) or options.include?(:all)
-        search_files_in_dir(all_test_files, :in_dir => options[:in_dir]).join(' ')
-      else
-        search_file(:pattern => options[:test_for][1], :in_dir => options[:in_dir]) if options.include?(:test_for)
+      files = lambda do
+        options.to_s if options.is_a?(MatchData)
+        if options.equal?(:all) or options.include?(:all)
+          search_files_in_dir(all_test_files, :in_dir => options[:in_dir]).join(' ')
+        else
+          search_file(:pattern => options[:test_for][1], :in_dir => options[:in_dir]) if options.include?(:test_for)
+        end
       end
+      files = files.call
+      # Fix fo Test::Unit - But this is not responsability of the Application instances - Refactoring this
+      files = "#{test_framework.test_loader} #{files}" if test_framework.respond_to?(:test_loader)
+      files
     end
 
     # Search files under the dir(s) specified
@@ -271,7 +277,7 @@ module InfinityTest
     # Search files that matches with the pattern
     #
     def search_file(options)
-      files = all_test_files.grep(/#{options[:pattern]}/i)
+      files = all_test_files.grep(/#{options[:pattern]}/i)      
       search_files_in_dir(files, :in_dir => options[:in_dir]).join(' ')
     end
 
