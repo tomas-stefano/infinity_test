@@ -8,7 +8,7 @@ giving the possibility to test with all <b>Rubies</b> that you have in your RVM 
 ## To Infinity and Beyond!
 
 <div style="padding:2px; border:1px solid silver; float:right; margin:0 0 1em 2em; background:white">
-  <img src="http://github.com/tomas-stefano/infinity_test/raw/master/buzz_images/to_infinity_and_beyond.png" alt="Infinity Test" />
+  <img src="https://github.com/tomas-stefano/infinity_test/raw/master/buzz_images/to_infinity_and_beyond.png" alt="Infinity Test" />
   <p style="text-align:center"> Photo taken by <a href="http://www.mixed-metaphor.org/fan/buzz/" title="buzz-light-year"> this site </a></p>
 </div>
 
@@ -46,7 +46,7 @@ Or with bacon:
 
 <b>And you are ready to Test with all ruby versions your Rspec or Test::Unit Suite with Autotest-like Behavior.</b>
 
-## Running Tests with Rails (only in master branch!)
+## Running Tests with Rails
 
 With Rails:
 
@@ -108,13 +108,17 @@ So create the global file or project file called:
     --color
     --autotest
 
+### Future
+
+* Make work with Focus files! (Run failed results and if pass run all , etc ...)
+
 ## You Like it the Idea?
 
 <b>So make a fork and start contributing =].</b>
 
 ## You have a Feature request or Fix?
 
-<b>Contact me in Github and let's talk! =] </b>
+<b>Contact me in Github/Twitter(@tomas_stefano) and let's talk! =] </b>
 
 # Acknowledgments
 

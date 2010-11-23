@@ -196,7 +196,10 @@ module InfinityTest
     #
     #
     def before(hook=:all, &block)
-      setting_callback(hook, :all => :@before_callback, :each_ruby => :@before_each_ruby_callback, :env => :@before_environment_callback, &block)
+      setting_callback(hook, 
+        :all => :@before_callback, 
+        :each_ruby => :@before_each_ruby_callback, 
+        :env => :@before_environment_callback, &block)
     end
 
     # Callback method to handle before or after all run and for each ruby too!
