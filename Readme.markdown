@@ -105,8 +105,15 @@ So create the global file or project file called:
 
 ### Put this in your <b>.rspec</b> file:
 
+In RSpec 2.2.0:
+
     --color
-    --autotest
+    --tty
+
+In RSpec 2.1.0:
+
+    --color
+	--autotest
 
 ### Future
 
