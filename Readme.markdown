@@ -115,6 +115,13 @@ In RSpec 2.1.0:
     --color
 	--autotest
 
+In RSpec 1.3.0 in case you are using RSpec 1.3 => <b>spec.opts</b> file:
+
+     --color
+     --autospec
+
+<b>Obs.: I'll put this options as default in InfinityTest in a future version</b>
+
 ### Future
 
 * Make work with Focus files! (Run failed results and if pass run all , etc ...)
