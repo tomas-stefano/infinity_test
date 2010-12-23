@@ -49,6 +49,7 @@ module InfinityTest
     def setup!(options)
       config.use(
          :rubies => (options[:rubies] || rubies),
+         :specific_options => options[:specific_options],
          :test_framework => (options[:test_framework] || config.test_framework),
          :app_framework => (options[:app_framework]   || config.app_framework),
          :cucumber => options[:cucumber],
@@ -116,6 +117,12 @@ module InfinityTest
     #
     def rubies
       config.rubies
+    end
+    
+    # Return the rubies specific options in the config file or the command line
+    #
+    def specific_options
+      config.specific_options
     end
 
     # Return true if verbose mode is on

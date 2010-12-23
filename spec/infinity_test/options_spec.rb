@@ -45,6 +45,16 @@ module InfinityTest
         @options[:rubies].should eql '1.8.7-p249,1.9.1-p378'
       end
 
+      it "should parse --rvm-versions with particual options" do
+        parse_options('--rubies=jruby-6.6.6"-J-cp bar/whisky-in-the.jar:."')
+        @options[:rubies].should eql 'jruby-6.6.6'
+      end
+
+      it "should parse --rvm-versions specific options" do
+        parse_options('--rubies=jruby-6.6.6"-J-cp bar/whisky-in-the.jar:."')
+        @options[:specific_options].should == {'jruby-6.6.6' => '-J-cp bar/whisky-in-the.jar:.'}
+      end
+
       it "should parse --verbose" do
         parse_options('--verbose')
         @options[:verbose].should be_true

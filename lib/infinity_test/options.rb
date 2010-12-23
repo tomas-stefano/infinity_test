@@ -38,7 +38,14 @@ module InfinityTest
 
     def parse_rubies(options)
       options.on('--rubies=rubies', 'Specify the Ruby Versions for Testing with many Rubies') do |versions|
-        self[:rubies] = versions
+        rubies = []
+        versions.split(",").each do |r|
+          rubie = r.gsub(/".*"/, '')
+          params = r.match(/"(.*)"/) { |p| p[1] }
+          self[:specific_options] = {rubie => params}
+          rubies << rubie
+        end 
+        self[:rubies] = rubies.join(',')
       end
     end
 

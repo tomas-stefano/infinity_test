@@ -20,6 +20,10 @@ module InfinityTest
         application_with(:rubies => ['1.9.2']).rubies.should == '1.9.2'
       end
 
+      it "should return the specific options in the config" do
+        application_with(:specific_options => {'v-1' => '-o'}).specific_options.should == {'v-1' => '-o'}
+      end
+
       it "should return the watchr script instance" do
         application_with_rspec.watchr.should be_instance_of(Watchr::Script)
       end

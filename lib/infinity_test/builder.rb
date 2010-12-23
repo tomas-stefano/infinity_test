@@ -14,7 +14,7 @@ module InfinityTest
       else
         command = "#{command} #{decide_files(file)}"
         rvm_ruby_version = "rvm #{ruby_version} ruby"
-        
+
         if application.have_gemfile? and not application.skip_bundler?
           run_with_bundler!(rvm_ruby_version, command, environment)
         else
