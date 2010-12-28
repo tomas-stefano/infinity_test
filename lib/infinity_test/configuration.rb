@@ -1,7 +1,7 @@
 module InfinityTest
   class Configuration
 
-    SUPPORTED_FRAMEWORKS = [:growl, :lib_notify] # :snarl, :lib_notify
+    SUPPORTED_FRAMEWORKS = [:growl, :lib_notify]
 
     attr_accessor :notification_framework,
     :sucess_image, :failure_image, :pending_image,
