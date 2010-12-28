@@ -44,6 +44,10 @@ Or with bacon:
 
     infinity_test --bacon --rubies=1.8.7,ree,1.9.2
 
+You can pass specific arguments for a rubie with "+" character like
+    
+    infinity_test --rspec --rubies=jruby+"J-cp bar/whisky-in-the.jar:."
+ 
 <b>And you are ready to Test with all ruby versions your Rspec or Test::Unit Suite with Autotest-like Behavior.</b>
 
 ## Running Tests with Rails
@@ -70,6 +74,8 @@ So create the global file or project file called:
         end
 
         use :rubies => %w(1.9.1 jruby 1.9.2 ree), :test_framework => :rspec
+        
+        use :specific_options => {'jruby' => 'J-cp bar/whisky-in-the.jar:.'}
 
         before(:each_ruby) do |environment|
           # ...

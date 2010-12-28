@@ -49,7 +49,7 @@ module InfinityTest
     def setup!(options)
       config.use(
          :rubies => (options[:rubies] || rubies),
-         :specific_options => options[:specific_options],
+         :specific_options => (options[:specific_options] || specific_options),
          :test_framework => (options[:test_framework] || config.test_framework),
          :app_framework => (options[:app_framework]   || config.app_framework),
          :cucumber => options[:cucumber],
@@ -325,11 +325,11 @@ module InfinityTest
     def setting_test_framework
       case config.test_framework
       when :rspec
-        Rspec.new :rubies => rubies
+        Rspec.new :rubies => rubies, :specific_options => specific_options
       when :test_unit
-        TestUnit.new :rubies => rubies
+        TestUnit.new :rubies => rubies, :specific_options => specific_options
       when :bacon
-        Bacon.new :rubies => rubies
+        Bacon.new :rubies => rubies, :specific_options => specific_options
       end
     end
 

@@ -198,13 +198,19 @@ module InfinityTest
 
       it "should pass all the rubies for the test_framework TestUnit" do
         @application.config.use :test_framework => :test_unit, :rubies => ['1.9.1', '1.9.2']
-        InfinityTest::TestLibrary::TestUnit.should_receive(:new).with(:rubies => '1.9.1,1.9.2')
+        InfinityTest::TestLibrary::TestUnit.should_receive(:new).with(:rubies => '1.9.1,1.9.2', :specific_options=>nil)
         @application.test_framework
       end
 
       it "should pass all the rubies for the test_framework Rspec" do
         @application.config.use :test_framework => :rspec, :rubies => ['1.9.1', '1.9.2']
-        InfinityTest::TestLibrary::Rspec.should_receive(:new).with(:rubies => '1.9.1,1.9.2')
+        InfinityTest::TestLibrary::Rspec.should_receive(:new).with(:rubies => '1.9.1,1.9.2', :specific_options=>nil)
+        @application.test_framework
+      end
+
+      it "should pass specific options for the test_framework Rspec" do
+        @application.config.use :test_framework => :rspec, :rubies => ['1.9.1', 'jruby'], :specific_options => {'jruby' => '-J-cp :.'}
+        InfinityTest::TestLibrary::Rspec.should_receive(:new).with(:rubies => '1.9.1,jruby', :specific_options => {'jruby' => '-J-cp :.'})
         @application.test_framework
       end
 

@@ -17,6 +17,10 @@ module InfinityTest
         Rspec.new(:rubies => 'jruby,ree').rubies.should be == 'jruby,ree'
       end
 
+      it "should set specific options" do
+        Rspec.new(:specific_options => {'jruby' => '-J-cp bar/whisky-in-the.jar:.'}).specific_options.should == {'jruby' => '-J-cp bar/whisky-in-the.jar:.'} 
+      end
+
       it "rubies should be empty when not have rubies" do
         Rspec.new.rubies.should be_empty
       end

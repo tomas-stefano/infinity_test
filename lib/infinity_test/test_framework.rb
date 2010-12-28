@@ -6,11 +6,12 @@ module InfinityTest
 
     binary :bundle
 
-    attr_accessor :application, :message, :rubies, :test_pattern
+    attr_accessor :application, :message, :rubies, :test_pattern, :specific_options
 
     def initialize(options={})
       @application = InfinityTest.application
       @rubies = options[:rubies] || []
+      @specific_options = options[:specific_options] || {}
     end
 
     # Return all the files match by test_pattern

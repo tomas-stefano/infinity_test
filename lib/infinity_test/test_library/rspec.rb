@@ -27,11 +27,13 @@ module InfinityTest
         environments do |environment, ruby_version|
           rspec_binary = search_rspec_two(environment)
           rspec_binary = search_rspec_one(environment) unless have_binary?(rspec_binary)
+          specific_options = @specific_options[ruby_version]
           commands[ruby_version] = construct_command(
                                       :for => ruby_version,
                                       :binary => rspec_binary,
                                       :file => file,
-                                      :environment => environment)
+                                      :environment => environment,
+                                      :specific_options => specific_options)
         end
         commands
       end
