@@ -6,16 +6,16 @@ module InfinityTest
     #
     #
     def construct_command(options)
-      binary_name, ruby_version, command, file, environment = resolve_options(options)
-      
+      binary_name, ruby_version, command, file, environment, specific_options = resolve_options(options)
+     
       unless have_binary?(binary_name) || options[:skip_binary?]
         print_message(binary_name, ruby_version)
         
       else
         command = "#{command} #{decide_files(file)}"
-        rvm_ruby_version = "rvm #{ruby_version} ruby"
+        rvm_ruby_version = "rvm #{ruby_version} ruby #{specific_options}"
         
-        if application.have_gemfile? and not application.skip_bundler?
+	if application.have_gemfile? and not application.skip_bundler?
           run_with_bundler!(rvm_ruby_version, command, environment)
         else
           run_without_bundler!(rvm_ruby_version, command)
@@ -59,8 +59,9 @@ module InfinityTest
       load_path = %{-I"#{options[:load_path]}"} if options[:load_path]
       environment = options[:environment]
       file = options[:file]
+      specific_options = options[:specific_options]
       command = [ binary_name, load_path].compact.join(' ')
-      [binary_name, ruby_version, command, file, environment]
+      [binary_name, ruby_version, command, file, environment, specific_options]
     end
 
   end

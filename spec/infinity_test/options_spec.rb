@@ -45,6 +45,26 @@ module InfinityTest
         @options[:rubies].should eql '1.8.7-p249,1.9.1-p378'
       end
 
+      it "should parse --rvm-versions with particual options" do
+        parse_options('--rubies=jruby-6.6.6+-J-cp bar/whisky-in-the.jar:.')
+        @options[:rubies].should eql 'jruby-6.6.6'
+      end
+
+      it "should parse --rvm-versions specific options" do
+        parse_options('--rubies=jruby-6.6.6+-J-cp bar/whisky-in-the.jar:.')
+        @options[:specific_options].should == {'jruby-6.6.6' => '-J-cp bar/whisky-in-the.jar:.'}
+      end
+
+      it "should parse rubies with multiples specific options" do
+        parse_options('--rubies=jruby-1+-J-cp :.,jruby-2+-J-cp,1.9.2,jruby3+-J-cp :.')
+        @options[:rubies].should == 'jruby-1,jruby-2,1.9.2,jruby3'
+      end
+
+      it "should parse particular options with multiples specific options" do
+        parse_options('--rubies=jruby-1+-J-cp :.,jruby-2+-J-cp,1.9.2,jruby3+-J-cp :.')
+        @options[:specific_options].should == {'jruby-1'=>'-J-cp :.','jruby-2'=>'-J-cp','1.9.2'=>nil,'jruby3'=>'-J-cp :.'}
+      end
+
       it "should parse --verbose" do
         parse_options('--verbose')
         @options[:verbose].should be_true

@@ -97,6 +97,11 @@ module InfinityTest
         config.rubies.should be == '1.9.1,1.9.2'
       end
 
+      it "should set ruby specific options" do
+        config.use :specific_options => {'v-1' => '-o'}
+        config.specific_options.should == {'v-1' => '-o'}
+      end
+
       it "should set the test unit when not set the test framework" do
         config.use
         config.test_framework.should equal :test_unit

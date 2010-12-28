@@ -20,6 +20,10 @@ module InfinityTest
         application_with(:rubies => ['1.9.2']).rubies.should == '1.9.2'
       end
 
+      it "should return the specific options in the config" do
+        application_with(:specific_options => {'v-1' => '-o'}).specific_options.should == {'v-1' => '-o'}
+      end
+
       it "should return the watchr script instance" do
         application_with_rspec.watchr.should be_instance_of(Watchr::Script)
       end
@@ -194,13 +198,19 @@ module InfinityTest
 
       it "should pass all the rubies for the test_framework TestUnit" do
         @application.config.use :test_framework => :test_unit, :rubies => ['1.9.1', '1.9.2']
-        InfinityTest::TestLibrary::TestUnit.should_receive(:new).with(:rubies => '1.9.1,1.9.2')
+        InfinityTest::TestLibrary::TestUnit.should_receive(:new).with(:rubies => '1.9.1,1.9.2', :specific_options=>nil)
         @application.test_framework
       end
 
       it "should pass all the rubies for the test_framework Rspec" do
         @application.config.use :test_framework => :rspec, :rubies => ['1.9.1', '1.9.2']
-        InfinityTest::TestLibrary::Rspec.should_receive(:new).with(:rubies => '1.9.1,1.9.2')
+        InfinityTest::TestLibrary::Rspec.should_receive(:new).with(:rubies => '1.9.1,1.9.2', :specific_options=>nil)
+        @application.test_framework
+      end
+
+      it "should pass specific options for the test_framework Rspec" do
+        @application.config.use :test_framework => :rspec, :rubies => ['1.9.1', 'jruby'], :specific_options => {'jruby' => '-J-cp :.'}
+        InfinityTest::TestLibrary::Rspec.should_receive(:new).with(:rubies => '1.9.1,jruby', :specific_options => {'jruby' => '-J-cp :.'})
         @application.test_framework
       end
 

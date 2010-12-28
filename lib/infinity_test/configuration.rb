@@ -9,7 +9,7 @@ module InfinityTest
     :exceptions_to_ignore, :cucumber,
     :before_callback, :before_each_ruby_callback, :before_environment_callback,
     :after_callback, :after_each_ruby_callback,
-    :verbose
+    :verbose, :specific_options
 
     IMAGES_DIR = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'images'))
 
@@ -107,6 +107,7 @@ module InfinityTest
     def use(options={})
       rubies = options[:rubies]
       @rubies = (rubies.is_a?(Array) ? rubies.join(',') : rubies) || []
+      @specific_options = options[:specific_options]
       @test_framework = options[:test_framework] || @test_framework
       @app_framework  = options[:app_framework]  || @app_framework
       @verbose        = options[:verbose]        || @verbose
