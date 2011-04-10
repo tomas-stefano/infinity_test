@@ -19,13 +19,13 @@ module InfinityTest
     end
 
     def parse_rspec(options)
-      options.on('--rspec', 'Test Framework: Rspec') do
+      options.on('--rspec', 'Test Framework: RSpec') do
         self[:test_framework] = :rspec
       end
     end
 
     def parse_test_unit(options)
-      options.on('--test-unit', 'Test Framework: Test Unit [Default]') do
+      options.on('--test-unit', 'Test Framework: Test Unit (Default)') do
         self[:test_framework] = :test_unit
       end
     end
@@ -37,7 +37,7 @@ module InfinityTest
     end
 
     def parse_rubies(options)
-      options.on('--rubies=rubies', 'Specify the Ruby Versions for Testing with many Rubies') do |versions|
+      options.on('--rubies=rubies', 'Specify Ruby version(s) to test against') do |versions|
         rubies = []
         self[:specific_options] = {}
         versions.split(",").each do |r|
@@ -51,7 +51,7 @@ module InfinityTest
     end
 
     def parse_verbose(options)
-      options.on('--verbose', 'The Infinity Test dont print the commands', 'To print the commands set this option!') do
+      options.on('--verbose', 'Print commands before executing them') do
         self[:verbose] = true
       end
     end
@@ -75,23 +75,22 @@ module InfinityTest
     # end
 
     def parse_patterns(options)
-      options.on('--heuristics', 'Show all the Default Patterns and added by #heuristics method and EXIT.') do
+      options.on('--heuristics', 'Show all defined heuristics and exit') do
         self[:show_heuristics?] = true
       end
     end
 
     def parse_bundler(options)
-      options.on('--skip-bundler', "InfinityTest try to use bundler if Gemfile is present. If you don't want to use this convention, set this option.") do
+      options.on('--skip-bundler', "Bypass Infinity Test's Bundler support, even if a Gemfile is present") do
         self[:skip_bundler?] = true
       end
     end
-    
+
     def parse_version(options)
       options.on("--version", "Show version and exit") do
         puts InfinityTest.version
         exit
       end
     end
-
   end
 end
