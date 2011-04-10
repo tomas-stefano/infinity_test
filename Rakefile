@@ -17,8 +17,8 @@ POST_MESSAGE = <<-POST_INSTALL_MESSAGE
   #{ '-' * 80}
                   T O    I N F I N I T Y   A N D   B E Y O N D !!!
 
-   The Infinity uses the awesome RVM to run.
-   If you don't have the RVM installed, stop what you doing =p.
+   Infinity Test uses the awesome RVM to run.
+   If you don't have RVM installed, stop what you're doing =p.
    RVM Installation Instructions:
        http://rvm.beginrescueend.com/rvm/install/
    And don't forget to see how you can customize Infinity Test here:
@@ -34,8 +34,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = "infinity_test"
-    gemspec.summary = "Continuous testing and a flexible alternative to Autotest using watchr and RVM"
-    gemspec.description = "Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with Rspec, Test::Unit or Bacon with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration."
+    gemspec.summary = "Continuous testing and a flexible alternative to Autotest using Watchr and RVM"
+    gemspec.description = "Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with RSpec, Test::Unit or Bacon with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration."
     gemspec.email = "tomasdestefi@gmail.com"
     gemspec.homepage = "http://github.com/tomas-stefano/infinity_test"
     gemspec.authors = ["Tomas D'Stefano"]
