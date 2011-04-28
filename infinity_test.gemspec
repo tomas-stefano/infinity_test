@@ -9,9 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tomas D'Stefano"]
-  s.date = %q{2010-11-16}
-  s.default_executable = %q{infinity_test}
-  s.description = %q{Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with Rspec, Test::Unit or Bacon with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration.}
+  s.date = %q{2011-04-28}
+  s.description = %q{Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with RSpec, Test::Unit or Bacon with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration.}
   s.email = %q{tomasdestefi@gmail.com}
   s.executables = ["infinity_test"]
   s.extra_rdoc_files = [
@@ -128,8 +127,8 @@ Gem::Specification.new do |s|
   --------------------------------------------------------------------------------
                   T O    I N F I N I T Y   A N D   B E Y O N D !!!
 
-   The Infinity uses the awesome RVM to run.
-   If you don't have the RVM installed, stop what you doing =p.
+   Infinity Test uses the awesome RVM to run.
+   If you don't have RVM installed, stop what you're doing =p.
    RVM Installation Instructions:
        http://rvm.beginrescueend.com/rvm/install/
    And don't forget to see how you can customize Infinity Test here:
@@ -142,8 +141,8 @@ Gem::Specification.new do |s|
 }
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Continuous testing and a flexible alternative to Autotest using watchr and RVM}
+  s.rubygems_version = %q{1.7.2}
+  s.summary = %q{Continuous testing and a flexible alternative to Autotest using Watchr and RVM}
   s.test_files = [
     "spec/factories/buzz/lib/buzz.rb",
      "spec/factories/buzz/spec/buzz_spec.rb",
@@ -178,7 +177,6 @@ Gem::Specification.new do |s|
   ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
