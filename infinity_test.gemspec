@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{infinity_test}
-  s.version = "1.0.2"
+  s.version = "1.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tomas D'Stefano"]
-  s.date = %q{2011-04-28}
+  s.date = %q{2011-05-30}
   s.description = %q{Infinity Test is a continuous testing library and a flexible alternative to Autotest, using Watchr library with RSpec, Test::Unit or Bacon with RVM funcionality, giving the possibility to test with all Rubies that you have in your RVM configuration.}
   s.email = %q{tomasdestefi@gmail.com}
   s.executables = ["infinity_test"]
