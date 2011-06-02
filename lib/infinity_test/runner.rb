@@ -8,7 +8,7 @@ module InfinityTest
     end
 
     def run!
-      load_configuration_file_or_read_the_options!
+      @application.load_configuration_file_or_read_the_options!(@options)
       if @options[:show_heuristics?]
         list_heuristics!
       else
@@ -22,10 +22,6 @@ module InfinityTest
         puts %{- "#{pattern}"}
       end
       exit
-    end
-
-    def load_configuration_file_or_read_the_options!
-      @application.load_configuration_file_or_read_the_options!(@options)
     end
 
     # Start Continuous Server using Watchr
