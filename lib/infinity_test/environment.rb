@@ -3,6 +3,8 @@ module InfinityTest
 
     # Run in context of each Ruby Environment, and the Ruby Version
     #
+    # This method assumes that the class/module that is included has a method called rubies
+    #
     def environments(&block)
       raise unless block_given?
       RVM.environments(rubies).each do |environment|

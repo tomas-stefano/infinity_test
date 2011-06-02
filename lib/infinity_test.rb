@@ -3,6 +3,7 @@ require 'infinity_test/dependencies'
 module InfinityTest
   
   autoload :Application, 'infinity_test/application'
+  autoload :ApplicationFile, 'infinity_test/application_file'
   autoload :BinaryPath, 'infinity_test/binary_path'
   autoload :Builder, 'infinity_test/builder'
   autoload :Command, 'infinity_test/command'

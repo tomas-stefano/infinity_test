@@ -114,6 +114,10 @@ RSpec.configure do |config|
   def slinky_library(&block)
     factories_for('slinky', &block)
   end
+  
+  def rails_app(&block)
+    factories_for('rails_app', &block)
+  end
 
   def factories_for(directory, &block)
     Dir.chdir("#{infinity_test_root}/spec/factories/#{directory}", &block)

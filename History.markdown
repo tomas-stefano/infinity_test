@@ -1,4 +1,12 @@
+development
+===========
+
+- Removing feature run(:all). Obs.: Removing JUST when is a symbol.
+  The InfinityTest work with Hashes! Example(this works great!): run(:all => :tests)
+
+
 v1.0.1
+======
 
 - Fix a serious bug for Test::unit users (just run one test file instead of all tests)
 

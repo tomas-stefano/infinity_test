@@ -8,6 +8,10 @@ module InfinityTest
       @application = InfinityTest.application
     end
 
+    # This example tell to InfinityTest do_something when ruby_file.rb is changed:
+    #
+    #  add('^my_dir/ruby_file.rb') { do_something }
+    #
     def add(pattern, &block)
       @patterns[pattern] = block
       @script.watch(pattern, &block) # Watchr
@@ -24,6 +28,8 @@ module InfinityTest
       end
     end
 
+    # Return all the patterns for the application
+    #
     def all
       @patterns.keys
     end
