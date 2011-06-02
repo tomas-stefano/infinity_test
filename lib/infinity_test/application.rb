@@ -174,7 +174,8 @@ module InfinityTest
       config.notification_framework
     end
 
-    # Send the message,image and the actual ruby version to show in the notification system
+    # Send the message, image and the actual ruby version 
+    # to show in the notification system
     #
     def notify!(options)
       if notification_framework
