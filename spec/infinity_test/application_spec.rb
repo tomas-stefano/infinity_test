@@ -90,6 +90,22 @@ module InfinityTest
 
     end
 
+    describe '#setup!' do
+
+      it 'should prioritize rubies in the Hash options' do
+        application.config.use(:rubies => %w(jruby))
+        application.setup!(:rubies => %w(ree))
+        application.rubies.should == 'ree'
+      end
+
+      it 'should prioritize specific options in the Hash options' do
+        application.config.use(:specific_options => '-j')
+        application.setup!(:specific_options => '-x')
+        application.specific_options.should == '-x'
+      end
+
+    end
+
     describe '#have_gemfile?' do
 
       it "should return true when Gemfile exists" do
@@ -383,7 +399,7 @@ module InfinityTest
         match_data = /(infinity_test\/heuristics)/.match('infinity_test/heuristics') #<MatchData "infinity_test/heuristics" 1:"infinity_test/heuristics">
         application_with_rspec.files_to_run!(:test_for => match_data).should include 'spec/infinity_test/heuristics_spec.rb'
       end
-      
+
       it "should return the command with the test_loader" do
         app = application_with_test_unit
         app.should_receive(:all_test_files).and_return([ "lib/infinity_test/test_loader.rb", "test/people_test.rb"])

@@ -47,13 +47,18 @@ module InfinityTest
     # THIS IS NOT RESPONSABILITY OF Application instances!!!
     #
     def setup!(options)
+      rubies_to_use  = options[:rubies] || rubies
+      options_to_use = options[:specific_options] || specific_options
+      test_framework_to_use = options[:test_framework] || config.test_framework
+      framework_to_use = options[:app_framework]   || config.app_framework
+      use_verbose = options[:verbose] || config.verbose
       config.use(
-         :rubies => (options[:rubies] || rubies),
-         :specific_options => (options[:specific_options] || specific_options),
-         :test_framework => (options[:test_framework] || config.test_framework),
-         :app_framework => (options[:app_framework]   || config.app_framework),
+         :rubies => rubies_to_use,
+         :specific_options => options_to_use,
+         :test_framework => test_framework_to_use,
+         :app_framework => framework_to_use,
          :cucumber => options[:cucumber],
-         :verbose => options[:verbose] || config.verbose)
+         :verbose => use_verbose)
       config.skip_bundler! if options[:skip_bundler?]
       add_heuristics!
       heuristics_users_high_priority!
@@ -118,7 +123,7 @@ module InfinityTest
     def rubies
       config.rubies
     end
-    
+
     # Return the rubies specific options in the config file or the command line
     #
     def specific_options
@@ -214,7 +219,7 @@ module InfinityTest
     # Send the message,image and the actual ruby version to show in the notification system
     #
     def notify!(options)
-      if notification_framework        
+      if notification_framework
         message = parse_results(options[:results])
         title = options[:ruby_version]
         send(notification_framework).title(title).message(message).image(image_to_show).notify!
@@ -262,7 +267,7 @@ module InfinityTest
       files = "#{test_framework.test_loader} #{files}" if test_framework.respond_to?(:test_loader)
       files
     end
-    
+
     def search_files_to_run!(options)
       case options
       when MatchData
@@ -273,7 +278,7 @@ module InfinityTest
         else
           search_file(:pattern => options[:test_for][1], :in_dir => options[:in_dir]) if options.include?(:test_for)
         end
-      end      
+      end
     end
 
     # Search files under the dir(s) specified
@@ -289,7 +294,7 @@ module InfinityTest
     # Search files that matches with the pattern
     #
     def search_file(options)
-      files = all_test_files.grep(/#{options[:pattern]}/i)      
+      files = all_test_files.grep(/#{options[:pattern]}/i)
       search_files_in_dir(files, :in_dir => options[:in_dir]).join(' ')
     end
 
