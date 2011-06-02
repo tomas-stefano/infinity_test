@@ -3,8 +3,20 @@ module InfinityTest
     include InfinityTest::TestLibrary
     include InfinityTest::ApplicationLibrary
     include Notifiers
+    extend Forwardable
 
     attr_accessor :config, :watchr, :global_commands
+
+    def_delegator :@config, :rubies, :rubies
+    def_delegator :@config, :sucess_image, :sucess_image
+    def_delegator :@config, :failure_image, :failure_image
+    def_delegator :@config, :pending_image, :pending_image
+    def_delegator :@config, :before_callback, :before_callback
+    def_delegator :@config, :after_callback, :after_callback
+    def_delegator :@config, :before_each_ruby_callback, :before_each_ruby_callback
+    def_delegator :@config, :after_each_ruby_callback, :after_each_ruby_callback
+    def_delegator :@config, :specific_options, :specific_options
+    def_delegator :@config, :verbose, :verbose?
 
     # Initialize the Application object with the configuration instance to
     # load configuration and set properly
@@ -74,60 +86,6 @@ module InfinityTest
     #
     def global_commands
       @global_commands ||= construct_commands
-    end
-
-    # Return the sucess image to show in the notifications
-    #
-    def sucess_image
-      config.sucess_image
-    end
-
-    # Return the failure image to show in the notifications
-    #
-    def failure_image
-      config.failure_image
-    end
-
-    # Return the pending image to show in the notifications
-    #
-    def pending_image
-      config.pending_image
-    end
-
-    # Return the block object setting in the config file
-    #
-    def before_callback
-      config.before_callback
-    end
-
-    # Return the block object setting in the config file
-    #
-    def after_callback
-      config.after_callback
-    end
-
-    # Return the block object setting in the before(:each_ruby) block
-    #
-    def before_each_ruby_callback
-      config.before_each_ruby_callback
-    end
-
-    # Return the block object setting in the after(:each_ruby) block
-    #
-    def after_each_ruby_callback
-      config.after_each_ruby_callback
-    end
-
-    # Return the rubies setting in the config file or the command line
-    #
-    def rubies
-      config.rubies
-    end
-
-    # Return the rubies specific options in the config file or the command line
-    #
-    def specific_options
-      config.specific_options
     end
 
     # Return true if verbose mode is on
