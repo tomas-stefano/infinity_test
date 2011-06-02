@@ -27,8 +27,11 @@ module InfinityTest
     end
     
     def files_in_directory(directory)
-      if directory.is_a?(Symbol)
+      case directory
+      when Symbol
         Dir["*/#{directory}/*"]
+      when Array
+        directory.collect { |dir| files_in_directory(dir)}.flatten
       else
         Dir["#{directory}/*"]
       end

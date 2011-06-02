@@ -28,6 +28,12 @@ module InfinityTest
         end
       end
       
+      it 'should return all files in the dirs specified as array' do
+        rails_app do
+          application_file.search(:all => :files, :in_dir => [:helpers, :models]).should == ["spec/helpers/people_helper_spec.rb", "spec/models/project_spec.rb", "spec/models/task_spec.rb"]
+        end
+      end
+      
     end
   end
 end
