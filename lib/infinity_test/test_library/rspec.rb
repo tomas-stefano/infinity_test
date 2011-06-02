@@ -25,17 +25,19 @@ module InfinityTest
       def construct_rubies_commands(file=nil)
         commands = {}
         environments do |environment, ruby_version|
-          rspec_binary = search_rspec_two(environment)
-          rspec_binary = search_rspec_one(environment) unless have_binary?(rspec_binary)
           specific_options = @specific_options[ruby_version]
           commands[ruby_version] = construct_command(
                                       :for => ruby_version,
-                                      :binary => rspec_binary,
+                                      :binary => search_rspec_two_or_one(environment),
                                       :file => file,
                                       :environment => environment,
                                       :specific_options => specific_options)
         end
         commands
+      end
+      
+      def search_rspec_two_or_one(environment)
+        search_rspec_two(environment) || search_rspec_one(environment)
       end
 
       def search_files(file_pattern)
