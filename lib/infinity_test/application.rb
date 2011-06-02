@@ -181,8 +181,6 @@ module InfinityTest
         message = parse_results(options[:results])
         title = options[:ruby_version]
         send(notification_framework).title(title).message(message).image(image_to_show).notify!
-      else
-        # skip(do nothing) when not have notification framework
       end
     end
 
