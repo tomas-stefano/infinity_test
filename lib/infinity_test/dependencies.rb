@@ -7,8 +7,15 @@ module InfinityTest
     
     RVM_LIBRARY_DIRECTORY = File.expand_path("~/.rvm/lib")
 
-    
     class << self
+      
+      def require_rvm
+        begin
+          require_home_rvm
+        rescue LoadError, NameError
+          try_to_require_system_wide
+        end
+      end
       
       def require_rvm_ruby_api
         require 'rvm'
@@ -39,14 +46,6 @@ module InfinityTest
         end        
       end
       
-      def require_rvm
-        begin
-          require_home_rvm
-        rescue LoadError, NameError
-          try_to_require_system_wide
-        end
-      end
-      
       def require_without_rubygems(options)
         gem_name = options[:gem]
         begin
@@ -63,7 +62,7 @@ module InfinityTest
         puts "The RVM is installed?"
         puts "If not, please see http://rvm.beginrescueend.com/rvm/install/"
         puts "If so, try to run:"
-        puts "\t rvm update --head (or if you're using the head of rvm try: rvm get head)"
+        puts "\t rvm get head (if you're using an old rvm try: rvm update --head)"
         puts "\nIf the error continues, please create an issue in http://github.com/tomas-stefano/infinity_test"
         puts 'Thanks :)'
         puts
