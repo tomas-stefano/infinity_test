@@ -64,15 +64,5 @@ module InfinityTest
 
     end
 
-    describe '#print_message' do
-
-      it "should print the following message" do
-        example = Example.new
-        example.should_receive(:puts).with("\n Ruby => 1.9.2:  I searched the rspec binary path and I don't find nothing. You have the rspec installed in this version?")
-        example.print_message(:rspec, '1.9.2')
-      end
-
-    end
-
   end
 end
