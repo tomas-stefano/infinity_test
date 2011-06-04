@@ -14,6 +14,7 @@ module InfinityTest
       binary :cucumber
       binary :rspec, :name => :rspec_two
       binary :spec, :name => :rspec_one
+      binary :bundle
     end
 
     describe '.binary' do
@@ -40,6 +41,11 @@ module InfinityTest
       it "should create the binary for rspec one with sufix of rspec_one" do
         @current.should_receive(:path_for).with('spec')
         @example.search_rspec_one(@current)
+      end
+      
+      it 'should return the second attempt on string' do
+        @current.should_receive(:path_for).with('bundle')
+        @example.search_bundle(@current)
       end
 
     end

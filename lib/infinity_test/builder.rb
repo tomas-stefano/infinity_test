@@ -27,6 +27,7 @@ module InfinityTest
       bundle_binary = search_bundle(environment)
       unless have_binary?(bundle_binary)
         print_message('bundle', environment.expanded_name)
+        exit(1)
       else
         %{#{bundle_binary} exec #{rvm_ruby_version} #{command}}
       end
