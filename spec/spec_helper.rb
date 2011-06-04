@@ -118,6 +118,10 @@ RSpec.configure do |config|
   def rails_app(&block)
     factories_for('rails_app', &block)
   end
+  
+  def rubygems_lib(&block)
+    factories_for('rubygems_lib', &block)
+  end
 
   def factories_for(directory, &block)
     Dir.chdir("#{infinity_test_root}/spec/factories/#{directory}", &block)

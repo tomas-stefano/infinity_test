@@ -10,6 +10,15 @@ task :clean_without_verbose do
   Rake::Task['clean'].invoke
 end
 
+task :console do
+  period_dir = File.expand_path('.')
+  $LOAD_PATH.unshift(period_dir) unless $LOAD_PATH.include?(period_dir)
+  require 'irb'
+  require 'infinity_test'
+  ARGV.clear
+  IRB.start
+end
+
 $:.unshift(File.dirname(__FILE__) + '/lib')
 
 POST_MESSAGE = <<-POST_INSTALL_MESSAGE
@@ -55,7 +64,6 @@ rescue LoadError
   [sudo] gem install jeweler"
   puts("-" * 80)
 end
-
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new("spec") do |t|

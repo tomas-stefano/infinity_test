@@ -79,11 +79,13 @@ module InfinityTest
       let(:binary_path_match_data) { match_data = /(infinity_test\/binary_path)/.match('infinity_test/binary_path') }
 
       it "should call the contruct commands for test file" do
+        pending
         @application.should_receive(:run_commands_for_file).with('spec/infinity_test/binary_path_spec.rb')
         @heuristics.run(:test_for => binary_path_match_data)
       end
 
       it "should run all the test files" do
+        pending
         @application.should_receive(:run_commands_for_file).with(@application.all_test_files.join(' '))
         @heuristics.run(:all => :files)
       end

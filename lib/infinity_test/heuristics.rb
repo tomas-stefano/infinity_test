@@ -35,7 +35,8 @@ module InfinityTest
     end
 
     def run(options)
-      @application.run_commands_for_file(@application.files_to_run!(options))
+      application_file = ApplicationFile.new(:test => @application.test_framework, :app => @application.app_framework)
+      @application.run_commands_for_file(application_file.search(options))
     end
 
   end

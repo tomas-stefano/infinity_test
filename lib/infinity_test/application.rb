@@ -62,7 +62,7 @@ module InfinityTest
       rubies_to_use  = options[:rubies] || rubies
       options_to_use = options[:specific_options] || specific_options
       test_framework_to_use = options[:test_framework] || config.test_framework
-      framework_to_use = options[:app_framework]   || config.app_framework
+      framework_to_use = options[:app_framework] || config.app_framework
       use_verbose = options[:verbose] || config.verbose
       config.use(
          :rubies => rubies_to_use,
@@ -205,60 +205,6 @@ module InfinityTest
       else
         sucess_image
       end
-    end
-
-    # Return the files that match by the options
-    # This very used in the #run method called in the heuristics instances
-    #
-    # Example:
-    #
-    #  files_to_run!(:all => :files) # => Return all test files
-    #  files_to_run!(:all => :files, :in_dir => :models) # => Return all the test files in the models directory
-    #  files_to_run!(:test_for => match_data)  # => Return the tests that match with the MatchData Object
-    #  files_to_run!(:test_for => match_data, :in_dir => :controllers) # => Return the tests that match with the MatchData Object
-    #  files_to_run!(match_data) # => return the test file
-    #
-    def files_to_run!(options)
-      files = search_files_to_run!(options)
-      # Fix fo Test::Unit - But this is not responsability of the Application instances - Refactoring this
-      files = "#{test_framework.test_loader} #{files}" if test_framework.respond_to?(:test_loader)
-      files
-    end
-
-    def search_files_to_run!(options)
-      case options
-      when MatchData
-        options.to_s
-      when Hash,Symbol
-        if options.equal?(:all) or options.include?(:all)
-          search_files_in_dir(all_test_files, :in_dir => options[:in_dir]).join(' ')
-        else
-          search_file(:pattern => options[:test_for][1], :in_dir => options[:in_dir]) if options.include?(:test_for)
-        end
-      end
-    end
-
-    # Search files under the dir(s) specified
-    #
-    def search_files_in_dir(files, options)
-      dirs = [options[:in_dir]].compact.flatten
-      match_files = dirs.collect do |directory|
-         files.select { |file| file.match(directory.to_s) }
-      end
-      match_files.empty? ? files : match_files
-    end
-
-    # Search files that matches with the pattern
-    #
-    def search_file(options)
-      files = all_test_files.grep(/#{options[:pattern]}/i)
-      search_files_in_dir(files, :in_dir => options[:in_dir]).join(' ')
-    end
-
-    # Return all the tests files in the User application
-    #
-    def all_test_files
-      test_framework.all_files
     end
 
     # Run commands for a file
