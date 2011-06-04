@@ -76,17 +76,15 @@ module InfinityTest
 
     describe '#run' do
 
-      let(:binary_path_match_data) { match_data = /(infinity_test\/binary_path)/.match('infinity_test/binary_path') }
+      let(:match_data) { "lib/infinity_test/binary_path.rb".match("^lib/*/(.*)\.rb") }
 
       it "should call the contruct commands for test file" do
-        pending
-        @application.should_receive(:run_commands_for_file).with('spec/infinity_test/binary_path_spec.rb')
-        @heuristics.run(:test_for => binary_path_match_data)
+        @heuristics.runner.should_receive(:run_commands_for_changed_file).with('spec/infinity_test/binary_path_spec.rb')
+        @heuristics.run(:test_for => match_data)
       end
 
       it "should run all the test files" do
-        pending
-        @application.should_receive(:run_commands_for_file).with(@application.all_test_files.join(' '))
+        @heuristics.runner.should_receive(:run_commands_for_changed_file).with(TestLibrary::Rspec.new.all_files.join(' '))
         @heuristics.run(:all => :files)
       end
 

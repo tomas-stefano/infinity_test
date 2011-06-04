@@ -339,6 +339,13 @@ module InfinityTest
 
     end
 
+    describe '#construct_commands_for_changed_files' do
+      it 'should pass responsability to test framework' do
+        application.test_framework.should_receive(:construct_commands).with('file_search_test.rb file_test.rb')
+        application.construct_commands_for_changed_files('file_search_test.rb file_test.rb')
+      end
+    end
+
     describe "#app framework" do
 
       it "should return the instance of Rails when app framework is Rails" do
@@ -361,26 +368,6 @@ module InfinityTest
       it "should return false when using Rspec" do
         app = application_with_rspec
         app.using_test_unit?.should be_false
-      end
-
-    end
-
-    describe '#run_commands_for_file' do
-
-      it "should run when have a file to run" do
-        @application.test_framework.should_receive(:construct_commands).and_return('rvm 1.9.2 ruby -S rspec')
-        @application.should_receive(:run!)
-        @application.run_commands_for_file('file.rb')
-      end
-
-      it "should not run when file is nil" do
-        @application.should_not_receive(:run!)
-        @application.run_commands_for_file(nil)
-      end
-
-      it "should not run when file is empty string" do
-        @application.should_not_receive(:run!)
-        @application.run_commands_for_file('')
       end
 
     end

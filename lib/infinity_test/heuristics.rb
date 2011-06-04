@@ -1,11 +1,12 @@
 module InfinityTest
   class Heuristics
-    attr_reader :patterns, :script
+    attr_reader :patterns, :script, :runner
 
     def initialize
       @patterns = {}
       @script = InfinityTest.watchr
       @application = InfinityTest.application
+      @runner = InfinityTest.runner
     end
 
     # This example tell to InfinityTest do_something when ruby_file.rb is changed:
@@ -18,6 +19,11 @@ module InfinityTest
       @patterns
     end
 
+    # Remove pattern(s)
+    #
+    #  remove('my_pattern.rb') # => Remove my_pattern.rb from heuristics
+    #  remove(:all) # => Remove all patterns
+    #
     def remove(pattern)
       if pattern == :all
         @patterns.clear
@@ -34,10 +40,25 @@ module InfinityTest
       @patterns.keys
     end
 
+    # Run the files that match by the options patterns
+    #
+    # Example:
+    #
+    #  run(:all => :files) # => Run all test files
+    #  run(:all => :files, :in_dir => :models) # => Run all the test files in the models directory
+    #  run(:test_for => match_data)  # => Run the tests that match with the MatchData Object
+    #  run(:test_for => match_data, :in_dir => :controllers) # => Run the tests that match with the MatchData Object
+    #  run(match_data) # => Run the test file
+    #
     def run(options)
-      application_file = ApplicationFile.new(:test => @application.test_framework, :app => @application.app_framework)
-      @application.run_commands_for_file(application_file.search(options))
+      files = application_file.search(options)
+      @runner.run_commands_for_changed_file(files)
     end
+    
+    private
+      def application_file
+        ApplicationFile.new(:test => @application.test_framework)
+      end
 
   end
 end

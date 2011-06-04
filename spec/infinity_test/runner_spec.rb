@@ -3,6 +3,7 @@ require 'spec_helper'
 describe InfinityTest::Runner do
 
   let(:runner_class) { InfinityTest::Runner }
+  let(:infinity_test_runner) { runner_class.new(['--rspec'])}
 
   describe '#initialize' do
 
@@ -22,6 +23,30 @@ describe InfinityTest::Runner do
     it "should call list heuristics" do
       heuristics_runner.should_receive(:list_heuristics!)
       heuristics_runner.run!
+    end
+
+  end
+  
+  describe '#run_commands_for_changed_file' do
+    before do
+      @application = InfinityTest.application
+    end
+
+    it "should run when have a file to run" do
+      # @application.test_framework.should_receive(:construct_commands).and_return('rvm 1.9.2 ruby -S rspec')
+      infinity_test_runner.application.should_receive(:construct_commands_for_changed_files).with('file.rb')
+      infinity_test_runner.application.should_receive(:run!)
+      infinity_test_runner.run_commands_for_changed_file('file.rb')
+    end
+
+    it "should not run when file is nil" do
+      infinity_test_runner.should_not_receive(:run!)
+      infinity_test_runner.run_commands_for_changed_file(nil)
+    end
+
+    it "should not run when file is empty string" do
+      infinity_test_runner.should_not_receive(:run!)
+      infinity_test_runner.run_commands_for_changed_file('')
     end
 
   end

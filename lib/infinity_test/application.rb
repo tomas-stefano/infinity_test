@@ -17,6 +17,8 @@ module InfinityTest
     def_delegator :@config, :after_each_ruby_callback, :after_each_ruby_callback
     def_delegator :@config, :specific_options, :specific_options
     def_delegator :@config, :verbose, :verbose?
+    def_delegator :@config, :notification_framework, :notification_framework
+    def_delegator :@config, :skip_bundler?, :skip_bundler?
 
     # Initialize the Application object with the configuration instance to
     # load configuration and set properly
@@ -54,28 +56,6 @@ module InfinityTest
       load_project_configuration   # because it's more easy to test
     end
 
-    # Setup over a precendence show below.
-    #
-    # THIS IS NOT RESPONSABILITY OF Application instances!!!
-    #
-    def setup!(options)
-      rubies_to_use  = options[:rubies] || rubies
-      options_to_use = options[:specific_options] || specific_options
-      test_framework_to_use = options[:test_framework] || config.test_framework
-      framework_to_use = options[:app_framework] || config.app_framework
-      use_verbose = options[:verbose] || config.verbose
-      config.use(
-         :rubies => rubies_to_use,
-         :specific_options => options_to_use,
-         :test_framework => test_framework_to_use,
-         :app_framework => framework_to_use,
-         :cucumber => options[:cucumber],
-         :verbose => use_verbose)
-      config.skip_bundler! if options[:skip_bundler?]
-      add_heuristics!
-      heuristics_users_high_priority!
-    end
-
     # Run the global commands
     #
     def run_global_commands!
@@ -88,13 +68,6 @@ module InfinityTest
       @global_commands ||= construct_commands
     end
 
-    # Return true if verbose mode is on
-    # Verbose mode is false as default
-    #
-    def verbose?
-      config.verbose
-    end
-
     # Return true if the user application has a Gemfile
     # Return false if not exist the Gemfile
     #
@@ -102,17 +75,16 @@ module InfinityTest
       File.exist?(gemfile)
     end
 
-    # Return false if you want the InfinityTest run with bundler
-    # Return true otherwise
-    #
-    def skip_bundler?
-      config.skip_bundler?
-    end
-
     # Contruct all the commands for the test framework
     #
     def construct_commands
       test_framework.construct_commands
+    end
+    
+    # Construct all the commands for the changed file
+    #
+    def construct_commands_for_changed_files(files)
+      test_framework.construct_commands(files)
     end
 
     # Return a instance of the test framework class
@@ -167,13 +139,6 @@ module InfinityTest
       after_callback.call if after_callback
     end
 
-    # Return the notification_framework setting in the configuration file
-    # Maybe is: :growl, :lib_notify
-    #
-    def notification_framework
-      config.notification_framework
-    end
-
     # Send the message, image and the actual ruby version 
     # to show in the notification system
     #
@@ -207,20 +172,32 @@ module InfinityTest
       end
     end
 
-    # Run commands for a file
-    # If dont have a file, do nothing
-    #
-    def run_commands_for_file(file)
-      if file and !file.empty?
-        commands = test_framework.construct_commands(file)
-        run!(commands)
-      end
-    end
-
     def say_the_ruby_version_and_run_the_command!(ruby_version, command)
       puts; puts "* { :ruby => #{ruby_version} }"
       puts command if verbose?
       Command.new(:ruby_version => ruby_version, :command => command).run!
+    end
+
+    # Setup over a precendence show below.
+    #
+    # THIS IS NOT RESPONSABILITY OF Application instances!!!
+    #
+    def setup!(options)
+      rubies_to_use  = options[:rubies] || rubies
+      options_to_use = options[:specific_options] || specific_options
+      test_framework_to_use = options[:test_framework] || config.test_framework
+      framework_to_use = options[:app_framework] || config.app_framework
+      use_verbose = options[:verbose] || config.verbose
+      config.use(
+         :rubies => rubies_to_use,
+         :specific_options => options_to_use,
+         :test_framework => test_framework_to_use,
+         :app_framework => framework_to_use,
+         :cucumber => options[:cucumber],
+         :verbose => use_verbose)
+      config.skip_bundler! if options[:skip_bundler?]
+      add_heuristics!
+      heuristics_users_high_priority!
     end
 
     private

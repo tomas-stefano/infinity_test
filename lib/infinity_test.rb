@@ -39,9 +39,13 @@ module InfinityTest
   def self.watchr
     @watchr ||= Watchr::Script.new
   end
+  
+  def self.runner
+    @runner ||= Runner.new(ARGV)
+  end
 
   def self.start!
-    Runner.new(ARGV).run!
+    runner.run!
   end
   
   def self.version
