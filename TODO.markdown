@@ -2,9 +2,16 @@ Future
 ======
 
 - Big refactoring
+- Fix heuristics for Rails/Test Unit users
 - Create a Rails Generator on the fly that receives some arguments and create a ./.infinity_test file
 - Support Cucumber
 - Run with failed tests (Focus mode!!)
+- Put a method in the configuration file called #ignore like:
+
+Example:
+
+     ignore :folders => %w(), :files => %w()
+
 - Put some methods in the configuration file like: #all_tests_pass?, #all_tests_pass_in_ruby? like:
 
 Example:
