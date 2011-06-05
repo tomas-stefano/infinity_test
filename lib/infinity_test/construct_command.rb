@@ -101,8 +101,15 @@ module InfinityTest
        end
     end
     
+    # If have files to run means that user changed a file and only that file needs to run right now
+    # Otherwise is full run and will run all tests
+    #
     def files_to_test
-      test_framework.test_files
+      if files_to_run.empty?
+        test_framework.test_files
+      else
+        files_to_run
+      end
     end
 
     private

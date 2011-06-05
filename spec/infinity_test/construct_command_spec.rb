@@ -120,6 +120,11 @@ module InfinityTest
         construct_command.files_to_test.should == files
       end
       
+      it 'should return the changed files if have files to run' do
+        construct = ConstructCommand.new(:files_to_run => 'test/unit/person_spec.rb')
+        construct.files_to_test.should == 'test/unit/person_spec.rb'
+      end
+
     end
 
   end
