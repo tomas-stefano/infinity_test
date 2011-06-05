@@ -1,9 +1,10 @@
 development
 ===========
 
+- Refactoring the ENTIRE LIBRARY (Separate responsabilities!)
 - Removing feature run(:all). Obs.: Removing JUST when is a symbol.
   The InfinityTest work with Hashes! Example(this works great!): run(:all => :tests)
-
+- Remove builder module
 
 v1.0.1
 ======
