@@ -65,7 +65,7 @@ module InfinityTest
     #
     def build!
       @command[version] = lambda do
-        if application.have_gemfile? and using_bundler?
+        if run_with_bundler?
           run_with_bundler
         else
           run_without_bundler
@@ -113,7 +113,11 @@ module InfinityTest
     end
 
     private
-
+    
+      def run_with_bundler?
+        application.have_gemfile? and using_bundler?
+      end
+      
       def using_bundler?
         not application.skip_bundler?
       end

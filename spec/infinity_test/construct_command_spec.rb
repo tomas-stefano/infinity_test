@@ -33,7 +33,8 @@ module InfinityTest
         end
         
         it 'should not run with bundler when pass skip bundler in the application' do
-          application_with :rubies => 'ree', :test_framework => :rspec, :skip_bundler => true
+          app = application_with :rubies => 'ree', :test_framework => :rspec, :skip_bundler => true
+          construct_command.should_receive(:run_with_bundler?).and_return(false)
           command = construct_command.create.command
           command['ree'].should_not include("bundle exec")
         end
@@ -70,7 +71,8 @@ module InfinityTest
         
         it 'should return nothing when not pass specific options' do
           application_with :rubies => '1.9.2', :specific_options => nil
-          construct_command.should_receive(:test_framework).at_least(:once).and_return(TestLibrary::Rspec.new(:rubies => '1.9.2'))          
+          construct_command.should_receive(:run_with_bundler?).and_return(false)
+          construct_command.should_receive(:test_framework).at_least(:once).and_return(TestLibrary::Rspec.new(:rubies => '1.9.2'))
           construct_command.create.command['1.9.2'].should include('rvm 1.9.2 ruby -S rspec')
         end
       end
