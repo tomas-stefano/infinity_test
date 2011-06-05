@@ -19,6 +19,7 @@ module InfinityTest
         it 'should include the ruby version to rvm and run with bundler' do
           construct_command.should_receive(:using_bundler?).and_return(true)
           construct_command.should_receive(:test_framework).at_least(:once).and_return(TestLibrary::Rspec.new(:rubies => '1.9.2'))
+          construct_command.application.should_receive(:using_test_unit?).and_return(false)
           command = construct_command.create.command
           command['1.9.2'].should include("rvm 1.9.2 ruby -S bundle exec rspec")
         end
@@ -37,6 +38,21 @@ module InfinityTest
           construct_command.should_receive(:run_with_bundler?).and_return(false)
           command = construct_command.create.command
           command['ree'].should_not include("bundle exec")
+        end
+        
+        it 'should place bundle exec first for test unit users' do
+          construct = ConstructCommand.new
+          app = application_with :rubies => 'ree', :test_framework => :test_unit, :skip_bundler => false
+          bundler_and_test_unit(construct)
+          command = construct.create.command
+          command['ree'].should =~ /^bundle exec/
+          command['ree'].should_not include('-S bundle exec')
+        end
+        
+        def bundler_and_test_unit(construct)
+          construct.should_receive(:using_bundler?).and_return(true)
+          construct.stub!(:binary_for).and_return(nil)
+          construct.should_receive(:test_framework).at_least(:once).and_return(TestLibrary::TestUnit.new)
         end
       end
       

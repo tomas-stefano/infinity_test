@@ -2,7 +2,6 @@ Future
 ======
 
 - Big refactoring
-- Fix fo Test::Unit with bundler (again =\ )
 - Create a Rails Generator on the fly that receives some arguments and create a ./.infinity_test file
 - Support Cucumber
 - Run with failed tests (Focus mode!!)

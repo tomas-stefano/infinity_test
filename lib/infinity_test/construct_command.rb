@@ -74,7 +74,11 @@ module InfinityTest
     end
 
     def run_with_bundler
-      %{#{defaults} -S bundle exec #{binary_name} #{files_to_test}}
+      if application.using_test_unit?
+        %{bundle exec #{defaults} #{files_to_test}}
+      else
+        %{#{defaults} -S bundle exec #{binary_name} #{files_to_test}}
+      end
     end
     
     def run_without_bundler

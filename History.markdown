@@ -5,6 +5,7 @@ development
 - Removing feature run(:all). Obs.: Removing JUST when is a symbol.
   The InfinityTest work with Hashes! Example(this works great!): run(:all => :tests)
 - Remove builder module
+- Fix fo Test::Unit with bundler (again =\ )
 
 v1.0.1
 ======
