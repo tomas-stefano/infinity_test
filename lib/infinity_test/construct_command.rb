@@ -82,7 +82,11 @@ module InfinityTest
     end
     
     def run_without_bundler
-      %{#{defaults} -S #{binary_name} #{files_to_test}}
+      if application.using_test_unit?
+        %{#{defaults} #{files_to_test}}
+      else
+        %{#{defaults} -S #{binary_name} #{files_to_test}}
+      end
     end
 
     def defaults

@@ -40,6 +40,16 @@ module InfinityTest
           command['ree'].should_not include("bundle exec")
         end
         
+        it 'should not include bundle exec either -S option for test unit users' do
+          construct = ConstructCommand.new
+          app = application_with :rubies => 'ree', :test_framework => :test_unit, :skip_bundler => true
+          construct.should_receive(:run_with_bundler?).and_return(false)
+          construct.stub!(:binary_for).and_return(nil)
+          construct.should_receive(:test_framework).at_least(:once).and_return(TestLibrary::TestUnit.new)
+          command = construct.create.command
+          command['ree'].should_not include('bundle exec', '-S')
+        end
+        
         it 'should place bundle exec first for test unit users' do
           construct = ConstructCommand.new
           app = application_with :rubies => 'ree', :test_framework => :test_unit, :skip_bundler => false
@@ -88,6 +98,7 @@ module InfinityTest
         it 'should return nothing when not pass specific options' do
           application_with :rubies => '1.9.2', :specific_options => nil
           construct_command.should_receive(:run_with_bundler?).and_return(false)
+          construct_command.application.should_receive(:using_test_unit?).and_return(false)
           construct_command.should_receive(:test_framework).at_least(:once).and_return(TestLibrary::Rspec.new(:rubies => '1.9.2'))
           construct_command.create.command['1.9.2'].should include('rvm 1.9.2 ruby -S rspec')
         end
