@@ -60,14 +60,6 @@ module InfinityTest
         config.notification_framework.should equal :lib_notify
       end
 
-      it "should not possible to set another notification framework" do
-        lambda { config.notifications(:dont_exist) }.should raise_exception(NotificationFrameworkDontSupported, "Notification :dont_exist don't supported. The Frameworks supported are: growl,lib_notify")
-      end
-
-      it "should raise exception for non supported notification framework" do
-        lambda { config.notifications(:snarfff) }.should raise_exception(NotificationFrameworkDontSupported, "Notification :snarfff don't supported. The Frameworks supported are: growl,lib_notify")
-      end
-
     end
 
     describe '#use' do
@@ -187,69 +179,6 @@ module InfinityTest
         config.exceptions_to_ignore.should be == %w(.svn .hg .git vendor tmp config rerun.txt)
       end
 
-    end
-
-    describe '#show_images' do
-
-      before { @config = Configuration.new }
-
-      let(:config) { @config }
-
-      context 'on default images' do
-        before { @config.notifications :growl }
-
-        it { config.sucess_image.should == image('simpson/sucess.jpg') }
-
-        it { config.pending_image.should == image('simpson/pending.jpg') }
-
-        it { config.failure_image.should == image('simpson/failure.gif') }
-
-      end
-
-      context 'on setting my own image' do
-        before { config.notifications :lib_notify }
-
-        it "should be possible to customize success image" do
-          config.show_images :sucess => image('other.png')
-          config.sucess_image.should == image('other.png')
-        end
-
-        it "should be possible to customize failure image" do
-          config.show_images :failure => image('failure_picture.png')
-          config.failure_image.should == image('failure_picture.png')
-        end
-
-        it "should be possible to customize failure image" do
-          config.show_images :pending => image('pending_picture.png')
-          config.pending_image.should == image('pending_picture.png')
-        end
-      end
-
-      context 'setting the dirrectory image or modes' do
-        before { config.notifications :growl }
-
-        it "should possible to change the dir of images" do
-          config.show_images :mode => :street_fighter
-          config.pending_image.should == image('street_fighter/pending.gif')
-        end
-
-        it "should possible to change the dir of the images" do
-          config.show_images :mode => :toy_story
-          config.sucess_image.should == image('toy_story/sucess.png')
-        end
-
-        it "should possible to change the dir of the images" do
-          config.show_images :mode => :fuuu
-          config.sucess_image.should == image('fuuu/sucess.png')
-          config.pending_image.should == image('fuuu/pending.png')
-          config.failure_image.should == image('fuuu/failure.png')
-        end
-
-        it "should possible to change the dir of the images" do
-          config.show_images :mode => custom_image_dir
-          config.sucess_image.should == custom_image('images/sucess.png')
-        end
-      end
     end
 
     describe '#before_run' do
