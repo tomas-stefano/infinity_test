@@ -179,6 +179,12 @@ module InfinityTest
 
       end
 
+      describe '#defaults' do
+        it 'should return the load path' do
+          TestUnit.new.defaults.should == %{-I"lib:test"}
+        end
+      end
+
     end
   end
 end

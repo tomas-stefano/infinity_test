@@ -2,7 +2,6 @@ module InfinityTest
   class TestFramework
     include InfinityTest::BinaryPath
     include InfinityTest::Environment
-    include InfinityTest::Builder
 
     binary :bundle
 
@@ -60,9 +59,7 @@ module InfinityTest
     # create_accessors({ :example => '...', :failure => '...'}) # => attr_accessor :example, :failure
     #
     def self.create_accessors(hash)
-      hash.keys.each do |attribute|
-        attr_accessor attribute
-      end
+      hash.keys.each { |attribute| attr_accessor attribute }
     end
 
     # Create the instance pass in the patterns options

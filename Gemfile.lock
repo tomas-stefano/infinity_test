@@ -19,20 +19,16 @@ GEM
     gherkin (2.2.9)
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
-    gherkin (2.2.9-java)
-      json (~> 1.4.6)
-      term-ansicolor (~> 1.0.5)
     git (1.2.5)
     jeweler (1.6.2)
       bundler (~> 1.0)
       git (>= 1.2.5)
       rake
     json (1.4.6)
-    json (1.4.6-java)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     notifiers (1.1.0)
-    rake (0.9.1)
+    rake (0.8.7)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -57,7 +53,6 @@ GEM
     watchr (0.7)
 
 PLATFORMS
-  java
   ruby
 
 DEPENDENCIES
@@ -66,6 +61,7 @@ DEPENDENCIES
   fuubar (= 0.0.5)
   jeweler (= 1.6.2)
   notifiers (= 1.1.0)
+  rake (= 0.8.7)
   rspec (>= 2.6.0)
   ruby-debug19
   watchr (= 0.7)

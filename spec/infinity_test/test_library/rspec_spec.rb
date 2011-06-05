@@ -29,19 +29,17 @@ module InfinityTest
         Rspec.new.test_pattern.should == 'spec/**/*_spec.rb'
       end
 
-      describe '#search_rspec_two_or_one' do
+      describe '#binary_search' do
         let(:environment) { mock(RVM::Environment) }
         it 'should return the rspec two when have the rspec 2 binary' do
           rspec.should_receive(:search_rspec_two).with(environment).and_return("rspec")
-          # rspec.should_receive(:have_binary?).and_return(true)
-          rspec.search_rspec_two_or_one(environment).should == "rspec"
+          rspec.binary_search(environment).should == "rspec"
         end
         
         it 'should return the rspec one when not have the rspec 2 binary' do
           rspec.should_receive(:search_rspec_two).with(environment).and_return(nil)
-          # rspec.should_receive(:have_binary?).and_return(false)
           rspec.should_receive(:search_rspec_one).and_return('spec')
-          rspec.search_rspec_two_or_one(environment).should == "spec"
+          rspec.binary_search(environment).should == "spec"
         end
         
       end

@@ -65,7 +65,11 @@ module InfinityTest
     # Construct the Global Commands and cache for all suite
     #
     def global_commands
-      @global_commands ||= construct_commands
+      @global_commands ||= construct_command.create.command
+    end
+    
+    def construct_command
+      ConstructCommand.new
     end
 
     # Return true if the user application has a Gemfile
@@ -74,17 +78,11 @@ module InfinityTest
     def have_gemfile?
       File.exist?(gemfile)
     end
-
-    # Contruct all the commands for the test framework
-    #
-    def construct_commands
-      test_framework.construct_commands
-    end
     
     # Construct all the commands for the changed file
     #
     def construct_commands_for_changed_files(files)
-      test_framework.construct_commands(files)
+      ConstructCommand.new(:files_to_run => files).create.command
     end
 
     # Return a instance of the test framework class
@@ -121,6 +119,10 @@ module InfinityTest
     def heuristics_users_high_priority!
       @watchr.rules.reverse!
     end
+    
+    def binary_search(environment)
+      test_framework.binary_search(environment)
+    end
 
     # Pass many commands(expecting something that talk like Hash) and run them
     # First, triggers all the before each callbacks, run the commands
@@ -139,8 +141,7 @@ module InfinityTest
       after_callback.call if after_callback
     end
 
-    # Send the message, image and the actual ruby version 
-    # to show in the notification system
+    # Send the message, image and the actual ruby version to show in the notification system
     #
     def notify!(options)
       if notification_framework

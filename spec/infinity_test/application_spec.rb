@@ -308,13 +308,15 @@ module InfinityTest
     describe '#global_commands' do
 
       it "should call construct commands and assign to the global_commands" do
-        @application.should_receive(:construct_commands).and_return(['rvm ...'])
-        @application.global_commands.should == ['rvm ...']
+        @application.should_receive(:construct_command).and_return(ConstructCommand.new)
+        @application.global_commands
       end
 
       it "should cache the global_commands instance variable" do
         expected = ['rvm 1.9.2']
-        @application.should_receive(:construct_commands).once.and_return(expected)
+        construct_command = ConstructCommand.new
+        construct_command.stub_chain(:create, :command => expected)
+        @application.should_receive(:construct_command).once.and_return(construct_command)
         2. times { @application.global_commands.should equal expected }
       end
 
@@ -330,18 +332,16 @@ module InfinityTest
 
     end
 
-    describe '#construct_commands' do
-
-      it "should call construct_commands on the test_framework" do
-        application.test_framework.should_receive(:construct_commands)
-        application.construct_commands
-      end
-
+    describe '#construct_command' do
+      it { @application.construct_command.should be_instance_of(ConstructCommand) }
     end
 
     describe '#construct_commands_for_changed_files' do
+      
       it 'should pass responsability to test framework' do
-        application.test_framework.should_receive(:construct_commands).with('file_search_test.rb file_test.rb')
+        construct_command = ConstructCommand.new
+        options = { :files_to_run => 'file_search_test.rb file_test.rb' }
+        ConstructCommand.should_receive(:new).with(options).and_return(construct_command)
         application.construct_commands_for_changed_files('file_search_test.rb file_test.rb')
       end
     end
@@ -370,6 +370,19 @@ module InfinityTest
         app.using_test_unit?.should be_false
       end
 
+    end
+
+    describe '#binary_search' do
+      before do
+        @environment = RVM.current
+        @app_rspec = application_with_rspec
+        @app_test_unit = application_with_test_unit
+      end
+
+      it 'should return the rspec binary when the application is using rspec' do
+        @app_rspec.should_receive(:binary_search).with(@environment).and_return("rspec")
+        @app_rspec.binary_search(@environment).should == "rspec"
+      end
     end
 
   end

@@ -4,22 +4,12 @@ module InfinityTest
       parse_results :tests => /(\d+) tests/, :assertions => /(\d+) assertions/,
                     :failures => /(\d+) failures/, :errors => /(\d+) errors/
 
+      attr_accessor :defaults
+
       def initialize(options={})
         super(options)
         @test_pattern = 'test/**/*_test.rb'
-      end
-
-      def construct_rubies_commands(file=nil)
-        command = {}
-        environments do |environment, ruby_version|
-          command[ruby_version] = construct_command(
-                                  :for => ruby_version,
-                                  :load_path => 'lib:test',
-                                  :file => file,
-                                  :environment => environment,
-                                  :skip_binary? => true)
-        end
-        command
+        @defaults = %{-I"lib:test"}
       end
 
       def test_files
@@ -30,7 +20,6 @@ module InfinityTest
         return file if file
         test_files
       end
-      
 
       def test_loader
         $LOAD_PATH.each do |path|

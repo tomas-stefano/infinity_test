@@ -143,6 +143,17 @@ module InfinityTest
           Bacon.new.search_bacon(current_env).should match /bacon/
         end
 
+        it "should match bacon in the string" do
+          current_env.should_receive(:path_for).and_return('bacon')
+          Bacon.new.binary_search(current_env).should match /bacon/
+        end
+
+      end
+
+      describe '#defaults' do
+        it 'should added the load path' do
+          Bacon.new.defaults.should == %{-I"lib:spec"}
+        end
       end
 
     end

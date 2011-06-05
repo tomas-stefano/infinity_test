@@ -8,6 +8,7 @@ module InfinityTest
 
     def print_message(gem_name, ruby_version)
       puts "\n Ruby => #{ruby_version}:  I searched the #{gem_name} binary path and I don't find nothing. You have the #{gem_name} installed in this ruby version?"
+      exit(1)
     end
 
     def search_binary(binary_name, options)

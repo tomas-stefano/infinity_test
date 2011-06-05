@@ -20,6 +20,7 @@ RSpec.configure do |config|
   def application_with(options)
     application = InfinityTest::Application.new
     application.config.use(options)
+    InfinityTest.stub(:application).and_return(application)
     application
   end
 
