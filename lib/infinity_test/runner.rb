@@ -12,8 +12,11 @@ module InfinityTest
     #
     def run!
       @application.load_configuration_file_or_read_the_options!(@options)
-      if @options[:show_heuristics?]
+      case
+      when options.include?(:show_heuristics?)
         list_heuristics!
+      when options.include?(:generate_file)
+        Generator.new(options)
       else
         @application.run_global_commands!
         start_continuous_testing!

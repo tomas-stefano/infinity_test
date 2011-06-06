@@ -90,15 +90,25 @@ module InfinityTest
         @options[:app_framework].should equal :rubygems
       end
 
-      it "should parse the cucumber option" do
-        pending
-        parse_options('--cucumber')
-        @options[:cucumber].should be_true
-      end
+      # it "should parse the cucumber option" do
+      #   pending
+      #   parse_options('--cucumber')
+      #   @options[:cucumber].should be_true
+      # end
 
       it "should parse the patterns options" do
         parse_options('--heuristics')
         @options[:show_heuristics?].should be_true
+      end
+      
+      it 'should parse the generate file options' do
+        parse_options('--generate-file')
+        @options[:generate_file].should be_true
+      end
+      
+      it 'generate_file shoudl be false as defaults' do
+        parse_options('--heuristics')
+        @options[:generate_file].should be_false
       end
 
     end

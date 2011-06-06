@@ -2,11 +2,16 @@ require 'optparse'
 
 module InfinityTest
   class Options < Hash
+    OPTIONS = [ :test_unit, :rspec, :bacon, 
+                :rubygems, :rails, 
+                :rubies, :verbose, :patterns, :bundler, 
+                :generate_file,
+                :version]
 
     def initialize(arguments)
       super()
       @options = OptionParser.new do |options|
-        [:test_unit, :rspec, :bacon, :rubygems, :rails, :rubies, :verbose, :patterns, :bundler, :version].each do |name|
+        OPTIONS.each do |name|
           send("parse_#{name}", options)
         end
         options.banner = [ "Usage: infinity_test [options]", "Starts a continuous test server."].join("\n")
@@ -83,6 +88,12 @@ module InfinityTest
     def parse_bundler(options)
       options.on('--skip-bundler', "Bypass Infinity Test's Bundler support, even if a Gemfile is present") do
         self[:skip_bundler?] = true
+      end
+    end
+    
+    def parse_generate_file(options)
+      options.on('--generate-file', 'Generate a .infinity_test file with options passed in cli.') do
+        self[:generate_file] = true
       end
     end
 

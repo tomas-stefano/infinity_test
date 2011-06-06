@@ -12,6 +12,7 @@ module InfinityTest
   autoload :Environment, 'infinity_test/environment'
   autoload :Heuristics, 'infinity_test/heuristics'
   autoload :HeuristicsHelper, 'infinity_test/heuristics_helper'
+  autoload :Generator, 'infinity_test/generator'
   autoload :Notification, 'infinity_test/notification'
   autoload :Options, 'infinity_test/options'
   autoload :Runner, 'infinity_test/runner'
