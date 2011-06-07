@@ -250,7 +250,7 @@ module InfinityTest
       end
 
       it "should return true when set verbose to true" do
-        @application.config.verbose = true
+        @application.config.use :verbose => true
         @application.verbose?.should be_true
       end
 

@@ -3,7 +3,6 @@ Future
 
 - Big refactoring
 - Fix heuristics for Rails/Test Unit users
-- Create a Rails Generator on the fly that receives some arguments and create a ./.infinity_test file
 - Support Cucumber
 - Run with failed tests (Focus mode!!)
 - Put a method in the configuration file called #ignore like:

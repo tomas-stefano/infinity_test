@@ -16,6 +16,7 @@ module InfinityTest
   autoload :Notification, 'infinity_test/notification'
   autoload :Options, 'infinity_test/options'
   autoload :Runner, 'infinity_test/runner'
+  autoload :Setup, 'infinity_test/setup'
   autoload :TestFramework, 'infinity_test/test_framework'
 
   module ApplicationLibrary

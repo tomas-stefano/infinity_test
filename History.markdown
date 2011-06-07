@@ -6,6 +6,17 @@ development
   The InfinityTest work with Hashes! Example(this works great!): run(:all => :tests)
 - Remove builder module
 - Fix fo Test::Unit with bundler (again =\ )
+- Create a Generator on the fly that receives some arguments and create a ./.infinity_test file
+Example:
+   
+     infinity_test --generate-file --rspec --rails
+
+Will generate this:
+
+     infinity_test do
+        use :test_framework => :rspec, :app_framework => :rails
+        ignore :folders => %w(), :files => %w()
+     end
 
 v1.0.1
 ======

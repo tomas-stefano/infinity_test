@@ -2,24 +2,29 @@ module InfinityTest
   class Configuration
     extend Forwardable
 
-    attr_accessor :notification, :rubies, :test_framework, :app_framework,
-    :exceptions_to_ignore, :cucumber, :verbose, :specific_options,
-    :before_callback, :before_each_ruby_callback, :before_environment_callback,
-    :after_callback, :after_each_ruby_callback
+    attr_accessor :notification, :setup, :exceptions_to_ignore, :before_callback, :after_callback,
+    :before_each_ruby_callback, :before_environment_callback, :after_each_ruby_callback
 
     def_delegator :@notification, :sucess_image, :sucess_image
     def_delegator :@notification, :pending_image, :pending_image
     def_delegator :@notification, :failure_image, :failure_image    
     def_delegator :@notification, :notifier, :notification_framework
 
+    def_delegator :@setup, :test_framework, :test_framework
+    def_delegator :@setup, :app_framework, :app_framework
+    def_delegator :@setup, :verbose, :verbose
+    def_delegator :@setup, :specific_options, :specific_options
+    def_delegator :@setup, :cucumber, :cucumber
+    def_delegator :@setup, :cucumber?, :cucumber?
+    def_delegator :@setup, :rubies, :rubies
+    def_delegator :@setup, :gemset, :gemset
+
     # Initialize the Configuration object that keeps the images, callbacks, rubies
     # and the test framework
     #
     def initialize
-      @test_framework = :test_unit
       @notification = Notification.new
-      @app_framework = :rubygems
-      @verbose = false
+      @setup = Setup.new
     end
 
     # Set the notification framework to use with Infinity Test.
@@ -41,12 +46,14 @@ module InfinityTest
       self
     end
 
-    # The options method to set:
-    #
-    # * test framework
-    # * ruby versions
-    # * verbose mode
-    # * app_framework
+    # ==== Options
+    # :rubies           - Specify Ruby version(s) to test against
+    # :specific_options - Specific options to run in a specified ruby
+    # :test_framework   - Test Framework to use (Rspec, Bacon, Test::Unit(defaults))
+    # :app_framework    - Framework to use (Rails, Rubygems library(defaults))
+    # :verbose          - Print commands before executing them
+    # :gemset           - Use a specific gemset for each ruby
+    # :cucumber         - Use cucumber(experimental feature)
     #
     # Here is the example of Little Domain Language:
     #
@@ -57,22 +64,7 @@ module InfinityTest
     # use :test_framework => :rspec, :app_framework => :rails
     #
     def use(options={})
-      rubies = options[:rubies]
-      @rubies = (rubies.is_a?(Array) ? rubies.join(',') : rubies) || []
-      @specific_options = options[:specific_options]
-      @test_framework = options[:test_framework] || @test_framework
-      @app_framework  = options[:app_framework]  || @app_framework
-      @verbose        = options[:verbose]        || @verbose
-      @cucumber       = options[:cucumber]
-      setting_gemset_for_each_rubies(options[:gemset]) if options[:gemset]
-    end
-
-    # Setting a gemset for each rubies
-    #
-    # setting_gemset_for_each_rubies('infinity_test') # => ['1.8.7@infinity_test', '1.9.2@infinity_test']
-    #
-    def setting_gemset_for_each_rubies(gemset)
-      @rubies = @rubies.split(',').collect { |ruby| ruby << "@#{gemset}" }.join(',')
+      @setup = Setup.new(options)
     end
 
     # InfinityTest try to use bundler if Gemfile is present.
@@ -86,13 +78,6 @@ module InfinityTest
     #
     def skip_bundler?
       @skip_bundler ? true : false
-    end
-
-    # Return true if pass the cucumber option
-    # OBS.: This is a working progress.
-    #
-    def cucumber?
-      @cucumber
     end
 
     # Method to use to ignore some dir/files changes

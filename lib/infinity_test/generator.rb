@@ -1,9 +1,8 @@
-require 'erb'
 module InfinityTest
   class Generator
-    
-    def initialize(options)
-      @options = options
+    attr_reader :options
+    def initialize(configuration_options)
+      @options = configuration_options
       create_file '.infinity_test'
     end
     
@@ -17,6 +16,16 @@ module InfinityTest
     
     def template
       File.join(File.dirname(__FILE__), 'template.erb')
+    end
+    
+    def look_options_for_use_method!
+      options_to_use = {}
+      options_to_use[:test_framework] = options[:test_framework] if options[:test_framework]
+      options_to_use[:app_framework] = options[:app_framework] if options[:app_framework]
+      options_to_use[:verbose] = options[:verbose] if options[:verbose]
+      options_to_use[:skip_bundler] = options[:skip_bundler] if options[:skip_bundler]
+      options_to_use[:rubies] = options[:rubies] if options[:rubies]
+      "use(#{options_to_use})"
     end
 
   end

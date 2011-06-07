@@ -11,3 +11,4 @@ rerun.txt
 *.rbc
 *~
 bin/*.rbc
+.infinity_test_file

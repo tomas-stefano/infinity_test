@@ -92,6 +92,7 @@ RSpec.configure do |config|
   def environment_name
     @environment_name ||= current_env.environment_name
   end
+  alias :current_ruby :environment_name
 
   def application_with_gemfile(application)
     application.should_receive(:have_gemfile?).and_return(true)

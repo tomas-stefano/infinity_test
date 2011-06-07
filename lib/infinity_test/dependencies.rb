@@ -74,6 +74,7 @@ module InfinityTest
 
 end
 
+require 'erb'
 InfinityTest::Dependencies.require_rvm
 InfinityTest::Dependencies.require_without_rubygems :gem => 'watchr'
 InfinityTest::Dependencies.require_without_rubygems :gem => 'notifiers'
