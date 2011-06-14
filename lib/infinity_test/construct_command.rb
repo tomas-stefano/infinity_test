@@ -25,7 +25,7 @@ module InfinityTest
       end
       self
     end
-    
+
     # If the user dont pass rubies then will use only the current ruby
     #
     def rubies
@@ -42,14 +42,14 @@ module InfinityTest
     def build_command(&block)
       block.call(self)
     end
-    
+
     # Adding a ruby version as a key in the Hash
     #
     def version=(ruby_version)
       @command[ruby_version] = ''
       @version = ruby_version
     end
-    
+
     # Call binary of rspec two, rspec one or bacon, if using test unit return nothing
     #
     def binary_for(environment)
@@ -58,7 +58,7 @@ module InfinityTest
         print_message(binary_name, version) unless have_binary?(binary_name)
       end
     end
-    
+
     # Build command for each ruby
     # Run with bundler if the application have a gemfile and the user don't want to skipped
     # Run without bundler otherwise
@@ -80,7 +80,7 @@ module InfinityTest
         %{#{defaults} -S bundle exec #{binary_name} #{files_to_test}}
       end
     end
-    
+
     def run_without_bundler
       if application.using_test_unit?
         %{#{defaults} #{files_to_test}}
@@ -94,21 +94,21 @@ module InfinityTest
       cmd << %{#{ruby_options}} if ruby_options
       cmd
     end
-    
+
     def ruby_options
       options = ""
-      options << specific_options if specific_options
+      options << " #{specific_options}" if specific_options
       options << %{ #{test_framework.defaults}} if test_framework.respond_to?(:defaults)
       options
     end
-    
+
     def specific_options
       options = application.specific_options
        if options
          %{#{options}} unless options.empty?
        end
     end
-    
+
     # If have files to run means that user changed a file and only that file needs to run right now
     # Otherwise is full run and will run all tests
     #
@@ -121,11 +121,11 @@ module InfinityTest
     end
 
     private
-    
+
       def run_with_bundler?
         application.have_gemfile? and using_bundler?
       end
-      
+
       def using_bundler?
         not application.skip_bundler?
       end
