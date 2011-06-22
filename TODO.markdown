@@ -1,30 +1,27 @@
 Future
 ======
 
+- Don't run a suite tests when don't have a test file to run(Bug in Test::Unit)
 - Big refactoring
 - Fix heuristics for Rails/Test Unit users
 - Support Cucumber
 - Run with failed tests (Focus mode!!)
-- Create a method that installed all the rubies, gemsets and gems with pure ruby. This is a example the so easy to implement this feature:
-
-#
-    infinity_test --install-all
-    
-##### This code will working inside infinity_test source
-
-    rubies.each do |ruby|
-      system("rvm install #{ruby}") if ruby_is_not_installed? # JUST only need to create this method ;)
-      system("rvm #{ruby}")
-	  system("rvm gemset use #{gemset_or_global}") if gemset_not_exist?
-	  system("gem install bundler") if bundler_not_installed?
-	  system("bundle install")
-	end
 
 - Put a method in the configuration file called #ignore like:
 
 Example:
 
      ignore :folders => %w(), :files => %w()
+
+- Put a method in the configuration file called #full_run? like:
+
+Example:
+
+      if full_run?
+        # Run all tests
+      else
+        # Run some tests
+      end
 
 - Put some methods in the configuration file like: #all_tests_pass?, #all_tests_pass_in_ruby? like:
 
