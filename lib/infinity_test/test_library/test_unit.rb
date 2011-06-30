@@ -9,13 +9,13 @@ module InfinityTest
       def initialize(options={})
         super(options)
         @test_pattern = 'test/**/*_test.rb'
-        @defaults = %{-I"lib:test"}
+        @defaults = %{-Ilib -Itest}
       end
 
       def test_files
         super.split.unshift(test_loader).sort.join(' ')
       end
-      
+
       def decide_files(file)
         return file if file
         test_files

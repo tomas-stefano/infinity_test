@@ -16,7 +16,7 @@ module InfinityTest
     #
     def run!
       old_sync = $stdout.sync
-      $stdout.sync = true      
+      $stdout.sync = true
       begin
         open("| #{@command}", "r") do |file|
           until file.eof? do
@@ -30,8 +30,14 @@ module InfinityTest
             push_in_the_results(test_line)
           end
         end
+      rescue Errno::ENOENT => e
+        puts
+        puts "\e[31m", "Error to build this command. Maybe is a RVM bug with non-shell commands or InfinityTest bug. :( Please create a issue in infinity test repo with the following message:", "\e[0m"
+        puts
+        puts e.message
+        puts
       ensure
-        $stdout.sync = old_sync      
+        $stdout.sync = old_sync
       end
       @results = @results.join
       self
