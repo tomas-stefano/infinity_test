@@ -108,6 +108,10 @@ folder:
 If you want to customize and understand the .infinity_test file, [read this
 page](http://github.com/tomas-stefano/infinity_test/wiki/Customize-Infinity-Test).
 
+# Color in Test::Unit
+
+* Use the gem [minitest-colorize](https://github.com/sobrinho/minitest-colorize)
+
 # Color in RSpec
 
 ### Put this in your .rspec file:
