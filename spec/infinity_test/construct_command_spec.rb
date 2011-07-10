@@ -11,6 +11,10 @@ module InfinityTest
         construct_command.stub(:binary_name).and_return('rspec')
       end
 
+      it 'should include the test loader for test unit user' do
+        pending
+      end
+
       context "with one ruby to run" do
         before { application_with :rubies => "1.9.2", :test_framework => :rspec, :skip_bundler => false }
 
