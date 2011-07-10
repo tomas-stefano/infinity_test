@@ -92,7 +92,7 @@ module InfinityTest
         end
 
         it 'should return with the load path' do
-          construct_command.create.command['1.9.2'].should include(%{-I"lib:test"})
+          construct_command.create.command['1.9.2'].should include(%{-Ilib -Itest})
         end
 
         it 'should return specific options' do

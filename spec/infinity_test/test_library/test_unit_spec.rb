@@ -181,7 +181,7 @@ module InfinityTest
 
       describe '#defaults' do
         it 'should return the load path' do
-          TestUnit.new.defaults.should == %{-I"lib:test"}
+          TestUnit.new.defaults.should == %{-Ilib -Itest}
         end
       end
 
