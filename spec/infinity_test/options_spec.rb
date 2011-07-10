@@ -62,7 +62,13 @@ module InfinityTest
 
       it "should parse particular options with multiples specific options" do
         parse_options('--rubies=jruby-1+-J-cp :.,jruby-2+-J-cp,1.9.2,jruby3+-J-cp :.')
-        @options[:specific_options].should == {'jruby-1'=>'-J-cp :.','jruby-2'=>'-J-cp','1.9.2'=>nil,'jruby3'=>'-J-cp :.'}
+        @options[:specific_options].should == {'jruby-1'=>'-J-cp :.','jruby-2'=>'-J-cp','jruby3'=>'-J-cp :.'}
+      end
+
+      it 'should parse gemsets and the specific options should be empty' do
+        parse_options('--rubies=1.9.2@financial,ree@financial')
+        @options[:rubies].should == "1.9.2@financial,ree@financial"
+        @options[:specific_options].should == ({})
       end
 
       it "should parse --verbose" do
@@ -100,12 +106,12 @@ module InfinityTest
         parse_options('--heuristics')
         @options[:show_heuristics?].should be_true
       end
-      
+
       it 'should parse the generate file options' do
         parse_options('--generate-file')
         @options[:generate_file].should be_true
       end
-      
+
       it 'generate_file shoudl be false as defaults' do
         parse_options('--heuristics')
         @options[:generate_file].should be_false

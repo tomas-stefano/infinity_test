@@ -2,9 +2,9 @@ require 'optparse'
 
 module InfinityTest
   class Options < Hash
-    OPTIONS = [ :test_unit, :rspec, :bacon, 
-                :rubygems, :rails, 
-                :rubies, :verbose, :patterns, :bundler, 
+    OPTIONS = [ :test_unit, :rspec, :bacon,
+                :rubygems, :rails,
+                :rubies, :verbose, :patterns, :bundler,
                 :generate_file,
                 :version]
 
@@ -45,10 +45,9 @@ module InfinityTest
       options.on('--rubies=rubies', 'Specify Ruby version(s) to test against') do |versions|
         rubies = []
         self[:specific_options] = {}
-        versions.split(",").each do |r|
-          rubie = r.split('+')[0]
-          params = r.split('+')[1]
-          self[:specific_options][rubie] = params 
+        versions.split(",").each do |ruby_option|
+          rubie, specific_option_for_ruby = ruby_option.split('+')
+          self[:specific_options][rubie] = specific_option_for_ruby if specific_option_for_ruby
           rubies << rubie
         end
         self[:rubies] = rubies.join(',')
@@ -90,7 +89,7 @@ module InfinityTest
         self[:skip_bundler?] = true
       end
     end
-    
+
     def parse_generate_file(options)
       options.on('--generate-file', 'Generate a .infinity_test file with options passed in cli.') do
         self[:generate_file] = true

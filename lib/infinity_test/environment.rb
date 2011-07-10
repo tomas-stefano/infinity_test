@@ -12,7 +12,7 @@ module InfinityTest
         block.call(environment, ruby_version)
       end
     end
-    
+
     def current_environment_name
       RVM::Environment.current.environment_name
     end
