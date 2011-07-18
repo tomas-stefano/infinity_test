@@ -88,7 +88,7 @@ module InfinityTest
 
       context 'with ruby options' do
         before do
-          @app = application_with :rubies => '1.9.2', :specific_options => '-j', :test_framework => :test_unit
+          @app = application_with :rubies => ['1.9.2', 'ree'], :specific_options => {'1.9.2' => '-j', 'ree' => '-w'}, :test_framework => :test_unit
         end
 
         it 'should return with the load path' do
@@ -97,6 +97,15 @@ module InfinityTest
 
         it 'should return specific options' do
           construct_command.create.command['1.9.2'].should include('ruby -j ')
+        end
+
+        it "should return the right specific_options for the right ruby" do
+          construct_command.create.command['ree'].should include('ruby -w ')
+        end
+
+        it 'should not return nothing when dont have specific options and dont have defaults' do
+          application_with :rubies => '1.9.2', :specific_options => {}, :test_framework => :test_unit
+          construct_command.create.command['1.9.2'].should include('ruby -Ilib -Itest')
         end
 
         it 'should return nothing when not pass specific options' do
@@ -122,19 +131,6 @@ module InfinityTest
       end
     end
 
-    describe '#ruby_options' do
-      it 'should return the specific options in the string' do
-        application_with :rubies => '1.9.2', :specific_options => '-Jix'
-        construct_command.ruby_options.should include '-Jix'
-      end
-
-      it 'should not return nothing when dont have specific options and dont have defaults' do
-        application_with :rubies => '1.9.2', :specific_options => {}
-        construct_command.should_receive(:test_framework).at_least(:once).and_return(TestLibrary::Rspec.new(:rubies => '1.9.2'))
-        construct_command.ruby_options.should == ''
-      end
-    end
-
     describe '#files_to_run' do
       it 'should be possible to pass the test files' do
         ConstructCommand.new(:files_to_run => 'spec/models/projects_spec.rb').files_to_run.should == 'spec/models/projects_spec.rb'
@@ -157,8 +153,6 @@ module InfinityTest
         construct = ConstructCommand.new(:files_to_run => 'test/unit/person_spec.rb')
         construct.files_to_test.should == 'test/unit/person_spec.rb'
       end
-
     end
-
   end
 end

@@ -105,7 +105,7 @@ module InfinityTest
     def specific_options
       options = application.specific_options
        if options
-         %{#{options}} unless options.empty?
+         %{#{options[version]}} unless options.empty?
        end
     end
 
