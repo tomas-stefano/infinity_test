@@ -173,10 +173,14 @@ module InfinityTest
 
       describe '#pending?' do
 
-        it "should be false" do
+        it "should be false when not have skips" do
+          pending
           TestUnit.new.pending?.should equal false
         end
 
+        it 'should be true when have skip tests' do
+          pending
+        end
       end
 
       describe '#defaults' do
@@ -184,7 +188,6 @@ module InfinityTest
           TestUnit.new.defaults.should == %{-Ilib -Itest}
         end
       end
-
     end
   end
 end
