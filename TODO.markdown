@@ -1,43 +1,22 @@
-Future
-======
+Rewrite
+=======
 
-- Don't run a suite tests when don't have a test file to run(Bug in Test::Unit)
-- Big refactoring
-- Fix heuristics for Rails/Test Unit users
-- Support Cucumber
-- Run with failed tests (Focus mode!!)
+- The InfinityTest needs rewrite.
 
-- Put a method in the configuration file called #ignore like:
+## Goals
 
-Example:
-
-     ignore :folders => %w(), :files => %w()
-
-- Put a method in the configuration file called #full_run? like:
-
-Example:
-
-      if full_run?
-        # Run all tests
-      else
-        # Run some tests
-      end
-
-- Put some methods in the configuration file like: #all_tests_pass?, #all_tests_pass_in_ruby? like:
-
-Example:
-
-	after(:all) do
-      if all_tests_pass?
-        # do something
-      end
-               
-      if all_tests_pass_in_ruby?('1.8.7') 
-        # do something
-      end
-	end
-
-Bugs
-====
-
-- Coloring the output with Test::Unit (maybe using RedGreen)
+* Remove the todays implementation.
+* Supporting DSL and No DSL(class by a contract).
+* Rewrite the entire library.
+* RbEnv feature.
+* RVM feature.
+* Run with normal ruby
+* Focus feature (fails, pass one file, run entire suite) with --focus (experimented feature).
+* Don't run integration tests. Ignore them when changed.
+* Test with spork and other gems spork like.
+* Be possible to rewrite the rules in more nicer way, using the Hike gem to find files and paths.
+* Magic discovery if is test unit or rspec.
+* Be possible to overwrite the entire command to run.
+* Put some methods in the configuration file like: #all_tests_pass?, #all_tests_pass_in_ruby?.
+* Put a Thor generator.
+* Put an option to just run and exit.
