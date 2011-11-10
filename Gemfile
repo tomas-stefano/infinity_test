@@ -2,6 +2,10 @@
 
 source :rubygems
 
+gem 'watchr', '0.7'
+gem 'notifiers', '1.1.0'
+gem 'hike', '1.2.1'
+
 group :test do
   gem 'rspec', ">= 2.6.0"
   gem 'rr', '1.0.4'
