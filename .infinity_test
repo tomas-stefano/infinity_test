@@ -43,3 +43,5 @@ infinity_test do
   # end
 
 end
+
+# InfinityTest::Base.class_variables.collect.each { |e| puts("#{e}: #{InfinityTest::Base.class_variable_get(e)}") }

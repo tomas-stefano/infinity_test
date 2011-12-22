@@ -1,22 +1,10 @@
 development
 ===========
 
-- Refactoring the ENTIRE LIBRARY (Separate responsabilities!)
-- Removing feature run(:all). Obs.: Removing JUST when is a symbol.
-  The InfinityTest work with Hashes! Example(this works great!): run(:all => :tests)
-- Remove builder module
-- Fix fo Test::Unit with bundler (again =\ )
-- Create a Generator on the fly that receives some arguments and create a ./.infinity_test file
-Example:
-   
-     infinity_test --generate-file --rspec --rails
-
-Will generate this:
-
-     infinity_test do
-        use :test_framework => :rspec, :app_framework => :rails
-        ignore :folders => %w(), :files => %w()
-     end
+- Rewrite the ENTIRE LIBRARY (Separate responsabilities!)
+- The #before_env method in the configuration file was removed.
+- The #before_run and #after_run method in the configuration file, was removed. Use before(:all) and after(:all) instead.
+- Shared Examples to create your own strategy.
 
 v1.0.1
 ======

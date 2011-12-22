@@ -20,3 +20,14 @@ Rewrite
 * Put some methods in the configuration file like: #all_tests_pass?, #all_tests_pass_in_ruby?.
 * Put a Thor generator.
 * Put an option to just run and exit.
+* Put a profile feature to handle rubies.
+* Need to see the #replace_patterns and #heuristics method in the configuration file.
+
+### Features
+
+* Ruby Implementations and normal ruby. (rvm command, rbenv command or normal ruby)
+* Focus Feature
+* Ignore files/folders
+* Rewrite the rules to watch files and run the specs
+* Generator
+* Todays Setup.

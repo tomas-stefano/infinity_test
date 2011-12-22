@@ -1,13 +1,17 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    activesupport (3.1.1)
+      multi_json (~> 1.0)
     diff-lcs (1.1.2)
     git (1.2.5)
     hike (1.2.1)
+    i18n (0.6.0)
     jeweler (1.6.2)
       bundler (~> 1.0)
       git (>= 1.2.5)
       rake
+    multi_json (1.0.3)
     notifiers (1.1.0)
     rake (0.8.7)
     rr (1.0.4)
@@ -25,10 +29,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  hike
+  activesupport (~> 3.1.1)
+  hike (= 1.2.1)
+  i18n
   jeweler (= 1.6.2)
-  notifiers
+  notifiers (= 1.1.0)
   rake (= 0.8.7)
   rr (= 1.0.4)
   rspec (>= 2.6.0)
-  watchr
+  watchr (= 0.7)
