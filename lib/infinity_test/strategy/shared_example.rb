@@ -11,10 +11,10 @@ module InfinityTest
       #
       #   describe FooStrategy do
       #     let(:strategy) { FooStrategy.new(InfinityTest::Core::Base) }
-      #     it_should_behave_like 'a strategy'
+      #     it_should_behave_like 'a infinity test strategy'
       #   end
       #
-      shared_examples_for 'a strategy' do
+      shared_examples_for 'a infinity test strategy' do
 
         it 'should have the strategy name' do
           strategy.strategy.should be strategy.base.strategy

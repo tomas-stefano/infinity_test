@@ -4,7 +4,7 @@ module InfinityTest
   module Strategy
     describe AutoDiscover do
       let(:strategy) { AutoDiscover.new(Core::Base) }
-      it_should_behave_like 'a strategy'
+      it_should_behave_like 'a infinity test strategy'
 
       describe "#run!" do
         it "should find strategy and rerun the discovered strategy" do
