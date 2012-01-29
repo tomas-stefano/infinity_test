@@ -1,5 +1,5 @@
 module InfinityTest
-  module Observer
+  module Framework
     class Rubygems < Base
     end
   end

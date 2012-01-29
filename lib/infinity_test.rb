@@ -26,10 +26,16 @@ module InfinityTest
     autoload :Configuration, 'infinity_test/old_dsl/configuration'
   end
 
+  module Framework
+    autoload :Base, 'infinity_test/framework/base'
+    autoload :Padrino, 'infinity_test/framework/padrino'
+    autoload :Rails, 'infinity_test/framework/rails'
+    autoload :Rubygems, 'infinity_test/framework/rubygems'
+  end
+
   module Observer
     autoload :Base, 'infinity_test/observer/base'
-    autoload :Rails, 'infinity_test/observer/rails'
-    autoload :Rubygems, 'infinity_test/observer/rubygems'
+    autoload :Watchr, 'infinity_test/observer/watchr'
   end
 
   module Strategy
