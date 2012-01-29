@@ -20,7 +20,7 @@ module InfinityTest
     autoload :Runner, 'infinity_test/core/runner'
   end
 
-  # This will be removed in the InfinityTest 2.0.1 and Extract to a gem
+  # This will be removed in the InfinityTest 2.0.* and Extract to a other gem
   #
   module OldDSL
     autoload :Configuration, 'infinity_test/old_dsl/configuration'
@@ -45,6 +45,12 @@ module InfinityTest
     autoload :Rvm, 'infinity_test/strategy/rvm'
     autoload :RubyDefault, 'infinity_test/strategy/ruby_default'
     autoload :SharedExample, 'infinity_test/strategy/shared_example'
+  end
+
+  # See Base.setup to more information.
+  #
+  def self.setup(&block)
+    InfinityTest::Base.setup(&block)
   end
 
   include Callbacks
