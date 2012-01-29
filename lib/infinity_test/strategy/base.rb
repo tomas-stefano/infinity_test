@@ -32,7 +32,7 @@ module InfinityTest
         @subclasses ||= []
       end
 
-      # Obviously, this method is called for the InfinityTest whe run the strategy
+      # Obviously, this method is called for the InfinityTest when run the strategy
       #
       def run!
         raise NotImplementedError
