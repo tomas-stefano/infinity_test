@@ -1,3 +1,7 @@
+require 'infinity_test/strategy/rvm'
+require 'infinity_test/strategy/rbenv'
+require 'infinity_test/strategy/ruby_default'
+
 module InfinityTest
   module Strategy
     class AutoDiscover < Base
@@ -17,10 +21,6 @@ module InfinityTest
       # Find in all strategies/subclasses what strategy that return true for #run? method.
       #
       def find_strategy
-        # Put the require because autoload in the infinity_test.rb
-        require 'infinity_test/strategy/rvm'
-        require 'infinity_test/strategy/rbenv'
-        require 'infinity_test/strategy/ruby_default'
         Base.subclasses.find { |subclass| subclass.run? }
       end
     end
