@@ -15,7 +15,7 @@ module InfinityTest
       # <b>DEPRECATED:</b> Please use <tt>InfinityTest::Base.setup</tt> instead.
       #
       def infinity_test(&block)
-        message = "infinity_test method is deprecated. Use InfinityTest::Base.setup { |config| ... } instead."
+        message = "infinity_test method is deprecated. Use InfinityTest.setup { |config| ... } instead."
         ActiveSupport::Deprecation.warn(message)
         Configuration.new.instance_eval(&block)
       end
