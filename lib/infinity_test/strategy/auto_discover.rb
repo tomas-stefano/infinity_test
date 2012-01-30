@@ -8,6 +8,12 @@ module InfinityTest
         @base.run_strategy!
       end
 
+      # AutoDiscover doesn't run tests.
+      #
+      def self.run?
+        false
+      end
+
       # Find in all strategies/subclasses what strategy that return true for #run? method.
       #
       def find_strategy

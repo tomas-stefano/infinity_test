@@ -14,6 +14,12 @@ module InfinityTest
         end
       end
 
+      describe "#run?" do
+        it "should not run because this class discover the right strategy" do
+          AutoDiscover.should_not be_run
+        end
+      end
+
       describe "#find_strategy" do
         it "should return true if the classes return true" do
           pending
