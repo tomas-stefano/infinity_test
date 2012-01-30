@@ -53,6 +53,12 @@ module InfinityTest
       end
     end
 
+    describe ".observer" do
+      it "should have watchr as default observer" do
+        Base.observer.should equal :watchr
+      end
+    end
+
     describe ".run_strategy!" do
       it "should call ruby_strategy and run it!" do
         mock(Base).ruby_strategy { Strategy::Base }

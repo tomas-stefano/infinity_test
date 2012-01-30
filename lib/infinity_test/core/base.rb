@@ -34,7 +34,7 @@ module InfinityTest
       cattr_accessor :test_framework
       self.test_framework = :auto_discover
 
-      # Framework to observer watch the dirs.
+      # Framework to know the folders and files that need to monitoring by the observer.
       #
       # ==== Options
       # * :rails
@@ -46,14 +46,22 @@ module InfinityTest
       cattr_accessor :framework
       self.framework = :auto_discover
 
+      # Framework to observer watch the dirs.
+      #
+      # ==== Options
+      #  * watchr
+      #
+      cattr_accessor :observer
+      self.observer = :watchr
+
       # Verbose Mode. Print commands before executing them.
       #
       cattr_accessor :verbose
       self.verbose = true
 
       # Set the notification framework to use with Infinity Test.
-      # The supported Notification Frameworks are:
       #
+      # ==== Options
       # * :growl
       # * :lib_notify
       # * :auto_discover(defaults)
@@ -98,6 +106,9 @@ module InfinityTest
       cattr_accessor :callbacks
       self.callbacks = []
 
+      # Setup Infinity Test passing the ruby versions and others setting.
+      # See the class accessors for more information.
+      #
       # ==== Examples
       #
       #  InfinityTest::Base.setup do |config|
@@ -109,7 +120,7 @@ module InfinityTest
         yield self
       end
 
-      # Receives a object that quacks like InfinityTest::Options and do the merge.
+      # Receives a object that quacks like InfinityTest::Options and do the merge with self(Base class).
       #
       def self.merge!(options)
         ConfigurationMerge.new(self, options).merge!
