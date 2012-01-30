@@ -10,26 +10,26 @@ module InfinityTest
       #   end
       #
       #   describe FooStrategy do
-      #     let(:strategy) { FooStrategy.new(InfinityTest::Core::Base) }
+      #     subject { FooStrategy.new(InfinityTest::Core::Base) }
       #     it_should_behave_like 'a infinity test strategy'
       #   end
       #
       shared_examples_for 'a infinity test strategy' do
 
         it 'should have the strategy name' do
-          strategy.strategy.should be strategy.base.strategy
+          subject.strategy.should be subject.base.strategy
         end
 
         it 'should respond to #run!' do
-          strategy.should respond_to(:run!)
+          subject.should respond_to(:run!)
         end
 
         it 'should respond to #run?' do
-          strategy.class.should respond_to(:run?)
+          subject.class.should respond_to(:run?)
         end
 
         it 'should have Strategy::Base as superclass' do
-          strategy.class.superclass.should be InfinityTest::Strategy::Base
+          subject.class.superclass.should be InfinityTest::Strategy::Base
         end
       end
     end
