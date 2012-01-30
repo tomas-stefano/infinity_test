@@ -36,6 +36,7 @@ module InfinityTest
   module Observer
     autoload :Base, 'infinity_test/observer/base'
     autoload :Watchr, 'infinity_test/observer/watchr'
+    autoload :SharedExample, 'infinity_test/observer/shared_example'
   end
 
   module Strategy
