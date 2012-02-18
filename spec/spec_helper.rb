@@ -1,5 +1,3 @@
-require 'bundler/setup'
-Bundler.require :test
 require 'infinity_test'
 
 RSpec.configure do |config|

@@ -27,6 +27,7 @@ module InfinityTest
   end
 
   module Framework
+    autoload :AutoDiscover, 'infinity_test/framework/auto_discover'
     autoload :Base, 'infinity_test/framework/base'
     autoload :Padrino, 'infinity_test/framework/padrino'
     autoload :Rails, 'infinity_test/framework/rails'

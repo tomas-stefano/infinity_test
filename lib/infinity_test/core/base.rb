@@ -138,8 +138,24 @@ module InfinityTest
         strategy_class.new(self)
       end
 
+      # Run strategy based on the choosed ruby strategy.
+      #
       def self.run_strategy!
         ruby_strategy.run!
+      end
+
+      # Start to monitoring files in the project
+      #
+      def self.start_observer
+        observer_instance.start
+      end
+
+      def self.framework_instance
+        # Framework.const_get(framework.to_s.classify).new(observer_instance, test_framework_instance, ruby_strategy)
+      end
+
+      def self.observer_instance
+        Observer.const_get(observer.to_s.classify).new
       end
 
       # Callback method to handle before all run and for each ruby too!

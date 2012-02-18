@@ -59,6 +59,14 @@ module InfinityTest
       end
     end
 
+    describe ".start_observer" do
+      it "should call the #start method from the observer instance" do
+        mock(Framework::AutoDiscover).new
+        mock(Observer::Watchr).new { :foo }
+        Base.start_observer.should be :bar
+      end
+    end
+
     describe ".run_strategy!" do
       it "should call ruby_strategy and run it!" do
         mock(Base).ruby_strategy { Strategy::Base }
