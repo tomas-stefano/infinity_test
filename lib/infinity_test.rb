@@ -49,6 +49,14 @@ module InfinityTest
     autoload :SharedExample, 'infinity_test/strategy/shared_example'
   end
 
+  module TestFramework
+    autoload :Base, 'infinity_test/test_framework/base'
+    autoload :TestUnit, 'infinity_test/test_framework/test_unit'
+    autoload :Rspec, 'infinity_test/test_framework/rspec'
+    autoload :Bacon, 'infinity_test/test_framework/bacon'
+    autoload :SharedExample, 'infinity_test/test_framework/shared_example'
+  end
+
   # See Base.setup to more information.
   #
   def self.setup(&block)
