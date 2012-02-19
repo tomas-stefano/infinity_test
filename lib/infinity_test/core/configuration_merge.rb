@@ -18,7 +18,7 @@ module InfinityTest
       #
       def merge!
         @base.strategy = strategy if strategy.present?
-        @base.rubies   = rubies   if rubies.present?
+        @base.rubies   = rubies   unless rubies.nil?
         @base.specific_options = specific_options if specific_options.present?
         @base.test_framework = test_framework if test_framework.present?
         @base.framework = framework if framework.present?

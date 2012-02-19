@@ -11,6 +11,7 @@ module InfinityTest
       self.strategy = :auto_discover
 
       # Specify Ruby version(s) to test against
+      #
       # ==== Examples
       # rubies = %w(ree jruby)
       #
@@ -129,7 +130,7 @@ module InfinityTest
       # Returns the class for the configured strategy.
       #
       def self.strategy_class
-        ::InfinityTest::Strategy.const_get(strategy.to_s.classify)
+        InfinityTest::Strategy.const_get(strategy.to_s.classify)
       end
 
       # Returns the instance for the configured strategy.
@@ -144,14 +145,14 @@ module InfinityTest
         ruby_strategy.run!
       end
 
+      def self.framework_instance
+        # Framework.const_get(framework.to_s.classify).new(observer_instance, test_framework_instance, ruby_strategy)
+      end
+
       # Start to monitoring files in the project
       #
       def self.start_observer
         observer_instance.start
-      end
-
-      def self.framework_instance
-        # Framework.const_get(framework.to_s.classify).new(observer_instance, test_framework_instance, ruby_strategy)
       end
 
       def self.observer_instance
@@ -204,7 +205,7 @@ module InfinityTest
         system('clear')
       end
 
-      ###### This methods will be removed in the Infinity Test v2.0.1 ######
+      ###### This methods will be removed in the Infinity Test v2.0.1 or 2.0.2 ######
 
       # <b>DEPRECATED:</b> Please use <tt>.notification=</tt> instead.
       #
@@ -238,7 +239,18 @@ module InfinityTest
       # .gemset= instead
       #
       def self.use(options)
-        message = '.use is DEPRECATED. Please use .rubies= or .specific_options= or .test_framework= or .framework= or .verbose= or .gemset= instead.'
+        message = <<-MESSAGE
+          .use is DEPRECATED.
+          Use this instead:
+            InfinityTest.setup do |config|
+              config.rubies= %w(...)
+              config.specific_options= "..."
+              config.test_framework= :foo
+              config.framework= :bar
+              config.verbose= true/false
+              config.gemset= :baz
+            end
+        MESSAGE
         ActiveSupport::Deprecation.warn(message)
         self.rubies = options[:rubies] if options[:rubies].present?
         self.specific_options = options[:specific_options] if options[:specific_options].present?

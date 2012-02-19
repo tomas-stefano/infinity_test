@@ -61,8 +61,11 @@ module InfinityTest
 
     describe ".start_observer" do
       it "should call the #start method from the observer instance" do
+        pending
+        observer = mock
+        mock(observer).start { :bar }
         mock(Framework::AutoDiscover).new
-        mock(Observer::Watchr).new { :foo }
+        mock(Observer::Watchr).new { observer }
         Base.start_observer.should be :bar
       end
     end
@@ -189,69 +192,13 @@ module InfinityTest
     end
 
     describe ".merge!" do
-      let(:options) { Options.new([]) }
+      let(:options) { Object.new }
+      let(:configuration_merge) { Object.new }
 
-      it "should keep the strategy when options strategy is blank" do
-        Base.merge!(options).strategy.should be :auto_discover
-      end
-
-      it "should merge the strategies" do
-        mock(options).strategy.twice { :rbenv }
-        Base.merge!(options).strategy.should be :rbenv
-      end
-
-      it "should keep the rubies when options rubies is blank" do
-        Base.merge!(options).rubies.should be_blank
-      end
-
-      it "should merge the rubies" do
-        mock(options).rubies.twice { %w(ree jruby) }
-        Base.merge!(options).rubies.should eql %w(ree jruby)
-      end
-
-      it "should keep the test framework when options test framework is blank" do
-        Base.merge!(options).test_framework.should be :auto_discover
-      end
-
-      it "should merge the test library" do
-        mock(options).test_framework.twice { :rspec }
-        Base.merge!(options).test_framework.should be :rspec
-      end
-
-      it "should keep the framework when options framework is blank" do
-        Base.merge!(options).framework.should be :auto_discover
-      end
-
-      it "should merge the framework" do
-        mock(options).framework.twice { :rails }
-        Base.merge!(options).framework.should be :rails
-      end
-
-      it "should keep the specific option when options specific is blank" do
-        Base.merge!(options).specific_options.should eql ''
-      end
-
-      it "should merge the specific options" do
-        mock(options).specific_options.twice { '-J -Ilib -Itest' }
-        Base.merge!(options).specific_options.should eql '-J -Ilib -Itest'
-      end
-
-      it "should keep the verbose mode when verbose mode is blank" do
-        Base.merge!(options).verbose.should be_true
-      end
-
-      it "should merge the verbose mode" do
-        mock(options).verbose.twice { false }
-        Base.merge!(options).verbose.should be_false
-      end
-
-      it "should keep the bundler default when bundler is blank" do
-        Base.merge!(options).bundler.should be_true
-      end
-
-      it "should merge the verbose mode" do
-        mock(options).bundler.twice { false }
-        Base.merge!(options).bundler.should be_false
+      it "should call merge on the configuration merge object" do
+        mock(ConfigurationMerge).new(Core::Base, options) { configuration_merge }
+        mock(configuration_merge).merge!
+        Core::Base.merge!(options)
       end
     end
 
