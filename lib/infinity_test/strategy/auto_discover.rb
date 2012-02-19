@@ -21,7 +21,16 @@ module InfinityTest
       # Find in all strategies/subclasses what strategy that return true for #run? method.
       #
       def find_strategy
-        Base.subclasses.find { |subclass| subclass.run? }
+        strategy_to_run = Base.sort_by_priority.find { |subclass| subclass.run? }
+        if strategy_to_run.present?
+          strategy_to_run.strategy_name
+        else
+          message = <<-MESSAGE
+            The InfinityTest::Strategy::AutoDiscover doen't discover nothing to run.
+            Do you pass more than one ruby version to run and do you have some strategy(Rvm, Rbenv) installed?
+          MESSAGE
+          raise Exception, message
+        end
       end
     end
   end

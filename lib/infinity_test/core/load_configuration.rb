@@ -6,7 +6,7 @@ module InfinityTest
       def initialize
         @global_file  = File.expand_path('~/.infinity_test')
         @project_file = './.infinity_test'
-        @configuration = ::InfinityTest::OldDSL::Configuration
+        @old_configuration = InfinityTest::OldDSL::Configuration
       end
 
       # Load the Configuration file
