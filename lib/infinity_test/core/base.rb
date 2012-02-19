@@ -107,6 +107,13 @@ module InfinityTest
       cattr_accessor :callbacks
       self.callbacks = []
 
+      # Run the observer to monitor files.
+      # If set to false will just <b>Run tests and exit</b>.
+      # Defaults to true: run tests and monitoring the files.
+      #
+      cattr_accessor :infinity_and_beyond
+      self.infinity_and_beyond = true
+
       # Setup Infinity Test passing the ruby versions and others setting.
       # See the class accessors for more information.
       #
@@ -146,17 +153,20 @@ module InfinityTest
       end
 
       def self.framework_instance
-        # Framework.const_get(framework.to_s.classify).new(observer_instance, test_framework_instance, ruby_strategy)
+        Framework.const_get(framework.to_s.classify).new(self)
       end
 
       # Start to monitoring files in the project
       #
       def self.start_observer
-        observer_instance.start
+        if infinity_and_beyond.present?
+          framework_instance.add_heuristics
+          observer_instance.start
+        end
       end
 
       def self.observer_instance
-        Observer.const_get(observer.to_s.classify).new
+        @observer_instance ||= Observer.const_get(observer.to_s.classify).new
       end
 
       # Callback method to handle before all run and for each ruby too!
@@ -210,7 +220,14 @@ module InfinityTest
       # <b>DEPRECATED:</b> Please use <tt>.notification=</tt> instead.
       #
       def self.notifications(notification_name, &block)
-        ActiveSupport::Deprecation.warn(".notifications is DEPRECATED. Use .notification= instead.")
+        message = <<-MESSAGE
+          .notifications is DEPRECATED.
+          Use this instead:
+            InfinityTest.setup do |config|
+              config.notification = ...
+            end
+        MESSAGE
+        ActiveSupport::Deprecation.warn(message)
         self.notification = notification_name
         self.instance_eval(&block) if block_given?
       end
@@ -222,7 +239,16 @@ module InfinityTest
       # <tt>mode=</tt> instead.
       #
       def self.show_images(options)
-        message = '.show_images is DEPRECATED. Use .success_image= or .pending_image= or .failure_image= or .mode= instead'
+        message = <<-MESSAGE
+          .show_images is DEPRECATED.
+          Use this instead:
+           InfinityTest.setup do |config|
+             config.success_image = ...
+             config.pending_image = ...
+             config.failure_image = ...
+             config.mode = ...
+           end
+        MESSAGE
         ActiveSupport::Deprecation.warn(message)
         self.success_image = options[:success_image] || options[:sucess_image] if options[:success_image].present? || options[:sucess_image].present? # for fail typo in earlier versions.
         self.pending_image = options[:pending_image] if options[:pending_image].present?

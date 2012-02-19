@@ -61,12 +61,19 @@ module InfinityTest
 
     describe ".start_observer" do
       it "should call the #start method from the observer instance" do
-        pending
         observer = mock
-        mock(observer).start { :bar }
-        mock(Framework::AutoDiscover).new
+        framework = mock
         mock(Observer::Watchr).new { observer }
+        mock(observer).start { :bar }
+        mock(Framework::AutoDiscover).new(Base) { framework }
+        mock(framework).add_heuristics { true }
         Base.start_observer.should be :bar
+      end
+
+      it "should not class the start observer if infinity and beyond option is set to false" do
+        dont_allow(Base).observer_instance
+        mock(Base).infinity_and_beyond { false }
+        Base.start_observer.should be_nil
       end
     end
 

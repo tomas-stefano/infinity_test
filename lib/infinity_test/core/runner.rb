@@ -13,7 +13,7 @@ module InfinityTest
         @configuration.load!
         @base.merge!(@options)
         @base.run_strategy!
-        # @base.start_observer
+        @base.start_observer
       end
     end
   end

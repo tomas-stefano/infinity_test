@@ -2,7 +2,7 @@ module InfinityTest
   module Core
     class Options
       attr_accessor :arguments, :options_parser, :strategy, :bundler, :verbose
-      attr_accessor :rubies, :specific_options, :test_framework, :framework
+      attr_accessor :rubies, :specific_options, :test_framework, :framework, :infinity_and_beyond
 
       def initialize(*arguments)
         @arguments = arguments.flatten.clone
@@ -17,6 +17,7 @@ module InfinityTest
             options_to_added_in_the_command
             test_framework_to_be_run
             app_framework
+            infinity_and_beyond_option
             verbose_mode
             skip_bundler
           ).each do |option_to_parse| 
@@ -34,7 +35,7 @@ module InfinityTest
       end
 
       def ruby_strategy(option)
-        option.on('--ruby strategy', 'Ruby Manager. Ex.: rvm, rbenv, default') do |strategy|
+        option.on('--ruby strategy', 'Ruby Manager. Ex.: auto_discover, rvm, rbenv, default') do |strategy|
           @strategy = strategy.to_sym
         end
       end
@@ -52,14 +53,20 @@ module InfinityTest
       end
 
       def test_framework_to_be_run(option)
-        option.on('--test library', 'Test Framework to be run. Ex.: rspec, test_unit, bacon.') do |library|
+        option.on('--test library', 'Test Framework to be run. Ex.: auto_discover, rspec, test_unit, bacon.') do |library|
           @test_framework = library.to_sym
         end
       end
 
       def app_framework(option)
-        option.on('--framework library', 'Application Framework to be run and added the patterns to search changed files. Ex.: rails, rubygems.') do |library|
+        option.on('--framework library', 'Application Framework to be run and added the patterns to search changed files. Ex.: auto_discover, rails, rubygems, padrino.') do |library|
           @framework = library.to_sym
+        end
+      end
+
+      def infinity_and_beyond_option(option)
+        option.on('-n', '--no-infinity-and-beyond', 'Run tests and exit. Useful in a Continuous Integration environment.') do
+          @infinity_and_beyond = false
         end
       end
 

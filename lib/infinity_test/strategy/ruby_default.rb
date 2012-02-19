@@ -2,6 +2,7 @@ module InfinityTest
   module Strategy
     class RubyDefault < Base
       def run!
+        # %{ruby #{specific_options} -S #{test_framework.command}}
       end
 
       # ==== Returns
@@ -12,7 +13,7 @@ module InfinityTest
         Core::Base.rubies.blank?
       end
 
-      # The Ruby Default should have the high priority to the auto discover find it first
+      # The Ruby Default should have the high priority to the Auto Discover find it first
       #
       def self.priority
         :high

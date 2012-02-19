@@ -27,6 +27,17 @@ module InfinityTest
         end
       end
 
+      describe "#infinity_and_beyond" do
+        it "should return false when setting --no-infinity-and-beyond" do
+          parse('--no-infinity-and-beyond').infinity_and_beyond.should equal false
+          parse('-n').infinity_and_beyond.should equal false
+        end
+
+        it "should return nil when not setting the --no-infinity-and-beyond" do
+          parse.infinity_and_beyond.should be_nil
+        end
+      end
+
       describe "#specific_options" do
         it "should parse the options" do
           parse('--options=-J-Ilib-Itest').specific_options.should eql '-J -Ilib -Itest'

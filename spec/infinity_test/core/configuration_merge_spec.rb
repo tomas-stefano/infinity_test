@@ -12,7 +12,8 @@ module InfinityTest
           :rubies => [],
           :specific_options => '',
           :framework => :auto_discover,
-          :test_framework => :auto_discover
+          :test_framework => :auto_discover,
+          :infinity_and_beyond => true
         )
       end
 
@@ -82,6 +83,18 @@ module InfinityTest
           mock(options).specific_options.twice { '-J -Ilib -Itest' }
           subject.merge!
           base.specific_options.should eql '-J -Ilib -Itest'
+        end
+
+        it "should merge with the infinity test and beyond" do
+          mock(options).infinity_and_beyond.twice { false }
+          subject.merge!
+          base.infinity_and_beyond.should equal false
+        end
+
+        it "should keep the base default if option infinity test and beyond is nil" do
+          mock(options).infinity_and_beyond { nil }
+          subject.merge!
+          base.infinity_and_beyond.should be_true
         end
 
         it "should keep the verbose mode when verbose mode is blank" do
