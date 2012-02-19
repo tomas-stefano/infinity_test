@@ -17,6 +17,14 @@ module InfinityTest
         it "should pass the ruby versions" do
           parse('--rubies=ree,jruby').rubies.should eql %w(ree jruby)
         end
+
+        it "should have empty rubies when pass rubies= without versions" do
+          parse('--rubies=').rubies.should eql []
+        end
+
+        it "should be nil when don't pass the rubies option" do
+          parse.rubies.should be_nil
+        end
       end
 
       describe "#specific_options" do

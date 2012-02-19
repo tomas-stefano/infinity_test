@@ -3,6 +3,30 @@ module InfinityTest
     class Rvm < Base
       def run!
       end
+
+      # ==== Returns
+      #  TrueClass: If the user had the rvm installed.
+      #  FalseClass: If the user don't had the rvm installed.
+      #
+      def self.run?
+        installed_users_home? or installed_system_wide?
+      end
+
+      # ==== Returns
+      #  TrueClass: Find rvm installed in ~/.rvm.
+      #  FalseClass: Don't Find rvm installed in ~/.rvm.
+      #
+      def self.installed_users_home?
+        File.exist?(File.expand_path('~/.rvm'))
+      end
+
+      # ==== Returns
+      #  TrueClass: Find rvm installed in /usr/local/rvm.
+      #  FalseClass: Don't Find rvm installed in /usr/local/rvm.
+      #
+      def self.installed_system_wide?
+        File.exist?(File.expand_path("/usr/local/rvm"))
+      end
     end
   end
 end

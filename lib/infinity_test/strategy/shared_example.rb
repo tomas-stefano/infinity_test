@@ -24,8 +24,12 @@ module InfinityTest
           subject.should respond_to(:run!)
         end
 
-        it 'should respond to #run?' do
+        it 'should respond to .run?' do
           subject.class.should respond_to(:run?)
+        end
+
+        it 'should respond to .priority' do
+          subject.class.should respond_to(:priority)
         end
 
         it 'should have Strategy::Base as superclass' do

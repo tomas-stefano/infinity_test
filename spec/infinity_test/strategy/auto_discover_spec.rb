@@ -14,16 +14,34 @@ module InfinityTest
         end
       end
 
-      describe "#run?" do
+      describe ".run?" do
         it "should not run because this class discover the right strategy" do
           AutoDiscover.should_not be_run
         end
       end
 
       describe "#find_strategy" do
-        it "should return true if the classes return true" do
-          pending
-          strategy.find_strategy
+        let(:to_be_run) do
+          klass = Object.new
+          mock(klass).run? { true }
+          mock(klass).strategy_name { :rvm }
+          klass
+        end
+
+        let(:to_not_run) do
+          klass = Object.new
+          mock(klass).run? { false }
+          klass
+        end
+
+        it "should return the strategy name for the class that returns true on method .run?" do
+          mock(Base).sort_by_priority { [ to_be_run, mock ] }
+          subject.find_strategy.should equal :rvm
+        end
+
+        it "should raise exception when don't find any class to run" do
+          mock(Base).sort_by_priority { [to_not_run] }
+          expect { subject.find_strategy }.to raise_exception
         end
       end
     end
