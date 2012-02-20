@@ -26,8 +26,10 @@ module InfinityTest
           strategy_to_run.strategy_name
         else
           message = <<-MESSAGE
-            The InfinityTest::Strategy::AutoDiscover doen't discover nothing to run.
+
+            The InfinityTest::Strategy::AutoDiscover doesn't discover nothing to run.
             Do you pass more than one ruby version to run and do you have some strategy(Rvm, Rbenv) installed?
+
           MESSAGE
           raise Exception, message
         end
