@@ -177,7 +177,7 @@ module InfinityTest
       #     # ...
       #   end
       #
-      #   before(:each_ruby) do
+      #   before(:each_ruby) do |environment|
       #     # ...
       #   end
       #
