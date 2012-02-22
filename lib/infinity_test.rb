@@ -32,11 +32,13 @@ module InfinityTest
     autoload :Padrino, 'infinity_test/framework/padrino'
     autoload :Rails, 'infinity_test/framework/rails'
     autoload :Rubygems, 'infinity_test/framework/rubygems'
+    autoload :SharedExample, 'infinity_test/framework/shared_example'
   end
 
   module Observer
     autoload :Base, 'infinity_test/observer/base'
     autoload :Watchr, 'infinity_test/observer/watchr'
+    autoload :EventMachine, 'infinity_test/observer/event_machine'
     autoload :SharedExample, 'infinity_test/observer/shared_example'
   end
 

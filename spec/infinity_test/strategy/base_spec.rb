@@ -34,6 +34,37 @@ module InfinityTest
         end
       end
 
+      describe "#bundle_exec" do
+        it "should return the params with the bundle exec if have a Gemfile and run with bundler" do
+          mock(subject).has_gemfile? { true }
+          mock(subject.base).using_bundler? { true }
+          subject.bundle_exec('ruby -Ilib foo.rb').should == 'bundle exec ruby -Ilib foo.rb'
+        end
+
+        it "should return the same params if don't have a Gemfile and run with bundler" do
+          mock(subject).has_gemfile? { false }
+          subject.bundle_exec('ruby -Ilib foo.rb').should == 'ruby -Ilib foo.rb'
+        end
+
+        it "should return the same params if have a Gemfile but not rnu with bundler" do
+          mock(subject).has_gemfile? { true }
+          mock(subject.base).using_bundler? { false }
+          subject.bundle_exec('ruby -Ilib foo.rb').should == 'ruby -Ilib foo.rb'
+        end
+      end
+
+      describe "#has_gemfile?" do
+        it "should return true if gemfile exists" do
+          mock(File).exist?(File.expand_path('./Gemfile')) { true }
+          subject.should have_gemfile
+        end
+
+        it "should return false if gemfile don't exists" do
+          mock(File).exist?(File.expand_path('./Gemfile')) { false }
+          subject.should_not have_gemfile
+        end
+      end
+
       describe "#run!" do
         it "should raise Not Implemented Error" do
           lambda { 

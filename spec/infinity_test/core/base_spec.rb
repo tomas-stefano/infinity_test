@@ -53,6 +53,18 @@ module InfinityTest
       end
     end
 
+    describe ".using_bundler?" do
+      it "should return the same bundler accessor" do
+        Base.using_bundler?.should equal Base.bundler
+      end
+    end
+
+    describe "#verbose?" do
+      it "should return the same verbose accessor" do
+        Base.verbose?.should equal Base.verbose
+      end
+    end
+
     describe ".observer" do
       it "should have watchr as default observer" do
         Base.observer.should equal :watchr
@@ -66,7 +78,7 @@ module InfinityTest
         mock(Observer::Watchr).new { observer }
         mock(observer).start { :bar }
         mock(Framework::AutoDiscover).new(Base) { framework }
-        mock(framework).add_heuristics { true }
+        mock(framework).heuristics { true }
         Base.start_observer.should be :bar
       end
 
@@ -109,14 +121,14 @@ module InfinityTest
 
     describe ".notifications" do
       it "should set the notification class accessor" do
-        silence_warnings do
+        silence_stream(STDOUT) do
           Base.notifications(:growl)
           Base.notification.should be :growl
         end
       end
 
       it "should set the images" do
-        silence_warnings do
+        silence_stream(STDOUT) do
           Base.notifications(:growl) do
             show_images :success_image => 'foo', :failure_image => 'bar', :pending_image => 'baz'
           end
@@ -127,7 +139,7 @@ module InfinityTest
       end
 
       it "should set the mode" do
-        silence_warnings do
+        silence_stream(STDOUT) do
           Base.notifications(:growl) do
             show_images :mode => :mortal_kombat
           end
@@ -156,32 +168,44 @@ module InfinityTest
       end
 
       it "should set the rubies" do
-        Base.use :rubies => %w(foo bar)
+        silence_stream(STDOUT) do
+          Base.use :rubies => %w(foo bar)
+        end
         Base.rubies.should eql %w(foo bar)
       end
 
       it "should set the specific options" do
-        Base.use :specific_options => '-J -Ilib -Itest'
+        silence_stream(STDOUT) do
+          Base.use :specific_options => '-J -Ilib -Itest'
+        end
         Base.specific_options.should eql '-J -Ilib -Itest'
       end
 
       it "should set the test framework" do
-        Base.use :test_framework => :rspec
+        silence_stream(STDOUT) do
+          Base.use :test_framework => :rspec
+        end
         Base.test_framework.should be :rspec
       end
 
       it "should set the app framework" do
-        Base.use :app_framework => :rails
+        silence_stream(STDOUT) do
+          Base.use :app_framework => :rails
+        end
         Base.framework.should be :rails
       end
 
       it "should set the verbose mode" do
-        Base.use :verbose => false
+        silence_stream(STDOUT) do
+          Base.use :verbose => false
+        end
         Base.verbose.should equal false # I choose to don't use should be_false
       end
 
       it "should set the gemset" do
-        Base.use :gemset => 'infinity_test'
+        silence_stream(STDOUT) do
+          Base.use :gemset => 'infinity_test'
+        end
         Base.gemset.should eql 'infinity_test'
       end
     end
@@ -211,7 +235,7 @@ module InfinityTest
 
     describe ".clear" do
       it "should call clear_terminal method" do
-        silence_warnings do
+        silence_stream(STDOUT) do
           mock(Base).clear_terminal { true }
           Base.clear(:terminal)
         end
@@ -220,7 +244,7 @@ module InfinityTest
 
     describe ".clear_terminal" do
       it "should call system clear" do
-        silence_warnings do
+        silence_stream(STDOUT) do
           mock(Base).system('clear') { true }
           Base.clear_terminal
         end

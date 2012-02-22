@@ -3,7 +3,7 @@ module InfinityTest
     class Configuration
       # Pass the responsability to InfinityTest::Base class. 
       #
-      # <b>Don't need super here.</b>
+      # <b>Don't need #super or #respond_to here.</b>
       # <b>This class will be removed in infinity_test 2.0.1</b>
       #
       def method_missing(method_name, *arguments, &block)

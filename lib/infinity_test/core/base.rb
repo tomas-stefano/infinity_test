@@ -152,19 +152,41 @@ module InfinityTest
         ruby_strategy.run!
       end
 
+      # Return a framework instance based on the framework accessor.
+      #
       def self.framework_instance
         Framework.const_get(framework.to_s.classify).new(self)
       end
 
-      # Start to monitoring files in the project
+      # Adding heuristics based on the framework.
+      #
+      def self.add_heuristics
+        framework_instance.heuristics
+      end
+
+      # Just a shortcut to bundler class accessor.
+      #
+      def self.using_bundler?
+        bundler
+      end
+
+      # Just a shortcut to bundler class accessor.
+      #
+      def self.verbose?
+        verbose
+      end
+
+      # Start to monitoring files in the project.
       #
       def self.start_observer
         if infinity_and_beyond.present?
-          framework_instance.add_heuristics
+          add_heuristics
           observer_instance.start
         end
       end
 
+      # Return a cached observer instance by the observer accessor.
+      #
       def self.observer_instance
         @observer_instance ||= Observer.const_get(observer.to_s.classify).new
       end

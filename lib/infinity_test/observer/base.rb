@@ -4,11 +4,11 @@ module InfinityTest
       attr_accessor :observer
 
       def start
-        raise NotImplementedError
+        raise NotImplementedError, "not implemented in #{self}"
       end
 
       def signal
-        raise NotImplementedError
+        raise NotImplementedError, "not implemented in #{self}"
       end
     end
   end

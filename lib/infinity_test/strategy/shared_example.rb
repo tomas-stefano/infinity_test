@@ -17,11 +17,15 @@ module InfinityTest
       shared_examples_for 'a infinity test strategy' do
 
         it 'should have the strategy name' do
-          subject.strategy.should be subject.base.strategy
+          subject.should respond_to(:strategy)
         end
 
         it 'should respond to #run!' do
           subject.should respond_to(:run!)
+        end
+
+        it 'should have the strategy name from the class scope' do
+          subject.class.should respond_to(:strategy_name)
         end
 
         it 'should respond to .run?' do

@@ -2,7 +2,7 @@ module InfinityTest
   module Strategy
     class RubyDefault < Base
       def run!
-        # %{ruby #{specific_options} -S #{test_framework.command}}
+        # bundle_exec(%{ruby #{specific_options} #{test_framework.command}})
       end
 
       # ==== Returns

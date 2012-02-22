@@ -58,16 +58,35 @@ module InfinityTest
         self.name.demodulize.underscore.to_sym
       end
 
+      # ==== Returns
+      #  @command: return command if don't find a Gemfile and if the Core::Base bundler is set to false
+      #  @command with bundle exec: if find a Gemfile and if the Core::Base bundler is set to true
+      def bundle_exec(command)
+        if has_gemfile? and @base.using_bundler?
+          "bundle exec #{command}"
+        else
+          command
+        end
+      end
+
+      # ==== Returns
+      # TrueClass: If Gemfile exists.
+      # FalseClass: If Gemfile don't exists.
+      #
+      def has_gemfile?
+        File.exist?(File.expand_path('./Gemfile'))
+      end
+
       # Obviously, this method is called for the InfinityTest when run the strategy
       #
       def run!
-        raise NotImplementedError
+        raise NotImplementedError, "not implemented in #{self}"
       end
 
       # Put all the requires to autodiscover use your strategy instead of others.
       #
       def self.run?
-        raise NotImplementedError
+        raise NotImplementedError, "not implemented in #{self}"
       end
     end
   end
