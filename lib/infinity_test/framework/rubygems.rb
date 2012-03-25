@@ -2,17 +2,10 @@ module InfinityTest
   module Framework
     class Rubygems < Base
       def heuristics
-        # @observer.watch_dir('lib') do |file|
-        #   RunTest.new(file)
-        # end
-        #
-        # @observer.watch_dir(@test_framework.test_dir) do |file|
-        #   RunFile.new(file)
-        # end
-        #
-        # @observer.watch(@test_framework.test_helper) do
-        #   RunAll.new
-        # end
+        # watch(:Gemfile) { BundleInstall and RunAll }
+        # watch_dir(:lib) { |file| RunTest(file, :dir => :models) }
+        # watch_dir(@test_framework.test_dir) { |file| RunFile(file) }
+        # watch(@test_framework.test_helper_file) { RunAll }
       end
 
       # ==== Returns

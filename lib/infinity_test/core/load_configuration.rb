@@ -23,7 +23,7 @@ module InfinityTest
       #
       #  ~/.infinity_test -> infinity_test { notifications :growl }
       #
-      #  ./.infinity_test -> infinity_test { notifications :lib_notify }  # High Priority
+      #  ./.infinity_test -> infinity_test { notifications :lib_notify } # High Priority
       #
       # After the load the Notifications Framework will be Lib Notify
       #

@@ -2,18 +2,11 @@ module InfinityTest
   module Framework
     class Rails < Base
       def heuristics
-        # @observer.watch_dir('app') do |file|
-        #   RunFile.new(file)
-        # end
-        #
-        # @observer.watch('Gemfile') do
-        #   bundle_install
-        #   RunAll.new
-        # end
-        #
-        # @observer.watch @test_framework.test_helper_file do
-            # RunAll.new
-        # end
+        # watch_dir('app/models') { |file| RunTest(file, :dir => :models) }
+        # watch_dir('app/models') { |file| RunAll(:dir => :controllers) }
+        # watch_gemfile
+        # watch(:Gemfile) { |file| BundleInstall and RunAll }
+        # watch(@test_framework.test_helper_file) { |file| RunAll }
       end
 
       def self.run?

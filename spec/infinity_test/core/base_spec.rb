@@ -95,6 +95,10 @@ module InfinityTest
         mock(Strategy::Base).run! { true }
         Base.run_strategy!
       end
+
+      it "should implementing the before and after callbacks" do
+        pending
+      end
     end
 
     describe ".before" do

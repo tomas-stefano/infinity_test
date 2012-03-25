@@ -34,6 +34,14 @@ module InfinityTest
         it 'should respond to #test_files' do
           subject.should respond_to(:test_files)
         end
+
+        it 'should respond to #test_helper_file' do
+          subject.should respond_to(:test_helper_file)
+        end
+
+        it 'should respond to #test_dir' do
+          subject.should respond_to(:test_dir)
+        end
       end
     end
   end

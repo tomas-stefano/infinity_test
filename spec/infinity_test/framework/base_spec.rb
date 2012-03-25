@@ -22,6 +22,22 @@ module InfinityTest
           AutoDiscover.framework_name.should be :auto_discover
         end
       end
+
+      describe "#watch and #watch_dir" do
+        let(:watch_block) { Proc.new { |file| file } }
+
+        before(:each) do
+          pending
+        end
+
+        it "should delegate to the observer" do
+          Base.watch(:gemfile, &watch_block)
+        end
+
+        it "should delegate to the observer" do
+          Base.watch_dir(:lib, &watch_block)
+        end
+      end
     end
   end
 end

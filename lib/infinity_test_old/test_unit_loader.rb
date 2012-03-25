@@ -2,4 +2,4 @@
 
 # Load the test files from the command line.
 
-ARGV.each { |file| load file unless file =~ /^-/  }
+ARGV.each { |file| require(file) unless file =~ /^-/  }

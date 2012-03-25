@@ -84,7 +84,7 @@ module InfinityTest
       cattr_accessor :mode
       # => This will show images in the folder:
       # http://github.com/tomas-stefano/infinity_test/tree/master/images/simpson
-      self.mode = :simpson 
+      self.mode = :simpson
 
       # Success Image to show after the tests run.
       cattr_accessor :success_image
@@ -115,7 +115,7 @@ module InfinityTest
       self.infinity_and_beyond = true
 
       # Setup Infinity Test passing the ruby versions and others setting.
-      # See the class accessors for more information.
+      # <b>See the class accessors for more information.</b>
       #
       # ==== Examples
       #
@@ -149,7 +149,9 @@ module InfinityTest
       # Run strategy based on the choosed ruby strategy.
       #
       def self.run_strategy!
+        # PENDING: run_before_callbacks
         ruby_strategy.run!
+        # PENDING: run_after_callbacks
       end
 
       # Return a framework instance based on the framework accessor.
@@ -162,18 +164,6 @@ module InfinityTest
       #
       def self.add_heuristics
         framework_instance.heuristics
-      end
-
-      # Just a shortcut to bundler class accessor.
-      #
-      def self.using_bundler?
-        bundler
-      end
-
-      # Just a shortcut to bundler class accessor.
-      #
-      def self.verbose?
-        verbose
       end
 
       # Start to monitoring files in the project.
@@ -189,6 +179,18 @@ module InfinityTest
       #
       def self.observer_instance
         @observer_instance ||= Observer.const_get(observer.to_s.classify).new
+      end
+
+      # Just a shortcut to bundler class accessor.
+      #
+      def self.using_bundler?
+        bundler
+      end
+
+      # Just a shortcut to bundler class accessor.
+      #
+      def self.verbose?
+        verbose
       end
 
       # Callback method to handle before all run and for each ruby too!
@@ -218,11 +220,11 @@ module InfinityTest
       #   after(:all) do
       #     # ...
       #   end
-      #   
+      #
       #   after(:each_ruby) do
       #     # ...
       #   end
-      #   
+      #
       #   after do # if you pass not then will use :all option
       #     # ...
       #   end
@@ -279,11 +281,11 @@ module InfinityTest
       end
 
       # <b>DEPRECATED:</b> Please use:
-      # .rubies= or 
-      # .specific_options= or 
-      # .test_framework= or 
-      # .framework= or 
-      # .verbose= or 
+      # .rubies= or
+      # .specific_options= or
+      # .test_framework= or
+      # .framework= or
+      # .verbose= or
       # .gemset= instead
       #
       def self.use(options)
