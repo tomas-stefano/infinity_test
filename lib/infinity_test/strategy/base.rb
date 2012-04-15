@@ -1,14 +1,13 @@
 module InfinityTest
   module Strategy
     class Base
-      attr_accessor :base, :strategy, :command_builder
+      attr_accessor :base, :test_framework
 
-      delegate :rubies, :specific_options, :test_framework, :gemset, :bundler, :to => :base
+      delegate :rubies, :specific_options, :gemset, :bundler, :to => :base
 
       def initialize(base)
         @base = base
-        @strategy = base.strategy
-        @command_builder = Core::CommandBuilder.new
+        @test_framework = base.test_framework_instance
       end
 
       # Everytime someone inherits from InfinityTest::Strategy::Base class,
@@ -68,6 +67,13 @@ module InfinityTest
         else
           command
         end
+      end
+
+      # ==== Returns
+      # CommandBuilderClass: A class that builds that command using method_missing.
+      #
+      def command_builder
+        Core::CommandBuilder.new
       end
 
       # ==== Returns
