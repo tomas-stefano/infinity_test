@@ -2,7 +2,7 @@ module InfinityTest
   module Framework
     class Base
       attr_accessor :base, :test_framework, :observer, :strategy
-      delegate :watch_pattern, :watch_file, :watch_dir, :to => :observer
+      delegate :watch, :watch_dir, :to => :observer
 
       def initialize(base)
         @base = base
@@ -31,6 +31,27 @@ module InfinityTest
       #
       def self.framework_name
         self.name.demodulize.underscore.to_sym
+      end
+
+      def BundleInstall
+        system(command_builder.bundle.install.to_s)
+        RunAll()
+      end
+
+      def RunAll
+        Core::Base.run_strategy!
+      end
+
+      def RunFile(changed_file)
+        Core::Base.run_strategy!
+      end
+
+      def RunTest(test_file)
+        Core::Base.run_strategy!
+      end
+
+      def command_builder
+        Core::CommandBuilder.new
       end
 
       # This method is called for the InfinityTest before starting the observer

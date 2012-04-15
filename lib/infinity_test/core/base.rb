@@ -178,6 +178,7 @@ module InfinityTest
       def self.start_observer
         if infinity_and_beyond.present?
           add_heuristics
+          observer_instance.signal
           observer_instance.start
         end
       end

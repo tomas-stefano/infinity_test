@@ -19,6 +19,14 @@ module InfinityTest
           subject.should respond_to(:observer)
         end
 
+        it 'should respond to #watch_dir' do
+          subject.should respond_to(:watch_dir)
+        end
+
+        it 'should respond to #watch' do
+          subject.should respond_to(:watch)
+        end
+
         it 'should respond to #start' do
           subject.should respond_to(:start)
         end

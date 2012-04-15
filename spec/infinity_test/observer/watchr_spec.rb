@@ -11,6 +11,25 @@ module InfinityTest
         end
       end
 
+      describe "#watch" do
+        it "should pass the args to the observer" do
+          mock(subject.observer).watch('lib')
+          subject.watch(:lib)
+        end
+      end
+
+      describe "#watch_dir" do
+        it "should pass the pattern to the observer" do
+          mock(subject.observer).watch("^spec/*/(.*).rb")
+          subject.watch_dir(:spec)
+        end
+
+        it "should pass the pattern and the extension to the observer" do
+          mock(subject.observer).watch("^spec/*/(.*).py")
+          subject.watch_dir(:spec, :py)
+        end
+      end
+
       describe "#start" do
         it "should initialize an watchr controller passing the #observer" do
           handler = mock
