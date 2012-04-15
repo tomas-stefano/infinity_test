@@ -3,6 +3,8 @@ require 'spec_helper'
 module InfinityTest
   module Framework
     describe Base do
+      subject { Base.new(Core::Base) }
+
       describe ".subclasses" do
         it "should have rvm, rbenv, rubydefault and autodiscover as subclasses" do
           Base.subclasses.should include(Rails, Padrino, Rubygems, AutoDiscover)
@@ -23,19 +25,21 @@ module InfinityTest
         end
       end
 
-      describe "#watch and #watch_dir" do
-        let(:watch_block) { Proc.new { |file| file } }
-
-        before(:each) do
-          pending
+      describe "#test_framework" do
+        it "should be instance of Test Framework" do
+          subject.test_framework.should be_instance_of(TestFramework::AutoDiscover)
         end
+      end
 
-        it "should delegate to the observer" do
-          Base.watch(:gemfile, &watch_block)
+      describe "#observer" do
+        it "should be instance of a infinity test observer" do
+          subject.observer.should be_instance_of(Observer::Watchr)
         end
+      end
 
-        it "should delegate to the observer" do
-          Base.watch_dir(:lib, &watch_block)
+      describe "#strategy" do
+        it "should be instance of a infinity test auto discover" do
+          subject.strategy.should be_instance_of(Strategy::AutoDiscover)
         end
       end
     end

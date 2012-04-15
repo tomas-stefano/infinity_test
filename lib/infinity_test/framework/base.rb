@@ -2,12 +2,13 @@ module InfinityTest
   module Framework
     class Base
       attr_accessor :base, :test_framework, :observer, :strategy
+      delegate :watch_pattern, :watch_file, :watch_dir, :to => :observer
 
       def initialize(base)
         @base = base
-        @test_framework = base.test_framework
-        @observer = base.observer
-        @strategy = base.strategy
+        @test_framework = base.test_framework_instance
+        @observer = base.observer_instance
+        @strategy = base.strategy_instance
       end
 
       # Everytime someone inherits from InfinityTest::Framework::Base class,

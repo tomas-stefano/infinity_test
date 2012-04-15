@@ -1,16 +1,17 @@
 module InfinityTest
   module Strategy
     class Base
-      attr_accessor :base, :strategy
+      attr_accessor :base, :strategy, :command_builder
 
       delegate :rubies, :specific_options, :test_framework, :gemset, :bundler, :to => :base
 
       def initialize(base)
         @base = base
         @strategy = base.strategy
+        @command_builder = Core::CommandBuilder.new
       end
 
-      # Everytime someone inherits from InfinityTest::Strategy::Base class, 
+      # Everytime someone inherits from InfinityTest::Strategy::Base class,
       # register the klass into baseclass.
       #
       def self.inherited(klass)
@@ -41,7 +42,7 @@ module InfinityTest
         subclasses.sort_by { |klass| klass.priority }
       end
 
-      # Return the priority to be auto discover. 
+      # Return the priority to be auto discover.
       # If you want to your subclass to be high add this method and put other priority.
       # See InfinityTest::Strategy::Base.sort_by_priority for more information.
       #

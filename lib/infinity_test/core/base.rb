@@ -159,30 +159,12 @@ module InfinityTest
         ConfigurationMerge.new(self, options).merge!
       end
 
-      # Returns the class for the configured strategy.
-      #
-      def self.strategy_class
-        InfinityTest::Strategy.const_get(strategy.to_s.classify)
-      end
-
-      # Returns the instance for the configured strategy.
-      #
-      def self.ruby_strategy
-        strategy_class.new(self)
-      end
-
       # Run strategy based on the choosed ruby strategy.
       #
       def self.run_strategy!
         # PENDING: run_before_callbacks
-        ruby_strategy.run!
+        strategy_instance.run!
         # PENDING: run_after_callbacks
-      end
-
-      # Return a framework instance based on the framework accessor.
-      #
-      def self.framework_instance
-        Framework.const_get(framework.to_s.classify).new(self)
       end
 
       # Adding heuristics based on the framework.
@@ -203,7 +185,25 @@ module InfinityTest
       # Return a cached observer instance by the observer accessor.
       #
       def self.observer_instance
-        @observer_instance ||= Observer.const_get(observer.to_s.classify).new
+        @observer_instance ||= "::InfinityTest::Observer::#{observer.to_s.classify}".constantize.new
+      end
+
+      # Returns the instance for the configured strategy.
+      #
+      def self.strategy_instance
+        InfinityTest::Strategy.const_get(strategy.to_s.classify).new(self)
+      end
+
+      # Return a cached test framework instance by the observer accessor.
+      #
+      def self.test_framework_instance
+        "::InfinityTest::TestFramework::#{test_framework.to_s.classify}".constantize.new
+      end
+
+      # Return a framework instance based on the framework accessor.
+      #
+      def self.framework_instance
+        "::InfinityTest::Framework::#{framework.to_s.classify}".constantize.new(self)
       end
 
       # Just a shortcut to bundler class accessor.

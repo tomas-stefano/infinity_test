@@ -4,7 +4,7 @@ require 'ostruct'
 module InfinityTest
   module Strategy
     describe Base do
-      let(:subject) { 
+      let(:subject) {
         base_object = Object.new
         mock(base_object).strategy { :rvm }
         Base.new(base_object)
@@ -53,6 +53,12 @@ module InfinityTest
         end
       end
 
+      describe "#command_builder" do
+        it "should be instance of CommandBuilder" do
+          subject.command_builder.should be_instance_of(Core::CommandBuilder)
+        end
+      end
+
       describe "#has_gemfile?" do
         it "should return true if gemfile exists" do
           mock(File).exist?(File.expand_path('./Gemfile')) { true }
@@ -67,7 +73,7 @@ module InfinityTest
 
       describe "#run!" do
         it "should raise Not Implemented Error" do
-          lambda { 
+          lambda {
             subject.run!
           }.should raise_exception(NotImplementedError)
         end
@@ -85,7 +91,7 @@ module InfinityTest
 
       describe ".run?" do
         it "should raise Not Implemented Error" do
-          lambda { 
+          lambda {
             Base.run?
           }.should raise_exception(NotImplementedError)
         end

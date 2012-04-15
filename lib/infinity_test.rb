@@ -53,6 +53,7 @@ module InfinityTest
   end
 
   module TestFramework
+    autoload :AutoDiscover, 'infinity_test/test_framework/auto_discover'
     autoload :Base, 'infinity_test/test_framework/base'
     autoload :TestUnit, 'infinity_test/test_framework/test_unit'
     autoload :Rspec, 'infinity_test/test_framework/rspec'

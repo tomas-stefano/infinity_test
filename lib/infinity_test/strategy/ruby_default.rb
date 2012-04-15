@@ -2,7 +2,8 @@ module InfinityTest
   module Strategy
     class RubyDefault < Base
       def run!
-        # bundle_exec(%{ruby #{specific_options} #{test_framework.command}})
+        system(bundle_exec(@command_builder.ruby.option(:S).rspec.spec))
+        # bundle_exec(@command_builder.ruby.add(specific_options).option(:S).add(test_framework.binary).add(test_framework.test_files))
       end
 
       # ==== Returns

@@ -11,48 +11,6 @@ module InfinityTest
       end
     end
 
-    describe ".strategy_class" do
-      before do
-        @old_strategy = Base.strategy
-      end
-
-      after do
-        Base.strategy = @old_strategy
-      end
-
-      it "should return the right class strategy" do
-        Base.strategy = :auto_discover
-        Base.strategy_class.should be InfinityTest::Strategy::AutoDiscover
-      end
-
-      it "should return rbenv when" do
-        Base.strategy = :rbenv
-        Base.strategy_class.should be InfinityTest::Strategy::Rbenv
-      end
-    end
-
-    describe ".ruby_strategy" do
-      before do
-        @old_strategy = Base.strategy
-      end
-
-      after do
-        Base.strategy = @old_strategy
-      end
-
-      it "should create an instance of strategy class pass base as option" do
-        Base.strategy = :auto_discover
-        mock(Strategy::AutoDiscover).new(Base) { :foo }
-        Base.ruby_strategy.should be :foo
-      end
-
-      it "should create an instance for rbenv strategy" do
-        Base.strategy = :rbenv
-        mock(Strategy::Rbenv).new(Base) { :bar }
-        Base.ruby_strategy.should be :bar
-      end
-    end
-
     describe ".using_bundler?" do
       it "should return the same bundler accessor" do
         Base.using_bundler?.should equal Base.bundler
@@ -83,33 +41,27 @@ module InfinityTest
       end
     end
 
-    describe ".start_observer" do
-      it "should call the #start method from the observer instance" do
-        observer = mock
-        framework = mock
-        mock(Observer::Watchr).new { observer }
-        mock(observer).start { :bar }
-        mock(Framework::AutoDiscover).new(Base) { framework }
-        mock(framework).heuristics { true }
-        Base.start_observer.should be :bar
-      end
-
-      it "should not class the start observer if infinity and beyond option is set to false" do
-        dont_allow(Base).observer_instance
-        mock(Base).infinity_and_beyond { false }
-        Base.start_observer.should be_nil
+    describe "#strategy_instance" do
+      it "should return auto discover as default" do
+        Base.strategy_instance.should be_instance_of(InfinityTest::Strategy::AutoDiscover)
       end
     end
 
-    describe ".run_strategy!" do
-      it "should call ruby_strategy and run it!" do
-        mock(Base).ruby_strategy { Strategy::Base }
-        mock(Strategy::Base).run! { true }
-        Base.run_strategy!
+    describe "#observer_instance" do
+      it "should return watchr as default" do
+        Base.observer_instance.should be_instance_of(InfinityTest::Observer::Watchr)
       end
+    end
 
-      it "should implementing the before and after callbacks" do
-        pending
+    describe "#test_framework_instance" do
+      it "should return auto discover as default" do
+        Base.test_framework_instance.should be_instance_of(InfinityTest::TestFramework::AutoDiscover)
+      end
+    end
+
+    describe "#framework_instance" do
+      it "should return auto discover as default" do
+        Base.framework_instance.should be_instance_of(InfinityTest::Framework::AutoDiscover)
       end
     end
 
