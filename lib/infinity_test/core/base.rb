@@ -55,15 +55,15 @@ module InfinityTest
       cattr_accessor :observer
       self.observer = :watchr
 
-      # Ignore test files on run.
+      # Ignore test files.
       #
       # ==== Examples
-      #   ignore_test_files = [ 'spec/generators/controller_generator' ]
+      #   ignore_test_files = [ 'spec/generators/controller_generator_spec.rb' ]
       #
       cattr_accessor :ignore_test_files
       self.ignore_test_files = []
 
-      # Ignore test folders on run.
+      # Ignore test folders.
       #
       # ==== Examples
       #   # Imagine that you don't want to run integration specs.
@@ -117,7 +117,8 @@ module InfinityTest
       #
       cattr_accessor :failure_image
 
-      # Use a specific gemset for each ruby
+      # Use a specific gemset for each ruby.
+      # OBS.: This only will work for RVM strategy.
       #
       cattr_accessor :gemset
 
