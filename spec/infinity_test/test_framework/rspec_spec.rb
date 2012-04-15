@@ -17,6 +17,12 @@ module InfinityTest
         end
       end
 
+      describe "#binary" do
+        it "should return rspec as binary" do
+          subject.binary.should == 'rspec'
+        end
+      end
+
       describe "#test_files" do
         it "should return something like an Array" do
           subject.test_files.should be_instance_of(Array)

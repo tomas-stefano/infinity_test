@@ -14,6 +14,7 @@ module InfinityTest
 
   module Core
     autoload :Base, 'infinity_test/core/base'
+    autoload :CommandBuilder, 'infinity_test/core/command_builder'
     autoload :ConfigurationMerge, 'infinity_test/core/configuration_merge'
     autoload :LoadConfiguration, 'infinity_test/core/load_configuration'
     autoload :Options, 'infinity_test/core/options'

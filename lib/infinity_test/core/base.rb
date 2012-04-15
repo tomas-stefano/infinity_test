@@ -55,6 +55,23 @@ module InfinityTest
       cattr_accessor :observer
       self.observer = :watchr
 
+      # Ignore test files on run.
+      #
+      # ==== Examples
+      #   ignore_test_files = [ 'spec/generators/controller_generator' ]
+      #
+      cattr_accessor :ignore_test_files
+      self.ignore_test_files = []
+
+      # Ignore test folders on run.
+      #
+      # ==== Examples
+      #   # Imagine that you don't want to run integration specs.
+      #   ignore_test_folders = [ 'spec/integration' ]
+      #
+      cattr_accessor :ignore_test_folders
+      self.ignore_test_folders = []
+
       # Verbose Mode. Print commands before executing them.
       #
       cattr_accessor :verbose
@@ -82,24 +99,31 @@ module InfinityTest
       # * pending (png, gif, jpeg)
       #
       cattr_accessor :mode
+      #
       # => This will show images in the folder:
       # http://github.com/tomas-stefano/infinity_test/tree/master/images/simpson
+      #
       self.mode = :simpson
 
       # Success Image to show after the tests run.
+      #
       cattr_accessor :success_image
 
       # Pending Image to show after the tests run.
+      #
       cattr_accessor :pending_image
 
       # Failure Image to show after the tests run.
+      #
       cattr_accessor :failure_image
 
       # Use a specific gemset for each ruby
+      #
       cattr_accessor :gemset
 
       # InfinityTest try to use bundler if Gemfile is present.
-      # Set to false if you don't want use bundler
+      # Set to false if you don't want use bundler.
+      #
       cattr_accessor :bundler
       self.bundler = true
 

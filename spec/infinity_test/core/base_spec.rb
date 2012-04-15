@@ -71,6 +71,18 @@ module InfinityTest
       end
     end
 
+    describe ".ignore_test_files" do
+      it "should not have test files to ignore as default" do
+        Base.ignore_test_files.should eql []
+      end
+    end
+
+    describe "#ignore_test_folders" do
+      it "should not ignore test folders as default" do
+        Base.ignore_test_folders.should eql []
+      end
+    end
+
     describe ".start_observer" do
       it "should call the #start method from the observer instance" do
         observer = mock

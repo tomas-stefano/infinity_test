@@ -2,6 +2,9 @@ module InfinityTest
   module Strategy
     class Rvm < Base
       def run!
+        base.rubies.each do |ruby_version|
+          command.rvm.do.ruby_version.ruby.add('-S').add(test_framework.binary).add(test_framework.test_dir)
+        end
       end
 
       # ==== Returns

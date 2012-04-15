@@ -1,6 +1,9 @@
 module InfinityTest
   module TestFramework
     class Rspec < Base
+      def binary
+        'rspec'
+      end
 
       def test_dir
         'spec'

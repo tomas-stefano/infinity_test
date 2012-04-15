@@ -1,7 +1,7 @@
 module InfinityTest
   module OldDSL
     class Configuration
-      # Pass the responsability to InfinityTest::Base class. 
+      # Pass the responsability to InfinityTest::Base class.
       #
       # <b>Don't need #super or #respond_to here.</b>
       # <b>This class will be removed in infinity_test 2.0.1</b>
@@ -17,7 +17,7 @@ module InfinityTest
       def infinity_test(&block)
         message = "infinity_test method is deprecated. Use InfinityTest.setup { |config| ... } instead."
         ActiveSupport::Deprecation.warn(message)
-        Configuration.new.instance_eval(&block)
+        ::InfinityTest::OldDSL::Configuration.new.instance_eval(&block)
       end
     end
   end
