@@ -204,7 +204,7 @@ module InfinityTest
       # Return a framework instance based on the framework accessor.
       #
       def self.framework_instance
-        "::InfinityTest::Framework::#{framework.to_s.classify}".constantize.new(self)
+        "::InfinityTest::Framework::#{framework.to_s.camelize}".constantize.new(self)
       end
 
       # Just a shortcut to bundler class accessor.

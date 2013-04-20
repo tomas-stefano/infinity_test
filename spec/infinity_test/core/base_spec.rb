@@ -63,6 +63,11 @@ module InfinityTest
       it "should return auto discover as default" do
         Base.framework_instance.should be_instance_of(InfinityTest::Framework::AutoDiscover)
       end
+
+      it 'return the class by the framework name' do
+        mock(Base).framework { :rubygems }
+        Base.framework_instance.should be_a InfinityTest::Framework::Rubygems
+      end
     end
 
     describe ".before" do
