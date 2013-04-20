@@ -18,7 +18,7 @@ module InfinityTest
       def signal
         Signal.trap('INT') do
           if @interrupt
-            puts " Shutting down now. Have a nice day!"
+            puts " To Infinity and Beyond!"
             exit
           else
             puts " Are you sure? :S ... Interrupt a second time to quit!"

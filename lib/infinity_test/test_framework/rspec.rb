@@ -10,7 +10,7 @@ module InfinityTest
       end
 
       def test_helper_file
-        File.join("#{test_dir}", "spec_helper.rb")
+        File.join("#{test_dir}", 'spec_helper.rb')
       end
 
       def test_files
