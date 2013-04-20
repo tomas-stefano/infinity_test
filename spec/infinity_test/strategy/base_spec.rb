@@ -4,11 +4,7 @@ require 'ostruct'
 module InfinityTest
   module Strategy
     describe Base do
-      let(:subject) {
-        base_object = Object.new
-        mock(base_object).strategy { :rvm }
-        Base.new(base_object)
-      }
+      let(:subject) { Base.new(InfinityTest::Core::Base) }
 
       describe ".subclasses" do
         it "should have rvm, rbenv, rubydefault and autodiscover as subclasses" do
