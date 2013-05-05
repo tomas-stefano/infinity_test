@@ -1,12 +1,11 @@
 ## Road to 2.0
 
-* Migrate rr to simple rspec.
-* Refactoring specs (see better specs).
 * Watchr.
 * RSpec.
 * RubyDefault.
 * Rubygems.
 * Work Notifications.
+* Refactoring specs (see better specs).
 * Make callbacks work in the new structure.
 * Rvm.
 * Work with test pattern on Configuration overwriting the Test framework instance.
