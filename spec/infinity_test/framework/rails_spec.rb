@@ -12,12 +12,12 @@ module InfinityTest
 
       describe ".run?" do
         it "should return true if exist the config/enviroment.rb file" do
-          mock(File).exist?(File.expand_path('./config/environment.rb')) { true }
+          File.should_receive(:exist?).with(File.expand_path('./config/environment.rb')).and_return(true)
           Rails.should be_run
         end
 
         it "should return false if don't exist the config/enviroment.rb file" do
-          mock(File).exist?(File.expand_path('./config/environment.rb')) { false }
+          File.should_receive(:exist?).with(File.expand_path('./config/environment.rb')).and_return(false)
           Rails.should_not be_run
         end
       end

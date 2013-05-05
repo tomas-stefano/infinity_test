@@ -8,8 +8,8 @@ module InfinityTest
 
       describe "#run!" do
         it "should find strategy and rerun the discovered strategy" do
-          mock(subject).find_strategy
-          mock(subject.base).run_strategy! { true }
+          subject.should_receive(:find_strategy)
+          subject.base.should_receive(:run_strategy!).and_return(true)
           subject.run!
         end
       end
@@ -23,24 +23,24 @@ module InfinityTest
       describe "#find_strategy" do
         let(:to_be_run) do
           klass = Object.new
-          mock(klass).run? { true }
-          mock(klass).strategy_name { :rvm }
+          klass.stub(:run?).and_return(true)
+          klass.stub(:strategy_name).and_return(:rvm)
           klass
         end
 
         let(:to_not_run) do
           klass = Object.new
-          mock(klass).run? { false }
+          klass.stub(:run?).and_return(false)
           klass
         end
 
         it "should return the strategy name for the class that returns true on method .run?" do
-          mock(Base).sort_by_priority { [ to_be_run, mock ] }
+          Base.should_receive(:sort_by_priority).and_return([ to_be_run, mock ])
           subject.find_strategy.should equal :rvm
         end
 
         it "should raise exception when don't find any class to run" do
-          mock(Base).sort_by_priority { [to_not_run] }
+          Base.should_receive(:sort_by_priority).and_return([to_not_run])
           expect { subject.find_strategy }.to raise_exception
         end
       end

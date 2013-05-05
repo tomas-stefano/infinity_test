@@ -19,7 +19,7 @@ module InfinityTest
         let(:regular_priority) { OpenStruct.new(:priority => :regular) }
 
         it "should sort the subclasses by the high priority first" do
-          mock(Base).subclasses { [ low_priority, high_priority, regular_priority, normal_priority] }
+          Base.should_receive(:subclasses).and_return([ low_priority, high_priority, regular_priority, normal_priority])
           Base.sort_by_priority.should == [high_priority, normal_priority, regular_priority, low_priority]
         end
       end
@@ -32,19 +32,19 @@ module InfinityTest
 
       describe "#bundle_exec" do
         it "should return the params with the bundle exec if have a Gemfile and run with bundler" do
-          mock(subject).has_gemfile? { true }
-          mock(subject.base).using_bundler? { true }
+          subject.should_receive(:has_gemfile?).and_return(true)
+          subject.base.should_receive(:using_bundler?).and_return(true)
           subject.bundle_exec('ruby -Ilib foo.rb').should == 'bundle exec ruby -Ilib foo.rb'
         end
 
         it "should return the same params if don't have a Gemfile and run with bundler" do
-          mock(subject).has_gemfile? { false }
+          subject.should_receive(:has_gemfile?).and_return(false)
           subject.bundle_exec('ruby -Ilib foo.rb').should == 'ruby -Ilib foo.rb'
         end
 
         it "should return the same params if have a Gemfile but not rnu with bundler" do
-          mock(subject).has_gemfile? { true }
-          mock(subject.base).using_bundler? { false }
+          subject.should_receive(:has_gemfile?).and_return(true)
+          subject.base.should_receive(:using_bundler?).and_return(false)
           subject.bundle_exec('ruby -Ilib foo.rb').should == 'ruby -Ilib foo.rb'
         end
       end
@@ -57,12 +57,12 @@ module InfinityTest
 
       describe "#has_gemfile?" do
         it "should return true if gemfile exists" do
-          mock(File).exist?(File.expand_path('./Gemfile')) { true }
+          File.should_receive(:exist?).with(File.expand_path('./Gemfile')).and_return(true)
           subject.should have_gemfile
         end
 
         it "should return false if gemfile don't exists" do
-          mock(File).exist?(File.expand_path('./Gemfile')) { false }
+          File.should_receive(:exist?).with(File.expand_path('./Gemfile')).and_return(false)
           subject.should_not have_gemfile
         end
       end

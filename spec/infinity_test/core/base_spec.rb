@@ -65,7 +65,7 @@ module InfinityTest
       end
 
       it 'return the class by the framework name' do
-        mock(Base).framework { :rubygems }
+        Base.should_receive(:framework).and_return(:rubygems)
         Base.framework_instance.should be_a InfinityTest::Framework::Rubygems
       end
     end
@@ -74,7 +74,7 @@ module InfinityTest
       let(:proc) { Proc.new { 'To Infinity and beyond!' } }
 
       it "should create before callback instance and push to the callback accessor" do
-        mock(BeforeCallback).new(:all, &proc).once { :foo }
+        BeforeCallback.should_receive(:new).with(:all, &proc).once.and_return(:foo)
         before_callback = Base.before(:all, &proc)
         before_callback.should be :foo
         Base.callbacks.should be_include before_callback
@@ -85,7 +85,7 @@ module InfinityTest
       let(:proc) { Proc.new {}}
 
       it "should create before callback instance and push to the callback accessor" do
-        mock(AfterCallback).new(:each, &proc).once { :foo }
+        AfterCallback.should_receive(:new).with(:each, &proc).once.and_return(:foo)
         after_callback = Base.after(:each, &proc)
         after_callback.should be :foo
         Base.callbacks.should be_include after_callback
@@ -200,8 +200,8 @@ module InfinityTest
       let(:configuration_merge) { Object.new }
 
       it "should call merge on the configuration merge object" do
-        mock(ConfigurationMerge).new(Core::Base, options) { configuration_merge }
-        mock(configuration_merge).merge!
+        ConfigurationMerge.should_receive(:new).with(Core::Base, options).and_return(configuration_merge)
+        configuration_merge.should_receive(:merge!)
         Core::Base.merge!(options)
       end
     end
@@ -209,7 +209,7 @@ module InfinityTest
     describe ".clear" do
       it "should call clear_terminal method" do
         silence_stream(STDOUT) do
-          mock(Base).clear_terminal { true }
+          Base.should_receive(:clear_terminal).and_return(true)
           Base.clear(:terminal)
         end
       end
@@ -218,7 +218,7 @@ module InfinityTest
     describe ".clear_terminal" do
       it "should call system clear" do
         silence_stream(STDOUT) do
-          mock(Base).system('clear') { true }
+          Base.should_receive(:system).with('clear').and_return(true)
           Base.clear_terminal
         end
       end

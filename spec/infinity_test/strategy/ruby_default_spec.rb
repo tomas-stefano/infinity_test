@@ -8,12 +8,12 @@ module InfinityTest
 
       describe ".run?" do
         it "should return true when don't pass any ruby versions to run tests" do
-          mock(Core::Base).rubies { [] }
+          Core::Base.stub(:rubies).and_return([])
           RubyDefault.should be_run
         end
 
         it "should return false when pass some ruby version to run tests" do
-          mock(Core::Base).rubies { ['ree', 'jruby'] }
+          Core::Base.stub(:rubies).and_return(['ree', 'jruby'])
           RubyDefault.should_not be_run
         end
       end

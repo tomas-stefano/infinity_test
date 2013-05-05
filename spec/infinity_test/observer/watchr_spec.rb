@@ -13,19 +13,19 @@ module InfinityTest
 
       describe "#watch" do
         it "should pass the args to the observer" do
-          mock(subject.observer).watch('lib')
+          subject.observer.should_receive(:watch).with('lib')
           subject.watch(:lib)
         end
       end
 
       describe "#watch_dir" do
         it "should pass the pattern to the observer" do
-          mock(subject.observer).watch("^spec/*/(.*).rb")
+          subject.observer.should_receive(:watch).with("^spec/*/(.*).rb")
           subject.watch_dir(:spec)
         end
 
         it "should pass the pattern and the extension to the observer" do
-          mock(subject.observer).watch("^spec/*/(.*).py")
+          subject.observer.should_receive(:watch).with("^spec/*/(.*).py")
           subject.watch_dir(:spec, :py)
         end
       end
@@ -34,9 +34,9 @@ module InfinityTest
         it "should initialize an watchr controller passing the #observer" do
           handler = mock
           controller = controller
-          mock(::Watchr.handler).new { handler }
-          mock(::Watchr::Controller).new(subject.observer, handler) { controller }
-          mock(controller).run { :running }
+          ::Watchr.handler.should_receive(:new).and_return(handler)
+          ::Watchr::Controller.should_receive(:new).with(subject.observer, handler).and_return(controller)
+          controller.should_receive(:run).and_return(:running)
           subject.start.should equal :running
         end
       end

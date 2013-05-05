@@ -14,12 +14,12 @@ module InfinityTest
 
       describe ".run?" do
         it "should return true if have a .gemspec in the user current dir" do
-          mock(Dir).[]('*.gemspec') { ['infinity_test.gemspec'] }
+          Dir.should_receive(:[]).with('*.gemspec').and_return(['infinity_test.gemspec'])
           Rubygems.should be_run
         end
 
         it "should return false if don't have a .gemspec in the user current dir" do
-          mock(Dir).[]('*.gemspec') { [] }
+          Dir.should_receive(:[]).with('*.gemspec').and_return([])
           Rubygems.should_not be_run
         end
       end

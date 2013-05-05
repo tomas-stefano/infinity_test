@@ -5,9 +5,9 @@ module InfinityTest
     describe ConfigurationMerge do
       let(:base) do
         OpenStruct.new(
-          :bundler => true, 
-          :verbose => true, 
-          :strategy => :auto_discover, 
+          :bundler => true,
+          :verbose => true,
+          :strategy => :auto_discover,
           :observer => :watchr,
           :rubies => [],
           :specific_options => '',
@@ -27,27 +27,27 @@ module InfinityTest
         end
 
         it "should merge the strategies" do
-          mock(options).strategy.twice { :rbenv }
+          options.should_receive(:strategy).twice.and_return(:rbenv)
           subject.merge!
           base.strategy.should be :rbenv
         end
 
         it "should keep the rubies when options rubies is nil" do
           base.rubies = %w(jruby ree)
-          mock(options).rubies { nil }
+          options.should_receive(:rubies).and_return(nil)
           subject.merge!
           base.rubies.should == %w(jruby ree)
         end
 
         it "should overwrite the rubies when options rubies is empty" do
           base.rubies = %w(jruby ree)
-          mock(options).rubies.twice { [] }
+          options.should_receive(:rubies).twice.and_return([])
           subject.merge!
           base.rubies.should be_blank
         end
 
         it "should merge the rubies" do
-          mock(options).rubies.twice { %w(ree jruby) }
+          options.should_receive(:rubies).twice.and_return(%w(ree jruby))
           subject.merge!
           base.rubies.should eql %w(ree jruby)
         end
@@ -58,7 +58,7 @@ module InfinityTest
         end
 
         it "should merge the test library" do
-          mock(options).test_framework.twice { :rspec }
+          options.should_receive(:test_framework).twice.and_return(:rspec)
           subject.merge!
           base.test_framework.should be :rspec
         end
@@ -69,7 +69,7 @@ module InfinityTest
         end
 
         it "should merge the framework" do
-          mock(options).framework.twice { :rails }
+          options.should_receive(:framework).twice.and_return(:rails)
           subject.merge!
           base.framework.should be :rails
         end
@@ -80,19 +80,19 @@ module InfinityTest
         end
 
         it "should merge the specific options" do
-          mock(options).specific_options.twice { '-J -Ilib -Itest' }
+          options.should_receive(:specific_options).twice.and_return('-J -Ilib -Itest')
           subject.merge!
           base.specific_options.should eql '-J -Ilib -Itest'
         end
 
         it "should merge with the infinity test and beyond" do
-          mock(options).infinity_and_beyond.twice { false }
+          options.should_receive(:infinity_and_beyond).twice.and_return(false)
           subject.merge!
           base.infinity_and_beyond.should equal false
         end
 
         it "should keep the base default if option infinity test and beyond is nil" do
-          mock(options).infinity_and_beyond { nil }
+          options.should_receive(:infinity_and_beyond).and_return(nil)
           subject.merge!
           base.infinity_and_beyond.should be_true
         end
@@ -103,7 +103,7 @@ module InfinityTest
         end
 
         it "should merge the verbose mode" do
-          mock(options).verbose.twice { false }
+          options.should_receive(:verbose).twice.and_return(false)
           subject.merge!
           base.verbose.should be_false
         end
@@ -114,7 +114,7 @@ module InfinityTest
         end
 
         it "should merge the verbose mode" do
-          mock(options).bundler.twice { false }
+          options.should_receive(:bundler).twice.and_return(false)
           subject.merge!
           base.bundler.should be_false
         end
