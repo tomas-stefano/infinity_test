@@ -2,12 +2,12 @@
 
 * Migrate rr to simple rspec.
 * Refactoring specs (see better specs).
-* Make callbacks work in the new structure.
 * Watchr.
 * RSpec.
 * RubyDefault.
 * Rubygems.
 * Work Notifications.
+* Make callbacks work in the new structure.
 * Rvm.
 * Work with test pattern on Configuration overwriting the Test framework instance.
 * Be possible to rewrite the rules in more nicer way, using the Hike gem to find files and paths.
