@@ -12,15 +12,15 @@ module InfinityTest
       def new_options_parser
         OptionParser.new do |option|
           %w(
-            ruby_strategy 
-            ruby_versions 
+            ruby_strategy
+            ruby_versions
             options_to_added_in_the_command
             test_framework_to_be_run
             app_framework
             infinity_and_beyond_option
             verbose_mode
             skip_bundler
-          ).each do |option_to_parse| 
+          ).each do |option_to_parse|
             send(option_to_parse, option)
           end
           banner(option)
@@ -35,7 +35,7 @@ module InfinityTest
       end
 
       def ruby_strategy(option)
-        option.on('--ruby strategy', 'Ruby Manager. Ex.: auto_discover, rvm, rbenv, default') do |strategy|
+        option.on('--ruby strategy', 'Ruby Manager. Ex.: auto_discover, rvm, rbenv, ruby_default') do |strategy|
           @strategy = strategy.to_sym
         end
       end
