@@ -15,11 +15,6 @@ module InfinityTest
       #   end
       #
       shared_examples_for 'a infinity test strategy' do
-
-        it 'should have the strategy name' do
-          subject.should respond_to(:strategy)
-        end
-
         it 'should respond to #run!' do
           subject.should respond_to(:run!)
         end

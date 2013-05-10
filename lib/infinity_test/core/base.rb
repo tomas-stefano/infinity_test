@@ -163,7 +163,7 @@ module InfinityTest
       #
       def self.run_strategy!
         # PENDING: run_before_callbacks
-        strategy_instance.run!
+        system(strategy_instance.run!)
         # PENDING: run_after_callbacks
       end
 
