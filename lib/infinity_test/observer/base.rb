@@ -3,11 +3,11 @@ module InfinityTest
     class Base
       attr_accessor :observer
 
-      def watch(pattern_or_file)
+      def watch(pattern_or_file, &block)
         raise NotImplementedError, "not implemented in #{self}"
       end
 
-      def watch_dir(dir_name)
+      def watch_dir(dir_name, extension, &block)
         raise NotImplementedError, "not implemented in #{self}"
       end
 
