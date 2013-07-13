@@ -16,6 +16,7 @@ module InfinityTest
     autoload :Base, 'infinity_test/core/base'
     autoload :CommandBuilder, 'infinity_test/core/command_builder'
     autoload :ConfigurationMerge, 'infinity_test/core/configuration_merge'
+    autoload :ContinuousTestServer, 'infinity_test/core/continuous_test_server'
     autoload :LoadConfiguration, 'infinity_test/core/load_configuration'
     autoload :Options, 'infinity_test/core/options'
     autoload :Runner, 'infinity_test/core/runner'
