@@ -17,14 +17,14 @@ module InfinityTest
       # <Core::BaseClass>: The infinity test core base class.
       #
       def merge!
-        @base.strategy = strategy if strategy.present?
-        @base.rubies   = rubies   unless rubies.nil?
-        @base.specific_options = specific_options if specific_options.present?
-        @base.test_framework = test_framework if test_framework.present?
-        @base.framework = framework if framework.present?
+        @base.strategy            = strategy if strategy.present?
+        @base.rubies              = rubies unless rubies.nil?
+        @base.specific_options    = specific_options if specific_options.present?
+        @base.test_framework      = test_framework if test_framework.present?
+        @base.framework           = framework if framework.present?
         @base.infinity_and_beyond = infinity_and_beyond unless infinity_and_beyond.nil?
-        @base.verbose = verbose unless verbose.nil?
-        @base.bundler = bundler unless bundler.nil?
+        @base.verbose             = verbose unless verbose.nil?
+        @base.bundler             = bundler unless bundler.nil?
         @base
       end
     end
