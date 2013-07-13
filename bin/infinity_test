@@ -1,3 +1,4 @@
 #!/usr/bin/env ruby
+
 require 'infinity_test'
-InfinityTest::Runner.new(ARGV).start!
+InfinityTest::Runner.new(ARGV).start
