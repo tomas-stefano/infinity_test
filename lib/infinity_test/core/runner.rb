@@ -1,19 +1,16 @@
 module InfinityTest
   module Core
     class Runner
-      attr_accessor :options, :base, :configuration
+      attr_accessor :options
 
       def initialize(*arguments)
         @options = Options.new(arguments).parse!
-        @base    = Core::Base
-        @configuration = Core::LoadConfiguration.new
       end
 
-      def start!
-        @configuration.load!
-        @base.merge!(@options)
-        @base.run_strategy!
-        @base.start_observer
+      def start
+        Core::LoadConfiguration.new.load!
+        Core::Base.merge!(options)
+        ContinuousTestServer.new(Core::Base).start
       end
     end
   end

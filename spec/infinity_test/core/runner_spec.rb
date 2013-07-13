@@ -2,15 +2,14 @@ require 'spec_helper'
 
 module InfinityTest
   describe Runner do
-    describe "#options" do
-      it "should return an Options instance" do
-        Runner.new('--ruby', 'rvm').options.should be_instance_of(Options)
-      end
-    end
+    let(:runner) { Runner.new('--ruby', 'rvm') }
 
-    describe "#base" do
-      it "should be the infinity test base class" do
-        Runner.new.base.should be InfinityTest::Base
+    describe '#start' do
+      it 'load configuration, merge with command line and start continuous server' do
+        Core::LoadConfiguration.any_instance.should_receive(:load!)
+        Core::Base.should_receive(:merge!).with(runner.options)
+        ContinuousTestServer.any_instance.should_receive(:start)
+        runner.start
       end
     end
   end
