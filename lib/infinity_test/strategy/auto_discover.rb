@@ -32,7 +32,7 @@ module InfinityTest
         #
         #           MESSAGE
         #           raise Exception, message
-        end
+        # end
       end
     end
   end

@@ -10,7 +10,7 @@ module InfinityTest
       def start
         Core::LoadConfiguration.new.load!
         Core::Base.merge!(options)
-        ContinuousTestServer.new(Core::Base).start
+        Core::Base.continuous_test_server.start
       end
     end
   end

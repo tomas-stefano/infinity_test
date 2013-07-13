@@ -159,6 +159,10 @@ module InfinityTest
         ConfigurationMerge.new(self, options).merge!
       end
 
+      def self.continuous_test_server
+        @continuous_test_server ||= ContinuousTestServer.new(self)
+      end
+
       # Just a shortcut to bundler class accessor.
       #
       def self.using_bundler?

@@ -8,7 +8,6 @@ module InfinityTest
       end
 
       def start
-        #
         # run_strategy
         # base.start_observer
       end
