@@ -41,35 +41,6 @@ module InfinityTest
       end
     end
 
-    describe "#strategy_instance" do
-      it "should return auto discover as default" do
-        Base.strategy_instance.should be_instance_of(InfinityTest::Strategy::AutoDiscover)
-      end
-    end
-
-    describe "#observer_instance" do
-      it "should return watchr as default" do
-        Base.observer_instance.should be_instance_of(InfinityTest::Observer::Watchr)
-      end
-    end
-
-    describe "#test_framework_instance" do
-      it "should return auto discover as default" do
-        Base.test_framework_instance.should be_instance_of(InfinityTest::TestFramework::AutoDiscover)
-      end
-    end
-
-    describe "#framework_instance" do
-      it "should return auto discover as default" do
-        Base.framework_instance.should be_instance_of(InfinityTest::Framework::AutoDiscover)
-      end
-
-      it 'return the class by the framework name' do
-        Base.should_receive(:framework).and_return(:rubygems)
-        Base.framework_instance.should be_a InfinityTest::Framework::Rubygems
-      end
-    end
-
     describe ".before" do
       before { pending }
       let(:proc) { Proc.new { 'To Infinity and beyond!' } }

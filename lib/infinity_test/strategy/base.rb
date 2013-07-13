@@ -5,9 +5,8 @@ module InfinityTest
 
       delegate :rubies, :specific_options, :gemset, :bundler, :to => :base
 
-      def initialize(base)
-        @base = base
-        @test_framework = base.test_framework_instance
+      def initialize(test_framework)
+        @test_framework = test_framework
       end
 
       # Everytime someone inherits from InfinityTest::Strategy::Base class,
@@ -61,13 +60,13 @@ module InfinityTest
       # ==== Returns
       #  @command: return command if don't find a Gemfile and if the Core::Base bundler is set to false
       #  @command with bundle exec: if find a Gemfile and if the Core::Base bundler is set to true
-      def bundle_exec(command)
-        if has_gemfile? and @base.using_bundler?
-          "bundle exec #{command}"
-        else
-          command
-        end
-      end
+      # def bundle_exec(command)
+      #   if has_gemfile? and @base.using_bundler?
+      #     "bundle exec #{command}"
+      #   else
+      #     command
+      #   end
+      # end
 
       # ==== Returns
       # CommandBuilderClass: A class that builds that command using method_missing.
@@ -84,7 +83,13 @@ module InfinityTest
         File.exist?(File.expand_path('./Gemfile'))
       end
 
-      # Obviously, this method is called for the InfinityTest when run the strategy
+      # Run the strategy and parse the results storing in the strategy.
+      #
+      def run
+        system(run!)
+      end
+
+      # Implement #run! method returning a string command to be run.
       #
       def run!
         raise NotImplementedError, "not implemented in #{self}"

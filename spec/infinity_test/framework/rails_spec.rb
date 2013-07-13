@@ -3,6 +3,8 @@ require 'spec_helper'
 module InfinityTest
   module Framework
     describe Rails do
+      before { pending }
+
       subject { Rails.new(Core::Base) }
       describe "#heuristics" do
         it "should add heuristics" do

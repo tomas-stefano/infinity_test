@@ -3,6 +3,7 @@ require 'spec_helper'
 module InfinityTest
   module Framework
     describe AutoDiscover do
+      before { pending }
       subject { AutoDiscover.new(Core::Base) }
       it_should_behave_like 'an infinity test framework'
 

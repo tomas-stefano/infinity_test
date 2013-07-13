@@ -159,54 +159,6 @@ module InfinityTest
         ConfigurationMerge.new(self, options).merge!
       end
 
-      # Run strategy based on the choosed ruby strategy.
-      #
-      def self.run_strategy!
-        # PENDING: run_before_callbacks
-        system(strategy_instance.run!)
-        # PENDING: run_after_callbacks
-      end
-
-      # Adding heuristics based on the framework.
-      #
-      def self.add_heuristics
-        framework_instance.heuristics
-      end
-
-      # Start to monitoring files in the project.
-      #
-      def self.start_observer
-        if infinity_and_beyond.present?
-          add_heuristics
-          observer_instance.signal
-          observer_instance.start
-        end
-      end
-
-      # Return a cached observer instance by the observer accessor.
-      #
-      def self.observer_instance
-        @observer_instance ||= "::InfinityTest::Observer::#{observer.to_s.classify}".constantize.new
-      end
-
-      # Returns the instance for the configured strategy.
-      #
-      def self.strategy_instance
-        InfinityTest::Strategy.const_get(strategy.to_s.classify).new(self)
-      end
-
-      # Return a cached test framework instance by the observer accessor.
-      #
-      def self.test_framework_instance
-        "::InfinityTest::TestFramework::#{test_framework.to_s.classify}".constantize.new
-      end
-
-      # Return a framework instance based on the framework accessor.
-      #
-      def self.framework_instance
-        "::InfinityTest::Framework::#{framework.to_s.camelize}".constantize.new(self)
-      end
-
       # Just a shortcut to bundler class accessor.
       #
       def self.using_bundler?
@@ -307,24 +259,24 @@ module InfinityTest
       end
 
       # <b>DEPRECATED:</b> Please use:
-      # .rubies= or
-      # .specific_options= or
-      # .test_framework= or
-      # .framework= or
-      # .verbose= or
-      # .gemset= instead
+      # .rubies = or
+      # .specific_options = or
+      # .test_framework = or
+      # .framework = or
+      # .verbose = or
+      # .gemset = instead
       #
       def self.use(options)
         message = <<-MESSAGE
           .use is DEPRECATED.
           Use this instead:
             InfinityTest.setup do |config|
-              config.rubies= %w(...)
-              config.specific_options= "..."
-              config.test_framework= :foo
-              config.framework= :bar
-              config.verbose= true/false
-              config.gemset= :baz
+              config.rubies = %w(...)
+              config.specific_options = "..."
+              config.test_framework = :some_test_framework
+              config.framework = :some_framework
+              config.verbose = true/false
+              config.gemset = :some_gemset
             end
         MESSAGE
         ActiveSupport::Deprecation.warn(message)
