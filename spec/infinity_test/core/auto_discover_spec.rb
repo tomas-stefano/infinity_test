@@ -6,6 +6,15 @@ module InfinityTest
     let(:base) { BaseFixture.new }
     let(:auto_discover) { AutoDiscover.new(base) }
 
+    describe '#discover_libraries' do
+      it 'discover strategy, framework and test framework' do
+        auto_discover.should_receive(:discover_strategy)
+        auto_discover.should_receive(:discover_framework)
+        auto_discover.should_receive(:discover_test_framework)
+        auto_discover.discover_libraries
+      end
+    end
+
     describe '#discover_strategy' do
       context 'when strategy is auto discover' do
         before do

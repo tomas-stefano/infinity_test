@@ -7,6 +7,12 @@ module InfinityTest
         @base = base
       end
 
+      def discover_libraries
+        discover_strategy
+        discover_framework
+        discover_test_framework
+      end
+
       def discover_strategy
         base.strategy = auto_discover(:strategy) if base.strategy.equal?(:auto_discover)
       end
