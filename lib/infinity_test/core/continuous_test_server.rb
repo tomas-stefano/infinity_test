@@ -8,6 +8,7 @@ module InfinityTest
       end
 
       def start
+        AutoDiscover.new(base).discover_libraries
         # run_strategy
         # base.start_observer
       end
@@ -16,51 +17,51 @@ module InfinityTest
       #
       def run_strategy
         # PENDING: run_before_callbacks
-        strategy_instance.run
+        # strategy_instance.run
         # PENDING: run_after_callbacks
       end
 
       # Start to monitoring files in the project.
       #
       def start_observer
-        if infinity_and_beyond.present?
-          add_heuristics
-          observer_instance.signal
-          observer_instance.start
-        end
+        # if infinity_and_beyond.present?
+        #   add_heuristics
+        #   observer_instance.signal
+        #   observer_instance.start
+        # end
       end
 
       private
 
-      # Adding heuristics based on the framework.
+      # # Adding heuristics based on the framework.
+      # #
+      # def add_heuristics
+      #   framework_instance.heuristics
+      # end
       #
-      def add_heuristics
-        framework_instance.heuristics
-      end
-
-      # Returns the instance for the configured strategy.
+      # # Returns the instance for the configured strategy.
+      # #
+      # def strategy_instance
+      #   InfinityTest::Strategy.const_get(base.strategy.to_s.classify).new(self)
+      # end
       #
-      def strategy_instance
-        InfinityTest::Strategy.const_get(base.strategy.to_s.classify).new(self)
-      end
-
-      # Return a cached test framework instance by the observer accessor.
+      # # Return a cached test framework instance by the observer accessor.
+      # #
+      # def test_framework_instance
+      #   "::InfinityTest::TestFramework::#{test_framework.to_s.classify}".constantize.new
+      # end
       #
-      def test_framework_instance
-        "::InfinityTest::TestFramework::#{test_framework.to_s.classify}".constantize.new
-      end
-
-      # Return a framework instance based on the framework accessor.
+      # # Return a framework instance based on the framework accessor.
+      # #
+      # def framework_instance
+      #   "::InfinityTest::Framework::#{framework.to_s.camelize}".constantize.new(self)
+      # end
       #
-      def framework_instance
-        "::InfinityTest::Framework::#{framework.to_s.camelize}".constantize.new(self)
-      end
-
-      # Return a cached observer instance by the observer accessor.
-      #
-      def observer_instance
-        @observer_instance ||= "::InfinityTest::Observer::#{observer.to_s.classify}".constantize.new
-      end
+      # # Return a cached observer instance by the observer accessor.
+      # #
+      # def observer_instance
+      #   @observer_instance ||= "::InfinityTest::Observer::#{observer.to_s.classify}".constantize.new
+      # end
     end
   end
 end
