@@ -19,16 +19,8 @@ module InfinityTest
           subject.should respond_to(:run!)
         end
 
-        it 'should have the strategy name from the class scope' do
-          subject.class.should respond_to(:strategy_name)
-        end
-
         it 'should respond to .run?' do
           subject.class.should respond_to(:run?)
-        end
-
-        it 'should respond to .priority' do
-          subject.class.should respond_to(:priority)
         end
 
         it 'should have Strategy::Base as superclass' do
