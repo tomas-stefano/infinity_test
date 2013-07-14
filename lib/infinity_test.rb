@@ -1,18 +1,10 @@
 require 'optparse'
-require 'active_support/core_ext/class/attribute_accessors'
-require 'active_support/core_ext/object/blank'
-require 'active_support/core_ext/module/delegation'
-require 'active_support/core_ext/string'
+require 'active_support/core_ext'
 require 'active_support/deprecation'
 
 module InfinityTest
-  module Callbacks
-    autoload :BaseCallback, 'infinity_test/callbacks/base_callback'
-    autoload :AfterCallback, 'infinity_test/callbacks/after_callback'
-    autoload :BeforeCallback, 'infinity_test/callbacks/before_callback'
-  end
-
   module Core
+    autoload :AutoDiscover, 'infinity_test/core/auto_discover'
     autoload :Base, 'infinity_test/core/base'
     autoload :CommandBuilder, 'infinity_test/core/command_builder'
     autoload :ConfigurationMerge, 'infinity_test/core/configuration_merge'
@@ -29,7 +21,6 @@ module InfinityTest
   end
 
   module Framework
-    autoload :AutoDiscover, 'infinity_test/framework/auto_discover'
     autoload :Base, 'infinity_test/framework/base'
     autoload :Padrino, 'infinity_test/framework/padrino'
     autoload :Rails, 'infinity_test/framework/rails'
@@ -45,7 +36,6 @@ module InfinityTest
   end
 
   module Strategy
-    autoload :AutoDiscover, 'infinity_test/strategy/auto_discover'
     autoload :Base, 'infinity_test/strategy/base'
     autoload :Rbenv, 'infinity_test/strategy/rbenv'
     autoload :Rvm, 'infinity_test/strategy/rvm'
@@ -54,7 +44,6 @@ module InfinityTest
   end
 
   module TestFramework
-    autoload :AutoDiscover, 'infinity_test/test_framework/auto_discover'
     autoload :Base, 'infinity_test/test_framework/base'
     autoload :TestUnit, 'infinity_test/test_framework/test_unit'
     autoload :Rspec, 'infinity_test/test_framework/rspec'
@@ -68,6 +57,5 @@ module InfinityTest
     InfinityTest::Base.setup(&block)
   end
 
-  include Callbacks
   include Core
 end

@@ -192,7 +192,7 @@ module InfinityTest
       #   end
       #
       def self.before(scope, &block)
-        setting_callback(Callbacks::BeforeCallback, scope, &block)
+        # setting_callback(Callbacks::BeforeCallback, scope, &block)
       end
 
       # Callback method to handle after all run and for each ruby too!
@@ -212,7 +212,7 @@ module InfinityTest
       #   end
       #
       def self.after(scope, &block)
-        setting_callback(Callbacks::AfterCallback, scope, &block)
+        # setting_callback(Callbacks::AfterCallback, scope, &block)
       end
 
       # Clear the terminal (Useful in the before callback)
@@ -301,20 +301,20 @@ module InfinityTest
       end
 
       def self.heuristics(&block)
-        # ... There is a spec pending.
+        # There is a spec pending.
       end
 
       def self.replace_patterns(&block)
-        # ... There is a spec pending.
+        # There is a spec pending.
       end
 
       private
 
-      def self.setting_callback(callback_class, scope, &block)
-        callback_instance = callback_class.new(scope, &block)
-        self.callbacks.push(callback_instance)
-        callback_instance
-      end
+      # def self.setting_callback(callback_class, scope, &block)
+      #   callback_instance = callback_class.new(scope, &block)
+      #   self.callbacks.push(callback_instance)
+      #   callback_instance
+      # end
     end
   end
 end

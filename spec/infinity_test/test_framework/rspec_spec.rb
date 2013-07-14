@@ -3,6 +3,7 @@ require 'spec_helper'
 module InfinityTest
   module TestFramework
     describe Rspec do
+      before { pending }
       it_should_behave_like 'a infinity test test framework'
 
       describe "#test_dir" do
