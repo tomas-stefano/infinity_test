@@ -1,8 +1,11 @@
 module InfinityTest
   module Strategy
     class RubyDefault < Base
+      attr_reader :continuous_test_server
+      delegate :binary, :command_arguments, to: :continuous_test_server
+
       def run!
-        command_builder.ruby.option(:S).add(test_framework.binary).add(test_framework.test_dir).to_s
+        command_builder.ruby.option(:S).add(binary).add(command_arguments).to_s
       end
 
       # ==== Returns
@@ -11,12 +14,6 @@ module InfinityTest
       #
       def self.run?
         Core::Base.rubies.blank?
-      end
-
-      # The Ruby Default should have the high priority to the Auto Discover find it first
-      #
-      def self.priority
-        :high
       end
     end
   end

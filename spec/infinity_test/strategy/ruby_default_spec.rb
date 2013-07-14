@@ -3,7 +3,9 @@ require "spec_helper"
 module InfinityTest
   module Strategy
     describe RubyDefault do
-      subject { RubyDefault.new(Core::Base) }
+      let(:base) { BaseFixture.new }
+      let(:continuous_test_server) { Core::ContinuousTestServer.new(base) }
+      subject { RubyDefault.new(continuous_test_server) }
       it_should_behave_like 'a infinity test strategy'
 
       describe ".run?" do
@@ -18,9 +20,11 @@ module InfinityTest
         end
       end
 
-      describe ".priority" do
-        it "should be the high priority" do
-          RubyDefault.priority.should equal :high
+      describe '#run!' do
+        before { base.test_framework = :rspec }
+
+        it 'returns the command' do
+          subject.run!.should eq 'ruby -S rspec spec'
         end
       end
     end

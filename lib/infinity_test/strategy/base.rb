@@ -1,8 +1,8 @@
 module InfinityTest
   module Strategy
     class Base
-      def initialize(test_framework)
-        @test_framework = test_framework
+      def initialize(continuous_test_server)
+        @continuous_test_server = continuous_test_server
       end
 
       # ==== Returns
