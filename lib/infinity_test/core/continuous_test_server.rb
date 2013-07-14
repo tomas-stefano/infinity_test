@@ -8,7 +8,6 @@ module InfinityTest
       end
 
       def start
-        AutoDiscover.new(base).discover_libraries
         # run_strategy
         # base.start_observer
       end

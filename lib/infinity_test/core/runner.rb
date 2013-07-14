@@ -10,6 +10,7 @@ module InfinityTest
       def start
         Core::LoadConfiguration.new.load!
         Core::Base.merge!(options)
+        Core::AutoDiscover.new(Core::Base).discover_libraries
         Core::Base.continuous_test_server.start
       end
     end
