@@ -100,9 +100,5 @@ module InfinityTest
         end
       end
     end
-
-    class BaseFixture
-      attr_accessor :strategy, :test_framework, :framework
-    end
   end
 end
