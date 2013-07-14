@@ -22,9 +22,6 @@ module InfinityTest
 
   module Framework
     autoload :Base, 'infinity_test/framework/base'
-    autoload :Padrino, 'infinity_test/framework/padrino'
-    autoload :Rails, 'infinity_test/framework/rails'
-    autoload :Rubygems, 'infinity_test/framework/rubygems'
     autoload :SharedExample, 'infinity_test/framework/shared_example'
   end
 
@@ -37,17 +34,11 @@ module InfinityTest
 
   module Strategy
     autoload :Base, 'infinity_test/strategy/base'
-    autoload :Rbenv, 'infinity_test/strategy/rbenv'
-    autoload :Rvm, 'infinity_test/strategy/rvm'
-    autoload :RubyDefault, 'infinity_test/strategy/ruby_default'
     autoload :SharedExample, 'infinity_test/strategy/shared_example'
   end
 
   module TestFramework
     autoload :Base, 'infinity_test/test_framework/base'
-    autoload :TestUnit, 'infinity_test/test_framework/test_unit'
-    autoload :Rspec, 'infinity_test/test_framework/rspec'
-    autoload :Bacon, 'infinity_test/test_framework/bacon'
     autoload :SharedExample, 'infinity_test/test_framework/shared_example'
   end
 
@@ -59,3 +50,13 @@ module InfinityTest
 
   include Core
 end
+
+require 'infinity_test/strategy/rbenv'
+require 'infinity_test/strategy/rvm'
+require 'infinity_test/strategy/ruby_default'
+require 'infinity_test/framework/padrino'
+require 'infinity_test/framework/rails'
+require 'infinity_test/framework/rubygems'
+require 'infinity_test/test_framework/test_unit'
+require 'infinity_test/test_framework/rspec'
+require 'infinity_test/test_framework/bacon'
