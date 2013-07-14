@@ -10,10 +10,10 @@ module InfinityTest
       #  * Observe the test helper file and run.
       #
       def heuristics
-        watch(:Gemfile) { BundleInstall() and RunAll() }
-        watch_dir(:lib) { |file| RunTest(file) }
-        watch_dir(@test_framework.test_dir) { |file| RunFile(file) }
-        watch(@test_framework.test_helper_file) { RunAll() }
+        watch(:Gemfile) {  }
+        # watch_dir(:lib) { |file| RunTest(file) }
+        # watch_dir(@test_framework.test_dir) { |file| RunFile(file) }
+        # watch(@test_framework.test_helper_file) { RunAll() }
       end
 
       # ==== Returns
