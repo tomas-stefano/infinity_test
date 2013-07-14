@@ -27,7 +27,7 @@ module InfinityTest
       # Start the continuous test server.
       #
       def start
-        @handler = ::Watchr.handler.new
+        @handler    = ::Watchr.handler.new
         @controller = ::Watchr::Controller.new(@observer, @handler)
         @controller.run
       end
