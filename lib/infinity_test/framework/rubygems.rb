@@ -1,6 +1,8 @@
 module InfinityTest
   module Framework
     class Rubygems < Base
+      delegate :test_dir, :test_helper_file, to: :test_framework
+
       # Add Heuristics to the observer run on pattern changes!
       #
       # ==== Heuristics

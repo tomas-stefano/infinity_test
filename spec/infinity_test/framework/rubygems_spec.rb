@@ -3,11 +3,12 @@ require 'spec_helper'
 module InfinityTest
   module Framework
     describe Rubygems do
-      subject { Rubygems.new(Core::Base) }
+      let(:observer) { mock('Observer') }
+      subject { Rubygems.new(observer) }
 
       describe "#heuristics" do
         it "should add heuristics" do
-          pending
+          observer.should_receive(:watch_dir)
           expect { subject.heuristics }.to_not raise_exception
         end
       end
