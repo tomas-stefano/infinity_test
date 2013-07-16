@@ -13,7 +13,9 @@ module InfinityTest
       #   watch('test/test_helper.rb') { RunAll() }
       #
       def watch(pattern_or_file, &block)
-        @observer.watch(pattern_or_file.to_s, &block)
+        @observer.watch(pattern_or_file.to_s) do |match_data|
+          block.call(InfinityTest::Core::ChangedFile.new(match_data))
+        end
       end
 
       # ==== Examples
