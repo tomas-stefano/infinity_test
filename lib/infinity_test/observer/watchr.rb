@@ -23,7 +23,7 @@ module InfinityTest
       #   watch_dir(:lib) { |file| RunTest(file) }
       #
       def watch_dir(dir_name, extension = :rb, &block)
-        @observer.watch("^#{dir_name}/*/(.*).#{extension}", &block)
+        watch("^#{dir_name}/*/(.*).#{extension}", &block)
       end
 
       # Start the continuous test server.
