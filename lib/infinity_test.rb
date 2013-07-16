@@ -23,6 +23,7 @@ module InfinityTest
 
   module Framework
     autoload :Base, 'infinity_test/framework/base'
+    autoload :Helpers, 'infinity_test/framework/helpers'
     autoload :SharedExample, 'infinity_test/framework/shared_example'
   end
 

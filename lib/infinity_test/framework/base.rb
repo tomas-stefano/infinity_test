@@ -1,6 +1,7 @@
 module InfinityTest
   module Framework
     class Base
+      include ::InfinityTest::Framework::Helpers
       attr_reader :observer
       delegate :watch, :watch_dir, :to => :observer
 
