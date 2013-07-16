@@ -9,6 +9,7 @@ module InfinityTest
     autoload :CommandBuilder, 'infinity_test/core/command_builder'
     autoload :ConfigurationMerge, 'infinity_test/core/configuration_merge'
     autoload :ContinuousTestServer, 'infinity_test/core/continuous_test_server'
+    autoload :ChangedFile, 'infinity_test/core/changed_file'
     autoload :LoadConfiguration, 'infinity_test/core/load_configuration'
     autoload :Options, 'infinity_test/core/options'
     autoload :Runner, 'infinity_test/core/runner'
