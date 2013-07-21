@@ -3,6 +3,8 @@ require 'spec_helper'
 module InfinityTest
   module Observer
     describe Watchr do
+      let(:continuous_server) { mock }
+      subject { Watchr.new(continuous_server)}
       it_should_behave_like 'an infinity test observer'
 
       describe "#observer" do

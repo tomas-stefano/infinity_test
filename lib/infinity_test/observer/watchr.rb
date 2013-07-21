@@ -3,7 +3,8 @@ require 'watchr'
 module InfinityTest
   module Observer
     class Watchr < Base
-      def initialize
+      def initialize(continuous_test_server)
+        super
         @observer = ::Watchr::Script.new
       end
 

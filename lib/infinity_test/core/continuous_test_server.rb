@@ -52,7 +52,7 @@ module InfinityTest
       # Return a cached observer instance by the observer accessor.
       #
       def observer
-        @observer ||= "::InfinityTest::Observer::#{base.observer.to_s.classify}".constantize.new
+        @observer ||= "::InfinityTest::Observer::#{base.observer.to_s.classify}".constantize.new(self)
       end
     end
   end

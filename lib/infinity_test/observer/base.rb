@@ -1,7 +1,11 @@
 module InfinityTest
   module Observer
     class Base
-      attr_accessor :observer
+      attr_accessor :observer, :continuous_test_server
+
+      def initialize(continuous_test_server)
+        @continuous_test_server = continuous_test_server
+      end
 
       def watch(pattern_or_file, &block)
         raise NotImplementedError, "not implemented in #{self}"
@@ -24,7 +28,6 @@ module InfinityTest
             puts " Are you sure? :S ... Interrupt a second time to quit!"
             @interrupt = true
             Kernel.sleep 1.5
-            Core::Base.run_strategy!
             @interrupt = false
           end
         end

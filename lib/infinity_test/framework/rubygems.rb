@@ -13,7 +13,7 @@ module InfinityTest
       #
       def heuristics
         watch_dir(:lib)           { |file| RunTest(file) }
-        # watch_dir(test_dir)       { |file| RunFile(file) }
+        # watch_dir(test_dir)     { |file| RunFile(file) }
         # watch(test_helper_file) { RunAll() }
       end
 
