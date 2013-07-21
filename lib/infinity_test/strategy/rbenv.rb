@@ -5,7 +5,7 @@ module InfinityTest
       end
 
       # ==== Returns
-      #  TrueClass: If the user had the rbenv installed.
+      #  TrueClass:  If the user had the rbenv installed.
       #  FalseClass: If the user don't had the rbenv installed.
       #
       def self.run?

@@ -2,11 +2,12 @@ module InfinityTest
   module Framework
     class Base
       include ::InfinityTest::Framework::Helpers
-      attr_reader :observer
-      delegate :watch, :watch_dir, :to => :observer
+      attr_reader :observer, :continuous_test_server
+      delegate :watch, :watch_dir, to: :observer
 
-      def initialize(observer)
-        @observer = observer
+      def initialize(continuous_test_server)
+        @continuous_test_server = continuous_test_server
+        @observer               = continuous_test_server.observer
       end
 
       # This method is called for the InfinityTest before starting the observer

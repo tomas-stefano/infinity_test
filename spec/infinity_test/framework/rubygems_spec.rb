@@ -4,7 +4,8 @@ module InfinityTest
   module Framework
     describe Rubygems do
       let(:observer) { mock('Observer') }
-      subject { Rubygems.new(observer) }
+      let(:continuous_test_server) { mock('ContinuousTestServer', observer: observer) }
+      subject { Rubygems.new(continuous_test_server) }
 
       describe "#heuristics" do
         it "should add heuristics" do

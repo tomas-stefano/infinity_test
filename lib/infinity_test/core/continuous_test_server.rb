@@ -47,7 +47,7 @@ module InfinityTest
       # Return a framework instance based on the base framework accessor.
       #
       def framework
-        @framework ||= "::InfinityTest::Framework::#{base.framework.to_s.camelize}".constantize.new(observer)
+        @framework ||= "::InfinityTest::Framework::#{base.framework.to_s.camelize}".constantize.new(self)
       end
 
       # Return a cached observer instance by the observer accessor.
