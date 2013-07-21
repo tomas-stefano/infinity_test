@@ -24,6 +24,7 @@ module InfinityTest
 
           it 'add framework heuristics and start the observer' do
             continuous_test_server.framework.should_receive(:heuristics)
+            continuous_test_server.observer.should_receive(:signal)
             continuous_test_server.observer.should_receive(:start)
             continuous_test_server.start_observer
           end
@@ -34,6 +35,7 @@ module InfinityTest
 
           it 'do not start the observer' do
             continuous_test_server.observer.should_not_receive(:start)
+            continuous_test_server.observer.should_not_receive(:signal)
             continuous_test_server.start_observer
           end
         end
