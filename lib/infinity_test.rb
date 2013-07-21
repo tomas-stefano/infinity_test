@@ -1,6 +1,7 @@
 require 'optparse'
 require 'active_support/core_ext'
 require 'active_support/deprecation'
+require 'hike'
 
 module InfinityTest
   module Core

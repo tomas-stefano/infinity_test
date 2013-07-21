@@ -3,6 +3,7 @@ PATH
   specs:
     infinity_test (2.0.0.rc1)
       activesupport (~> 3.2.13)
+      hike (~> 1.2)
       watchr
 
 GEM
@@ -12,8 +13,9 @@ GEM
       i18n (= 0.6.1)
       multi_json (~> 1.0)
     diff-lcs (1.2.3)
+    hike (1.2.3)
     i18n (0.6.1)
-    multi_json (1.7.2)
+    multi_json (1.7.7)
     rake (10.0.4)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
