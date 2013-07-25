@@ -4,6 +4,7 @@ module InfinityTest
       # Run all the strategy again.
       #
       def RunAll
+        continuous_test_server.run_strategy
       end
 
       # Run test based on the changed file.
