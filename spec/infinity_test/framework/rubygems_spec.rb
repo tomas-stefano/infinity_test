@@ -10,7 +10,10 @@ module InfinityTest
 
       describe "#heuristics" do
         it "should add heuristics" do
-          observer.should_receive(:watch_dir)
+          observer.should_receive(:watch_dir).exactly(2)
+          observer.should_receive(:watch)
+          test_framework.should_receive(:test_helper_file)
+          test_framework.should_receive(:test_dir)
           expect { subject.heuristics }.to_not raise_exception
         end
       end
