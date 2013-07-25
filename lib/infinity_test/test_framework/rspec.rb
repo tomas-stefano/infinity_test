@@ -5,18 +5,15 @@ module InfinityTest
         'rspec'
       end
 
-      def command_arguments
-        'spec'
+      def test_helper_file
+        File.join(test_dir, 'spec_helper.rb')
       end
 
-      # def test_dir
-      #   'spec'
-      # end
-      #
-      # def test_helper_file
-      #   File.join("#{test_dir}", 'spec_helper.rb')
-      # end
-      #
+      def test_dir
+        'spec'
+      end
+      alias :command_arguments :test_dir
+
       # def test_files
       #   []
       # end
