@@ -10,7 +10,7 @@ module InfinityTest
 
       # ==== Examples
       #
-      #   watch('lib/(.*)\.rb') { |match_data| system("ruby test/test_#{match_data[1]}.rb") }
+      #   watch('lib/(.*)\.rb') { |file| puts [file.name, file.path, file.match_data] }
       #   watch('test/test_helper.rb') { RunAll() }
       #
       def watch(pattern_or_file, &block)
@@ -21,7 +21,11 @@ module InfinityTest
 
       # ==== Examples
       #
-      #   watch_dir(:lib) { |file| RunTest(file) }
+      #   watch_dir(:lib)  { |file| RunTest(file) }
+      #   watch_dir(:test) { |file| RunFile(file) }
+      #
+      #   watch_dir(:test, :py) { |file| puts [file.name, file.path, file.match_data] }
+      #   watch_dir(:test, :js) { |file| puts [file.name, file.path, file.match_data] }
       #
       def watch_dir(dir_name, extension = :rb, &block)
         watch("^#{dir_name}/*/(.*).#{extension}", &block)
