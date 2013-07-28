@@ -1,7 +1,7 @@
 module InfinityTest
   module Observer
     class Base
-      attr_accessor :observer, :continuous_test_server
+      attr_accessor :continuous_test_server
 
       def initialize(continuous_test_server)
         @continuous_test_server = continuous_test_server
