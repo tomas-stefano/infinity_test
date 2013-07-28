@@ -6,7 +6,7 @@ module InfinityTest
       let(:base) { Core::Base }
       let(:continuous_test_server) { ContinuousTestServer.new(base) }
 
-      describe '#start' do
+      describe '#start!' do
         it 'run strategy, start observer' do
           continuous_test_server.should_receive(:run_strategy)
           continuous_test_server.should_receive(:start_observer)
@@ -24,8 +24,7 @@ module InfinityTest
 
           it 'add framework heuristics and start the observer' do
             continuous_test_server.framework.should_receive(:heuristics)
-            continuous_test_server.observer.should_receive(:signal)
-            continuous_test_server.observer.should_receive(:start)
+            continuous_test_server.observer.should_receive(:start!)
             continuous_test_server.start_observer
           end
         end
@@ -34,7 +33,7 @@ module InfinityTest
           before { base.should_receive(:infinity_and_beyond).and_return(false) }
 
           it 'do not start the observer' do
-            continuous_test_server.observer.should_not_receive(:start)
+            continuous_test_server.observer.should_not_receive(:start!)
             continuous_test_server.observer.should_not_receive(:signal)
             continuous_test_server.start_observer
           end

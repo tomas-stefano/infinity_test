@@ -15,6 +15,11 @@ module InfinityTest
         raise NotImplementedError, "not implemented in #{self}"
       end
 
+      def start!
+        signal
+        start
+      end
+
       def start
         raise NotImplementedError, "not implemented in #{self}"
       end

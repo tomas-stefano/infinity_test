@@ -30,10 +30,6 @@ module InfinityTest
         it 'should respond to #start' do
           subject.should respond_to(:start)
         end
-
-        it 'should respond to #signal' do
-          subject.should respond_to(:signal)
-        end
       end
     end
   end
