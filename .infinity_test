@@ -1,8 +1,13 @@
 #!/usr/bin/env ruby
 
-infinity_test do
-  
-  use :rubies => ['1.9.2', 'jruby', 'ree', 'rbx'], :gemset => 'infinity_test', :test_framework => :rspec
+InfinityTest.setup do |config|
+  config.strategy       = :ruby_default
+  config.test_framework = :rspec
+end
+
+# infinity_test do
+
+  # use :rubies => ['1.9.2', 'jruby', 'ree', 'rbx'], :gemset => 'infinity_test', :test_framework => :rspec
 
   # Maybe with block is better ...
   #
@@ -13,12 +18,12 @@ infinity_test do
   #   application_framework = :rails
   # end
 
-  heuristics do
-    add '^lib/infinity_test/dependencies.rb' do |file|
-      run :all => :files
-    end
-  end
-  
+  # heuristics do
+  #   add '^lib/infinity_test/dependencies.rb' do |file|
+  #     run :all => :files
+  #   end
+  # end
+
 #  after(:all) do
 #    system('rake clean_without_verbose')
 #  end
@@ -36,10 +41,12 @@ infinity_test do
   #   application_library.watch :dir => 'app/models' do |file|
   #     run :test => "spec/models/"
   #   end
-  #   
+  #
   #   watch(%r%^(test|spec)/fixtures/(.*).yml$%) do |m|
   #     "test/test_#{m[1]}.rb"
   #   end
   # end
 
-end
+# end
+
+# InfinityTest::Base.class_variables.collect.each { |e| puts("#{e}: #{InfinityTest::Base.class_variable_get(e)}") }
