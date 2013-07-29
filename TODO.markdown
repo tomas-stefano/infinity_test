@@ -1,22 +1,31 @@
-Rewrite
-=======
+## Road to 2.0
 
-- The InfinityTest needs rewrite.
-
-## Goals
-
-* Remove the todays implementation.
-* Supporting DSL and No DSL(class by a contract).
-* Rewrite the entire library.
-* RbEnv feature.
-* RVM feature.
-* Run with normal ruby
-* Focus feature (fails, pass one file, run entire suite) with --focus (experimented feature).
-* Don't run integration tests. Ignore them when changed.
-* Test with spork and other gems spork like.
+* Watchr.
+* RSpec.
+* RubyDefault.
+* Rubygems.
+* Work Notifications.
+* Refactoring specs (see better specs).
+* Make callbacks work in the new structure.
+* Rvm.
+* Work with test pattern on Configuration overwriting the Test framework instance.
 * Be possible to rewrite the rules in more nicer way, using the Hike gem to find files and paths.
-* Magic discovery if is test unit or rspec.
-* Be possible to overwrite the entire command to run.
-* Put some methods in the configuration file like: #all_tests_pass?, #all_tests_pass_in_ruby?.
-* Put a Thor generator.
-* Put an option to just run and exit.
+* Work with gemsets.
+* Test::Unit/Minitest.
+* Bacon.
+* Rails.
+* Padrino.
+* Test with spork and zeus and other gems spork like.
+
+### Experimental
+
+* RbEnv (experimented feature).
+* Focus feature(fails, pass one file, run entire suite) with --focus (experimented feature)!
+
+### Flexibility
+
+* Ignore test files and test folders when run command and change files/dir.
+* Verbose way of InfinityTest.
+* Add specific options to the command.
+* Create a infinity test generator with thor!
+* Don't run integration tests. Ignore them when changed.

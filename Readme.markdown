@@ -108,43 +108,6 @@ folder:
 If you want to customize and understand the .infinity_test file, [read this
 page](http://github.com/tomas-stefano/infinity_test/wiki/Customize-Infinity-Test).
 
-# Color in Test::Unit
-
-* Use the gem [minitest-colorize](https://github.com/sobrinho/minitest-colorize)
-
-# Color in RSpec
-
-### Put this in your .rspec file:
-
-In RSpec 2.2.0:
-
-    --color
-    --tty
-
-In RSpec 2.1.0:
-
-    --color
-    --autotest
-
-In RSpec 1.3, use the **spec.opts** file:
-
-    --color
-    --autospec
-
-**Note: These options will be the defaults in a future version of Infinity Test**
-
-### Future
-
-* Add support for focus files (run failed results and then run all tests if those pass, etc.)
-
-## You Like it the Idea?
-
-So make a fork and start contributing =].
-
-## You have a Feature request or Fix?
-
-Contact me on GitHub, or Twitter ([@tomas_stefano](https://twitter.com/tomas_stefano)) and let's talk! =]
-
 # Acknowledgments
 
 * Thanks to Mynyml and Watchr library.
