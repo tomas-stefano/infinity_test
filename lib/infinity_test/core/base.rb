@@ -99,6 +99,7 @@ module InfinityTest
       # * pending (png, gif, jpeg)
       #
       cattr_accessor :mode
+
       #
       # => This will show images in the folder:
       # http://github.com/tomas-stefano/infinity_test/tree/master/images/simpson

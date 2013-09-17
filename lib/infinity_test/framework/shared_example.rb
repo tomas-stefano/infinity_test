@@ -18,6 +18,10 @@ module InfinityTest
           subject.should respond_to(:heuristics)
         end
 
+        it 'should respond to #heuristics' do
+          subject.should respond_to(:heuristics!)
+        end
+
         it 'should respond to .run?' do
           subject.class.should respond_to(:run?)
         end

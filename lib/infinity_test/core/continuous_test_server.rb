@@ -26,7 +26,7 @@ module InfinityTest
       #
       def start_observer
         if infinity_and_beyond.present?
-          framework.heuristics
+          framework.heuristics!
           observer.start!
         end
       end

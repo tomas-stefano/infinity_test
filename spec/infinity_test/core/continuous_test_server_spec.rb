@@ -23,18 +23,21 @@ module InfinityTest
           end
 
           it 'add framework heuristics and start the observer' do
-            continuous_test_server.framework.should_receive(:heuristics)
+            continuous_test_server.framework.should_receive(:heuristics!)
             continuous_test_server.observer.should_receive(:start!)
             continuous_test_server.start_observer
           end
         end
 
         context 'when base configuration is not infinity and beyond' do
-          before { base.should_receive(:infinity_and_beyond).and_return(false) }
+          before do
+            base.should_receive(:infinity_and_beyond).and_return(false)
+            base.stub(:framework).and_return(:rails)
+          end
 
           it 'do not start the observer' do
+            continuous_test_server.framework.should_not_receive(:heuristics!)
             continuous_test_server.observer.should_not_receive(:start!)
-            continuous_test_server.observer.should_not_receive(:signal)
             continuous_test_server.start_observer
           end
         end
