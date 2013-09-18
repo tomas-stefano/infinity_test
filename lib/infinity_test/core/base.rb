@@ -140,6 +140,12 @@ module InfinityTest
       cattr_accessor :infinity_and_beyond
       self.infinity_and_beyond = true
 
+      # The extension files that Infinity Test will search.
+      # You can observe python, erlang, etc files.
+      #
+      cattr_accessor :extension
+      self.extension = :rb
+
       # Setup Infinity Test passing the ruby versions and others setting.
       # <b>See the class accessors for more information.</b>
       #
