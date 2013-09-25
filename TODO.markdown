@@ -12,15 +12,9 @@
 * Be possible to rewrite the rules in more nicer way, using the Hike gem to find files and paths.
 * Work with gemsets.
 * Test::Unit/Minitest.
-* Bacon.
 * Rails.
 * Padrino.
 * Test with spork and zeus and other gems spork like.
-
-### Experimental
-
-* RbEnv (experimented feature).
-* Focus feature(fails, pass one file, run entire suite) with --focus (experimented feature)!
 
 ### Flexibility
 
@@ -29,3 +23,10 @@
 * Add specific options to the command.
 * Create a infinity test generator with thor!
 * Don't run integration tests. Ignore them when changed.
+ 
+### 2.0.2
+
+* RbEnv (experimented feature).
+* Bacon.
+* Focus feature(fails, pass one file, run entire suite) with --focus (experimented feature)!
+* Cucumber
