@@ -14,7 +14,7 @@
 * Test::Unit/Minitest.
 * Rails.
 * Padrino.
-* Test with spork and zeus and other gems spork like.
+* Test with spork and zeus and other gems spork like (Experimental).
 
 ### Flexibility
 
@@ -30,3 +30,6 @@
 * Bacon.
 * Focus feature(fails, pass one file, run entire suite) with --focus (experimented feature)!
 * Cucumber
+* 
+
+Maybe we could create a infinity-test-contrib repositories with other heuristics platforms
