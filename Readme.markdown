@@ -8,7 +8,7 @@ that you have in your RVM configuration.
 ## To Infinity and Beyond!
 
 <div style="padding:2px; border:1px solid silver; float:right; margin:0 0 1em 2em; background:white">
-  <img src="https://github.com/tomas-stefano/infinity_test/raw/master/buzz_images/to_infinity_and_beyond.png" alt="Infinity Test" />
+  <img src="http://www.mixed-metaphor.org/fan/buzz/main01.jpg" alt="Infinity Test" />
   <p style="text-align:center">Photo taken from <a href="http://www.mixed-metaphor.org/fan/buzz/" title="buzz-light-year">this site</a></p>
 </div>
 
