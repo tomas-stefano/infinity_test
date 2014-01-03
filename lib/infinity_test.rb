@@ -8,6 +8,7 @@ module InfinityTest
     autoload :AutoDiscover, 'infinity_test/core/auto_discover'
     autoload :Base, 'infinity_test/core/base'
     autoload :CommandBuilder, 'infinity_test/core/command_builder'
+    autoload :CommandRunner,  'infinity_test/core/command_runner'
     autoload :ConfigurationMerge, 'infinity_test/core/configuration_merge'
     autoload :ContinuousTestServer, 'infinity_test/core/continuous_test_server'
     autoload :ChangedFile, 'infinity_test/core/changed_file'

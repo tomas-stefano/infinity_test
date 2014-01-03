@@ -15,7 +15,7 @@ module InfinityTest
       # Run the strategy and parse the results storing in the strategy.
       #
       def run
-        system(run!)
+        Core::CommandRunner.new(run!)
       end
 
       # Implement #run! method returning a string command to be run.
