@@ -1,8 +1,7 @@
-#!/usr/bin/env ruby
-
 InfinityTest.setup do |config|
   config.strategy       = :ruby_default
   config.test_framework = :rspec
+  config.notifications  = :growl
 end
 
 # infinity_test do
@@ -48,5 +47,3 @@ end
   # end
 
 # end
-
-# InfinityTest::Base.class_variables.collect.each { |e| puts("#{e}: #{InfinityTest::Base.class_variable_get(e)}") }

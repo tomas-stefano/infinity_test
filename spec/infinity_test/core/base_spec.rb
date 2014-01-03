@@ -69,7 +69,7 @@ module InfinityTest
       it "should set the notification class accessor" do
         silence_stream(STDOUT) do
           Base.notifications(:growl)
-          Base.notification.should be :growl
+          Base.notifications.should be :growl
         end
       end
 

@@ -86,8 +86,8 @@ module InfinityTest
       #
       # This will load a exactly a class constantize by name.
       #
-      cattr_accessor :notification
-      self.notification = :auto_discover
+      cattr_writer :notifications
+      self.notifications = :auto_discover
 
       # You can set directory to show images matched by the convention names.
       # => http://github.com/tomas-stefano/infinity_test/tree/master/images/ )
@@ -232,17 +232,21 @@ module InfinityTest
 
       # <b>DEPRECATED:</b> Please use <tt>.notification=</tt> instead.
       #
-      def self.notifications(notification_name, &block)
-        message = <<-MESSAGE
-          .notifications is DEPRECATED.
-          Use this instead:
-            InfinityTest.setup do |config|
-              config.notification = ...
-            end
-        MESSAGE
-        ActiveSupport::Deprecation.warn(message)
-        self.notification = notification_name
-        self.instance_eval(&block) if block_given?
+      def self.notifications(notification_name = nil, &block)
+        if notification_name.blank?
+          self.class_variable_get(:@@notifications)
+        else
+          message = <<-MESSAGE
+            .notifications is DEPRECATED.
+            Use this instead:
+              InfinityTest.setup do |config|
+                config.notifications = :growl
+              end
+          MESSAGE
+          ActiveSupport::Deprecation.warn(message)
+          self.notifications = notification_name
+          self.instance_eval(&block) if block_given?
+        end
       end
 
       # <b>DEPRECATED:</b> Please use:
@@ -256,10 +260,10 @@ module InfinityTest
           .show_images is DEPRECATED.
           Use this instead:
            InfinityTest.setup do |config|
-             config.success_image = ...
-             config.pending_image = ...
-             config.failure_image = ...
-             config.mode = ...
+             config.success_image = 'some_image.png'
+             config.pending_image = 'some_image.png'
+             config.failure_image = 'some_image.png'
+             config.mode          = 'infinity_test_dir_that_contain_images'
            end
         MESSAGE
         ActiveSupport::Deprecation.warn(message)
@@ -282,12 +286,12 @@ module InfinityTest
           .use is DEPRECATED.
           Use this instead:
             InfinityTest.setup do |config|
-              config.rubies = %w(...)
-              config.specific_options = "..."
-              config.test_framework = :some_test_framework
-              config.framework = :some_framework
-              config.verbose = true/false
-              config.gemset = :some_gemset
+              config.rubies           = %w(2.0 jruby)
+              config.specific_options = '-J'
+              config.test_framework   = :rspec
+              config.framework        = :padrino
+              config.verbose          = true
+              config.gemset           = :some_gemset
             end
         MESSAGE
         ActiveSupport::Deprecation.warn(message)
