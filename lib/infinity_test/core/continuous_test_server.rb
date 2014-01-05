@@ -3,14 +3,14 @@ module InfinityTest
     class ContinuousTestServer
       attr_reader :base
       delegate :binary, :command_arguments, to: :test_framework
-      delegate :infinity_and_beyond, to: :base
+      delegate :infinity_and_beyond, :notifications, to: :base
 
       def initialize(base)
         @base = base
       end
 
       def start
-        run_strategy
+        notify!(run_strategy)
         start_observer
       end
 
@@ -20,6 +20,14 @@ module InfinityTest
         # PENDING: run_before_callbacks
         strategy.run
         # PENDING: run_after_callbacks
+      end
+
+      def notify!(strategy_result)
+        Core::Notifier.notify!(
+          notify_library:  notifications,
+          strategy_result: strategy_result,
+          test_framework:  test_framework
+        )
       end
 
       # Start to monitoring files in the project.
