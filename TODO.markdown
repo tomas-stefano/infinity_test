@@ -1,19 +1,19 @@
 ## Road to 2.0
 
 * Watchr.
-* RSpec.
-* RubyDefault.
-* Rubygems.
 * Work Notifications.
+* RSpec.
+* Test::Unit/Minitest.
+* Rubygems.
+* RubyDefault.
 * Refactoring specs (see better specs).
 * Make callbacks work in the new structure.
-* Rvm.
 * Work with test pattern on Configuration overwriting the Test framework instance.
 * Be possible to rewrite the rules in more nicer way, using the Hike gem to find files and paths.
 * Work with gemsets.
-* Test::Unit/Minitest.
 * Rails.
 * Padrino.
+* Rvm.
 * Test with spork and zeus and other gems spork like (Experimental).
 
 ### Flexibility
