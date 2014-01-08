@@ -2,6 +2,7 @@ require 'optparse'
 require 'active_support/core_ext'
 require 'active_support/deprecation'
 require 'hike'
+require 'notifiers'
 
 module InfinityTest
   module Core
@@ -13,6 +14,7 @@ module InfinityTest
     autoload :ContinuousTestServer, 'infinity_test/core/continuous_test_server'
     autoload :ChangedFile, 'infinity_test/core/changed_file'
     autoload :LoadConfiguration, 'infinity_test/core/load_configuration'
+    autoload :Notifier, 'infinity_test/core/notifier'
     autoload :Options, 'infinity_test/core/options'
     autoload :Runner, 'infinity_test/core/runner'
   end
