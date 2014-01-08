@@ -22,12 +22,11 @@ module InfinityTest
         # PENDING: run_after_callbacks
       end
 
-      def notify!(strategy_result)
-        Core::Notifier.notify!(
+      def notify!(message)
+        Core::Notifier.new(
           notify_library:  notifications,
-          strategy_result: strategy_result,
-          test_framework:  test_framework
-        )
+          message:         message
+        ).notify
       end
 
       # Start to monitoring files in the project.
