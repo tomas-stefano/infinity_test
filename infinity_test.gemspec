@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'activesupport', '~> 3.2.13'
   spec.add_dependency 'watchr'
   spec.add_dependency 'hike', '~> 1.2'
+  spec.add_dependency 'notifiers'
 
   spec.add_development_dependency 'bundler', '~> 1.3'
   spec.add_development_dependency 'rake'
