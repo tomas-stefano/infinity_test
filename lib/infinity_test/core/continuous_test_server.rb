@@ -18,12 +18,16 @@ module InfinityTest
       #
       def run_strategy
         # PENDING: run_before_callbacks
-        strategy.run
+
+        notify(strategy.run)
+
         # PENDING: run_after_callbacks
       end
 
-      def notify!(options)
-        Core::Notifier.new(options).notify
+      def notify(strategy_result)
+        if notifications.present?
+          Core::Notifier.new(strategy_result, server: self).notify
+        end
       end
 
       # Start to monitoring files in the project.

@@ -43,6 +43,36 @@ module InfinityTest
         end
       end
 
+      describe '#notify' do
+        let(:strategy_result) do
+          '200 examples, 0 failures, 0 pending'
+        end
+
+        context 'when have notification library' do
+          let(:notifier) { mock(notify: true) }
+
+          before do
+            base.should_receive(:notifications).and_return(:growl)
+          end
+
+          it 'instantiante a notifier passing the strategy result and the continuous server' do
+            Core::Notifier.should_receive(:new).with(strategy_result, server: continuous_test_server).and_return(notifier)
+            continuous_test_server.notify(strategy_result)
+          end
+        end
+
+        context 'when do not have notification library' do
+          before do
+            base.should_receive(:notifications).and_return(nil)
+          end
+
+          it 'instantiante a notifier passing the strategy result and the continuous server' do
+            Core::Notifier.should_not_receive(:new)
+            continuous_test_server.notify(strategy_result)
+          end
+        end
+      end
+
       describe '#strategy' do
         subject { continuous_test_server.strategy }
         before { expect(base).to receive(:strategy).and_return(:ruby_default) }
