@@ -10,7 +10,6 @@ module InfinityTest
         it 'run strategy, start observer' do
           continuous_test_server.should_receive(:run_strategy)
           continuous_test_server.should_receive(:start_observer)
-          # continuous_test_server.should_receive(:notify!)
           continuous_test_server.start
         end
       end
