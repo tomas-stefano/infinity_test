@@ -13,10 +13,6 @@ module InfinityTest
         'spec'
       end
       alias :command_arguments :test_dir
-
-      # def test_files
-      #   []
-      # end
     end
   end
 end
