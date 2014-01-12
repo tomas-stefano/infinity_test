@@ -12,6 +12,7 @@ module InfinityTest
       # @param changed_file [<InfinityTest::Core::ChangedFile>]
       #
       def RunFile(changed_file)
+        continuous_test_server.run_strategy
       end
 
       # Run test based on the changed file.
@@ -19,6 +20,7 @@ module InfinityTest
       # @param changed_file [<InfinityTest::Core::ChangedFile>]
       #
       def RunTest(changed_file)
+        continuous_test_server.run_strategy
       end
 
       def command_builder
