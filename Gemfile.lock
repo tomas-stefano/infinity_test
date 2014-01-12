@@ -17,7 +17,7 @@ GEM
     hike (1.2.3)
     i18n (0.6.9)
     multi_json (1.7.7)
-    notifiers (1.1.0)
+    notifiers (1.2.0)
     rake (10.0.4)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)
