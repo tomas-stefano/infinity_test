@@ -6,38 +6,38 @@ module InfinityTest
     describe ".setup" do
       it "should yield self" do
         Base.setup do |config|
-          config.should == InfinityTest::Base
+          expect(config).to be InfinityTest::Base
         end
       end
     end
 
     describe ".using_bundler?" do
       it "should return the same bundler accessor" do
-        Base.using_bundler?.should equal Base.bundler
+        expect(Base.using_bundler?).to equal Base.bundler
       end
     end
 
     describe "#verbose?" do
       it "should return the same verbose accessor" do
-        Base.verbose?.should equal Base.verbose
+        expect(Base.verbose?).to equal Base.verbose
       end
     end
 
     describe ".observer" do
       it "should have watchr as default observer" do
-        Base.observer.should equal :watchr
+        expect(Base.observer).to equal :watchr
       end
     end
 
     describe ".ignore_test_files" do
       it "should not have test files to ignore as default" do
-        Base.ignore_test_files.should eql []
+        expect(Base.ignore_test_files).to eql []
       end
     end
 
     describe "#ignore_test_folders" do
       it "should not ignore test folders as default" do
-        Base.ignore_test_folders.should eql []
+        expect(Base.ignore_test_folders).to eql []
       end
     end
 
@@ -48,8 +48,8 @@ module InfinityTest
       it "should create before callback instance and push to the callback accessor" do
         BeforeCallback.should_receive(:new).with(:all, &proc).once.and_return(:foo)
         before_callback = Base.before(:all, &proc)
-        before_callback.should be :foo
-        Base.callbacks.should be_include before_callback
+        expect(before_callback).to be :foo
+        expect(Base.callbacks).to be_include before_callback
       end
     end
 
@@ -60,8 +60,8 @@ module InfinityTest
       it "should create before callback instance and push to the callback accessor" do
         AfterCallback.should_receive(:new).with(:each, &proc).once.and_return(:foo)
         after_callback = Base.after(:each, &proc)
-        after_callback.should be :foo
-        Base.callbacks.should be_include after_callback
+        expect(after_callback).to be :foo
+        expect(Base.callbacks).to be_include after_callback
       end
     end
 
@@ -69,7 +69,7 @@ module InfinityTest
       it "should set the notification class accessor" do
         silence_stream(STDOUT) do
           Base.notifications(:growl)
-          Base.notifications.should be :growl
+          expect(Base.notifications).to be :growl
         end
       end
 
@@ -79,9 +79,9 @@ module InfinityTest
             show_images :success_image => 'foo', :failure_image => 'bar', :pending_image => 'baz'
           end
         end
-        Base.success_image.should eql 'foo'
-        Base.failure_image.should eql 'bar'
-        Base.pending_image.should eql 'baz'
+        expect(Base.success_image).to eql 'foo'
+        expect(Base.failure_image).to eql 'bar'
+        expect(Base.pending_image).to eql 'baz'
       end
 
       it "should set the mode" do
@@ -90,7 +90,7 @@ module InfinityTest
             show_images :mode => :mortal_kombat
           end
         end
-        Base.mode.should be :mortal_kombat
+        expect(Base.mode).to be :mortal_kombat
       end
     end
 
@@ -117,42 +117,42 @@ module InfinityTest
         silence_stream(STDOUT) do
           Base.use :rubies => %w(foo bar)
         end
-        Base.rubies.should eql %w(foo bar)
+        expect(Base.rubies).to eql %w(foo bar)
       end
 
       it "should set the specific options" do
         silence_stream(STDOUT) do
           Base.use :specific_options => '-J -Ilib -Itest'
         end
-        Base.specific_options.should eql '-J -Ilib -Itest'
+        expect(Base.specific_options).to eql '-J -Ilib -Itest'
       end
 
       it "should set the test framework" do
         silence_stream(STDOUT) do
           Base.use :test_framework => :rspec
         end
-        Base.test_framework.should be :rspec
+        expect(Base.test_framework).to be :rspec
       end
 
       it "should set the app framework" do
         silence_stream(STDOUT) do
           Base.use :app_framework => :rails
         end
-        Base.framework.should be :rails
+        expect(Base.framework).to be :rails
       end
 
       it "should set the verbose mode" do
         silence_stream(STDOUT) do
           Base.use :verbose => false
         end
-        Base.verbose.should equal false # I choose to don't use should be_false
+        expect(Base.verbose).to equal false # I choose to don't use should be_false
       end
 
       it "should set the gemset" do
         silence_stream(STDOUT) do
           Base.use :gemset => 'infinity_test'
         end
-        Base.gemset.should eql 'infinity_test'
+        expect(Base.gemset).to eql 'infinity_test'
       end
     end
 

@@ -30,7 +30,7 @@ module InfinityTest
       it "should load if file exist" do
         File.should_receive(:exist?).with('bar').and_return(true)
         subject.should_receive(:load).with('bar').and_return(true)
-        subject.load_file('bar').should be_true
+        expect(subject.load_file('bar')).to be_true
       end
 
       it "should not load if file dont exist" do

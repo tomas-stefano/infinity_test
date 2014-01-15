@@ -11,12 +11,12 @@ module InfinityTest
       describe ".run?" do
         it "should return true when don't pass any ruby versions to run tests" do
           Core::Base.stub(:rubies).and_return([])
-          RubyDefault.should be_run
+          expect(RubyDefault).to be_run
         end
 
         it "should return false when pass some ruby version to run tests" do
           Core::Base.stub(:rubies).and_return(['ree', 'jruby'])
-          RubyDefault.should_not be_run
+          expect(RubyDefault).not_to be_run
         end
       end
 
@@ -24,7 +24,7 @@ module InfinityTest
         before { base.test_framework = :rspec }
 
         it 'returns the command' do
-          subject.run!.should eq 'ruby -S rspec spec'
+          expect(subject.run!).to eq 'ruby -S rspec spec'
         end
       end
     end

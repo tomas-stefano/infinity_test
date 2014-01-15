@@ -25,7 +25,7 @@ module InfinityTest
 
         it 'change the base strategy' do
           auto_discover.discover_strategy
-          base.strategy.should be :rvm
+          expect(base.strategy).to be :rvm
         end
       end
 
@@ -34,7 +34,7 @@ module InfinityTest
 
         it 'change anything' do
           auto_discover.discover_strategy
-          base.strategy.should be :ruby_default
+          expect(base.strategy).to be :ruby_default
         end
       end
 
@@ -62,7 +62,7 @@ module InfinityTest
 
         it 'change the base framework' do
           auto_discover.discover_framework
-          base.framework.should be :rails
+          expect(base.framework).to be :rails
         end
       end
 
@@ -71,7 +71,7 @@ module InfinityTest
 
         it 'change anything' do
           auto_discover.discover_framework
-          base.framework.should be :padrino
+          expect(base.framework).to be :padrino
         end
       end
     end
@@ -87,7 +87,7 @@ module InfinityTest
 
         it 'change the base framework' do
           auto_discover.discover_test_framework
-          base.test_framework.should be :bacon
+          expect(base.test_framework).to be :bacon
         end
       end
 
@@ -96,7 +96,7 @@ module InfinityTest
 
         it 'change anything' do
           auto_discover.discover_test_framework
-          base.test_framework.should be :test_unit
+          expect(base.test_framework).to be :test_unit
         end
       end
     end

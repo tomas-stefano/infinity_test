@@ -5,94 +5,94 @@ module InfinityTest
     describe "#parse!" do
       describe "#strategy" do
         it "should parse the --ruby options with rvm" do
-          parse('--ruby', 'rvm').strategy.should be :rvm
+          expect(parse('--ruby', 'rvm').strategy).to be :rvm
         end
 
         it "should parse the --ruby options with rbenv" do
-          parse('--ruby', 'rbenv').strategy.should be :rbenv
+          expect(parse('--ruby', 'rbenv').strategy).to be :rbenv
         end
       end
 
       describe "#rubies" do
         it "should pass the ruby versions" do
-          parse('--rubies=ree,jruby').rubies.should eql %w(ree jruby)
+          expect(parse('--rubies=ree,jruby').rubies).to eql %w(ree jruby)
         end
 
         it "should have empty rubies when pass rubies= without versions" do
-          parse('--rubies=').rubies.should eql []
+          expect(parse('--rubies=').rubies).to eql []
         end
 
         it "should be nil when don't pass the rubies option" do
-          parse.rubies.should be_nil
+          expect(parse.rubies).to be_nil
         end
       end
 
       describe "#infinity_and_beyond" do
         it "should return false when setting --no-infinity-and-beyond" do
-          parse('--no-infinity-and-beyond').infinity_and_beyond.should equal false
-          parse('-n').infinity_and_beyond.should equal false
+          expect(parse('--no-infinity-and-beyond').infinity_and_beyond).to equal false
+          expect(parse('-n').infinity_and_beyond).to equal false
         end
 
         it "should return nil when not setting the --no-infinity-and-beyond" do
-          parse.infinity_and_beyond.should be_nil
+          expect(parse.infinity_and_beyond).to be_nil
         end
       end
 
       describe "#specific_options" do
         it "should parse the options" do
-          parse('--options=-J-Ilib-Itest').specific_options.should eql '-J -Ilib -Itest'
+          expect(parse('--options=-J-Ilib-Itest').specific_options).to eql '-J -Ilib -Itest'
         end
       end
 
       describe "#test_framework" do
         it "should parse the test framework as rspec" do
-          parse('--test', 'rspec').test_framework.should be :rspec
+          expect(parse('--test', 'rspec').test_framework).to be :rspec
         end
 
         it "should parse the test framework as bacon" do
-          parse('--test', 'bacon').test_framework.should be :bacon
+          expect(parse('--test', 'bacon').test_framework).to be :bacon
         end
 
         it "should parse the test framework as test_unit" do
-          parse('--test', 'test_unit').test_framework.should be :test_unit
+          expect(parse('--test', 'test_unit').test_framework).to be :test_unit
         end
 
         it "should parse the test framework as other" do
-          parse('--test', 'other').test_framework.should be :other
+          expect(parse('--test', 'other').test_framework).to be :other
         end
       end
 
       describe "#framework" do
         it "should parse the app framework as rails" do
-          parse('--framework', 'rails').framework.should be :rails
+          expect(parse('--framework', 'rails').framework).to be :rails
         end
 
         it "should parse the app framework as rubygems" do
-          parse('--framework', 'rubygems').framework.should be :rubygems
+          expect(parse('--framework', 'rubygems').framework).to be :rubygems
         end
 
         it "should parse the app framework as other" do
-          parse('--framework', 'other').framework.should be :other
+          expect(parse('--framework', 'other').framework).to be :other
         end
       end
 
       describe "#verbose?" do
         it "should return nil when dont pass nothing" do
-          parse.verbose?.should be_nil
+          expect(parse.verbose?).to be_nil
         end
 
         it "should not be verbose whe pass the option --no-verbose" do
-          parse('--no-verbose').should_not be_verbose
+          expect(parse('--no-verbose')).not_to be_verbose
         end
       end
 
       describe "#bundler?" do
         it "should not use bundler when passing this option" do
-          parse('--no-bundler').should_not be_bundler
+          expect(parse('--no-bundler')).not_to be_bundler
         end
 
         it "should return nil when dont pass nothing" do
-          parse.bundler?.should be_nil
+          expect(parse.bundler?).to be_nil
         end
       end
     end

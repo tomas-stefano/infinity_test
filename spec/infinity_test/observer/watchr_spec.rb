@@ -9,7 +9,7 @@ module InfinityTest
 
       describe "#observer" do
         it "should be instance of watchr script" do
-          subject.observer.should be_instance_of(::Watchr::Script)
+          expect(subject.observer).to be_instance_of(::Watchr::Script)
         end
       end
 
@@ -39,7 +39,7 @@ module InfinityTest
           ::Watchr.handler.should_receive(:new).and_return(handler)
           ::Watchr::Controller.should_receive(:new).with(subject.observer, handler).and_return(controller)
           controller.should_receive(:run).and_return(:running)
-          subject.start.should equal :running
+          expect(subject.start).to equal :running
         end
       end
     end
