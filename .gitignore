@@ -13,3 +13,4 @@ rerun.txt
 bin/*.rbc
 .infinity_test_file
 .ruby-version
+Gemfile.lock
