@@ -8,8 +8,8 @@ module InfinityTest
 
       describe '#start!' do
         it 'run strategy, start observer' do
-          continuous_test_server.should_receive(:run_strategy)
-          continuous_test_server.should_receive(:start_observer)
+          expect(continuous_test_server).to receive(:run_strategy)
+          expect(continuous_test_server).to receive(:start_observer)
           continuous_test_server.start
         end
       end
@@ -17,27 +17,27 @@ module InfinityTest
       describe '#start_observer' do
         context 'when base configuration as infinity and beyond' do
           before do
-            base.should_receive(:infinity_and_beyond).and_return(true)
+            expect(base).to receive(:infinity_and_beyond).and_return(true)
             base.stub(:framework).and_return(:rails)
             base.stub(:observer).and_return(:watchr)
           end
 
           it 'add framework heuristics and start the observer' do
-            continuous_test_server.framework.should_receive(:heuristics!)
-            continuous_test_server.observer.should_receive(:start!)
+            expect(continuous_test_server.framework).to receive(:heuristics!)
+            expect(continuous_test_server.observer).to receive(:start!)
             continuous_test_server.start_observer
           end
         end
 
         context 'when base configuration is not infinity and beyond' do
           before do
-            base.should_receive(:infinity_and_beyond).and_return(false)
+            expect(base).to receive(:infinity_and_beyond).and_return(false)
             base.stub(:framework).and_return(:rails)
           end
 
           it 'do not start the observer' do
-            continuous_test_server.framework.should_not_receive(:heuristics!)
-            continuous_test_server.observer.should_not_receive(:start!)
+            expect(continuous_test_server.framework).to_not receive(:heuristics!)
+            expect(continuous_test_server.observer).to_not receive(:start!)
             continuous_test_server.start_observer
           end
         end
@@ -45,14 +45,14 @@ module InfinityTest
 
       describe '#strategy' do
         subject { continuous_test_server.strategy }
-        before { base.should_receive(:strategy).and_return(:ruby_default) }
+        before { expect(base).to receive(:strategy).and_return(:ruby_default) }
 
         it { should be_instance_of InfinityTest::Strategy::RubyDefault }
       end
 
       describe '#test_framework' do
         subject { continuous_test_server.test_framework }
-        before { base.should_receive(:test_framework).and_return(:rspec) }
+        before { expect(base).to receive(:test_framework).and_return(:rspec) }
 
         it { should be_instance_of InfinityTest::TestFramework::Rspec }
       end

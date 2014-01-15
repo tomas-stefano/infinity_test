@@ -13,12 +13,12 @@ module InfinityTest
 
       describe ".run?" do
         it "should return true if find the config/apps.rb" do
-          File.should_receive(:exist?).with(File.expand_path('./config/apps.rb')).and_return(true)
+          expect(File).to receive(:exist?).with(File.expand_path('./config/apps.rb')).and_return(true)
           expect(Padrino).to be_run
         end
 
         it "should return false if don't find the config/apps.rb" do
-          File.should_receive(:exist?).with(File.expand_path('./config/apps.rb')).and_return(false)
+          expect(File).to receive(:exist?).with(File.expand_path('./config/apps.rb')).and_return(false)
           expect(Padrino).not_to be_run
         end
       end

@@ -6,10 +6,10 @@ module InfinityTest
 
     describe '#start' do
       it 'load configuration, merge with command line, find user libraries and start continuous server' do
-        Core::LoadConfiguration.any_instance.should_receive(:load!)
-        Core::Base.should_receive(:merge!).with(runner.options)
-        Core::AutoDiscover.any_instance.should_receive(:discover_libraries)
-        ContinuousTestServer.any_instance.should_receive(:start)
+        expect_any_instance_of(Core::LoadConfiguration).to receive(:load!)
+        expect(Core::Base).to receive(:merge!).with(runner.options)
+        expect_any_instance_of(Core::AutoDiscover).to receive(:discover_libraries)
+        expect_any_instance_of(ContinuousTestServer).to receive(:start)
         runner.start
       end
     end

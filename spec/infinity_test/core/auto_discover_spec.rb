@@ -8,9 +8,9 @@ module InfinityTest
 
     describe '#discover_libraries' do
       it 'discover strategy, framework and test framework' do
-        auto_discover.should_receive(:discover_strategy)
-        auto_discover.should_receive(:discover_framework)
-        auto_discover.should_receive(:discover_test_framework)
+        expect(auto_discover).to receive(:discover_strategy)
+        expect(auto_discover).to receive(:discover_framework)
+        expect(auto_discover).to receive(:discover_test_framework)
         auto_discover.discover_libraries
       end
     end
@@ -20,7 +20,7 @@ module InfinityTest
         before do
           base.strategy = :auto_discover
           Strategy::RubyDefault.stub(:run?).and_return(false)
-          Strategy::Rvm.should_receive(:run?).and_return(true)
+          expect(Strategy::Rvm).to receive(:run?).and_return(true)
         end
 
         it 'change the base strategy' do
@@ -42,7 +42,7 @@ module InfinityTest
         before do
           base.strategy = :auto_discover
           Strategy::RubyDefault.stub(:run?).and_return(false)
-          Strategy::Rvm.should_receive(:run?).and_return(false)
+          expect(Strategy::Rvm).to receive(:run?).and_return(false)
           Strategy::Rbenv.stub(:run?).and_return(false)
         end
 
@@ -57,7 +57,7 @@ module InfinityTest
         before do
           base.framework = :auto_discover
           Framework::Rubygems.stub(:run?).and_return(false)
-          Framework::Rails.should_receive(:run?).and_return(true)
+          expect(Framework::Rails).to receive(:run?).and_return(true)
         end
 
         it 'change the base framework' do
@@ -82,7 +82,7 @@ module InfinityTest
           base.test_framework = :auto_discover
           TestFramework::TestUnit.stub(:run?).and_return(false)
           TestFramework::Rspec.stub(:run?).and_return(false)
-          TestFramework::Bacon.should_receive(:run?).and_return(true)
+          expect(TestFramework::Bacon).to receive(:run?).and_return(true)
         end
 
         it 'change the base framework' do

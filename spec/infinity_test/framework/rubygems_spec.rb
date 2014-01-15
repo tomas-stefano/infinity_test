@@ -10,22 +10,22 @@ module InfinityTest
 
       describe "#heuristics" do
         it "should add heuristics" do
-          observer.should_receive(:watch_dir).exactly(2)
-          observer.should_receive(:watch)
-          test_framework.should_receive(:test_helper_file)
-          test_framework.should_receive(:test_dir)
+          expect(observer).to receive(:watch_dir).exactly(2)
+          expect(observer).to receive(:watch)
+          expect(test_framework).to receive(:test_helper_file)
+          expect(test_framework).to receive(:test_dir)
           expect { subject.heuristics }.to_not raise_exception
         end
       end
 
       describe ".run?" do
         it "should return true if have a .gemspec in the user current dir" do
-          Dir.should_receive(:[]).with('*.gemspec').and_return(['infinity_test.gemspec'])
+          expect(Dir).to receive(:[]).with('*.gemspec').and_return(['infinity_test.gemspec'])
           expect(Rubygems).to be_run
         end
 
         it "should return false if don't have a .gemspec in the user current dir" do
-          Dir.should_receive(:[]).with('*.gemspec').and_return([])
+          expect(Dir).to receive(:[]).with('*.gemspec').and_return([])
           expect(Rubygems).not_to be_run
         end
       end

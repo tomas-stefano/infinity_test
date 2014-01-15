@@ -15,12 +15,12 @@ module InfinityTest
 
       describe ".run?" do
         it "should return true if exist the config/enviroment.rb file" do
-          File.should_receive(:exist?).with(File.expand_path('./config/environment.rb')).and_return(true)
+          expect(File).to receive(:exist?).with(File.expand_path('./config/environment.rb')).and_return(true)
           expect(Rails).to be_run
         end
 
         it "should return false if don't exist the config/enviroment.rb file" do
-          File.should_receive(:exist?).with(File.expand_path('./config/environment.rb')).and_return(false)
+          expect(File).to receive(:exist?).with(File.expand_path('./config/environment.rb')).and_return(false)
           expect(Rails).not_to be_run
         end
       end

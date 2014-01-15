@@ -46,7 +46,7 @@ module InfinityTest
       let(:proc) { Proc.new { 'To Infinity and beyond!' } }
 
       it "should create before callback instance and push to the callback accessor" do
-        BeforeCallback.should_receive(:new).with(:all, &proc).once.and_return(:foo)
+        expect(BeforeCallback).to receive(:new).with(:all, &proc).once.and_return(:foo)
         before_callback = Base.before(:all, &proc)
         expect(before_callback).to be :foo
         expect(Base.callbacks).to be_include before_callback
@@ -58,7 +58,7 @@ module InfinityTest
       let(:proc) { Proc.new {}}
 
       it "should create before callback instance and push to the callback accessor" do
-        AfterCallback.should_receive(:new).with(:each, &proc).once.and_return(:foo)
+        expect(AfterCallback).to receive(:new).with(:each, &proc).once.and_return(:foo)
         after_callback = Base.after(:each, &proc)
         expect(after_callback).to be :foo
         expect(Base.callbacks).to be_include after_callback
@@ -173,8 +173,8 @@ module InfinityTest
       let(:configuration_merge) { Object.new }
 
       it "should call merge on the configuration merge object" do
-        ConfigurationMerge.should_receive(:new).with(Core::Base, options).and_return(configuration_merge)
-        configuration_merge.should_receive(:merge!)
+        expect(ConfigurationMerge).to receive(:new).with(Core::Base, options).and_return(configuration_merge)
+        expect(configuration_merge).to receive(:merge!)
         Core::Base.merge!(options)
       end
     end
@@ -182,7 +182,7 @@ module InfinityTest
     describe ".clear" do
       it "should call clear_terminal method" do
         silence_stream(STDOUT) do
-          Base.should_receive(:clear_terminal).and_return(true)
+          expect(Base).to receive(:clear_terminal).and_return(true)
           Base.clear(:terminal)
         end
       end
@@ -191,7 +191,7 @@ module InfinityTest
     describe ".clear_terminal" do
       it "should call system clear" do
         silence_stream(STDOUT) do
-          Base.should_receive(:system).with('clear').and_return(true)
+          expect(Base).to receive(:system).with('clear').and_return(true)
           Base.clear_terminal
         end
       end

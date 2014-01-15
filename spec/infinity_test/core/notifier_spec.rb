@@ -13,9 +13,9 @@ module InfinityTest
         end
 
         it 'call the notify library passing the right message' do
-          notifier.should_receive(:growl).and_return(growl)
-          growl.should_receive(:message).with('To infinity and beyond!').and_return(growl)
-          growl.should_receive(:image).with('example.png')
+          expect(notifier).to receive(:growl).and_return(growl)
+          expect(growl).to receive(:message).with('To infinity and beyond!').and_return(growl)
+          expect(growl).to receive(:image).with('example.png')
           notifier.notify
         end
       end
