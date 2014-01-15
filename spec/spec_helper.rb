@@ -13,6 +13,10 @@ RSpec.configure do |config|
   config.include InfinityTest::Observer::SharedExample
   config.include InfinityTest::TestFramework::SharedExample
   config.include InfinityTest::Framework::SharedExample
+
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
 end
 
 class BaseFixture
