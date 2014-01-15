@@ -16,19 +16,19 @@ module InfinityTest
       shared_examples_for 'an infinity test observer' do
 
         it 'should respond to #observer' do
-          subject.should respond_to(:observer)
+          expect(subject).to respond_to(:observer)
         end
 
         it 'should respond to #watch_dir' do
-          subject.should respond_to(:watch_dir)
+          expect(subject).to respond_to(:watch_dir)
         end
 
         it 'should respond to #watch' do
-          subject.should respond_to(:watch)
+          expect(subject).to respond_to(:watch)
         end
 
         it 'should respond to #start' do
-          subject.should respond_to(:start)
+          expect(subject).to respond_to(:start)
         end
       end
     end
