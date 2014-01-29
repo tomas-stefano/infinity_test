@@ -5,6 +5,9 @@ development
 - The #before_env method in the configuration file was removed.
 - The #before_run and #after_run method in the configuration file, was removed. Use before(:all) and after(:all) instead.
 - Shared Examples to create your own strategy.
+- Update all specs to RSpec 2.
+- Now you can create your own observer (case you want add other gem like watchr / monitor files).
+- Now you can add more patterns to monitor in a simple dsl without ugly nasty code.
 
 v1.0.1
 ======
