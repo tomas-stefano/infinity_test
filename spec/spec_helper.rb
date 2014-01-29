@@ -7,12 +7,16 @@ end
 
 require 'infinity_test'
 require 'ostruct'
+Bundler.require
 
 RSpec.configure do |config|
   config.include InfinityTest::Strategy::SharedExample
   config.include InfinityTest::Observer::SharedExample
   config.include InfinityTest::TestFramework::SharedExample
   config.include InfinityTest::Framework::SharedExample
+
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
