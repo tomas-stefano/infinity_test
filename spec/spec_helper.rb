@@ -7,6 +7,7 @@ end
 
 require 'infinity_test'
 require 'ostruct'
+require 'bundler/setup'
 Bundler.require
 
 RSpec.configure do |config|
