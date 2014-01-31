@@ -1,6 +1,5 @@
 ## Road to 2.0
 
-* Watchr.
 * Work Notifications.
 * RSpec.
 * Test::Unit/Minitest.
@@ -23,13 +22,13 @@
 * Add specific options to the command.
 * Create a infinity test generator with thor!
 * Don't run integration tests. Ignore them when changed.
- 
+
 ### 2.0.2
 
 * RbEnv (experimented feature).
 * Bacon.
 * Focus feature(fails, pass one file, run entire suite) with --focus (experimented feature)!
 * Cucumber
-* 
+*
 
 Maybe we could create a infinity-test-contrib repositories with other heuristics platforms
