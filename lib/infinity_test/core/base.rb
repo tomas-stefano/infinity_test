@@ -166,6 +166,10 @@ module InfinityTest
         ConfigurationMerge.new(self, options).merge!
       end
 
+      def self.start_continuous_test_server
+        continuous_test_server.start
+      end
+
       def self.continuous_test_server
         @continuous_test_server ||= ContinuousTestServer.new(self)
       end
