@@ -3,7 +3,7 @@ require 'spec_helper'
 module InfinityTest
   module Observer
     describe Watchr do
-      let(:continuous_server) { mock }
+      let(:continuous_server) { double }
       subject { Watchr.new(continuous_server)}
       it_should_behave_like 'an infinity test observer'
 
@@ -34,7 +34,7 @@ module InfinityTest
 
       describe "#start" do
         it "should initialize an watchr controller passing the #observer" do
-          handler = mock
+          handler = double
           controller = controller
           expect(::Watchr.handler).to receive(:new).and_return(handler)
           expect(::Watchr::Controller).to receive(:new).with(subject.observer, handler).and_return(controller)

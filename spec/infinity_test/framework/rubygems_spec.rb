@@ -3,9 +3,9 @@ require 'spec_helper'
 module InfinityTest
   module Framework
     describe Rubygems do
-      let(:observer) { mock('Observer') }
-      let(:test_framework) { mock('TestFramework') }
-      let(:continuous_test_server) { mock('ContinuousTestServer', observer: observer, test_framework: test_framework) }
+      let(:observer) { double('Observer') }
+      let(:test_framework) { double('TestFramework') }
+      let(:continuous_test_server) { double('ContinuousTestServer', observer: observer, test_framework: test_framework) }
       subject { Rubygems.new(continuous_test_server) }
 
       describe "#heuristics" do
