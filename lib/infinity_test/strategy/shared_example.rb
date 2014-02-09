@@ -16,7 +16,7 @@ module InfinityTest
       #
       shared_examples_for 'a infinity test strategy' do
         it 'should respond to #run!' do
-          expect(subject).to respond_to(:run!)
+          expect(subject).to respond_to(:run)
         end
 
         it 'should respond to .run?' do
