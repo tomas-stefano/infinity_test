@@ -26,7 +26,9 @@ module InfinityTest
 
       def notify(strategy_result)
         if notifications.present?
-          Core::Notifier.new(strategy_result, server: self).notify
+          test_framework.test_message = strategy_result
+
+          Core::Notifier.new(library: notifications, test_framework: test_framework).notify
         end
       end
 
