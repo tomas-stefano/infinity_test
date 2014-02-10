@@ -3,75 +3,84 @@ module InfinityTest
     class Notifier
       include ::Notifiers
 
-      def initialize(strategy_result, options)
-        @server          = options.fetch(:server)
-        @strategy_result = strategy_result
+      attr_reader :test_framework
+
+      IMAGES = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'images'))
+
+      def initialize(options)
+        @test_framework = options.fetch(:test_framework)
       end
 
       def notify
-        # send(@notify_library).message(@message).image(@image)
+        send(notify_library).message(test_message).image(image).notify
       end
 
-      # parse_results :examples => /(\d+) example/, :failures => /(\d+) failure/, :pending => /(\d+) pending/
+      def image
+        return success_image if test_framework.success?
 
-      # # Send the message,image and the actual ruby version to show in the notification system
-      # #
-      # def notify!(options)
-      #   if notification_framework
-      #     message = parse_results(options[:results])
-      #     title = options[:ruby_version]
-      #     send(notification_framework).title(title).message(message).image(image_to_show).notify!
-      #   end
-      # end
+        if test_framework.failure?
+          failure_image
+        else
+          pending_image
+        end
+      end
+
+      def success_image
+        find_image(:success)
+      end
+
+      def failure_image
+        find_image(:failure)
+      end
+
+      def pending_image
+        find_image(:pending)
+      end
+
+      def find_image(image_type)
+        Dir.glob(File.join(images_dir, "#{image_type.to_s}*")).first
+      end
+
+      def images_dir
+        File.join(IMAGES, Core::Base.mode.to_s)
+      end
+
+      # Set the Success and Failure image to show in the notification framework
       #
-      # # Parse the results for each command to the test framework
-      # #
-      # # app.parse_results(['.....','108 examples']) # => '108 examples'
-      # #
-      # def parse_results(results)
-      #   test_framework.parse_results(results)
-      # end
+      #   show_images :failure => 'Users/tomas/images/my_custom_image.png', :sucess => 'custom_image.jpg'
       #
-      # # If the test pass, show the sucess image
-      # # If is some pending test, show the pending image
-      # # If the test fails, show the failure image
-      # #
-      # def image_to_show
-      #   if test_framework.failure?
-      #     failure_image
-      #   elsif test_framework.pending?
-      #     pending_image
-      #   else
-      #     sucess_image
-      #   end
-      # end
+      # Or you cant set modes(directory) for show images (please see the images folder in => http://github.com/tomas-stefano/infinity_test/tree/master/images/ )
       #
-      # def sucess?
-      #   return false if failure? or pending?
-      #   true
-      # end
+      #  show_images :mode => :simpson # => This will show images in the folder http://github.com/tomas-stefano/infinity_test/tree/master/images/simpson
+      #  show_images :mode => :street_fighter # => This will show images in folder http://github.com/tomas-stefano/infinity_test/tree/master/images/street_fighter
+      #  show_images :mode => '~/My/Mode' # => This will show images in the '~/My/Mode' directory
       #
-      # def failure?
-      #   @failures > 0
-      # end
+      # The Convention in images folder is to set sucess, failure and pending images, and
+      # Infinity test will work on these names in the notification framework
       #
-      # def pending?
-      #   @pending > 0 and not failure?
-      # end
+      # def show_images(options={})
+      #         switch_mode!(options[:mode]) if options[:mode]
+      #         @sucess_image  = options[:sucess]  || search_image(SUCESS)
+      #         @failure_image = options[:failure] || search_image(FAILURE)
+      #         @pending_image = options[:pending] || search_image(PENDING)
+      #       end
       #
-      # # Return the message of the tests
-      # #
-      # # test_message('0 examples, 0 failures', { :example => /(\d) example/}) # => '0 examples, 0 failures'
-      # # test_message('....\n4 examples, 0 failures', { :examples => /(\d) examples/}) # => '4 examples, 0 failures'
-      # #
-      # def test_message(output, patterns)
-      #   lines = output.split("\n")
-      #   final_result = []
-      #   patterns.each do |key, pattern|
-      #     final_result << lines.select { |line| line =~ pattern }
-      #   end
-      #   final_result.flatten.last
-      # end
+      #       # Switch the image directory to show
+      #       #
+      #       def switch_mode!(mode)
+      #         case mode
+      #         when Symbol
+      #           @default_dir_image = File.join(IMAGES_DIR, mode.to_s)
+      #         when String
+      #           @default_dir_image = File.expand_path(File.join(mode))
+      #         end
+      #       end
+      #
+      #       # Search the sucess, failure or pending images and return the first in the pattern
+      #       #
+      #       def search_image(file)
+      #         Dir.glob(File.join(@default_dir_image, file) + '*').first
+      #       end
       #
     end
   end
