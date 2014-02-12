@@ -3,16 +3,17 @@ module InfinityTest
     class Notifier
       include ::Notifiers
 
-      attr_reader :test_framework
+      attr_reader :test_framework, :library
 
       IMAGES = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', '..', 'images'))
 
       def initialize(options)
         @test_framework = options.fetch(:test_framework)
+        @library        = options.fetch(:library)
       end
 
       def notify
-        send(notify_library).message(test_message).image(image).notify
+        send(library).message(test_message).image(image).notify
       end
 
       def image

@@ -3,11 +3,11 @@ require 'spec_helper'
 module InfinityTest
   module Core
     describe Notifier do
+      let(:test_framework) { double }
+
       subject(:notifier) { Notifier.new(test_framework: test_framework, library: :growl) }
 
       describe '#image' do
-        let(:test_framework) { double }
-
         before do
           expect(Core::Base).to receive(:mode).and_return(:simpson)
         end
@@ -42,6 +42,12 @@ module InfinityTest
           it 'returns the failure image' do
             expect(notifier.image).to include 'failure'
           end
+        end
+      end
+
+      describe '#library' do
+        it 'returns the primitive value' do
+          expect(notifier.library).to be :growl
         end
       end
 
