@@ -15,8 +15,12 @@ module InfinityTest
       #   end
       #
       shared_examples_for 'a infinity test test framework' do
-        it 'should respond to #parse_results' do
-          expect(subject).to respond_to(:parse_results)
+        it 'should respond to #test_message=' do
+          expect(subject).to respond_to(:test_message=)
+        end
+
+        it 'should respond to #test_message' do
+          expect(subject).to respond_to(:test_message)
         end
 
         it 'should respond to #succeed?' do
@@ -29,14 +33,6 @@ module InfinityTest
 
         it 'should respond to #pending?' do
           expect(subject).to respond_to(:pending?)
-        end
-
-        it 'should respond to #test_files' do
-          expect(subject).to respond_to(:test_files)
-        end
-
-        it 'should respond to #test_files=' do
-          expect(subject).to respond_to(:test_files=)
         end
 
         it 'should respond to #test_helper_file' do

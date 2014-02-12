@@ -1,15 +1,7 @@
 module InfinityTest
   module TestFramework
     class Base
-      attr_accessor :test_files, :test_dir
-
-      def test_files
-        raise NotImplementedError, "not implemented in #{self}"
-      end
-
-      def test_files=(files)
-        raise NotImplementedError, "not implemented in #{self}"
-      end
+      attr_reader :test_message
 
       def test_helper_file
         raise NotImplementedError, "not implemented in #{self}"
@@ -27,7 +19,7 @@ module InfinityTest
         raise NotImplementedError, "not implemented in #{self}"
       end
 
-      def parse_results
+      def test_message=(message)
         raise NotImplementedError, "not implemented in #{self}"
       end
 
