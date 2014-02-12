@@ -51,6 +51,12 @@ module InfinityTest
         end
       end
 
+      describe '#test_message' do
+        it 'respond to' do
+          expect(notifier).to respond_to(:test_message)
+        end
+      end
+
       describe '#images_dir' do
         context 'when is default infinity test dir' do
           it 'returns the dir with the base mode'
