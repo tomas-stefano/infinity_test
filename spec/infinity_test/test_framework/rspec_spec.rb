@@ -22,6 +22,15 @@ module InfinityTest
           expect(subject.binary).to eq 'rspec'
         end
       end
+
+      describe '#test_message' do
+        subject(:rspec) { Rspec.new }
+
+        it 'returns the final specs results' do
+          rspec.test_message = "Finished in 2.19 seconds\n\e[33m162 examples, 0 failures, 8 pending\e[0m\n"
+          expect(rspec.test_message).to eq '162 examples, 0 failures, 8 pending'
+        end
+      end
     end
   end
 end

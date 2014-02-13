@@ -13,6 +13,17 @@ module InfinityTest
         'spec'
       end
       alias :command_arguments :test_dir
+
+      def test_message=(message)
+        patterns = { :examples => /(\d+) example/, :failures => /(\d+) failure/, :pending => /(\d+) pending/ }
+        lines    = message.split("\n")
+
+        final_results = patterns.map do |pattern_name, pattern|
+          lines.find { |line| line =~ pattern }
+        end.flatten.uniq.join
+
+        @test_message = final_results.gsub(/\e\[\d+?m/, '') # Clean ANSIColor strings
+      end
     end
   end
 end
