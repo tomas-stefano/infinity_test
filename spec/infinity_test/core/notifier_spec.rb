@@ -78,6 +78,54 @@ module InfinityTest
           end
         end
       end
+
+      describe '#success_image' do
+        context 'when core base image is blank' do
+          it 'find a image inside mode dir' do
+            expect(notifier).to receive(:find_image).with(:success)
+            notifier.success_image
+          end
+        end
+
+        context 'when core base has a image' do
+          it 'returns core base image' do
+            expect(Core::Base).to receive(:success_image).and_return('some_image.png')
+            expect(notifier.success_image).to eq 'some_image.png'
+          end
+        end
+      end
+
+      describe '#failure_image' do
+        context 'when core base image is blank' do
+          it 'find a image inside mode dir' do
+            expect(notifier).to receive(:find_image).with(:failure)
+            notifier.failure_image
+          end
+        end
+
+        context 'when core base has a image' do
+          it 'returns core base image' do
+            expect(Core::Base).to receive(:failure_image).and_return('some_image.png')
+            expect(notifier.failure_image).to eq 'some_image.png'
+          end
+        end
+      end
+
+      describe '#pending_image' do
+        context 'when core base image is blank' do
+          it 'find a image inside mode dir' do
+            expect(notifier).to receive(:find_image).with(:pending)
+            notifier.pending_image
+          end
+        end
+
+        context 'when core base has a image' do
+          it 'returns core base image' do
+            expect(Core::Base).to receive(:pending_image).and_return('some_image.png')
+            expect(notifier.pending_image).to eq 'some_image.png'
+          end
+        end
+      end
     end
   end
 end

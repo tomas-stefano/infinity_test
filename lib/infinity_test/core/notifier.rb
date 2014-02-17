@@ -29,15 +29,15 @@ module InfinityTest
       end
 
       def success_image
-        find_image(:success)
+        Core::Base.success_image || find_image(:success)
       end
 
       def failure_image
-        find_image(:failure)
+        Core::Base.failure_image || find_image(:failure)
       end
 
       def pending_image
-        find_image(:pending)
+        Core::Base.pending_image || find_image(:pending)
       end
 
       def find_image(image_type)
