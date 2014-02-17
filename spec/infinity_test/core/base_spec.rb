@@ -82,6 +82,9 @@ module InfinityTest
         expect(Base.success_image).to eql 'foo'
         expect(Base.failure_image).to eql 'bar'
         expect(Base.pending_image).to eql 'baz'
+        Base.success_image = nil
+        Base.failure_image = nil
+        Base.pending_image = nil
       end
 
       it "should set the mode" do
