@@ -45,7 +45,14 @@ module InfinityTest
       end
 
       def images_dir
-        File.join(IMAGES, Core::Base.mode.to_s)
+        mode = Core::Base.mode
+
+        case mode
+        when Symbol
+          File.join(IMAGES, mode.to_s)
+        when String
+          File.expand_path(File.join(mode))
+        end
       end
     end
   end

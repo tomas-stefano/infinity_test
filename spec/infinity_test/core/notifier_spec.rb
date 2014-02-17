@@ -59,11 +59,23 @@ module InfinityTest
 
       describe '#images_dir' do
         context 'when is default infinity test dir' do
-          it 'returns the dir with the base mode'
+          before do
+            expect(Core::Base).to receive(:mode).and_return(:simpson)
+          end
+
+          it 'returns the dir with the base mode' do
+            expect(notifier.images_dir).to include '/images/simpson'
+          end
         end
 
         context 'when is pre defined images dir' do
-          it 'returns the user dir expanded path'
+          before do
+            expect(Core::Base).to receive(:mode).and_return('/my_images_dir')
+          end
+
+          it 'returns the user dir expanded path' do
+            expect(notifier.images_dir).to eq '/my_images_dir'
+          end
         end
       end
     end
