@@ -14,17 +14,34 @@ module InfinityTest
       end
       alias :command_arguments :test_dir
 
+      def success?
+        @failures.zero? and @pending.zero?
+      end
+
+      def failure?
+        @failures > 0
+      end
+
       def test_message=(message)
-        lines    = message.split("\n")
+        @test_message = final_results(message).join.gsub(/\e\[\d+?m/, '') # Clean ANSIColor strings
 
-        final_results = patterns.map do |pattern_name, pattern|
-          lines.find { |line| line =~ pattern }
-        end.flatten.uniq.join
+        patterns.each do |key, pattern|
+          spec_number = test_message[pattern, 1].to_i
+          instance_variable_set("@#{key}", spec_number)
+        end
 
-        @test_message = final_results.gsub(/\e\[\d+?m/, '') # Clean ANSIColor strings
+        @test_message
       end
 
       private
+
+      def final_results(message)
+        lines    = message.split("\n")
+
+        patterns.map do |pattern_name, pattern|
+          lines.find { |line| line =~ pattern }
+        end.flatten.uniq
+      end
 
       def patterns
         { :examples => /(\d+) example/, :failures => /(\d+) failure/, :pending => /(\d+) pending/ }

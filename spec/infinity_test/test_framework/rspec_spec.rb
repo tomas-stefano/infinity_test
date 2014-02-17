@@ -31,6 +31,74 @@ module InfinityTest
           expect(rspec.test_message).to eq '162 examples, 0 failures, 8 pending'
         end
       end
+
+      describe '#success?' do
+        subject(:rspec) { Rspec.new }
+
+        context 'when is test message with ZERO failures and ZERO pending' do
+          before do
+            rspec.test_message = "162 examples, 0 failures, 0 pending"
+          end
+
+          it 'returns true' do
+            expect(rspec).to be_success
+          end
+        end
+
+        context 'when is test message with ONE failure and ZERO pending' do
+          before do
+            rspec.test_message = "162 examples, 1 failures, 0 pending"
+          end
+
+          it 'returns false' do
+            expect(rspec).to_not be_success
+          end
+        end
+
+        context 'when is test message with ZERO failures and ONE pending' do
+          before do
+            rspec.test_message = "162 examples, 0 failures, 1 pending"
+          end
+
+          it 'returns false' do
+            expect(rspec).to_not be_success
+          end
+        end
+      end
+
+      describe '#failure?' do
+        subject(:rspec) { Rspec.new }
+
+        context 'when is test message with ONE failure and ZERO pending' do
+          before do
+            rspec.test_message = "162 examples, 1 failures, 0 pending"
+          end
+
+          it 'returns true' do
+            expect(rspec).to be_failure
+          end
+        end
+
+        context 'when is test message with ZERO failures and ZERO pending' do
+          before do
+            rspec.test_message = "162 examples, 0 failures, 0 pending"
+          end
+
+          it 'returns false' do
+            expect(rspec).to_not be_failure
+          end
+        end
+
+        context 'when is test message with ZERO failures and ONE pending' do
+          before do
+            rspec.test_message = "162 examples, 0 failures, 1 pending"
+          end
+
+          it 'returns false' do
+            expect(rspec).to_not be_failure
+          end
+        end
+      end
     end
   end
 end
