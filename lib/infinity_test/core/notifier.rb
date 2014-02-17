@@ -15,7 +15,7 @@ module InfinityTest
       end
 
       def notify
-        send(library).message(test_message).image(image).notify
+        send(library).title(RUBY_VERSION).message(test_message).image(image).notify
       end
 
       def image
