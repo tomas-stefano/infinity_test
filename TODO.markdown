@@ -1,6 +1,5 @@
 ## Road to 2.0
 
-* Work Notifications.
 * RSpec.
 * Test::Unit/Minitest.
 * Rubygems.
