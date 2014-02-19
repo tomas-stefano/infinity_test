@@ -19,7 +19,21 @@ module InfinityTest
         raise NotImplementedError, "not implemented in #{self}"
       end
 
+      # Parse the test results based by the framework patterns.
+      # <b>The subclass must implement the #patterns method.</b>
+      #
       def test_message=(message)
+        @test_message = final_results(message).join.gsub(/\e\[\d+?m/, '') # Clean ANSIColor strings
+
+        patterns.each do |key, pattern|
+          spec_number = test_message[pattern, 1].to_i
+          instance_variable_set("@#{key}", spec_number)
+        end
+
+        @test_message
+      end
+
+      def patterns
         raise NotImplementedError, "not implemented in #{self}"
       end
 
@@ -33,6 +47,16 @@ module InfinityTest
 
       def pending?
         raise NotImplementedError, "not implemented in #{self}"
+      end
+
+      private
+
+      def final_results(message)
+        lines    = message.split("\n")
+
+        patterns.map do |pattern_name, pattern|
+          lines.find { |line| line =~ pattern }
+        end.flatten.uniq
       end
     end
   end
