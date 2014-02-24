@@ -1,6 +1,5 @@
 ## Road to 2.0
 
-* Improve auto discover feature.
 * Test::Unit/Minitest.
 * Rubygems.
 * RubyDefault.
@@ -13,6 +12,11 @@
 * Padrino.
 * Rvm.
 * Test with spork and zeus and other gems spork like (Experimental).
+
+### 2.0.0 Bugs
+
+* Improve auto discover feature priorization subclasses for #run? method.
+* Observer process signal must work in Ruby 2.0.0.
 
 ### Flexibility
 
