@@ -40,7 +40,7 @@ module InfinityTest
       # @param changed_file [<InfinityTest::Core::ChangedFile>]
       #
       def run_file(changed_file)
-        continuous_test_server.rerun_strategy(changed_file.path)
+        continuous_test_server.rerun_strategy(changed_file.name)
       end
 
       # Run test based on the changed file.
