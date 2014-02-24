@@ -50,7 +50,7 @@ module InfinityTest
       def run_test(changed_file)
         file_name = "#{changed_file.path}_#{test_framework.test_dir}.#{extension}"
         file      = hike.find(file_name)
-        continuous_test_server.rerun_strategy(file)
+        continuous_test_server.rerun_strategy(file) if file.present?
       end
     end
   end

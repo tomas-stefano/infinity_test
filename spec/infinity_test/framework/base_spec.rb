@@ -16,11 +16,11 @@ module InfinityTest
       describe '#run_test' do
         let(:test_framework) { double(test_dir: 'test') }
 
-        context 'find a file' do
-          before do
-            expect(base).to receive(:test_framework).and_return(test_framework)
-          end
+        before do
+          expect(base).to receive(:test_framework).and_return(test_framework)
+        end
 
+        context 'find a file' do
           it 'call run strategy to continuous test server' do
             expect(base.hike).to receive(:find).with('framework/base_test.rb').and_return('framework/base_test.rb')
             expect(continuous_test_server).to receive(:rerun_strategy).with('framework/base_test.rb')
@@ -37,6 +37,9 @@ module InfinityTest
 
         context 'when do not find any files' do
           it 'do not call rerun strategy' do
+            expect(base.hike).to receive(:find).with('test_framework/rspec_test.rb').and_return(nil)
+            expect(continuous_test_server).to_not receive(:rerun_strategy)
+            base.run_test(double(path: 'test_framework/rspec'))
           end
         end
       end
@@ -44,7 +47,7 @@ module InfinityTest
       describe '#run_file' do
         it 'rerun strategy passing the changed file path' do
           expect(continuous_test_server).to receive(:rerun_strategy).with('base_spec.rb')
-          base.run_file(double(path: 'base_spec.rb'))
+          base.run_file(double(name: 'base_spec.rb', path: 'base_spec'))
         end
       end
     end
