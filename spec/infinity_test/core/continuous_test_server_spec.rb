@@ -72,6 +72,20 @@ module InfinityTest
         end
       end
 
+      describe '#rerun_strategy' do
+        let(:test_framework) { double }
+
+        before do
+          expect(continuous_test_server).to receive(:test_framework).twice.and_return(test_framework)
+        end
+
+        it 'run strategy agains and ensure the test files is nil after' do
+          expect(test_framework).to receive(:test_files=).twice
+          expect(continuous_test_server).to receive(:run_strategy)
+          continuous_test_server.rerun_strategy('base_test.py')
+        end
+      end
+
       describe '#strategy' do
         subject { continuous_test_server.strategy }
         before { expect(base).to receive(:strategy).and_return(:ruby_default) }

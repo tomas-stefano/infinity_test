@@ -24,6 +24,15 @@ module InfinityTest
         # PENDING: run_after_callbacks
       end
 
+      # Re run strategy changed the changed files.
+      #
+      def rerun_strategy(files)
+        test_framework.test_files = files
+        run_strategy
+      ensure
+        test_framework.test_files = nil
+      end
+
       def notify(strategy_result)
         if notifications.present?
           test_framework.test_message = strategy_result
