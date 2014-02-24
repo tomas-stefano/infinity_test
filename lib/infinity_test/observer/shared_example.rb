@@ -14,7 +14,6 @@ module InfinityTest
       #   end
       #
       shared_examples_for 'an infinity test observer' do
-
         it 'should respond to #observer' do
           expect(subject).to respond_to(:observer)
         end

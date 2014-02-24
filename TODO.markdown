@@ -1,5 +1,6 @@
 ## Road to 2.0
 
+* Improve auto discover feature.
 * Test::Unit/Minitest.
 * Rubygems.
 * RubyDefault.
