@@ -10,6 +10,7 @@ development
 - Now you can add more patterns to monitor in a simple dsl without ugly nasty code.
 
 - Work Notifications using the notifiers gem.
+- Work RSpec with the new way of auto discover libraries.
 
 v1.0.1
 ======
