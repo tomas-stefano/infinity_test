@@ -19,7 +19,10 @@ module InfinityTest
         end
 
         context 'when assign the test files' do
-          it 'returns'
+          it 'returns the assigned value' do
+            subject.test_files = 'framework/base_spec.rb'
+            expect(subject.test_files).to eq 'framework/base_spec.rb'
+          end
         end
       end
 

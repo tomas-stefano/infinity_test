@@ -14,7 +14,7 @@ module InfinityTest
       end
 
       def test_files
-        test_dir
+        @test_files || test_dir
       end
 
       def patterns
