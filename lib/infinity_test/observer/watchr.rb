@@ -13,7 +13,7 @@ module InfinityTest
       # ==== Examples
       #
       #   watch('lib/(.*)\.rb') { |file| puts [file.name, file.path, file.match_data] }
-      #   watch('test/test_helper.rb') { RunAll() }
+      #   watch('test/test_helper.rb') { run_all() }
       #
       def watch(pattern_or_file, &block)
         @observer.watch(pattern_or_file.to_s) do |match_data|

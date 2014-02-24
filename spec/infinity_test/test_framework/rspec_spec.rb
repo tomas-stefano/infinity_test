@@ -11,6 +11,18 @@ module InfinityTest
         end
       end
 
+      describe '#test_files' do
+        context 'when is empty' do
+          it 'returns the test dir' do
+            expect(subject.test_files).to eq 'spec'
+          end
+        end
+
+        context 'when assign the test files' do
+          it 'returns'
+        end
+      end
+
       describe "#test_helper_file" do
         it "should be the spec helper" do
           expect(subject.test_helper_file).to eq 'spec/spec_helper.rb'

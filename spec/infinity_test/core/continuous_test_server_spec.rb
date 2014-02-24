@@ -92,10 +92,10 @@ module InfinityTest
         it { should respond_to :binary }
       end
 
-      describe '#command_arguments' do
+      describe '#test_files' do
         subject { continuous_test_server }
 
-        it { should respond_to :command_arguments }
+        it { should respond_to :test_files }
       end
     end
   end

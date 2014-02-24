@@ -12,7 +12,10 @@ module InfinityTest
       def test_dir
         'spec'
       end
-      alias :command_arguments :test_dir
+
+      def test_files
+        test_dir
+      end
 
       def patterns
         { :examples => /(\d+) example/, :failures => /(\d+) failure/, :pending => /(\d+) pending/ }

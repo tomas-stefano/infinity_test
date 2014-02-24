@@ -2,8 +2,8 @@ module InfinityTest
   module Core
     class ContinuousTestServer
       attr_reader :base
-      delegate :binary, :command_arguments, to: :test_framework
-      delegate :infinity_and_beyond, :notifications, to: :base
+      delegate :binary, :test_files, to: :test_framework
+      delegate :infinity_and_beyond, :notifications, :extension, to: :base
 
       def initialize(base)
         @base = base

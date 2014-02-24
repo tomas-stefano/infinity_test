@@ -2,10 +2,10 @@ module InfinityTest
   module Strategy
     class RubyDefault < Base
       attr_reader :continuous_test_server
-      delegate :binary, :command_arguments, to: :continuous_test_server
+      delegate :binary, :test_files, to: :continuous_test_server
 
       def run!
-        command_builder.ruby.option(:S).add(binary).add(command_arguments).to_s
+        command_builder.ruby.option(:S).add(binary).add(test_files).to_s
       end
 
       # ==== Returns

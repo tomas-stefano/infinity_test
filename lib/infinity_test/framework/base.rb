@@ -1,9 +1,8 @@
 module InfinityTest
   module Framework
     class Base
-      include ::InfinityTest::Framework::Helpers
       attr_reader :continuous_test_server, :hike
-      delegate :observer, :test_framework, :base, to: :continuous_test_server
+      delegate :observer, :test_framework, :extension, to: :continuous_test_server
       delegate :watch, :watch_dir, to: :observer
 
       def initialize(continuous_test_server)
@@ -12,7 +11,7 @@ module InfinityTest
       end
 
       def heuristics!
-        hike.append_extension(base.extension)
+        hike.append_extension(extension)
         hike.append_path(test_framework.test_dir)
         heuristics
       end
@@ -27,6 +26,31 @@ module InfinityTest
       #
       def self.run?
         raise NotImplementedError, "not implemented in #{self}"
+      end
+
+      # Run all the strategy again.
+      #
+      def run_all
+        continuous_test_server.run_strategy
+      end
+
+      # Run the same changed file.
+      # E.g: the user saves the test file, runs the test file.
+      #
+      # @param changed_file [<InfinityTest::Core::ChangedFile>]
+      #
+      def run_file(changed_file)
+        continuous_test_server.rerun_strategy(changed_file.path)
+      end
+
+      # Run test based on the changed file.
+      #
+      # @param changed_file [<InfinityTest::Core::ChangedFile>]
+      #
+      def run_test(changed_file)
+        file_name = "#{changed_file.path}_#{test_framework.test_dir}.#{extension}"
+        file      = hike.find(file_name)
+        continuous_test_server.rerun_strategy(file)
       end
     end
   end

@@ -1,6 +1,7 @@
 module InfinityTest
   module TestFramework
     class Base
+      attr_writer :test_files
       attr_reader :test_message
 
       def test_helper_file
