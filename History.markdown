@@ -11,6 +11,7 @@ development
 
 - Work Notifications using the notifiers gem.
 - Work RSpec with the new way of auto discover libraries.
+- Work Rubygems. \o/
 
 v1.0.1
 ======
