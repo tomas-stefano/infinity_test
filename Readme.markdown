@@ -18,4 +18,4 @@ that you have in your RVM configuration.
 
 ## Preparing the 2.0.0.rc1
 
-**After LONG YEARS without developing this gem, in 2014 I'm working to release the 2.0.0 soon. Coming soon!! \o/**
+**After LONG YEARS without developing this gem, in 2015 I'm working to release the 2.0.0 soon. Coming soon!! \o/**
