@@ -99,5 +99,51 @@ module InfinityTest
         end
       end
     end
+
+    describe 'PRIORITY' do
+      it 'defines priority order for strategies' do
+        expect(AutoDiscover::PRIORITY[:strategy]).to eq [:rvm, :rbenv, :ruby_default]
+      end
+
+      it 'defines priority order for frameworks' do
+        expect(AutoDiscover::PRIORITY[:framework]).to eq [:rails, :padrino, :rubygems]
+      end
+
+      it 'defines priority order for test frameworks' do
+        expect(AutoDiscover::PRIORITY[:test_framework]).to eq [:rspec, :test_unit]
+      end
+    end
+
+    describe 'priority ordering' do
+      context 'when multiple strategies match' do
+        before do
+          base.strategy = :auto_discover
+          # Both RVM and RubyDefault would match, but RVM has higher priority
+          allow(Strategy::Rvm).to receive(:run?).and_return(true)
+          allow(Strategy::Rbenv).to receive(:run?).and_return(false)
+          allow(Strategy::RubyDefault).to receive(:run?).and_return(true)
+        end
+
+        it 'selects the higher priority strategy (RVM over RubyDefault)' do
+          auto_discover.discover_strategy
+          expect(base.strategy).to be :rvm
+        end
+      end
+
+      context 'when multiple frameworks match' do
+        before do
+          base.framework = :auto_discover
+          # Both Rails and Rubygems would match, but Rails has higher priority
+          allow(Framework::Rails).to receive(:run?).and_return(true)
+          allow(Framework::Padrino).to receive(:run?).and_return(false)
+          allow(Framework::Rubygems).to receive(:run?).and_return(true)
+        end
+
+        it 'selects the higher priority framework (Rails over Rubygems)' do
+          auto_discover.discover_framework
+          expect(base.framework).to be :rails
+        end
+      end
+    end
   end
 end
