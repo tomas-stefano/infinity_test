@@ -7,7 +7,7 @@ module InfinityTest
       let(:continuous_test_server) { ContinuousTestServer.new(base) }
 
       describe '#start!' do
-        it 'run strategy, start observer' do
+        it 'runs strategy and starts observer' do
           expect(continuous_test_server).to receive(:run_strategy)
           expect(continuous_test_server).to receive(:start_observer)
           continuous_test_server.start
@@ -18,11 +18,11 @@ module InfinityTest
         context 'when base configuration as infinity and beyond' do
           before do
             expect(base).to receive(:infinity_and_beyond).and_return(true)
-            base.stub(:framework).and_return(:rails)
-            base.stub(:observer).and_return(:watchr)
+            allow(base).to receive(:framework).and_return(:rails)
+            allow(base).to receive(:observer).and_return(:watchr)
           end
 
-          it 'add framework heuristics and start the observer' do
+          it 'adds framework heuristics and starts the observer' do
             expect(continuous_test_server.framework).to receive(:heuristics!)
             expect(continuous_test_server.observer).to receive(:start!)
             continuous_test_server.start_observer
@@ -32,10 +32,10 @@ module InfinityTest
         context 'when base configuration is not infinity and beyond' do
           before do
             expect(base).to receive(:infinity_and_beyond).and_return(false)
-            base.stub(:framework).and_return(:rails)
+            allow(base).to receive(:framework).and_return(:rails)
           end
 
-          it 'do not start the observer' do
+          it 'does not start the observer' do
             expect(continuous_test_server.framework).to_not receive(:heuristics!)
             expect(continuous_test_server.observer).to_not receive(:start!)
             continuous_test_server.start_observer
@@ -56,7 +56,7 @@ module InfinityTest
             expect(test_framework).to receive(:test_message=).with(test_message)
           end
 
-          it 'instantiante a notifier passing the strategy result and the continuous server' do
+          it 'instantiates a notifier passing the strategy result and the continuous server' do
             expect(Core::Notifier).to receive(:new).and_return(double(notify: true))
             continuous_test_server.notify(test_message)
           end
@@ -65,7 +65,7 @@ module InfinityTest
         context 'when do not have notification library' do
           let(:base) { double(notifications: nil) }
 
-          it 'instantiante a notifier passing the strategy result and the continuous server' do
+          it 'does not instantiate a notifier' do
             expect(Core::Notifier).to_not receive(:new)
             continuous_test_server.notify(test_message)
           end
@@ -79,7 +79,7 @@ module InfinityTest
           expect(continuous_test_server).to receive(:test_framework).twice.and_return(test_framework)
         end
 
-        it 'run strategy agains and ensure the test files is nil after' do
+        it 'runs strategy again and ensures the test files is nil after' do
           expect(test_framework).to receive(:test_files=).twice
           expect(continuous_test_server).to receive(:run_strategy)
           continuous_test_server.rerun_strategy('base_test.py')

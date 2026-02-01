@@ -10,12 +10,12 @@ module InfinityTest
 
       describe ".run?" do
         it "returns true when no ruby versions are passed to run tests" do
-          Core::Base.stub(:rubies).and_return([])
+          allow(Core::Base).to receive(:rubies).and_return([])
           expect(RubyDefault).to be_run
         end
 
         it "returns false when some ruby version is passed to run tests" do
-          Core::Base.stub(:rubies).and_return(['ree', 'jruby'])
+          allow(Core::Base).to receive(:rubies).and_return(['ree', 'jruby'])
           expect(RubyDefault).not_to be_run
         end
       end
