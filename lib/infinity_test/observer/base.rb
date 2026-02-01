@@ -32,7 +32,7 @@ module InfinityTest
           else
             puts " Are you sure? :S ... Interrupt a second time to quit!"
             @interrupt = true
-            Kernel.sleep 1.5
+            Kernel.sleep 2
             @interrupt = false
           end
         end

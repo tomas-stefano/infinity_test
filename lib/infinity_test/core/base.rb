@@ -47,13 +47,14 @@ module InfinityTest
       cattr_accessor :framework
       self.framework = :auto_discover
 
-      # Framework to observer watch the dirs.
+      # Framework to observe and watch the dirs for file changes.
       #
       # ==== Options
-      #  * watchr
+      #  * :listen (default) - Event-driven, uses native OS notifications
+      #  * :filewatcher - Polling-based, works everywhere including VMs/NFS
       #
       cattr_accessor :observer
-      self.observer = :watchr
+      self.observer = :listen
 
       # Ignore test files.
       #

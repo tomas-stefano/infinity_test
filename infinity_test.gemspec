@@ -19,7 +19,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'activesupport'
-  spec.add_dependency 'watchr'
+  spec.add_dependency 'listen'
+  spec.add_dependency 'filewatcher'
   spec.add_dependency 'hike'
   spec.add_dependency 'notifiers'
 

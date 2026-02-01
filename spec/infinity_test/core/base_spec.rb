@@ -23,8 +23,8 @@ module InfinityTest
     end
 
     describe ".observer" do
-      it "has watchr as default observer" do
-        expect(Base.observer).to equal :watchr
+      it "has listen as default observer" do
+        expect(Base.observer).to equal :listen
       end
     end
 
