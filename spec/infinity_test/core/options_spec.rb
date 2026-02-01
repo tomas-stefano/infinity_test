@@ -127,6 +127,20 @@ module InfinityTest
           expect(parse.mode).to be_nil
         end
       end
+
+      describe "#just_watch" do
+        it "returns true when setting --just-watch" do
+          expect(parse('--just-watch').just_watch).to eq true
+        end
+
+        it "returns true when setting -j" do
+          expect(parse('-j').just_watch).to eq true
+        end
+
+        it "returns nil when nothing is passed" do
+          expect(parse.just_watch).to be_nil
+        end
+      end
     end
 
     def parse(*args)

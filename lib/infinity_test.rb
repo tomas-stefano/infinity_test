@@ -9,6 +9,7 @@ module InfinityTest
   module Core
     autoload :AutoDiscover, 'infinity_test/core/auto_discover'
     autoload :Base, 'infinity_test/core/base'
+    autoload :Callback, 'infinity_test/core/callback'
     autoload :CommandBuilder, 'infinity_test/core/command_builder'
     autoload :CommandRunner,  'infinity_test/core/command_runner'
     autoload :ConfigurationMerge, 'infinity_test/core/configuration_merge'

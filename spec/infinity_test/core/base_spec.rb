@@ -41,26 +41,64 @@ module InfinityTest
     end
 
     describe ".before" do
-      before { pending }
-      let(:proc) { Proc.new { 'To Infinity and beyond!' } }
+      after { Base.clear_callbacks! }
 
       it "creates before callback instance and pushes to the callback accessor" do
-        expect(BeforeCallback).to receive(:new).with(:all, &proc).once.and_return(:foo)
-        before_callback = Base.before(:all, &proc)
-        expect(before_callback).to be :foo
-        expect(Base.callbacks).to be_include before_callback
+        before_callback = Base.before(:all) { 'To Infinity and beyond!' }
+        expect(before_callback).to be_a Core::Callback
+        expect(before_callback.type).to eq :before
+        expect(before_callback.scope).to eq :all
+        expect(Base.callbacks).to include before_callback
+      end
+
+      it "defaults scope to :all" do
+        before_callback = Base.before { 'test' }
+        expect(before_callback.scope).to eq :all
       end
     end
 
     describe ".after" do
-      before { pending }
-      let(:proc) { Proc.new {}}
+      after { Base.clear_callbacks! }
 
       it "creates after callback instance and pushes to the callback accessor" do
-        expect(AfterCallback).to receive(:new).with(:each, &proc).once.and_return(:foo)
-        after_callback = Base.after(:each, &proc)
-        expect(after_callback).to be :foo
-        expect(Base.callbacks).to be_include after_callback
+        after_callback = Base.after(:each_ruby) { 'done' }
+        expect(after_callback).to be_a Core::Callback
+        expect(after_callback.type).to eq :after
+        expect(after_callback.scope).to eq :each_ruby
+        expect(Base.callbacks).to include after_callback
+      end
+    end
+
+    describe ".run_before_callbacks" do
+      after { Base.clear_callbacks! }
+
+      it "runs all before callbacks for the given scope" do
+        results = []
+        Base.before(:all) { results << 'first' }
+        Base.before(:all) { results << 'second' }
+        Base.before(:each_ruby) { results << 'each_ruby' }
+
+        Base.run_before_callbacks(:all)
+        expect(results).to eq ['first', 'second']
+      end
+    end
+
+    describe ".run_after_callbacks" do
+      after { Base.clear_callbacks! }
+
+      it "runs all after callbacks for the given scope" do
+        results = []
+        Base.after(:all) { results << 'first' }
+        Base.after(:all) { results << 'second' }
+
+        Base.run_after_callbacks(:all)
+        expect(results).to eq ['first', 'second']
+      end
+    end
+
+    describe ".just_watch" do
+      it "defaults to false" do
+        expect(Base.just_watch).to eq false
       end
     end
 

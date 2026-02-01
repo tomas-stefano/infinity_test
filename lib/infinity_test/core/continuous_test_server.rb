@@ -3,25 +3,25 @@ module InfinityTest
     class ContinuousTestServer
       attr_reader :base
       delegate :binary, :test_files, to: :test_framework
-      delegate :infinity_and_beyond, :notifications, :extension, to: :base
+      delegate :infinity_and_beyond, :notifications, :extension, :just_watch, to: :base
 
       def initialize(base)
         @base = base
       end
 
       def start
-        run_strategy
+        run_strategy unless just_watch
         start_observer
       end
 
       # Run strategy based on the choosed ruby strategy.
       #
       def run_strategy
-        # PENDING: run_before_callbacks
+        Base.run_before_callbacks(:all)
 
         notify(strategy.run)
 
-        # PENDING: run_after_callbacks
+        Base.run_after_callbacks(:all)
       end
 
       # Re run strategy changed the changed files.

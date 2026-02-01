@@ -140,6 +140,12 @@ module InfinityTest
       cattr_accessor :infinity_and_beyond
       self.infinity_and_beyond = true
 
+      # Skip running tests on startup, only watch for file changes.
+      # Useful for large applications where you want to start watching quickly.
+      #
+      cattr_accessor :just_watch
+      self.just_watch = false
+
       # The extension files that Infinity Test will search.
       # You can observe python, erlang, etc files.
       #
@@ -202,8 +208,10 @@ module InfinityTest
       #     # ...
       #   end
       #
-      def self.before(scope, &block)
-        # setting_callback(Callbacks::BeforeCallback, scope, &block)
+      def self.before(scope = :all, &block)
+        callback = Callback.new(:before, scope, &block)
+        callbacks.push(callback)
+        callback
       end
 
       # Callback method to handle after all run and for each ruby too!
@@ -222,8 +230,32 @@ module InfinityTest
       #     # ...
       #   end
       #
-      def self.after(scope, &block)
-        # setting_callback(Callbacks::AfterCallback, scope, &block)
+      def self.after(scope = :all, &block)
+        callback = Callback.new(:after, scope, &block)
+        callbacks.push(callback)
+        callback
+      end
+
+      # Run all before callbacks for the given scope
+      #
+      def self.run_before_callbacks(scope = :all, environment = nil)
+        callbacks.select { |c| c.before? && c.scope == scope }.each do |callback|
+          callback.call(environment)
+        end
+      end
+
+      # Run all after callbacks for the given scope
+      #
+      def self.run_after_callbacks(scope = :all, environment = nil)
+        callbacks.select { |c| c.after? && c.scope == scope }.each do |callback|
+          callback.call(environment)
+        end
+      end
+
+      # Clear all registered callbacks
+      #
+      def self.clear_callbacks!
+        self.callbacks = []
       end
 
       # Clear the terminal (Useful in the before callback)
@@ -322,14 +354,6 @@ module InfinityTest
       def self.replace_patterns(&block)
         # There is a spec pending.
       end
-
-      private
-
-      # def self.setting_callback(callback_class, scope, &block)
-      #   callback_instance = callback_class.new(scope, &block)
-      #   self.callbacks.push(callback_instance)
-      #   callback_instance
-      # end
     end
   end
 end
