@@ -81,11 +81,11 @@ module InfinityTest
       # Set the notification framework to use with Infinity Test.
       #
       # ==== Options
-      # * :growl
-      # * :lib_notify
-      # * :auto_discover(defaults)
-      #
-      # This will load a exactly a class constantize by name.
+      # * :auto_discover (default) - Automatically detect available notifier
+      # * :terminal_notifier - macOS terminal-notifier
+      # * :osascript - macOS built-in notifications
+      # * :notify_send - Linux/BSD libnotify
+      # * :dunstify - Linux/BSD dunst
       #
       cattr_writer :notifications
       self.notifications = :auto_discover

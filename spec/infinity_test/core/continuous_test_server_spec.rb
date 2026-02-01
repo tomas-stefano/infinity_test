@@ -49,7 +49,7 @@ module InfinityTest
 
         context 'when have notification library' do
           let(:test_framework) { double }
-          let(:base) { double(notifications: :growl) }
+          let(:base) { double(notifications: :auto_discover) }
 
           before do
             expect(continuous_test_server).to receive(:test_framework).exactly(:twice).and_return(test_framework)

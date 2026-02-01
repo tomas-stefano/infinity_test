@@ -5,7 +5,7 @@ module InfinityTest
     describe Notifier do
       let(:test_framework) { double }
 
-      subject(:notifier) { Notifier.new(test_framework: test_framework, library: :growl) }
+      subject(:notifier) { Notifier.new(test_framework: test_framework, library: :auto_discover) }
 
       describe '#image' do
         before do
@@ -47,7 +47,7 @@ module InfinityTest
 
       describe '#library' do
         it 'returns the primitive value' do
-          expect(notifier.library).to be :growl
+          expect(notifier.library).to be :auto_discover
         end
       end
 
