@@ -3,7 +3,7 @@ require "spec_helper"
 module InfinityTest
   describe Base do
     describe ".setup" do
-      it "should yield self" do
+      it "yields self" do
         Base.setup do |config|
           expect(config).to be InfinityTest::Base
         end
@@ -11,31 +11,31 @@ module InfinityTest
     end
 
     describe ".using_bundler?" do
-      it "should return the same bundler accessor" do
+      it "returns the same bundler accessor" do
         expect(Base.using_bundler?).to equal Base.bundler
       end
     end
 
     describe "#verbose?" do
-      it "should return the same verbose accessor" do
+      it "returns the same verbose accessor" do
         expect(Base.verbose?).to equal Base.verbose
       end
     end
 
     describe ".observer" do
-      it "should have watchr as default observer" do
+      it "has watchr as default observer" do
         expect(Base.observer).to equal :watchr
       end
     end
 
     describe ".ignore_test_files" do
-      it "should not have test files to ignore as default" do
+      it "does not have test files to ignore as default" do
         expect(Base.ignore_test_files).to eql []
       end
     end
 
     describe "#ignore_test_folders" do
-      it "should not ignore test folders as default" do
+      it "does not ignore test folders as default" do
         expect(Base.ignore_test_folders).to eql []
       end
     end
@@ -44,7 +44,7 @@ module InfinityTest
       before { pending }
       let(:proc) { Proc.new { 'To Infinity and beyond!' } }
 
-      it "should create before callback instance and push to the callback accessor" do
+      it "creates before callback instance and pushes to the callback accessor" do
         expect(BeforeCallback).to receive(:new).with(:all, &proc).once.and_return(:foo)
         before_callback = Base.before(:all, &proc)
         expect(before_callback).to be :foo
@@ -56,7 +56,7 @@ module InfinityTest
       before { pending }
       let(:proc) { Proc.new {}}
 
-      it "should create before callback instance and push to the callback accessor" do
+      it "creates after callback instance and pushes to the callback accessor" do
         expect(AfterCallback).to receive(:new).with(:each, &proc).once.and_return(:foo)
         after_callback = Base.after(:each, &proc)
         expect(after_callback).to be :foo
@@ -65,14 +65,14 @@ module InfinityTest
     end
 
     describe ".notifications" do
-      it "should set the notification class accessor" do
+      it "sets the notification class accessor" do
         silence_stream(STDOUT) do
           Base.notifications(:growl)
           expect(Base.notifications).to be :growl
         end
       end
 
-      it "should set the images" do
+      it "sets the images" do
         silence_stream(STDOUT) do
           Base.notifications(:growl) do
             show_images :success_image => 'foo', :failure_image => 'bar', :pending_image => 'baz'
@@ -86,7 +86,7 @@ module InfinityTest
         Base.pending_image = nil
       end
 
-      it "should set the mode" do
+      it "sets the mode" do
         silence_stream(STDOUT) do
           Base.notifications(:growl) do
             show_images :mode => :mortal_kombat
@@ -115,42 +115,42 @@ module InfinityTest
         Base.gemset = @gemset
       end
 
-      it "should set the rubies" do
+      it "sets the rubies" do
         silence_stream(STDOUT) do
           Base.use :rubies => %w(foo bar)
         end
         expect(Base.rubies).to eql %w(foo bar)
       end
 
-      it "should set the specific options" do
+      it "sets the specific options" do
         silence_stream(STDOUT) do
           Base.use :specific_options => '-J -Ilib -Itest'
         end
         expect(Base.specific_options).to eql '-J -Ilib -Itest'
       end
 
-      it "should set the test framework" do
+      it "sets the test framework" do
         silence_stream(STDOUT) do
           Base.use :test_framework => :rspec
         end
         expect(Base.test_framework).to be :rspec
       end
 
-      it "should set the app framework" do
+      it "sets the app framework" do
         silence_stream(STDOUT) do
           Base.use :app_framework => :rails
         end
         expect(Base.framework).to be :rails
       end
 
-      it "should set the verbose mode" do
+      it "sets the verbose mode" do
         silence_stream(STDOUT) do
           Base.use :verbose => false
         end
-        expect(Base.verbose).to equal false # I choose to don't use should be_false
+        expect(Base.verbose).to equal false
       end
 
-      it "should set the gemset" do
+      it "sets the gemset" do
         silence_stream(STDOUT) do
           Base.use :gemset => 'infinity_test'
         end
@@ -159,13 +159,13 @@ module InfinityTest
     end
 
     describe ".heuristics" do
-      it "should accept a block" do
+      it "accepts a block" do
         expect { Base.heuristics {} }.to_not raise_exception
       end
     end
 
     describe ".replace_patterns" do
-      it "should accept a block" do
+      it "accepts a block" do
         expect { Base.replace_patterns {} }.to_not raise_exception
       end
     end
@@ -174,7 +174,7 @@ module InfinityTest
       let(:options) { Object.new }
       let(:configuration_merge) { Object.new }
 
-      it "should call merge on the configuration merge object" do
+      it "calls merge on the configuration merge object" do
         expect(ConfigurationMerge).to receive(:new).with(Core::Base, options).and_return(configuration_merge)
         expect(configuration_merge).to receive(:merge!)
         Core::Base.merge!(options)
@@ -182,7 +182,7 @@ module InfinityTest
     end
 
     describe ".clear" do
-      it "should call clear_terminal method" do
+      it "calls clear_terminal method" do
         silence_stream(STDOUT) do
           expect(Base).to receive(:clear_terminal).and_return(true)
           Base.clear(:terminal)
@@ -191,7 +191,7 @@ module InfinityTest
     end
 
     describe ".clear_terminal" do
-      it "should call system clear" do
+      it "calls system clear" do
         silence_stream(STDOUT) do
           expect(Base).to receive(:system).with('clear').and_return(true)
           Base.clear_terminal

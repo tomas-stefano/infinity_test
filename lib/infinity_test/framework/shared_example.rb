@@ -14,31 +14,31 @@ module InfinityTest
       #   end
       #
       shared_examples_for 'an infinity test framework' do
-        it 'should respond to #heuristics' do
+        it 'responds to #heuristics' do
           expect(subject).to respond_to(:heuristics)
         end
 
-        it 'should respond to #heuristics' do
+        it 'responds to #heuristics!' do
           expect(subject).to respond_to(:heuristics!)
         end
 
-        it 'should respond to .run?' do
+        it 'responds to .run?' do
           expect(subject.class).to respond_to(:run?)
         end
 
-        it 'should respond to #base' do
+        it 'responds to #base' do
           expect(subject).to respond_to(:base)
         end
 
-        it 'should respond to #test_framework' do
+        it 'responds to #test_framework' do
           expect(subject).to respond_to(:test_framework)
         end
 
-        it 'should respond to #strategy' do
+        it 'responds to #strategy' do
           expect(subject).to respond_to(:strategy)
         end
 
-        it 'should respond to #observer' do
+        it 'responds to #observer' do
           expect(subject).to respond_to(:observer)
         end
       end

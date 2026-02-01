@@ -8,32 +8,32 @@ module InfinityTest
       it_should_behave_like 'an infinity test observer'
 
       describe "#observer" do
-        it "should be instance of watchr script" do
+        it "is instance of watchr script" do
           expect(subject.observer).to be_instance_of(::Watchr::Script)
         end
       end
 
       describe "#watch" do
-        it "should pass the args to the observer" do
+        it "passes the args to the observer" do
           expect(subject.observer).to receive(:watch).with('lib')
           subject.watch(:lib)
         end
       end
 
       describe "#watch_dir" do
-        it "should pass the pattern to the observer" do
+        it "passes the pattern to the observer" do
           expect(subject.observer).to receive(:watch).with("^spec/*/(.*).rb")
           subject.watch_dir(:spec)
         end
 
-        it "should pass the pattern and the extension to the observer" do
+        it "passes the pattern and the extension to the observer" do
           expect(subject.observer).to receive(:watch).with("^spec/*/(.*).py")
           subject.watch_dir(:spec, :py)
         end
       end
 
       describe "#start" do
-        it "should initialize an watchr controller passing the #observer" do
+        it "initializes a watchr controller passing the #observer" do
           handler_class = double
           handler = double
           controller = double
