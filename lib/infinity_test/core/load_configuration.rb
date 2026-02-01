@@ -4,26 +4,26 @@ module InfinityTest
       attr_accessor :global_file, :project_file
 
       def initialize
-        @global_file  = File.expand_path('~/.infinity_test')
-        @project_file = './.infinity_test'
+        @global_file  = File.expand_path('~/INFINITY_TEST')
+        @project_file = './INFINITY_TEST'
         @old_configuration = InfinityTest::OldDSL::Configuration
       end
 
       # Load the Configuration file
       #
-      # Command line options can be persisted in a .infinity_test file in a project.
-      # You can also store a .infinity_test file in your home directory (~/.infinity_test)
+      # Command line options can be persisted in an INFINITY_TEST file in a project.
+      # You can also store an INFINITY_TEST file in your home directory (~/INFINITY_TEST)
       #
       # Precedence is:
       # command line
-      # ./.infinity_test
-      # ~/.infinity_test
+      # ./INFINITY_TEST
+      # ~/INFINITY_TEST
       #
       # Example:
       #
-      #  ~/.infinity_test -> infinity_test { notifications :osascript }
+      #  ~/INFINITY_TEST -> infinity_test { notifications :osascript }
       #
-      #  ./.infinity_test -> infinity_test { notifications :terminal_notifier } # High Priority
+      #  ./INFINITY_TEST -> infinity_test { notifications :terminal_notifier } # High Priority
       #
       # After the load the Notifications Framework will be Terminal Notifier
       #

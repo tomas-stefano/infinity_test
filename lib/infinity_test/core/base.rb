@@ -23,14 +23,13 @@ module InfinityTest
       cattr_accessor :specific_options
       self.specific_options = ''
 
-      # Test Framework to use Rspec, Bacon, Test::Unit or AutoDiscover(defaults)
+      # Test Framework to use RSpec, Test::Unit or AutoDiscover(defaults)
       # ==== Options
       # * :rspec
-      # * :bacon
       # * :test_unit (Test unit here apply to this two libs: test/unit and minitest)
-      # * :auto_discover(defaults)
+      # * :auto_discover (default)
       #
-      # This will load a exactly a class constantize by name.
+      # This will load a class constantized by name.
       #
       cattr_accessor :test_framework
       self.test_framework = :auto_discover
@@ -245,7 +244,7 @@ module InfinityTest
             .notifications is DEPRECATED.
             Use this instead:
               InfinityTest.setup do |config|
-                config.notifications = :growl
+                config.notifications = :dunstify
               end
           MESSAGE
           ActiveSupport::Deprecation.new.warn(message)

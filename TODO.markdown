@@ -1,35 +1,30 @@
-## Road to 2.0
+## Todo
 
-* Test::Unit/Minitest.
-* RubyDefault strategy.
-* Make callbacks work in the new structure.
-* Work with test pattern on Configuration overwriting the Test framework instance.
-* Be possible to rewrite the rules in more nicer way, using the Hike gem to find files and paths.
-* Work with gemsets.
-* Rails.
-* Padrino.
-* Rvm.
-* Test with spork and zeus and other gems spork like (Experimental).
+Infinity test is a gem that watch files changes and run tests.
 
-### 2.0.0 Bugs
+That also can run with different ruby versions all test suite or only that file change (using rvm or
+rbenv), ruby default just run the test on the current ruby version.
 
+## What Needs to Be Done
+
+* Make notifications work with Notifiers gem (remove growl and use the autodiscover from notifiers
+gem).
+* Change .infinity_test to INFINITY_TEST
+* Make Test::Unit to work (the infinity test to check test folder).
+* Make RSpec work
+* Finish RubyDefault strategy
+* Finish RVM (running different versions - the user need to specify)
+* Finish RbEnv (running different versions - the user need to specify)
+* Make callbacks work in the new structure (loading the infinity test file).
+* Finish Gem autodiscover and its changes heuristics.
+* Finish Rails autodiscover and its changes heuristics.
+* Padrino autodiscover and its changes heuristics.
 * Improve auto discover feature priorization subclasses for #run? method.
-* Observer process signal must work in Ruby 2.0.0.
-
-### Flexibility
-
-* Ignore test files and test folders when run command and change files/dir.
-* Verbose way of InfinityTest.
-* Add specific options to the command.
-* Create a infinity test generator with thor!
-* Don't run integration tests. Ignore them when changed.
-
-### 2.0.2
-
-* RbEnv (experimented feature).
-* Bacon.
 * Focus feature(fails, pass one file, run entire suite) with --focus (experimented feature)!
-* Cucumber
-*
+* Add post-run hooks to be added to the INFINITY_TEST file that run other things (coverage, code
+analysis, etc - see ideas)
 
-Maybe we could create a infinity-test-contrib repositories with other heuristics platforms
+* Give some ideas (write to a md file the ideas) about how to integrate the infinity test with AI tools/AI agents or
+even Claude code ... so ruby developers can see
+
+* Update HISTORY with all changes since last version.

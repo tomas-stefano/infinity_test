@@ -81,13 +81,12 @@ module InfinityTest
         before do
           base.test_framework = :auto_discover
           allow(TestFramework::TestUnit).to receive(:run?).and_return(false)
-          allow(TestFramework::Rspec).to receive(:run?).and_return(false)
-          expect(TestFramework::Bacon).to receive(:run?).and_return(true)
+          expect(TestFramework::Rspec).to receive(:run?).and_return(true)
         end
 
         it 'changes the base framework' do
           auto_discover.discover_test_framework
-          expect(base.test_framework).to be :bacon
+          expect(base.test_framework).to be :rspec
         end
       end
 
