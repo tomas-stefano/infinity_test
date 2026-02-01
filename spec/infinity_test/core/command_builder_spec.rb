@@ -29,8 +29,8 @@ module InfinityTest
 
       describe "#respond_to?" do
         it "should respond to enything because missing methods will build the command" do
-          expect(subject.respond_to?(:foo)).to be_true
-          expect(subject.respond_to?(:bar)).to be_true
+          expect(subject.respond_to?(:foo)).to be true
+          expect(subject.respond_to?(:bar)).to be true
         end
       end
     end

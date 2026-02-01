@@ -34,9 +34,11 @@ module InfinityTest
 
       describe "#start" do
         it "should initialize an watchr controller passing the #observer" do
+          handler_class = double
           handler = double
-          controller = controller
-          expect(::Watchr.handler).to receive(:new).and_return(handler)
+          controller = double
+          allow(::Watchr).to receive(:handler).and_return(handler_class)
+          expect(handler_class).to receive(:new).and_return(handler)
           expect(::Watchr::Controller).to receive(:new).with(subject.observer, handler).and_return(controller)
           expect(controller).to receive(:run).and_return(:running)
           expect(subject.start).to equal :running

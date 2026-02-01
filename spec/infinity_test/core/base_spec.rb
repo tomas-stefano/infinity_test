@@ -1,5 +1,4 @@
 require "spec_helper"
-require 'active_support/core_ext/kernel'
 
 module InfinityTest
   describe Base do
@@ -160,14 +159,14 @@ module InfinityTest
     end
 
     describe ".heuristics" do
-      it "should need to see." do
-        pending 'Need to see what to do with the patterns to watch'
+      it "should accept a block" do
+        expect { Base.heuristics {} }.to_not raise_exception
       end
     end
 
     describe ".replace_patterns" do
-      it "should need to see" do
-        pending 'Need to see how improve this method.'
+      it "should accept a block" do
+        expect { Base.replace_patterns {} }.to_not raise_exception
       end
     end
 

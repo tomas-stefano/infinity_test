@@ -99,7 +99,7 @@ module InfinityTest
 
         it "should keep the verbose mode when verbose mode is blank" do
           subject.merge!
-          expect(base.verbose).to be_true
+          expect(base.verbose).to be true
         end
 
         it "should merge the verbose mode" do

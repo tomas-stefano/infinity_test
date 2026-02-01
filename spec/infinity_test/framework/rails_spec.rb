@@ -6,8 +6,6 @@ module InfinityTest
       subject { Rails.new(Core::Base) }
 
       describe "#heuristics" do
-        before { pending }
-
         it "should add heuristics" do
           expect { subject.heuristics }.to_not raise_exception
         end
