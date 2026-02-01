@@ -5,7 +5,7 @@ module InfinityTest
 
       delegate :strategy, :rubies, :test_framework, :framework, :to => :options
       delegate :specific_options, :infinity_and_beyond, :verbose, :bundler, :to => :options
-      delegate :notifications, :mode, :just_watch, :to => :options
+      delegate :notifications, :mode, :just_watch, :focus, :to => :options
 
       def initialize(base, options)
         @base = base
@@ -29,6 +29,7 @@ module InfinityTest
         @base.notifications       = notifications if notifications.present?
         @base.mode                = mode if mode.present?
         @base.just_watch          = just_watch unless just_watch.nil?
+        @base.focus               = focus if focus.present?
         @base
       end
     end

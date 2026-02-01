@@ -3,7 +3,7 @@ module InfinityTest
     class ContinuousTestServer
       attr_reader :base
       delegate :binary, :test_files, to: :test_framework
-      delegate :infinity_and_beyond, :notifications, :extension, :just_watch, to: :base
+      delegate :infinity_and_beyond, :notifications, :extension, :just_watch, :focus, to: :base
 
       def initialize(base)
         @base = base
@@ -19,9 +19,37 @@ module InfinityTest
       def run_strategy
         Base.run_before_callbacks(:all)
 
+        apply_focus if focus.present?
         notify(strategy.run)
 
         Base.run_after_callbacks(:all)
+      ensure
+        clear_focus
+      end
+
+      # Apply focus filter to test files
+      #
+      def apply_focus
+        case focus
+        when :failures
+          test_framework.test_files = last_failed_files if last_failed_files.present?
+        when String
+          test_framework.test_files = focus if File.exist?(focus)
+        end
+      end
+
+      # Clear focus after running tests
+      #
+      def clear_focus
+        test_framework.test_files = nil
+      end
+
+      # Track last failed test files (stored in .infinity_test_failures)
+      #
+      def last_failed_files
+        failures_file = '.infinity_test_failures'
+        return nil unless File.exist?(failures_file)
+        File.read(failures_file).split("\n").select { |f| File.exist?(f) }.join(' ')
       end
 
       # Re run strategy changed the changed files.

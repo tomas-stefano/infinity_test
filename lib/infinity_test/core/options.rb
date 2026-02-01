@@ -3,7 +3,7 @@ module InfinityTest
     class Options
       attr_accessor :arguments, :options_parser, :strategy, :bundler, :verbose
       attr_accessor :rubies, :specific_options, :test_framework, :framework, :infinity_and_beyond
-      attr_accessor :notifications, :mode, :just_watch
+      attr_accessor :notifications, :mode, :just_watch, :focus
 
       def initialize(*arguments)
         @arguments = arguments.flatten.clone
@@ -22,6 +22,7 @@ module InfinityTest
             image_mode
             infinity_and_beyond_option
             just_watch_option
+            focus_option
             verbose_mode
             skip_bundler
           ).each do |option_to_parse|
@@ -89,6 +90,12 @@ module InfinityTest
       def just_watch_option(option)
         option.on('-j', '--just-watch', 'Skip initial test run and only watch for file changes. Useful for large applications.') do
           @just_watch = true
+        end
+      end
+
+      def focus_option(option)
+        option.on('-f', '--focus [FILE]', 'Focus on specific tests. Use "failures" for failed tests, or provide a file path.') do |file|
+          @focus = file == 'failures' ? :failures : file
         end
       end
 

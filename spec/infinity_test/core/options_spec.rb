@@ -141,6 +141,24 @@ module InfinityTest
           expect(parse.just_watch).to be_nil
         end
       end
+
+      describe "#focus" do
+        it "parses --focus with file path" do
+          expect(parse('--focus', 'spec/models/user_spec.rb').focus).to eq 'spec/models/user_spec.rb'
+        end
+
+        it "parses -f with file path" do
+          expect(parse('-f', 'spec/models/user_spec.rb').focus).to eq 'spec/models/user_spec.rb'
+        end
+
+        it "parses --focus failures as symbol" do
+          expect(parse('--focus', 'failures').focus).to eq :failures
+        end
+
+        it "returns nil when nothing is passed" do
+          expect(parse.focus).to be_nil
+        end
+      end
     end
 
     def parse(*args)

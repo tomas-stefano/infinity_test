@@ -146,6 +146,16 @@ module InfinityTest
       cattr_accessor :just_watch
       self.just_watch = false
 
+      # Focus mode for running specific tests.
+      #
+      # ==== Options
+      # * nil - Run all tests (default)
+      # * :failures - Run only previously failed tests
+      # * String - Run only the specified file/pattern
+      #
+      cattr_accessor :focus
+      self.focus = nil
+
       # The extension files that Infinity Test will search.
       # You can observe python, erlang, etc files.
       #
