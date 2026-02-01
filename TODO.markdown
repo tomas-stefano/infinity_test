@@ -19,11 +19,11 @@ rbenv), ruby default just run the test on the current ruby version.
 * ~~Finish Rails autodiscover and its changes heuristics.~~ DONE
 * ~~Padrino autodiscover and its changes heuristics.~~ DONE
 * ~~Improve auto discover feature priorization subclasses for #run? method.~~ DONE
-* Focus feature(fails, pass one file, run entire suite) with --focus (experimented feature)!
-* Add post-run hooks to be added to the INFINITY_TEST file that run other things (coverage, code
-analysis, etc - see ideas)
+* ~~Focus feature(fails, pass one file, run entire suite) with --focus (experimented feature)!~~ DONE
+* ~~Add post-run hooks to be added to the INFINITY_TEST file that run other things (coverage, code
+analysis, etc - see ideas)~~ DONE (via callbacks system)
 
-* Give some ideas (write to a md file the ideas) about how to integrate the infinity test with AI tools/AI agents or
-even Claude code ... so ruby developers can see
+* ~~Give some ideas (write to a md file the ideas) about how to integrate the infinity test with AI tools/AI agents or
+even Claude code ... so ruby developers can see~~ DONE (see AI_INTEGRATION_IDEAS.md)
 
-* Update HISTORY with all changes since last version.
+* ~~Update HISTORY with all changes since last version.~~ DONE
