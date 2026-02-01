@@ -15,10 +15,10 @@ rbenv), ruby default just run the test on the current ruby version.
 * ~~Finish RVM (running different versions - the user need to specify)~~ DONE
 * ~~Finish RbEnv (running different versions - the user need to specify)~~ DONE
 * Make callbacks work in the new structure (loading the infinity test file).
-* Finish Gem autodiscover and its changes heuristics.
-* Finish Rails autodiscover and its changes heuristics.
-* Padrino autodiscover and its changes heuristics.
-* Improve auto discover feature priorization subclasses for #run? method.
+* ~~Finish Gem autodiscover and its changes heuristics.~~ DONE
+* ~~Finish Rails autodiscover and its changes heuristics.~~ DONE
+* ~~Padrino autodiscover and its changes heuristics.~~ DONE
+* ~~Improve auto discover feature priorization subclasses for #run? method.~~ DONE
 * Focus feature(fails, pass one file, run entire suite) with --focus (experimented feature)!
 * Add post-run hooks to be added to the INFINITY_TEST file that run other things (coverage, code
 analysis, etc - see ideas)
