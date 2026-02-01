@@ -67,14 +67,14 @@ module InfinityTest
     describe ".notifications" do
       it "sets the notification class accessor" do
         silence_stream(STDOUT) do
-          Base.notifications(:growl)
-          expect(Base.notifications).to be :growl
+          Base.notifications(:osascript)
+          expect(Base.notifications).to be :osascript
         end
       end
 
       it "sets the images" do
         silence_stream(STDOUT) do
-          Base.notifications(:growl) do
+          Base.notifications(:osascript) do
             show_images :success_image => 'foo', :failure_image => 'bar', :pending_image => 'baz'
           end
         end
@@ -88,7 +88,7 @@ module InfinityTest
 
       it "sets the mode" do
         silence_stream(STDOUT) do
-          Base.notifications(:growl) do
+          Base.notifications(:osascript) do
             show_images :mode => :mortal_kombat
           end
         end

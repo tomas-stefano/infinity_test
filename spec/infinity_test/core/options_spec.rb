@@ -49,10 +49,6 @@ module InfinityTest
           expect(parse('--test', 'rspec').test_framework).to be :rspec
         end
 
-        it "parses the test framework as bacon" do
-          expect(parse('--test', 'bacon').test_framework).to be :bacon
-        end
-
         it "parses the test framework as test_unit" do
           expect(parse('--test', 'test_unit').test_framework).to be :test_unit
         end
@@ -93,6 +89,42 @@ module InfinityTest
 
         it "returns nil when nothing is passed" do
           expect(parse.bundler?).to be_nil
+        end
+      end
+
+      describe "#notifications" do
+        it "parses the notifications library as auto_discover" do
+          expect(parse('--notifications', 'auto_discover').notifications).to be :auto_discover
+        end
+
+        it "parses the notifications library as osascript" do
+          expect(parse('--notifications', 'osascript').notifications).to be :osascript
+        end
+
+        it "parses the notifications library as terminal_notifier" do
+          expect(parse('--notifications', 'terminal_notifier').notifications).to be :terminal_notifier
+        end
+
+        it "returns nil when nothing is passed" do
+          expect(parse.notifications).to be_nil
+        end
+      end
+
+      describe "#mode" do
+        it "parses the image mode as simpson" do
+          expect(parse('--mode', 'simpson').mode).to be :simpson
+        end
+
+        it "parses the image mode as faces" do
+          expect(parse('--mode', 'faces').mode).to be :faces
+        end
+
+        it "parses the image mode as rails" do
+          expect(parse('--mode', 'rails').mode).to be :rails
+        end
+
+        it "returns nil when nothing is passed" do
+          expect(parse.mode).to be_nil
         end
       end
     end

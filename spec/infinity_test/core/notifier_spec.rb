@@ -126,6 +126,26 @@ module InfinityTest
           end
         end
       end
+
+      describe '#notify' do
+        let(:notification_builder) { double }
+
+        before do
+          expect(Core::Base).to receive(:mode).and_return(:simpson)
+          expect(test_framework).to receive(:success?).and_return(true)
+          expect(test_framework).to receive(:test_message).and_return('5 examples, 0 failures')
+        end
+
+        it 'sends a notification with title, message and image' do
+          expect(notifier).to receive(:auto_discover).and_return(notification_builder)
+          expect(notification_builder).to receive(:title).with(RUBY_VERSION).and_return(notification_builder)
+          expect(notification_builder).to receive(:message).with('5 examples, 0 failures').and_return(notification_builder)
+          expect(notification_builder).to receive(:image).and_return(notification_builder)
+          expect(notification_builder).to receive(:notify)
+
+          notifier.notify
+        end
+      end
     end
   end
 end

@@ -3,6 +3,7 @@ module InfinityTest
     class Options
       attr_accessor :arguments, :options_parser, :strategy, :bundler, :verbose
       attr_accessor :rubies, :specific_options, :test_framework, :framework, :infinity_and_beyond
+      attr_accessor :notifications, :mode
 
       def initialize(*arguments)
         @arguments = arguments.flatten.clone
@@ -17,6 +18,8 @@ module InfinityTest
             options_to_added_in_the_command
             test_framework_to_be_run
             app_framework
+            notifications_library
+            image_mode
             infinity_and_beyond_option
             verbose_mode
             skip_bundler
@@ -53,7 +56,7 @@ module InfinityTest
       end
 
       def test_framework_to_be_run(option)
-        option.on('--test library', 'Test Framework to be run. Ex.: auto_discover, rspec, test_unit, bacon.') do |library|
+        option.on('--test library', 'Test Framework to be run. Ex.: auto_discover, rspec, test_unit.') do |library|
           @test_framework = library.to_sym
         end
       end
@@ -61,6 +64,18 @@ module InfinityTest
       def app_framework(option)
         option.on('--framework library', 'Application Framework to be run and added the patterns to search changed files. Ex.: auto_discover, rails, rubygems, padrino.') do |library|
           @framework = library.to_sym
+        end
+      end
+
+      def notifications_library(option)
+        option.on('--notifications library', 'Notification library to use. Ex.: auto_discover, osascript, terminal_notifier, notify_send, dunstify.') do |library|
+          @notifications = library.to_sym
+        end
+      end
+
+      def image_mode(option)
+        option.on('--mode theme', 'Image theme for notifications. Ex.: simpson, faces, fuuu, hands, mario_bros, rails, rubies, street_fighter, toy_story.') do |theme|
+          @mode = theme.to_sym
         end
       end
 
