@@ -23,11 +23,11 @@ module InfinityTest
       end
 
       # ==== Returns
-      #  TrueClass: If the user had the rvm installed.
-      #  FalseClass: If the user don't had the rvm installed.
+      #  TrueClass: If the user has RVM installed AND has specified rubies to test against.
+      #  FalseClass: If RVM is not installed OR no rubies are specified.
       #
       def self.run?
-        installed_users_home? or installed_system_wide?
+        Core::Base.rubies.present? && (installed_users_home? || installed_system_wide?)
       end
 
       # ==== Returns

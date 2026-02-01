@@ -12,14 +12,30 @@ module InfinityTest
       describe ".run?" do
         let(:rbenv_dir) { File.expand_path('~/.rbenv') }
 
-        it "returns true if the user has rbenv installed" do
-          expect(File).to receive(:exist?).with(rbenv_dir).and_return(true)
-          expect(Rbenv).to be_run
+        context "when rubies are specified" do
+          before do
+            allow(Core::Base).to receive(:rubies).and_return(['2.7.0', '3.0.0'])
+          end
+
+          it "returns true if the user has rbenv installed" do
+            expect(File).to receive(:exist?).with(rbenv_dir).and_return(true)
+            expect(Rbenv).to be_run
+          end
+
+          it "returns false if the user does not have rbenv installed" do
+            expect(File).to receive(:exist?).with(rbenv_dir).and_return(false)
+            expect(Rbenv).not_to be_run
+          end
         end
 
-        it "returns false if the user does not have rbenv installed" do
-          expect(File).to receive(:exist?).with(rbenv_dir).and_return(false)
-          expect(Rbenv).not_to be_run
+        context "when no rubies are specified" do
+          before do
+            allow(Core::Base).to receive(:rubies).and_return([])
+          end
+
+          it "returns false even if rbenv is installed" do
+            expect(Rbenv).not_to be_run
+          end
         end
       end
 

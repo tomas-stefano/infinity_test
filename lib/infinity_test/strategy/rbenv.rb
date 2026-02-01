@@ -21,11 +21,11 @@ module InfinityTest
       end
 
       # ==== Returns
-      #  TrueClass:  If the user has rbenv installed.
-      #  FalseClass: If the user doesn't have rbenv installed.
+      #  TrueClass:  If the user has rbenv installed AND has specified rubies to test against.
+      #  FalseClass: If rbenv is not installed OR no rubies are specified.
       #
       def self.run?
-        File.exist?(File.expand_path('~/.rbenv'))
+        Core::Base.rubies.present? && File.exist?(File.expand_path('~/.rbenv'))
       end
     end
   end
