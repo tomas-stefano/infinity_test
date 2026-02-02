@@ -25,14 +25,16 @@ Version 2.0.0 brings a complete rewrite with modern dependencies, multi-Ruby sup
 
 ## Installation
 
+Since this is a release candidate (rc1), you need to explicitly request the pre-release version:
+
 ```bash
-gem install infinity_test
+gem install infinity_test --pre
 ```
 
 Or add to your Gemfile:
 
 ```ruby
-gem 'infinity_test', group: :development
+gem 'infinity_test', '~> 2.0.0.rc1', group: :development
 ```
 
 Then run:
