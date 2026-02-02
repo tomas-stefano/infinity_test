@@ -17,7 +17,7 @@ module InfinityTest
       #
       def run
         command = run!
-        puts "\n[InfinityTest] - Command: '#{command}'\n\n" if Core::Base.verbose?
+        puts "\n\e[96m[InfinityTest]\e[0m - Command: '\e[32m#{command}\e[0m'\n\n" if Core::Base.verbose?
         Core::CommandRunner.new(command)
       end
 
