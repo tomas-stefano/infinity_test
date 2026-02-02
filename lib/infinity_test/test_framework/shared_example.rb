@@ -15,39 +15,39 @@ module InfinityTest
       #   end
       #
       shared_examples_for 'a infinity test test framework' do
-        it 'should respond to #test_message=' do
+        it 'responds to #test_message=' do
           expect(subject).to respond_to(:test_message=)
         end
 
-        it 'should respond to #test_message' do
+        it 'responds to #test_message' do
           expect(subject).to respond_to(:test_message)
         end
 
-        it 'should respond to #succeed?' do
+        it 'responds to #succeed?' do
           expect(subject).to respond_to(:success?)
         end
 
-        it 'should respond to #failure?' do
+        it 'responds to #failure?' do
           expect(subject).to respond_to(:failure?)
         end
 
-        it 'should respond to #pending?' do
+        it 'responds to #pending?' do
           expect(subject).to respond_to(:pending?)
         end
 
-        it 'should respond to #test_helper_file' do
+        it 'responds to #test_helper_file' do
           expect(subject).to respond_to(:test_helper_file)
         end
 
-        it 'should respond to #test_dir' do
+        it 'responds to #test_dir' do
           expect(subject).to respond_to(:test_dir)
         end
 
-        it 'should respond to #test_dir=' do
+        it 'responds to #test_dir=' do
           expect(subject).to respond_to(:test_dir=)
         end
 
-        it 'should respond to #binary' do
+        it 'responds to #binary' do
           expect(subject).to respond_to(:binary)
         end
       end

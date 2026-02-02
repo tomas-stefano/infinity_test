@@ -3,6 +3,7 @@ module InfinityTest
     class Options
       attr_accessor :arguments, :options_parser, :strategy, :bundler, :verbose
       attr_accessor :rubies, :specific_options, :test_framework, :framework, :infinity_and_beyond
+      attr_accessor :notifications, :mode, :just_watch, :focus
 
       def initialize(*arguments)
         @arguments = arguments.flatten.clone
@@ -17,7 +18,11 @@ module InfinityTest
             options_to_added_in_the_command
             test_framework_to_be_run
             app_framework
+            notifications_library
+            image_mode
             infinity_and_beyond_option
+            just_watch_option
+            focus_option
             verbose_mode
             skip_bundler
           ).each do |option_to_parse|
@@ -53,7 +58,7 @@ module InfinityTest
       end
 
       def test_framework_to_be_run(option)
-        option.on('--test library', 'Test Framework to be run. Ex.: auto_discover, rspec, test_unit, bacon.') do |library|
+        option.on('--test library', 'Test Framework to be run. Ex.: auto_discover, rspec, test_unit.') do |library|
           @test_framework = library.to_sym
         end
       end
@@ -64,9 +69,33 @@ module InfinityTest
         end
       end
 
+      def notifications_library(option)
+        option.on('--notifications library', 'Notification library to use. Ex.: auto_discover, osascript, terminal_notifier, notify_send, dunstify.') do |library|
+          @notifications = library.to_sym
+        end
+      end
+
+      def image_mode(option)
+        option.on('--mode theme', 'Image theme for notifications. Ex.: simpson, faces, fuuu, hands, mario_bros, rails, rubies, street_fighter, toy_story.') do |theme|
+          @mode = theme.to_sym
+        end
+      end
+
       def infinity_and_beyond_option(option)
         option.on('-n', '--no-infinity-and-beyond', 'Run tests and exit. Useful in a Continuous Integration environment.') do
           @infinity_and_beyond = false
+        end
+      end
+
+      def just_watch_option(option)
+        option.on('-j', '--just-watch', 'Skip initial test run and only watch for file changes. Useful for large applications.') do
+          @just_watch = true
+        end
+      end
+
+      def focus_option(option)
+        option.on('-f', '--focus [FILE]', 'Focus on specific tests. Use "failures" for failed tests, or provide a file path.') do |file|
+          @focus = file == 'failures' ? :failures : file
         end
       end
 

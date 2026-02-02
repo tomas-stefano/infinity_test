@@ -9,13 +9,13 @@ module InfinityTest
       it_should_behave_like 'a infinity test strategy'
 
       describe ".run?" do
-        it "should return true when don't pass any ruby versions to run tests" do
-          Core::Base.stub(:rubies).and_return([])
+        it "returns true when no ruby versions are passed to run tests" do
+          allow(Core::Base).to receive(:rubies).and_return([])
           expect(RubyDefault).to be_run
         end
 
-        it "should return false when pass some ruby version to run tests" do
-          Core::Base.stub(:rubies).and_return(['ree', 'jruby'])
+        it "returns false when some ruby version is passed to run tests" do
+          allow(Core::Base).to receive(:rubies).and_return(['ree', 'jruby'])
           expect(RubyDefault).not_to be_run
         end
       end

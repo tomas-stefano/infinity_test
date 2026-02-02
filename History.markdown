@@ -1,17 +1,83 @@
-development
-===========
+v2.0.0
+======
 
-- Rewrite the ENTIRE LIBRARY (Separate responsabilities!)
-- The #before_env method in the configuration file was removed.
-- The #before_run and #after_run method in the configuration file, was removed. Use before(:all) and after(:all) instead.
-- Shared Examples to create your own strategy.
-- Update all specs to RSpec 2.
-- Now you can create your own observer (case you want add other gem like watchr / monitor files).
-- Now you can add more patterns to monitor in a simple dsl without ugly nasty code.
+This is a major release with a complete rewrite of the library, modernization of dependencies, and many new features.
 
-- Work Notifications using the notifiers gem.
-- Work RSpec with the new way of auto discover libraries.
-- Work Rubygems. \o/
+Breaking Changes
+----------------
+- Configuration file renamed from `.infinity_test` to `INFINITY_TEST`
+- Removed Bacon test framework support
+- Removed Growl notification support (use notifiers gem instead)
+- The #before_env method in the configuration file was removed
+- The #before_run and #after_run methods were removed. Use before(:all) and after(:all) instead
+
+New Features
+------------
+- **Modern Notifications**: Integration with the notifiers gem supporting:
+  - osascript (macOS built-in)
+  - terminal_notifier (macOS)
+  - notify_send (Linux libnotify)
+  - dunstify (Linux dunst)
+  - auto_discover (automatic detection)
+  - New CLI options: `--notifications` and `--mode` for image themes
+
+- **Callbacks System**: Full callback support with before/after hooks
+  - `before(:all)` - Run before all tests
+  - `after(:all)` - Run after all tests
+  - `before(:each_ruby)` - Run before each Ruby version
+  - `after(:each_ruby)` - Run after each Ruby version
+
+- **Multi-Ruby Support**:
+  - RVM strategy: Run tests across multiple Ruby versions with gemset support
+  - RbEnv strategy: Run tests with RBENV_VERSION environment variable
+  - RubyDefault strategy: Run on current Ruby version
+
+- **Just Watch Mode**: `--just-watch` (-j) option to skip initial test run
+  - Useful for large applications where startup is slow
+  - Only watches for file changes and runs tests on change
+
+- **Focus Mode**: `--focus` (-f) option for running specific tests
+  - `--focus failures` - Run only previously failed tests
+  - `--focus path/to/spec.rb` - Run only specified file
+
+- **Framework Heuristics**:
+  - Rails: Watches models, controllers, helpers, mailers, jobs, lib
+  - Padrino: Similar to Rails with Padrino-specific paths
+  - Rubygems: Watches lib and test/spec directories
+
+- **Auto Discovery Priority**: Smart prioritization when auto-discovering
+  - Strategies: RVM > RbEnv > RubyDefault
+  - Frameworks: Rails > Padrino > Rubygems
+  - Test Frameworks: RSpec > Test::Unit
+
+- **Test Framework Improvements**:
+  - Complete Test::Unit/Minitest implementation with output parsing
+  - RSpec improvements: test_dir=, pending?, and .run? methods
+
+- **Modern File Watching**:
+  - Listen gem (default) - Event-driven, uses native OS notifications
+  - Filewatcher gem - Polling-based, works everywhere including VMs/NFS
+
+- **AI Integration Ideas**: Documentation for integrating with Claude Code and other AI tools
+
+Bug Fixes
+---------
+- Fixed signal handler blocking issue in observer base
+- Fixed ActiveSupport autoload issues
+- Replaced deprecated stub with allow().to receive() in specs
+
+Dependencies
+------------
+- Replaced watchr with listen and filewatcher observers
+- Updated to modern notifiers gem (from GitHub main branch)
+- Removed growl dependency
+
+Internal Changes
+----------------
+- Rewrite of the entire library with separated responsibilities
+- Shared examples for creating custom strategies, frameworks, and observers
+- Updated all specs to modern RSpec syntax
+- Comprehensive test coverage (250+ examples)
 
 v1.0.1
 ======

@@ -15,15 +15,15 @@ module InfinityTest
       #   end
       #
       shared_examples_for 'a infinity test strategy' do
-        it 'should respond to #run!' do
+        it 'responds to #run!' do
           expect(subject).to respond_to(:run)
         end
 
-        it 'should respond to .run?' do
+        it 'responds to .run?' do
           expect(subject.class).to respond_to(:run?)
         end
 
-        it 'should have Strategy::Base as superclass' do
+        it 'has Strategy::Base as superclass' do
           expect(subject.class.superclass).to be InfinityTest::Strategy::Base
         end
       end

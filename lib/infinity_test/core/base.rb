@@ -23,14 +23,13 @@ module InfinityTest
       cattr_accessor :specific_options
       self.specific_options = ''
 
-      # Test Framework to use Rspec, Bacon, Test::Unit or AutoDiscover(defaults)
+      # Test Framework to use RSpec, Test::Unit or AutoDiscover(defaults)
       # ==== Options
       # * :rspec
-      # * :bacon
       # * :test_unit (Test unit here apply to this two libs: test/unit and minitest)
-      # * :auto_discover(defaults)
+      # * :auto_discover (default)
       #
-      # This will load a exactly a class constantize by name.
+      # This will load a class constantized by name.
       #
       cattr_accessor :test_framework
       self.test_framework = :auto_discover
@@ -47,13 +46,14 @@ module InfinityTest
       cattr_accessor :framework
       self.framework = :auto_discover
 
-      # Framework to observer watch the dirs.
+      # Framework to observe and watch the dirs for file changes.
       #
       # ==== Options
-      #  * watchr
+      #  * :listen (default) - Event-driven, uses native OS notifications
+      #  * :filewatcher - Polling-based, works everywhere including VMs/NFS
       #
       cattr_accessor :observer
-      self.observer = :watchr
+      self.observer = :listen
 
       # Ignore test files.
       #
@@ -80,11 +80,11 @@ module InfinityTest
       # Set the notification framework to use with Infinity Test.
       #
       # ==== Options
-      # * :growl
-      # * :lib_notify
-      # * :auto_discover(defaults)
-      #
-      # This will load a exactly a class constantize by name.
+      # * :auto_discover (default) - Automatically detect available notifier
+      # * :terminal_notifier - macOS terminal-notifier
+      # * :osascript - macOS built-in notifications
+      # * :notify_send - Linux/BSD libnotify
+      # * :dunstify - Linux/BSD dunst
       #
       cattr_writer :notifications
       self.notifications = :auto_discover
@@ -139,6 +139,22 @@ module InfinityTest
       #
       cattr_accessor :infinity_and_beyond
       self.infinity_and_beyond = true
+
+      # Skip running tests on startup, only watch for file changes.
+      # Useful for large applications where you want to start watching quickly.
+      #
+      cattr_accessor :just_watch
+      self.just_watch = false
+
+      # Focus mode for running specific tests.
+      #
+      # ==== Options
+      # * nil - Run all tests (default)
+      # * :failures - Run only previously failed tests
+      # * String - Run only the specified file/pattern
+      #
+      cattr_accessor :focus
+      self.focus = nil
 
       # The extension files that Infinity Test will search.
       # You can observe python, erlang, etc files.
@@ -202,8 +218,10 @@ module InfinityTest
       #     # ...
       #   end
       #
-      def self.before(scope, &block)
-        # setting_callback(Callbacks::BeforeCallback, scope, &block)
+      def self.before(scope = :all, &block)
+        callback = Callback.new(:before, scope, &block)
+        callbacks.push(callback)
+        callback
       end
 
       # Callback method to handle after all run and for each ruby too!
@@ -222,8 +240,32 @@ module InfinityTest
       #     # ...
       #   end
       #
-      def self.after(scope, &block)
-        # setting_callback(Callbacks::AfterCallback, scope, &block)
+      def self.after(scope = :all, &block)
+        callback = Callback.new(:after, scope, &block)
+        callbacks.push(callback)
+        callback
+      end
+
+      # Run all before callbacks for the given scope
+      #
+      def self.run_before_callbacks(scope = :all, environment = nil)
+        callbacks.select { |c| c.before? && c.scope == scope }.each do |callback|
+          callback.call(environment)
+        end
+      end
+
+      # Run all after callbacks for the given scope
+      #
+      def self.run_after_callbacks(scope = :all, environment = nil)
+        callbacks.select { |c| c.after? && c.scope == scope }.each do |callback|
+          callback.call(environment)
+        end
+      end
+
+      # Clear all registered callbacks
+      #
+      def self.clear_callbacks!
+        self.callbacks = []
       end
 
       # Clear the terminal (Useful in the before callback)
@@ -244,10 +286,10 @@ module InfinityTest
             .notifications is DEPRECATED.
             Use this instead:
               InfinityTest.setup do |config|
-                config.notifications = :growl
+                config.notifications = :dunstify
               end
           MESSAGE
-          ActiveSupport::Deprecation.warn(message)
+          ActiveSupport::Deprecation.new.warn(message)
           self.notifications = notification_name
           self.instance_eval(&block) if block_given?
         end
@@ -270,7 +312,7 @@ module InfinityTest
              config.mode          = 'infinity_test_dir_that_contain_images'
            end
         MESSAGE
-        ActiveSupport::Deprecation.warn(message)
+        ActiveSupport::Deprecation.new.warn(message)
         self.success_image = options[:success_image] || options[:sucess_image] if options[:success_image].present? || options[:sucess_image].present? # for fail typo in earlier versions.
         self.pending_image = options[:pending_image] if options[:pending_image].present?
         self.failure_image = options[:failure_image] if options[:failure_image].present?
@@ -298,7 +340,7 @@ module InfinityTest
               config.gemset           = :some_gemset
             end
         MESSAGE
-        ActiveSupport::Deprecation.warn(message)
+        ActiveSupport::Deprecation.new.warn(message)
         self.rubies = options[:rubies] if options[:rubies].present?
         self.specific_options = options[:specific_options] if options[:specific_options].present?
         self.test_framework = options[:test_framework] if options[:test_framework].present?
@@ -311,7 +353,7 @@ module InfinityTest
       #
       def self.clear(option)
         message = '.clear(:terminal) is DEPRECATED. Please use .clear_terminal instead.'
-        ActiveSupport::Deprecation.warn(message)
+        ActiveSupport::Deprecation.new.warn(message)
         clear_terminal
       end
 
@@ -322,14 +364,6 @@ module InfinityTest
       def self.replace_patterns(&block)
         # There is a spec pending.
       end
-
-      private
-
-      # def self.setting_callback(callback_class, scope, &block)
-      #   callback_instance = callback_class.new(scope, &block)
-      #   self.callbacks.push(callback_instance)
-      #   callback_instance
-      # end
     end
   end
 end

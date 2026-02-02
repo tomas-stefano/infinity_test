@@ -1,4 +1,5 @@
 require 'optparse'
+require 'active_support'
 require 'active_support/core_ext'
 require 'active_support/deprecation'
 require 'hike'
@@ -8,6 +9,7 @@ module InfinityTest
   module Core
     autoload :AutoDiscover, 'infinity_test/core/auto_discover'
     autoload :Base, 'infinity_test/core/base'
+    autoload :Callback, 'infinity_test/core/callback'
     autoload :CommandBuilder, 'infinity_test/core/command_builder'
     autoload :CommandRunner,  'infinity_test/core/command_runner'
     autoload :ConfigurationMerge, 'infinity_test/core/configuration_merge'
@@ -33,8 +35,8 @@ module InfinityTest
 
   module Observer
     autoload :Base, 'infinity_test/observer/base'
-    autoload :Watchr, 'infinity_test/observer/watchr'
-    autoload :EventMachine, 'infinity_test/observer/event_machine'
+    autoload :Listen, 'infinity_test/observer/listen'
+    autoload :Filewatcher, 'infinity_test/observer/filewatcher'
     autoload :SharedExample, 'infinity_test/observer/shared_example'
   end
 
@@ -65,4 +67,3 @@ require 'infinity_test/framework/rails'
 require 'infinity_test/framework/rubygems'
 require 'infinity_test/test_framework/test_unit'
 require 'infinity_test/test_framework/rspec'
-require 'infinity_test/test_framework/bacon'

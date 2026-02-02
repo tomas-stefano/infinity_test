@@ -1,8 +1,7 @@
-InfinityTest.setup do |config|
-  config.strategy       = :ruby_default
-  config.test_framework = :rspec
-  config.notifications  = :growl
-end
+#InfinityTest.setup do |config|
+#  config.strategy       = :ruby_default
+#  config.test_framework = :rspec
+#end
 
 # infinity_test do
 

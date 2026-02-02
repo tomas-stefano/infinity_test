@@ -1,18 +1,33 @@
 module InfinityTest
   module Strategy
     class Rvm < Base
+      attr_reader :continuous_test_server
+      delegate :binary, :test_files, to: :continuous_test_server
+
+      # Build and run commands for each ruby version specified.
+      # Uses RVM's `rvm <version> do` syntax to run tests in different Ruby environments.
+      #
+      # ==== Returns
+      #  String: The command string for the first ruby version (others run sequentially)
+      #
       def run!
-        base.rubies.each do |ruby_version|
-          command_builder.rvm.do.ruby_version.ruby.option(:S).add(test_framework.binary).add(test_framework.test_dir)
+        rubies = Core::Base.rubies
+        gemset = Core::Base.gemset
+
+        commands = rubies.map do |ruby_version|
+          ruby_with_gemset = gemset.present? ? "#{ruby_version}@#{gemset}" : ruby_version
+          command_builder.rvm.add(ruby_with_gemset).do.ruby.option(:S).add(binary).add(test_files).to_s
         end
+
+        commands.join(' && ')
       end
 
       # ==== Returns
-      #  TrueClass: If the user had the rvm installed.
-      #  FalseClass: If the user don't had the rvm installed.
+      #  TrueClass: If the user has RVM installed AND has specified rubies to test against.
+      #  FalseClass: If RVM is not installed OR no rubies are specified.
       #
       def self.run?
-        installed_users_home? or installed_system_wide?
+        Core::Base.rubies.present? && (installed_users_home? || installed_system_wide?)
       end
 
       # ==== Returns

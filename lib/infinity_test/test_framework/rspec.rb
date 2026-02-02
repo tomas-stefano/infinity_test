@@ -10,7 +10,11 @@ module InfinityTest
       end
 
       def test_dir
-        'spec'
+        @test_dir ||= 'spec'
+      end
+
+      def test_dir=(dir)
+        @test_dir = dir
       end
 
       def test_files
@@ -27,6 +31,17 @@ module InfinityTest
 
       def failure?
         @failures > 0
+      end
+
+      def pending?
+        @pending > 0
+      end
+
+      def self.run?
+        File.exist?('spec') && (
+          File.exist?('spec/spec_helper.rb') ||
+          Dir['spec/**/*_spec.rb'].any?
+        )
       end
     end
   end
