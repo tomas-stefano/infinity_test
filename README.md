@@ -34,7 +34,7 @@ gem install infinity_test --pre
 Or add to your Gemfile:
 
 ```ruby
-gem 'infinity_test', '~> 2.0.0.rc1', group: :development
+gem 'infinity_test', '~> 2.0.0.rc2', group: :development
 ```
 
 Then run:
