@@ -86,7 +86,9 @@ Use AI to predict which tests are most likely to fail based on:
 
 ## 4. Natural Language Test Commands
 
-Integrate with AI to support natural language commands:
+Future idea: Integrate with AI to support natural language commands:
+
+This is just an idea:
 
 ```bash
 # Instead of
