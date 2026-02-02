@@ -1,3 +1,5 @@
+require 'pty'
+
 module InfinityTest
   module Core
     class CommandRunner < String
@@ -10,52 +12,26 @@ module InfinityTest
       end
 
       def run!
-        SynchronizeStdout.new do
-          open("| #{@command}", "r") do |file|
-            @command_output = CommandOutput.new(file)
-            @command_output.puts
-          end
-        end
-
-        @command_output.stdout
-      end
-    end
-
-    class CommandOutput
-      def initialize(file)
-        @file    = file
-        @results = []
-        @line    = []
-      end
-
-      def puts
-        until @file.eof? do
-          test_line = @file.getc or break
-          print(test_line)
-          @line.push(test_line)
-          if test_line == ?\n
-            # @results.push(yarv? ? @line.join : @line.pack('c*'))
-            @results.push(@line.join)
-            @line.clear
-          end
-        end
-      end
-
-      def stdout
-        @results.join
-      end
-    end
-
-    class SynchronizeStdout
-      def initialize
-        old_sync     = $stdout.sync
+        output = []
+        old_sync = $stdout.sync
         $stdout.sync = true
 
         begin
-          yield
+          PTY.spawn(@command) do |stdout, _stdin, _pid|
+            stdout.each_char do |char|
+              print char
+              output << char
+            end
+          end
+        rescue PTY::ChildExited
+          # Command finished
+        rescue Errno::EIO
+          # End of output
         ensure
           $stdout.sync = old_sync
         end
+
+        output.join
       end
     end
   end

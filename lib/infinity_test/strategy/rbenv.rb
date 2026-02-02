@@ -14,7 +14,9 @@ module InfinityTest
         rubies = Core::Base.rubies
 
         commands = rubies.map do |ruby_version|
-          "RBENV_VERSION=#{ruby_version} #{command_builder.ruby.option(:S).add(binary).add(test_files).to_s}"
+          test_command = "#{binary} #{test_files}"
+          test_command = with_bundler(test_command)
+          "RBENV_VERSION=#{ruby_version} #{test_command}"
         end
 
         commands.join(' && ')

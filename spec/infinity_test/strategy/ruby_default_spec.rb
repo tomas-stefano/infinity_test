@@ -23,8 +23,25 @@ module InfinityTest
       describe '#run!' do
         before { base.test_framework = :rspec }
 
-        it 'returns the command' do
-          expect(subject.run!).to eq 'ruby -S rspec spec'
+        context 'with bundler' do
+          before do
+            allow(Core::Base).to receive(:using_bundler?).and_return(true)
+            allow(File).to receive(:exist?).with('Gemfile').and_return(true)
+          end
+
+          it 'returns the command with bundle exec' do
+            expect(subject.run!).to eq 'bundle exec rspec spec'
+          end
+        end
+
+        context 'without bundler' do
+          before do
+            allow(Core::Base).to receive(:using_bundler?).and_return(false)
+          end
+
+          it 'returns the command without bundle exec' do
+            expect(subject.run!).to eq 'rspec spec'
+          end
         end
       end
     end

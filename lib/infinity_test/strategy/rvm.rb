@@ -16,7 +16,9 @@ module InfinityTest
 
         commands = rubies.map do |ruby_version|
           ruby_with_gemset = gemset.present? ? "#{ruby_version}@#{gemset}" : ruby_version
-          command_builder.rvm.add(ruby_with_gemset).do.ruby.option(:S).add(binary).add(test_files).to_s
+          test_command = "#{binary} #{test_files}"
+          test_command = with_bundler(test_command)
+          "rvm #{ruby_with_gemset} do #{test_command}"
         end
 
         commands.join(' && ')

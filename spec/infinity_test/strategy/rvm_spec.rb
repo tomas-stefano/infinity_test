@@ -50,17 +50,34 @@ module InfinityTest
           allow(Core::Base).to receive(:gemset).and_return(nil)
         end
 
-        it 'returns the command for multiple ruby versions' do
-          expect(subject.run!).to eq 'rvm 2.7.0 do ruby -S rspec spec && rvm 3.0.0 do ruby -S rspec spec'
-        end
-
-        context 'with gemset' do
+        context 'with bundler' do
           before do
-            allow(Core::Base).to receive(:gemset).and_return('infinity_test')
+            allow(Core::Base).to receive(:using_bundler?).and_return(true)
+            allow(File).to receive(:exist?).with('Gemfile').and_return(true)
           end
 
-          it 'includes gemset in the command' do
-            expect(subject.run!).to eq 'rvm 2.7.0@infinity_test do ruby -S rspec spec && rvm 3.0.0@infinity_test do ruby -S rspec spec'
+          it 'returns the command for multiple ruby versions with bundle exec' do
+            expect(subject.run!).to eq 'rvm 2.7.0 do bundle exec rspec spec && rvm 3.0.0 do bundle exec rspec spec'
+          end
+
+          context 'with gemset' do
+            before do
+              allow(Core::Base).to receive(:gemset).and_return('infinity_test')
+            end
+
+            it 'includes gemset in the command' do
+              expect(subject.run!).to eq 'rvm 2.7.0@infinity_test do bundle exec rspec spec && rvm 3.0.0@infinity_test do bundle exec rspec spec'
+            end
+          end
+        end
+
+        context 'without bundler' do
+          before do
+            allow(Core::Base).to receive(:using_bundler?).and_return(false)
+          end
+
+          it 'returns the command for multiple ruby versions without bundle exec' do
+            expect(subject.run!).to eq 'rvm 2.7.0 do rspec spec && rvm 3.0.0 do rspec spec'
           end
         end
       end

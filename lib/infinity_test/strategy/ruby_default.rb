@@ -5,7 +5,8 @@ module InfinityTest
       delegate :binary, :test_files, to: :continuous_test_server
 
       def run!
-        command_builder.ruby.option(:S).add(binary).add(test_files).to_s
+        command = "#{binary} #{test_files}"
+        with_bundler(command)
       end
 
       # ==== Returns
