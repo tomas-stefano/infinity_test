@@ -4,18 +4,40 @@ module InfinityTest
   module Framework
     describe Rails do
       let(:observer) { double('Observer') }
-      let(:test_framework) { double('TestFramework') }
+      let(:test_framework) { double('TestFramework', test_dir: 'spec') }
       let(:continuous_test_server) { double('ContinuousTestServer', observer: observer, test_framework: test_framework) }
       subject { Rails.new(continuous_test_server) }
 
       describe "#heuristics" do
-        it "adds heuristics" do
-          # 6 watch_dir calls: models, controllers, helpers, mailers, jobs, lib, test_dir
-          expect(observer).to receive(:watch_dir).exactly(7)
-          # 1 watch call for test_helper_file
+        it "watches lib, test_dir, and test_helper_file" do
+          allow(File).to receive(:directory?).with('app').and_return(false)
+
+          expect(observer).to receive(:watch_dir).with(:lib)
+          expect(observer).to receive(:watch_dir).with('spec')
           expect(observer).to receive(:watch)
           expect(test_framework).to receive(:test_helper_file)
-          expect(test_framework).to receive(:test_dir)
+
+          expect { subject.heuristics }.to_not raise_exception
+        end
+
+        it "auto-discovers app directories containing ruby files" do
+          allow(File).to receive(:directory?).with('app').and_return(true)
+          allow(Dir).to receive(:glob).with('app/*').and_return(['app/models', 'app/views', 'app/components'])
+          allow(File).to receive(:directory?).with('app/models').and_return(true)
+          allow(File).to receive(:directory?).with('app/views').and_return(true)
+          allow(File).to receive(:directory?).with('app/components').and_return(true)
+          allow(Dir).to receive(:glob).with('app/models/**/*.rb').and_return(['app/models/user.rb'])
+          allow(Dir).to receive(:glob).with('app/views/**/*.rb').and_return([])
+          allow(Dir).to receive(:glob).with('app/components/**/*.rb').and_return(['app/components/button.rb'])
+
+          # Should watch models and components (have .rb files), skip views (no .rb files)
+          expect(observer).to receive(:watch_dir).with('app/models')
+          expect(observer).to receive(:watch_dir).with('app/components')
+          expect(observer).to receive(:watch_dir).with(:lib)
+          expect(observer).to receive(:watch_dir).with('spec')
+          expect(observer).to receive(:watch)
+          expect(test_framework).to receive(:test_helper_file)
+
           expect { subject.heuristics }.to_not raise_exception
         end
       end
