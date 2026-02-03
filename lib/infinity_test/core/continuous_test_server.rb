@@ -25,7 +25,6 @@ module InfinityTest
         puts "  Framework:      #{base.framework}"
         puts "  Test Framework: #{base.test_framework}"
         puts "  Strategy:       #{base.strategy}"
-        puts "  Bundler:        #{Base.using_bundler? && File.exist?('Gemfile') ? 'yes' : 'no'}"
         puts "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\e[0m"
         puts
       end
