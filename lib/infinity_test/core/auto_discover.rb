@@ -7,7 +7,7 @@ module InfinityTest
       # More specific libraries should be checked before generic ones
       PRIORITY = {
         strategy: [:rvm, :rbenv, :elixir_default, :ruby_default],
-        framework: [:rails, :padrino, :elixir_mix, :rubygems],
+        framework: [:rails, :padrino, :phoenix, :elixir_mix, :rubygems],
         test_framework: [:rspec, :test_unit, :ex_unit]
       }.freeze
 

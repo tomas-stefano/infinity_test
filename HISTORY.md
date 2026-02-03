@@ -4,9 +4,11 @@
 
 ### New Features
 
-- **Elixir Support**: Added ExUnit test framework, ElixirMix framework, and ElixirDefault strategy for Elixir projects
+- **Elixir Support**: Added ExUnit test framework, ElixirMix and Phoenix frameworks, and ElixirDefault strategy
   - Auto-discovers Elixir projects by detecting `mix.exs`
-  - Watches `lib/*.ex` and `test/*.exs` files
+  - Phoenix framework: detects `lib/*_web` directory, watches all lib subdirectories
+  - ElixirMix framework: for standard Mix projects
+  - Watches `lib/**/*.ex` and `test/**/*.exs` files
   - Parses ExUnit output (tests, failures, skipped)
 
 - **Modern Observers**: Replaced watchr with listen and filewatcher observers

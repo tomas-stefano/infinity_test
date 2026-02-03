@@ -60,6 +60,7 @@ module InfinityTest
           base.framework = :auto_discover
           allow(Framework::Rubygems).to receive(:run?).and_return(false)
           allow(Framework::ElixirMix).to receive(:run?).and_return(false)
+          allow(Framework::Phoenix).to receive(:run?).and_return(false)
           expect(Framework::Rails).to receive(:run?).and_return(true)
         end
 
@@ -110,7 +111,7 @@ module InfinityTest
       end
 
       it 'defines priority order for frameworks' do
-        expect(AutoDiscover::PRIORITY[:framework]).to eq [:rails, :padrino, :elixir_mix, :rubygems]
+        expect(AutoDiscover::PRIORITY[:framework]).to eq [:rails, :padrino, :phoenix, :elixir_mix, :rubygems]
       end
 
       it 'defines priority order for test frameworks' do
@@ -141,6 +142,7 @@ module InfinityTest
           # Both Rails and Rubygems would match, but Rails has higher priority
           allow(Framework::Rails).to receive(:run?).and_return(true)
           allow(Framework::Padrino).to receive(:run?).and_return(false)
+          allow(Framework::Phoenix).to receive(:run?).and_return(false)
           allow(Framework::ElixirMix).to receive(:run?).and_return(false)
           allow(Framework::Rubygems).to receive(:run?).and_return(true)
         end
