@@ -16,8 +16,11 @@ module InfinityTest
       end
 
       # Print startup banner showing detected configuration.
+      # Only shows when verbose mode is enabled.
       #
       def print_banner
+        return unless Base.verbose?
+
         puts "\e[96m"
         puts "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         puts "  InfinityTest - To Infinity and Beyond!"
