@@ -63,6 +63,8 @@ module InfinityTest
           allow(Framework::Rubygems).to receive(:run?).and_return(false)
           allow(Framework::ElixirMix).to receive(:run?).and_return(false)
           allow(Framework::Phoenix).to receive(:run?).and_return(false)
+          allow(Framework::Django).to receive(:run?).and_return(false)
+          allow(Framework::FastApi).to receive(:run?).and_return(false)
           allow(Framework::PythonPackage).to receive(:run?).and_return(false)
           expect(Framework::Rails).to receive(:run?).and_return(true)
         end
@@ -115,7 +117,7 @@ module InfinityTest
       end
 
       it 'defines priority order for frameworks' do
-        expect(AutoDiscover::PRIORITY[:framework]).to eq [:rails, :padrino, :phoenix, :elixir_mix, :python_package, :rubygems]
+        expect(AutoDiscover::PRIORITY[:framework]).to eq [:rails, :padrino, :phoenix, :elixir_mix, :django, :fast_api, :python_package, :rubygems]
       end
 
       it 'defines priority order for test frameworks' do
@@ -149,6 +151,8 @@ module InfinityTest
           allow(Framework::Padrino).to receive(:run?).and_return(false)
           allow(Framework::Phoenix).to receive(:run?).and_return(false)
           allow(Framework::ElixirMix).to receive(:run?).and_return(false)
+          allow(Framework::Django).to receive(:run?).and_return(false)
+          allow(Framework::FastApi).to receive(:run?).and_return(false)
           allow(Framework::PythonPackage).to receive(:run?).and_return(false)
           allow(Framework::Rubygems).to receive(:run?).and_return(true)
         end

@@ -17,6 +17,16 @@
   - Watches `tests/` or `test/` directories for test files
   - Parses Pytest output (passed, failed, skipped)
 
+- **Django Framework**: Full support for Django projects
+  - Auto-discovers Django projects by detecting `manage.py` with Django imports
+  - Watches Django app directories (models.py, views.py, apps.py)
+  - Maps app files to their corresponding tests
+
+- **FastAPI Framework**: Support for FastAPI/ML API projects
+  - Auto-discovers FastAPI projects by detecting FastAPI imports in main.py
+  - Watches `app/`, `src/`, `routers/`, `api/`, `endpoints/` directories
+  - Perfect for ML model serving APIs
+
 - **Modern Observers**: Replaced watchr with listen and filewatcher observers
   - `listen` (default): Event-driven, uses native OS notifications
   - `filewatcher`: Polling-based, works in VMs/NFS environments
