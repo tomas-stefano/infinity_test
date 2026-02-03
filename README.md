@@ -4,7 +4,7 @@
 
 Infinity Test is a continuous testing library and a flexible alternative to Autotest and Guard. It watches your files for changes and automatically runs your tests, providing instant feedback with desktop notifications.
 
-Version 2.0.0 brings a complete rewrite with modern dependencies, multi-Ruby support via RVM/RbEnv, a powerful callbacks system, and experimental support for Elixir (Phoenix, ExUnit) and Python (Django, FastAPI, Pytest).
+Version 2.0.0 brings a complete rewrite with modern dependencies, multi-Ruby support via RVM/RbEnv, a powerful callbacks system, and experimental support for Elixir (Phoenix, ExUnit), Python (Django, FastAPI, Pytest), and Rust (Rocket, Cargo).
 
 ## Table of Contents
 
@@ -17,6 +17,7 @@ Version 2.0.0 brings a complete rewrite with modern dependencies, multi-Ruby sup
 - [Application Frameworks](#application-frameworks)
 - [Experimental: Elixir Support](#experimental-elixir-support)
 - [Experimental: Python Support](#experimental-python-support)
+- [Experimental: Rust Support](#experimental-rust-support)
 - [Notifications](#notifications)
 - [Image Themes](#image-themes)
 - [Callbacks](#callbacks)
@@ -81,8 +82,8 @@ Edit your files and watch the tests run automatically!
 |--------|-------|-------------|
 | `--ruby strategy` | | Ruby manager strategy: `auto_discover`, `rvm`, `rbenv`, `ruby_default` |
 | `--rubies=versions` | | Ruby versions to test against (comma-separated) |
-| `--test library` | | Test framework: `auto_discover`, `rspec`, `test_unit`, `ex_unit`, `pytest` |
-| `--framework library` | | Application framework: `auto_discover`, `rails`, `padrino`, `rubygems`, `phoenix`, `elixir_mix`, `django`, `fast_api`, `python_package` |
+| `--test library` | | Test framework: `auto_discover`, `rspec`, `test_unit`, `ex_unit`, `pytest`, `cargo_test` |
+| `--framework library` | | Application framework: `auto_discover`, `rails`, `padrino`, `rubygems`, `phoenix`, `elixir_mix`, `django`, `fast_api`, `python_package`, `rocket`, `rust_cargo` |
 | `--options=options` | | Additional options to pass to test command |
 | `--notifications library` | | Notification system: `auto_discover`, `osascript`, `terminal_notifier`, `notify_send`, `dunstify` |
 | `--mode theme` | | Image theme for notifications (see [Image Themes](#image-themes)) |
@@ -171,11 +172,11 @@ InfinityTest.setup do |config|
   config.gemset = 'my_project'
 
   # Test framework
-  # Options: :auto_discover, :rspec, :test_unit, :ex_unit, :pytest
+  # Options: :auto_discover, :rspec, :test_unit, :ex_unit, :pytest, :cargo_test
   config.test_framework = :rspec
 
   # Application framework
-  # Options: :auto_discover, :rails, :padrino, :rubygems, :phoenix, :elixir_mix, :django, :fast_api, :python_package
+  # Options: :auto_discover, :rails, :padrino, :rubygems, :phoenix, :elixir_mix, :django, :fast_api, :python_package, :rocket, :rust_cargo
   config.framework = :rails
 
   # File observer
@@ -519,6 +520,80 @@ my_dashboard/
 │   ├── models.py
 │   └── tests.py
 └── requirements.txt
+```
+
+---
+
+## Experimental: Rust Support
+
+> **Note:** Rust support is experimental. Please report any issues.
+
+Infinity Test can watch Rust projects and run `cargo test` automatically.
+
+### CargoTest Test Framework
+
+Auto-detected when `Cargo.toml` exists.
+
+```ruby
+config.test_framework = :cargo_test
+```
+
+**Output parsing:**
+- `5 passed; 0 failed; 0 ignored` → success
+- `3 passed; 2 failed; 0 ignored` → failure
+- `4 passed; 0 failed; 1 ignored` → pending
+
+### Rocket Framework
+
+Auto-detected when `Cargo.toml` contains `rocket` dependency. For Rocket web applications.
+
+**Watched directories:**
+- `src/*.rs` → runs tests matching the module name (e.g., `src/routes.rs` → `cargo test routes`)
+- `src/lib.rs` or `src/main.rs` → runs all tests
+- `tests/*.rs` → runs the specific integration test
+- `Cargo.toml` → runs all tests
+- `Rocket.toml` → runs all tests (if exists)
+
+```ruby
+config.framework = :rocket
+```
+
+### RustCargo Framework
+
+For standard Rust libraries and applications. Auto-detected when `Cargo.toml` exists (and no Rocket dependency).
+
+**Watched directories:**
+- `src/*.rs` → runs tests matching the module name
+- `tests/*.rs` → runs the specific integration test
+- `Cargo.toml` → runs all tests
+
+```ruby
+config.framework = :rust_cargo
+```
+
+### Rust Configuration Example
+
+```ruby
+InfinityTest.setup do |config|
+  config.test_framework = :cargo_test
+  config.framework      = :rust_cargo  # or :rocket
+  config.strategy       = :rust_default
+  config.notifications  = :terminal_notifier
+end
+```
+
+### Rust Project Structure Example
+
+```
+my_rust_project/
+├── Cargo.toml
+├── src/
+│   ├── lib.rs           # Changes run all tests
+│   ├── user.rs          # Changes run `cargo test user`
+│   └── utils.rs         # Changes run `cargo test utils`
+└── tests/
+    ├── integration.rs   # Changes run `cargo test --test integration`
+    └── api_tests.rs     # Changes run `cargo test --test api_tests`
 ```
 
 ---

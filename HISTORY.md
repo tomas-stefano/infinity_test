@@ -27,6 +27,13 @@
   - Watches `app/`, `src/`, `routers/`, `api/`, `endpoints/` directories
   - Perfect for ML model serving APIs
 
+- **Rust Support**: Added CargoTest test framework, RustCargo and Rocket frameworks, and RustDefault strategy
+  - Auto-discovers Rust projects by detecting `Cargo.toml`
+  - Rocket framework: detects `rocket` dependency in Cargo.toml
+  - Watches `src/*.rs` files and runs tests matching module names
+  - Watches `tests/*.rs` for integration tests
+  - Parses cargo test output (passed, failed, ignored)
+
 - **Modern Observers**: Replaced watchr with listen and filewatcher observers
   - `listen` (default): Event-driven, uses native OS notifications
   - `filewatcher`: Polling-based, works in VMs/NFS environments
