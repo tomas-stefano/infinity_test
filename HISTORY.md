@@ -11,6 +11,12 @@
   - Watches `lib/**/*.ex` and `test/**/*.exs` files
   - Parses ExUnit output (tests, failures, skipped)
 
+- **Python Support**: Added Pytest test framework, PythonPackage framework, and PythonDefault strategy
+  - Auto-discovers Python projects by detecting `pyproject.toml`, `setup.py`, or `setup.cfg`
+  - Watches `src/`, `lib/`, and package directories with `__init__.py`
+  - Watches `tests/` or `test/` directories for test files
+  - Parses Pytest output (passed, failed, skipped)
+
 - **Modern Observers**: Replaced watchr with listen and filewatcher observers
   - `listen` (default): Event-driven, uses native OS notifications
   - `filewatcher`: Polling-based, works in VMs/NFS environments

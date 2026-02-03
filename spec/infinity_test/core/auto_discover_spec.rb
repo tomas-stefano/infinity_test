@@ -21,6 +21,7 @@ module InfinityTest
           base.strategy = :auto_discover
           allow(Strategy::RubyDefault).to receive(:run?).and_return(false)
           allow(Strategy::ElixirDefault).to receive(:run?).and_return(false)
+          allow(Strategy::PythonDefault).to receive(:run?).and_return(false)
           expect(Strategy::Rvm).to receive(:run?).and_return(true)
         end
 
@@ -46,6 +47,7 @@ module InfinityTest
           expect(Strategy::Rvm).to receive(:run?).and_return(false)
           allow(Strategy::Rbenv).to receive(:run?).and_return(false)
           allow(Strategy::ElixirDefault).to receive(:run?).and_return(false)
+          allow(Strategy::PythonDefault).to receive(:run?).and_return(false)
         end
 
         it 'raises exception' do
@@ -61,6 +63,7 @@ module InfinityTest
           allow(Framework::Rubygems).to receive(:run?).and_return(false)
           allow(Framework::ElixirMix).to receive(:run?).and_return(false)
           allow(Framework::Phoenix).to receive(:run?).and_return(false)
+          allow(Framework::PythonPackage).to receive(:run?).and_return(false)
           expect(Framework::Rails).to receive(:run?).and_return(true)
         end
 
@@ -86,6 +89,7 @@ module InfinityTest
           base.test_framework = :auto_discover
           allow(TestFramework::TestUnit).to receive(:run?).and_return(false)
           allow(TestFramework::ExUnit).to receive(:run?).and_return(false)
+          allow(TestFramework::Pytest).to receive(:run?).and_return(false)
           expect(TestFramework::Rspec).to receive(:run?).and_return(true)
         end
 
@@ -107,15 +111,15 @@ module InfinityTest
 
     describe 'PRIORITY' do
       it 'defines priority order for strategies' do
-        expect(AutoDiscover::PRIORITY[:strategy]).to eq [:rvm, :rbenv, :elixir_default, :ruby_default]
+        expect(AutoDiscover::PRIORITY[:strategy]).to eq [:rvm, :rbenv, :elixir_default, :python_default, :ruby_default]
       end
 
       it 'defines priority order for frameworks' do
-        expect(AutoDiscover::PRIORITY[:framework]).to eq [:rails, :padrino, :phoenix, :elixir_mix, :rubygems]
+        expect(AutoDiscover::PRIORITY[:framework]).to eq [:rails, :padrino, :phoenix, :elixir_mix, :python_package, :rubygems]
       end
 
       it 'defines priority order for test frameworks' do
-        expect(AutoDiscover::PRIORITY[:test_framework]).to eq [:rspec, :test_unit, :ex_unit]
+        expect(AutoDiscover::PRIORITY[:test_framework]).to eq [:rspec, :test_unit, :ex_unit, :pytest]
       end
     end
 
@@ -127,6 +131,7 @@ module InfinityTest
           allow(Strategy::Rvm).to receive(:run?).and_return(true)
           allow(Strategy::Rbenv).to receive(:run?).and_return(false)
           allow(Strategy::ElixirDefault).to receive(:run?).and_return(false)
+          allow(Strategy::PythonDefault).to receive(:run?).and_return(false)
           allow(Strategy::RubyDefault).to receive(:run?).and_return(true)
         end
 
@@ -144,6 +149,7 @@ module InfinityTest
           allow(Framework::Padrino).to receive(:run?).and_return(false)
           allow(Framework::Phoenix).to receive(:run?).and_return(false)
           allow(Framework::ElixirMix).to receive(:run?).and_return(false)
+          allow(Framework::PythonPackage).to receive(:run?).and_return(false)
           allow(Framework::Rubygems).to receive(:run?).and_return(true)
         end
 

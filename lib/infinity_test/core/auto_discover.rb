@@ -6,9 +6,9 @@ module InfinityTest
       # Priority order for auto discovery (higher priority first)
       # More specific libraries should be checked before generic ones
       PRIORITY = {
-        strategy: [:rvm, :rbenv, :elixir_default, :ruby_default],
-        framework: [:rails, :padrino, :phoenix, :elixir_mix, :rubygems],
-        test_framework: [:rspec, :test_unit, :ex_unit]
+        strategy: [:rvm, :rbenv, :elixir_default, :python_default, :ruby_default],
+        framework: [:rails, :padrino, :phoenix, :elixir_mix, :python_package, :rubygems],
+        test_framework: [:rspec, :test_unit, :ex_unit, :pytest]
       }.freeze
 
       def initialize(base)
