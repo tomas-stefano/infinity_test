@@ -44,8 +44,25 @@ module InfinityTest
           allow(Core::Base).to receive(:rubies).and_return(['2.7.0', '3.0.0'])
         end
 
-        it 'returns the command for multiple ruby versions' do
-          expect(subject.run!).to eq 'RBENV_VERSION=2.7.0 ruby -S rspec spec && RBENV_VERSION=3.0.0 ruby -S rspec spec'
+        context 'with bundler' do
+          before do
+            allow(Core::Base).to receive(:using_bundler?).and_return(true)
+            allow(File).to receive(:exist?).with('Gemfile').and_return(true)
+          end
+
+          it 'returns the command for multiple ruby versions with bundle exec' do
+            expect(subject.run!).to eq 'RBENV_VERSION=2.7.0 bundle exec rspec spec && RBENV_VERSION=3.0.0 bundle exec rspec spec'
+          end
+        end
+
+        context 'without bundler' do
+          before do
+            allow(Core::Base).to receive(:using_bundler?).and_return(false)
+          end
+
+          it 'returns the command for multiple ruby versions without bundle exec' do
+            expect(subject.run!).to eq 'RBENV_VERSION=2.7.0 rspec spec && RBENV_VERSION=3.0.0 rspec spec'
+          end
         end
       end
     end

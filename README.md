@@ -4,7 +4,7 @@
 
 Infinity Test is a continuous testing library and a flexible alternative to Autotest and Guard. It watches your files for changes and automatically runs your tests, providing instant feedback with desktop notifications.
 
-Version 2.0.0 brings a complete rewrite with modern dependencies, multi-Ruby support via RVM/RbEnv, and a powerful callbacks system.
+Version 2.0.0 brings a complete rewrite with modern dependencies, multi-Ruby support via RVM/RbEnv, a powerful callbacks system, and experimental support for Elixir (Phoenix, ExUnit), Python (Django, FastAPI, Pytest), and Rust (Rocket, Cargo).
 
 ## Table of Contents
 
@@ -15,6 +15,9 @@ Version 2.0.0 brings a complete rewrite with modern dependencies, multi-Ruby sup
 - [Ruby Version Managers](#ruby-version-managers)
 - [Test Frameworks](#test-frameworks)
 - [Application Frameworks](#application-frameworks)
+- [Experimental: Elixir Support](#experimental-elixir-support)
+- [Experimental: Python Support](#experimental-python-support)
+- [Experimental: Rust Support](#experimental-rust-support)
 - [Notifications](#notifications)
 - [Image Themes](#image-themes)
 - [Callbacks](#callbacks)
@@ -34,7 +37,7 @@ gem install infinity_test --pre
 Or add to your Gemfile:
 
 ```ruby
-gem 'infinity_test', '~> 2.0.0.rc1', group: :development
+gem 'infinity_test', '~> 2.0.0.rc2', group: :development
 ```
 
 Then run:
@@ -61,8 +64,8 @@ infinity_test
 
 That's it! Infinity Test will:
 
-1. Auto-detect your test framework (RSpec or Test::Unit)
-2. Auto-detect your application framework (Rails, Padrino, or Rubygems)
+1. Auto-detect your test framework (RSpec, Test::Unit, ExUnit, or Pytest)
+2. Auto-detect your application framework (Rails, Padrino, Rubygems, Phoenix, Django, FastAPI, etc.)
 3. Run all tests immediately
 4. Watch for file changes and re-run relevant tests
 5. Show desktop notifications with test results
@@ -79,8 +82,8 @@ Edit your files and watch the tests run automatically!
 |--------|-------|-------------|
 | `--ruby strategy` | | Ruby manager strategy: `auto_discover`, `rvm`, `rbenv`, `ruby_default` |
 | `--rubies=versions` | | Ruby versions to test against (comma-separated) |
-| `--test library` | | Test framework: `auto_discover`, `rspec`, `test_unit` |
-| `--framework library` | | Application framework: `auto_discover`, `rails`, `rubygems`, `padrino` |
+| `--test library` | | Test framework: `auto_discover`, `rspec`, `test_unit`, `ex_unit`, `pytest`, `cargo_test` |
+| `--framework library` | | Application framework: `auto_discover`, `rails`, `padrino`, `rubygems`, `phoenix`, `elixir_mix`, `django`, `fast_api`, `python_package`, `rocket`, `rust_cargo` |
 | `--options=options` | | Additional options to pass to test command |
 | `--notifications library` | | Notification system: `auto_discover`, `osascript`, `terminal_notifier`, `notify_send`, `dunstify` |
 | `--mode theme` | | Image theme for notifications (see [Image Themes](#image-themes)) |
@@ -169,11 +172,11 @@ InfinityTest.setup do |config|
   config.gemset = 'my_project'
 
   # Test framework
-  # Options: :auto_discover, :rspec, :test_unit
+  # Options: :auto_discover, :rspec, :test_unit, :ex_unit, :pytest, :cargo_test
   config.test_framework = :rspec
 
   # Application framework
-  # Options: :auto_discover, :rails, :padrino, :rubygems
+  # Options: :auto_discover, :rails, :padrino, :rubygems, :phoenix, :elixir_mix, :django, :fast_api, :python_package, :rocket, :rust_cargo
   config.framework = :rails
 
   # File observer
@@ -326,6 +329,10 @@ Auto-detected when `test/` directory exists with `test_helper.rb` or `*_test.rb`
 config.test_framework = :test_unit
 ```
 
+### Other Test Frameworks (Experimental)
+
+See [Elixir Support](#experimental-elixir-support) for ExUnit and [Python Support](#experimental-python-support) for Pytest.
+
 ---
 
 ## Application Frameworks
@@ -357,6 +364,237 @@ Used for gem development and simple Ruby projects.
 **Watched directories:**
 - `lib/` → runs corresponding specs/tests
 - `spec/` or `test/` → runs the changed spec/test file
+
+---
+
+## Experimental: Elixir Support
+
+> **Note:** Elixir support is experimental. Please report any issues.
+
+Infinity Test can watch Elixir projects and run ExUnit tests automatically.
+
+### ExUnit Test Framework
+
+Auto-detected when `test/` directory exists with `test_helper.exs` or `*_test.exs` files.
+
+```ruby
+config.test_framework = :ex_unit
+```
+
+### Phoenix Framework
+
+Auto-detected when `mix.exs` exists and `lib/*_web/` directory is present.
+
+**Watched directories:**
+- `lib/my_app/` → runs corresponding tests in `test/my_app/`
+- `lib/my_app_web/controllers/` → runs corresponding controller tests
+- `lib/my_app_web/live/` → runs corresponding LiveView tests
+- `test/` → runs the changed test file
+- `test/test_helper.exs` → runs all tests
+
+```ruby
+config.framework = :phoenix
+```
+
+### ElixirMix Framework
+
+For standard Elixir/Mix projects (non-Phoenix). Auto-detected when `mix.exs` exists.
+
+**Watched directories:**
+- `lib/` → runs corresponding tests
+- `test/` → runs the changed test file
+
+```ruby
+config.framework = :elixir_mix
+```
+
+### Elixir Configuration Example
+
+```ruby
+InfinityTest.setup do |config|
+  config.test_framework = :ex_unit
+  config.framework      = :phoenix  # or :elixir_mix
+  config.strategy       = :elixir_default
+  config.notifications  = :terminal_notifier
+end
+```
+
+---
+
+## Experimental: Python Support
+
+> **Note:** Python support is experimental. Please report any issues.
+
+Infinity Test can watch Python projects and run Pytest tests automatically.
+
+### Pytest Test Framework
+
+Auto-detected when `tests/` or `test/` directory exists with `test_*.py` or `*_test.py` files.
+
+```ruby
+config.test_framework = :pytest
+```
+
+**Output parsing:**
+- `5 passed` → success
+- `1 failed, 4 passed` → failure
+- `4 passed, 1 skipped` → pending
+
+### Django Framework
+
+Auto-detected when `manage.py` exists with Django imports.
+
+**Watched directories:**
+- Django app directories (containing `models.py`, `views.py`, or `apps.py`)
+- Each app's `tests/` directory or `tests.py` file
+- `conftest.py` → runs all tests
+
+```ruby
+config.framework = :django
+```
+
+### FastAPI Framework
+
+Auto-detected when `main.py` (or `app/main.py`, `src/main.py`) contains FastAPI imports. Ideal for ML model serving APIs.
+
+**Watched directories:**
+- `app/` → API application code
+- `routers/` → API route definitions
+- `api/` → API endpoints
+- `endpoints/` → endpoint handlers
+- `tests/` → test files
+
+```ruby
+config.framework = :fast_api
+```
+
+### PythonPackage Framework
+
+For standard Python packages. Auto-detected when `pyproject.toml`, `setup.py`, or `setup.cfg` exists.
+
+**Watched directories:**
+- `src/` → source code
+- `lib/` → library code
+- Package directories (containing `__init__.py`)
+- `tests/` or `test/` → test files
+
+```ruby
+config.framework = :python_package
+```
+
+### Python Configuration Example
+
+```ruby
+InfinityTest.setup do |config|
+  config.test_framework = :pytest
+  config.framework      = :fast_api  # or :django, :python_package
+  config.strategy       = :python_default
+  config.notifications  = :terminal_notifier
+end
+```
+
+### Python Project Structure Examples
+
+**FastAPI ML API:**
+```
+my_ml_api/
+├── app/
+│   ├── main.py          # from fastapi import FastAPI
+│   ├── models/          # ML models
+│   └── routers/         # API endpoints
+├── tests/
+│   ├── conftest.py
+│   └── test_api.py
+└── pyproject.toml
+```
+
+**Django ML Dashboard:**
+```
+my_dashboard/
+├── manage.py
+├── dashboard/           # Django app
+│   ├── models.py
+│   ├── views.py
+│   └── tests/
+├── ml_pipeline/         # Django app
+│   ├── models.py
+│   └── tests.py
+└── requirements.txt
+```
+
+---
+
+## Experimental: Rust Support
+
+> **Note:** Rust support is experimental. Please report any issues.
+
+Infinity Test can watch Rust projects and run `cargo test` automatically.
+
+### CargoTest Test Framework
+
+Auto-detected when `Cargo.toml` exists.
+
+```ruby
+config.test_framework = :cargo_test
+```
+
+**Output parsing:**
+- `5 passed; 0 failed; 0 ignored` → success
+- `3 passed; 2 failed; 0 ignored` → failure
+- `4 passed; 0 failed; 1 ignored` → pending
+
+### Rocket Framework
+
+Auto-detected when `Cargo.toml` contains `rocket` dependency. For Rocket web applications.
+
+**Watched directories:**
+- `src/*.rs` → runs tests matching the module name (e.g., `src/routes.rs` → `cargo test routes`)
+- `src/lib.rs` or `src/main.rs` → runs all tests
+- `tests/*.rs` → runs the specific integration test
+- `Cargo.toml` → runs all tests
+- `Rocket.toml` → runs all tests (if exists)
+
+```ruby
+config.framework = :rocket
+```
+
+### RustCargo Framework
+
+For standard Rust libraries and applications. Auto-detected when `Cargo.toml` exists (and no Rocket dependency).
+
+**Watched directories:**
+- `src/*.rs` → runs tests matching the module name
+- `tests/*.rs` → runs the specific integration test
+- `Cargo.toml` → runs all tests
+
+```ruby
+config.framework = :rust_cargo
+```
+
+### Rust Configuration Example
+
+```ruby
+InfinityTest.setup do |config|
+  config.test_framework = :cargo_test
+  config.framework      = :rust_cargo  # or :rocket
+  config.strategy       = :rust_default
+  config.notifications  = :terminal_notifier
+end
+```
+
+### Rust Project Structure Example
+
+```
+my_rust_project/
+├── Cargo.toml
+├── src/
+│   ├── lib.rs           # Changes run all tests
+│   ├── user.rs          # Changes run `cargo test user`
+│   └── utils.rs         # Changes run `cargo test utils`
+└── tests/
+    ├── integration.rs   # Changes run `cargo test --test integration`
+    └── api_tests.rs     # Changes run `cargo test --test api_tests`
+```
 
 ---
 

@@ -10,8 +10,26 @@ module InfinityTest
       end
 
       def start
+        print_banner
         run_strategy unless just_watch
         start_observer
+      end
+
+      # Print startup banner showing detected configuration.
+      # Only shows when verbose mode is enabled.
+      #
+      def print_banner
+        return unless Base.verbose?
+
+        puts "\e[96m"
+        puts "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        puts "  InfinityTest - To Infinity and Beyond!"
+        puts "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        puts "  Framework:      #{base.framework}"
+        puts "  Test Framework: #{base.test_framework}"
+        puts "  Strategy:       #{base.strategy}"
+        puts "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\e[0m"
+        puts
       end
 
       # Run strategy based on the choosed ruby strategy.

@@ -1,29 +1,38 @@
 ## Todo
 
-Infinity test is a gem that watch files changes and run tests.
+Potential improvements and features for Infinity Test.
 
-That also can run with different ruby versions all test suite or only that file change (using rvm or
-rbenv), ruby default just run the test on the current ruby version.
+## Next Steps
 
-## What Needs to Be Done
+### High Priority
 
-* ~~Make notifications work with Notifiers gem (remove growl and use the autodiscover from notifiers gem).~~ DONE
-* ~~Change .infinity_test to INFINITY_TEST~~ DONE
-* ~~Make Test::Unit to work (the infinity test to check test folder).~~ DONE
-* ~~Make RSpec work~~ DONE
-* ~~Finish RubyDefault strategy~~ DONE
-* ~~Finish RVM (running different versions - the user need to specify)~~ DONE
-* ~~Finish RbEnv (running different versions - the user need to specify)~~ DONE
-* Make callbacks work in the new structure (loading the infinity test file).
-* ~~Finish Gem autodiscover and its changes heuristics.~~ DONE
-* ~~Finish Rails autodiscover and its changes heuristics.~~ DONE
-* ~~Padrino autodiscover and its changes heuristics.~~ DONE
-* ~~Improve auto discover feature priorization subclasses for #run? method.~~ DONE
-* ~~Focus feature(fails, pass one file, run entire suite) with --focus (experimented feature)!~~ DONE
-* ~~Add post-run hooks to be added to the INFINITY_TEST file that run other things (coverage, code
-analysis, etc - see ideas)~~ DONE (via callbacks system)
+* Replace Hike gem dependency (last updated 12 years ago) with a simple built-in file finder
+* Add support for notification timeout/duration (use alerter for macOS, notify-send -t for Linux)
+* Add Minitest as explicit test framework option (currently uses test_unit)
 
-* ~~Give some ideas (write to a md file the ideas) about how to integrate the infinity test with AI tools/AI agents or
-even Claude code ... so ruby developers can see~~ DONE (see AI_INTEGRATION_IDEAS.md)
+### Features
 
-* ~~Update HISTORY with all changes since last version.~~ DONE
+* Add `--watch-only` option to specify specific directories to watch
+* Add `--ignore` CLI option to ignore specific files/patterns
+* Support for custom file extensions beyond .rb (e.g., .rake, .erb with embedded Ruby)
+* Add `--fail-fast` option to stop on first failure
+
+### Developer Experience
+
+* Add `--dry-run` option to show what command would be executed without running
+* Add `--debug` flag for troubleshooting file watching issues
+* Improve error messages when test framework is not found
+* Add startup banner showing detected configuration (framework, test lib, ruby strategy)
+
+### Integrations
+
+* Add GitHub Actions workflow template for CI
+* Add hook system for pre/post test execution scripts
+* Support for Docker-based Ruby version testing
+* Integration with code coverage tools (SimpleCov reporting)
+
+### Documentation
+
+* Add more examples to wiki for common use cases
+* Add troubleshooting guide
+* Add migration guide from Guard/Autotest
